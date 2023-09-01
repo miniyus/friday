@@ -1,4 +1,4 @@
-package com.example.hexagonal.infrastructure.oauth2;
+package com.miniyus.friday.infrastructure.oauth2;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,11 +7,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.hexagonal.common.constant.AppType;
-import com.example.hexagonal.infrastructure.oauth2.handler.OAuth2AccessDeniedHandler;
-import com.example.hexagonal.infrastructure.oauth2.handler.OAuth2AuthenticationEntryPoint;
-import com.example.hexagonal.infrastructure.oauth2.handler.OAuth2FailureHandler;
-import com.example.hexagonal.infrastructure.oauth2.handler.OAuth2SuccessHandler;
+import com.miniyus.friday.infrastructure.oauth2.handler.OAuth2AccessDeniedHandler;
+import com.miniyus.friday.infrastructure.oauth2.handler.OAuth2AuthenticationEntryPoint;
+import com.miniyus.friday.infrastructure.oauth2.handler.OAuth2FailureHandler;
+import com.miniyus.friday.infrastructure.oauth2.handler.OAuth2SuccessHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,10 +34,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/v1/contracts/**"))
-				.hasAuthority(AppType.UNDEFINED.name())
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**"))
-				.hasAnyAuthority(AppType.ANIMAL.name(), AppType.HUMAN.name())
+				.requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
 				.anyRequest().permitAll());
 		http.formLogin(form -> form.disable());
 		http.oauth2Login(oauth2Login -> oauth2Login
@@ -51,7 +47,7 @@ public class SecurityConfiguration {
 						.baseUri("/oauth2/callback/**"))
 				.successHandler(successHandler)
 				.failureHandler(failureHandler));
-
+		http.userDetailsService(null);
 		http.exceptionHandling(exceptHandling -> exceptHandling
 				.authenticationEntryPoint(authenticationEntryPoint)
 				.accessDeniedHandler(accessDeniedHandler));

@@ -6,8 +6,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import com.miniyus.friday.infrastructure.jpa.entities.UserJpaEntity;
-import com.miniyus.friday.infrastructure.jpa.repositories.UserJpaRepository;
 import com.miniyus.friday.infrastructure.oauth2.userinfo.OAuth2Attributes;
 import com.miniyus.friday.infrastructure.oauth2.userinfo.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-	private final UserJpaRepository userRepository;
+	private final PrincipalUserRepository userRepository;
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -40,22 +38,12 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 				oAuth2User.getAttributes());
 
 		OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
-
-		OAuth2Provider provider = userInfo.getProvider();
-		String providerId = userInfo.getSnsId();
-
-		UserJpaEntity user = userRepository.findBySnsIdAndProvider(providerId, provider.getId());
+		PrincipalUserInfo user = userRepository.findByUserInfo(userInfo);
 		if (user == null) {
-			user = UserJpaEntity.builder()
-					.snsId(providerId)
-					.name(userInfo.getName())
-					.email(userInfo.getEmail())
-					.provider(provider.getId())
-					.build();
 			userRepository.save(user);
 		}
 
-		return new PrincipalUserInfo(user, userInfo);
+		return user;
 	}
 
 }

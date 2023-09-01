@@ -6,9 +6,8 @@ import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import com.miniyus.friday.infrastructure.jpa.entities.UserJpaEntity;
-import com.miniyus.friday.infrastructure.oauth2.userinfo.OAuth2UserInfo;
-import lombok.RequiredArgsConstructor;
+import lombok.Builder;
+import lombok.Value;
 
 /**
  * [description]
@@ -16,14 +15,21 @@ import lombok.RequiredArgsConstructor;
  * @author seongminyoo
  * @date 2023/08/31
  */
-@RequiredArgsConstructor
+@Builder
+@Value
 public class PrincipalUserInfo implements UserDetails, OAuth2User {
-    private final UserJpaEntity userEntity;
-    private final OAuth2UserInfo userInfo;
+    private String username;
+    private String name;
+    private String password;
+    private boolean enabled;
+    private boolean accountNonExpired;
+    private boolean credentialsNonExpired;
+    private boolean accountNonLocked;
+    private Map<String, Object> attributes;
 
     @Override
     public Map<String, Object> getAttributes() {
-        return userInfo.getAttributes();
+        return attributes;
     }
 
     @Override
@@ -42,44 +48,36 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     @Override
     public String getName() {
-        return userInfo.getName();
+        return name;
     }
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return userInfo.getEmail();
+        return username;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return userEntity.getDeletedAt() == null;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return userEntity.getDeletedAt() == null;
+        return accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return userEntity.getDeletedAt() == null;
+        return credentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return userEntity.getDeletedAt() == null;
-    }
-
-    public UserJpaEntity getUserEntity() {
-        return userEntity;
-    }
-
-    public OAuth2UserInfo getUserInfo() {
-        return userInfo;
+        return enabled;
     }
 }
