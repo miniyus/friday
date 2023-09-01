@@ -22,6 +22,15 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 
 	private final OAuth2lUserRepository userRepository;
 
+	/**
+	 * Loads the OAuth2User for the given OAuth2UserRequest.
+	 *
+	 * @param userRequest the OAuth2UserRequest object containing the request
+	 *                    details
+	 * @return the OAuth2User representing the loaded user
+	 * @throws OAuth2AuthenticationException if an error occurs during the
+	 *                                       authentication process
+	 */
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
 		OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
