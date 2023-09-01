@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
 
@@ -19,12 +21,20 @@ import lombok.Value;
 @Value
 public class PrincipalUserInfo implements UserDetails, OAuth2User {
     private String username;
+
     private String name;
+
+    @Nullable
     private String password;
+
     private boolean enabled;
+
     private boolean accountNonExpired;
+
     private boolean credentialsNonExpired;
+
     private boolean accountNonLocked;
+
     private Map<String, Object> attributes;
 
     @Override

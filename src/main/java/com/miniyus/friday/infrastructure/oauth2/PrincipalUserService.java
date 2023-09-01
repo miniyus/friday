@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-	private final PrincipalUserRepository userRepository;
+	private final OAuth2lUserRepository userRepository;
 
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -38,12 +38,21 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 				oAuth2User.getAttributes());
 
 		OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
-		PrincipalUserInfo user = userRepository.findByUserInfo(userInfo);
+		OAuth2UserInfo user = userRepository.findByUserInfo(userInfo);
 		if (user == null) {
 			userRepository.save(user);
 		}
 
-		return user;
+		return PrincipalUserInfo.builder()
+				.name(userInfo.getName())
+				.username(userInfo.getEmail())
+				.password(null)
+				.enabled(true)
+				.accountNonExpired(true)
+				.accountNonLocked(true)
+				.credentialsNonExpired(true)
+				.attributes(userInfo.getAttributes())
+				.build();
 	}
 
 }
