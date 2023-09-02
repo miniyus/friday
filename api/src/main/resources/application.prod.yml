@@ -1,15 +1,22 @@
 spring:
-    profiles:
-        active: ${APP_ENV}
-        default: local
     h2:
         console:
-            enabled: true
+            enabled: false
     datasource:
-        url: jdbc:h2:mem:testdb
-        username: sa
-        password: pass
-        driverClassName: org.h2.Driver
+        hikari.maximum-pool-size: 4
+        url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                format_sql: true
+                jdbc:
+                    lob:
+                        non_contextual_creation: true
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -61,15 +68,18 @@ spring:
                         user-name-attribute: kakao_account
 logging:
     level:
-        "[org.springframework.web]": debug
-        "[com.miniyus.friday]": debug
+        "[org.springframework.web]": ${LOG_LEVEL}
+        "[com.miniyus.friday]": ${LOG_LEVEL}
+        "[org.hibernate.sql]": ${LOG_LEVEL}
+        "[org.hibernate.type.descriptor.sql.spi]": ${LOG_LEVEL}
+
 management:
     endpoints:
         web:
             exposure:
                 include: "*"
 jwt:
-    secret: jwt-secret
+    secret: ${JWT_SECRET}
     access:
         expiration: 3600
         header: access_token

@@ -1,12 +1,10 @@
 package com.miniyus.friday.infrastructure.oauth2;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
@@ -20,6 +18,12 @@ import lombok.Value;
 @Builder
 @Value
 public class PrincipalUserInfo implements UserDetails, OAuth2User {
+    private Long id;
+
+    private String snsId;
+
+    private OAuth2Provider provider;
+
     private String username;
 
     private String name;
@@ -37,6 +41,8 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     private Map<String, Object> attributes;
 
+    private Collection<? extends GrantedAuthority> authorities;
+
     @Override
     public Map<String, Object> getAttributes() {
         return attributes;
@@ -44,15 +50,6 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        // TODO: authorities 추가
-        authorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return null;
-            }
-        });
-
         return authorities;
     }
 

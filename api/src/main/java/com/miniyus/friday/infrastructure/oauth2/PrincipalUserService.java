@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-	private final PrincipalDetailsService userRepository;
+	private final PrincipalUserDetailsService userService;
 
 	/**
 	 * Loads the OAuth2User for the given OAuth2UserRequest.
@@ -47,9 +47,9 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 				oAuth2User.getAttributes());
 
 		OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
-		PrincipalUserInfo user = userRepository.loadUser(userInfo);
+		PrincipalUserInfo user = userService.loadUser(userInfo);
 		if (user == null) {
-			userRepository.save(user);
+			user = userService.create(userInfo);
 		}
 
 		return user;

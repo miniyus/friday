@@ -25,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 	private final PrincipalUserService userService;
+	private final PrincipalUserDetailsService userDetailsService;
 	private final OAuth2SuccessHandler successHandler;
 	private final OAuth2FailureHandler failureHandler;
 	private final OAuth2AuthenticationEntryPoint authenticationEntryPoint;
@@ -47,7 +48,7 @@ public class SecurityConfiguration {
 						.baseUri("/oauth2/callback/**"))
 				.successHandler(successHandler)
 				.failureHandler(failureHandler));
-		http.userDetailsService(null);
+		http.userDetailsService(userDetailsService);
 		http.exceptionHandling(exceptHandling -> exceptHandling
 				.authenticationEntryPoint(authenticationEntryPoint)
 				.accessDeniedHandler(accessDeniedHandler));

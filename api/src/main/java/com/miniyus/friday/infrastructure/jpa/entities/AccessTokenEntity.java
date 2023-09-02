@@ -5,9 +5,6 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import com.miniyus.friday.users.domain.User;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,7 +13,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * [description]
@@ -26,7 +26,10 @@ import lombok.Data;
  */
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Where(clause = "revoked = false")
+@Table(name = "access_token")
 public class AccessTokenEntity {
     @Id
     @GeneratedValue
@@ -35,8 +38,6 @@ public class AccessTokenEntity {
     private String type;
 
     private String token;
-
-    private String userId;
 
     private LocalDateTime expiresAt;
 
@@ -50,7 +51,7 @@ public class AccessTokenEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "accessToken", cascade = CascadeType.ALL)
     private RefreshTokenEntity refreshToken;
