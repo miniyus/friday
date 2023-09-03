@@ -1,26 +1,53 @@
+// src/App.tsx
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/layouts/NavBar';
+import Home from './pages/Home';
+import About from './pages/About';
+import SideMenu from './components/layouts/SideMenu'; // SideMenu import 추가
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Container from '@mui/material/Container';
+// TODO remove, this demo shouldn't need to reset the theme.
+const defaultTheme = createTheme();
 
-function App() {
+const App: React.FC = () => {
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={defaultTheme}>
+      <Box sx={{ display: 'flex' }}>
+        <Router>
+          <Navbar open={open} toggleDrawer={toggleDrawer} title={'FriDay: UI'} />
+          <SideMenu open={open} toggleDrawer={toggleDrawer} /> {/* SideMenu 추가 */}
+          <Box
+            component="main"
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? theme.palette.grey[100]
+                  : theme.palette.grey[900],
+              flexGrow: 1,
+              height: '100vh',
+              overflow: 'auto',
+            }}
+          >
+            <Toolbar />
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </Container>
+          </Box>
+        </Router>
+      </Box>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
