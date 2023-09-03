@@ -2,9 +2,10 @@ version: "3"
 services:
     friday-api:
         container_name: friday-api
+        image: friday-api:dev
         build:
-            context: .
-            dockerfile: Dockerfile
+            context: ./friday-api
+            dockerfile: Dockerfile.dev
             args:
                 JAR_FILE: friday.jar
         ports:
@@ -13,9 +14,30 @@ services:
             - friday-db
             - friday-redis
         volumes:
-            - ./api:/app
+            - ./friday-api:/app
         networks:
             - friday
+        environment:
+            - APP_ENV=${APP_ENV}
+            - APP_URL=${API_URL}
+            - LOG_LEVEL=${API_LOG_LEVEL}
+            - JWT_SECRET=${JWT_SECRET}
+            - DB_HOST=${DB_HOST:-friday-db}
+            - DB_DATABASE=${DB_DATABASE}
+            - DB_USERNAME=${DB_USERNAME}
+            - DB_PASSWORD=${DB_PASSWORD}
+            - DB_PORT=${DB_PORT}
+            - REDIS_HOST=${REDIS_HOST:-friday-redis}
+            - REDIS_DATABASE=${REDIS_DATABASE}
+            - REDIS_USERNAME=${REDIS_USERNAME}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_PORT=${REDIS_PORT}
+            - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+            - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+            - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
+            - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
+            - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
+            - KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}
     friday-db:
         container_name: friday-db
         image: postgres:15
@@ -26,7 +48,7 @@ services:
         volumes:
             - ./data/db:/var/lib/postgresql/data
         ports:
-            - "5432:5432"
+            - "${DB_PORT:-5432}:5432"
         healthcheck:
             test:
                 [
@@ -46,7 +68,7 @@ services:
         container_name: friday-redis
         image: redis:latest
         ports:
-            - "6379:6379"
+            - "${REDIS_PORT:-6379}:6379"
         networks:
             - friday
         volumes:
@@ -57,13 +79,17 @@ services:
             timeout: 5s
     friday-ui:
         container_name: friday-ui
+        image: friday-ui:dev
         build:
-            context: ./ui
-            dockerfile: Dockerfile
+            context: ./friday-ui
+            dockerfile: Dockerfile.dev
         ports:
-            - "80:80"
+            - "3000:3000"
         networks:
             - friday
+        volumes:
+            - ./friday-ui:/react
+            - /react/node_modules
 networks:
     friday:
         driver: bridge

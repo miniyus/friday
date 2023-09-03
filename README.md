@@ -20,4 +20,4 @@
 
 ## ui
 
--   React
+-   React JS

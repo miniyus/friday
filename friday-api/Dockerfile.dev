@@ -1,0 +1,11 @@
+FROM gradle:8.3 AS build
+
+LABEL maintainer="miniyus"
+
+WORKDIR /app
+
+COPY . /app
+
+EXPOSE 8080
+
+ENTRYPOINT [ "gradle", "bootRun", "-t"]

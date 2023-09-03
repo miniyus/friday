@@ -41,3 +41,5 @@ out/
 
 
 .env
+data/*
+node_modules

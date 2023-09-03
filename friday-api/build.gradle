@@ -12,6 +12,11 @@ java {
 	sourceCompatibility = '17'
 }
 
+bootJar {
+	archivesBaseName = 'friday'
+	archiveFileName = 'friday.jar'
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

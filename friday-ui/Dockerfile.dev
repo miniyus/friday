@@ -1,0 +1,17 @@
+FROM node:18.17-alpine as build
+
+LABEL maintainer="miniyus"
+
+RUN mkdir /react
+
+WORKDIR /react
+
+COPY package.json .
+COPY package-lock.json .
+COPY .env .
+
+RUN yarn install
+
+EXPOSE 3000
+
+ENTRYPOINT [ "yarn", "run", "start" ]

@@ -1,22 +1,15 @@
 spring:
+    profiles:
+        active: ${APP_ENV}
+        default: local
     h2:
         console:
-            enabled: false
+            enabled: true
     datasource:
-        hikari.maximum-pool-size: 4
-        url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
-    jpa:
-        show-sql: true
-        hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                format_sql: true
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
+        url: jdbc:h2:mem:testdb
+        username: sa
+        password: pass
+        driverClassName: org.h2.Driver
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -66,20 +59,21 @@ spring:
                         token-uri: https://kauth.kakao.com/oauth/token
                         user-info-uri: https://kapi.kakao.com/v2/user/me
                         user-name-attribute: kakao_account
+    devtools:
+        add-properties: true
+        restart:
+            enabled: true
 logging:
     level:
-        "[org.springframework.web]": ${LOG_LEVEL}
-        "[com.miniyus.friday]": ${LOG_LEVEL}
-        "[org.hibernate.sql]": ${LOG_LEVEL}
-        "[org.hibernate.type.descriptor.sql.spi]": ${LOG_LEVEL}
-
+        "[org.springframework.web]": debug
+        "[com.miniyus.friday]": debug
 management:
     endpoints:
         web:
             exposure:
                 include: "*"
 jwt:
-    secret: ${JWT_SECRET}
+    secret: jwt-secret
     access:
         expiration: 3600
         header: access_token

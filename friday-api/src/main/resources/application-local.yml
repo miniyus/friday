@@ -1,22 +1,16 @@
 spring:
     h2:
         console:
-            enabled: false
+            enabled: true
     datasource:
-        hikari.maximum-pool-size: 4
-        url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
+        url: jdbc:h2:mem:testdb
+        username: testUser
+        password: pass
+        driverClassName: org.h2.Driver
     jpa:
         show-sql: true
         hibernate:
-            ddl-auto: validate
-        properties:
-            hibernate:
-                format_sql: true
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
+            ddl-auto: create
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -25,16 +19,16 @@ spring:
             client:
                 registration:
                     google:
-                        client-id: google-client-id
-                        client-secret: google-client-secret
+                        client-id: ${GOOGLE_CLIENT_ID}
+                        client-secret: ${GOOGLE_CLIENT_SECRET}
                         scope:
                             - email
                             - profile
                         redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
                         provider: google
                     naver:
-                        client-id: xxx
-                        client-secret: xxx
+                        client-id: ${NAVER_CLIENT_ID}
+                        client-secret: ${NAVER_CLIENT_SECRET}
                         scope:
                             - name
                             - email
@@ -44,8 +38,8 @@ spring:
                         redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}" #코드를 받는 uri(naver 의 콜백 uri)
                         provider: naver
                     kakao:
-                        client-id: xxx
-                        client-secret: xxx
+                        client-id: ${KAKAO_CLIENT_ID}
+                        client-secret: ${KAKAO_CLIENT_SECRET}
                         scope:
                             - profile_nickname
                             - account_email
@@ -66,12 +60,16 @@ spring:
                         token-uri: https://kauth.kakao.com/oauth/token
                         user-info-uri: https://kapi.kakao.com/v2/user/me
                         user-name-attribute: kakao_account
+    devtools:
+        add-properties: true
+        restart:
+            enabled: true
 logging:
     level:
-        "[org.springframework.web]": ${LOG_LEVEL}
-        "[com.miniyus.friday]": ${LOG_LEVEL}
-        "[org.hibernate.sql]": ${LOG_LEVEL}
-        "[org.hibernate.type.descriptor.sql.spi]": ${LOG_LEVEL}
+        "[org.springframework.web]": debug
+        "[com.miniyus.friday]": debug
+        "[org.hibernate.sql]": debug
+        "[org.hibernate.type.descriptor.sql.spi]": trace
 
 management:
     endpoints:

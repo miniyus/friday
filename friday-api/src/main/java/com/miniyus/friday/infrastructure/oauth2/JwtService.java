@@ -3,7 +3,6 @@ package com.miniyus.friday.infrastructure.oauth2;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import com.miniyus.friday.infrastructure.jpa.entities.AccessTokenEntity;
@@ -18,8 +17,8 @@ import com.miniyus.friday.infrastructure.oauth2.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 
 /**
- * [description]
- *
+ * JWTService
+ * 
  * @author seongminyoo
  * @date 2023/08/31
  */
