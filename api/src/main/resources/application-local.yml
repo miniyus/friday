@@ -10,13 +10,7 @@ spring:
     jpa:
         show-sql: true
         hibernate:
-            ddl-auto: update
-        properties:
-            hibernate:
-                format_sql: true
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
+            ddl-auto: create
     messages:
         basename: i18n/messages
         encoding: UTF-8

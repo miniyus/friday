@@ -1,0 +1,69 @@
+version: "3"
+services:
+    friday-api:
+        container_name: friday-api
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args:
+                JAR_FILE: friday.jar
+        ports:
+            - "8080:8080"
+        depends_on:
+            - friday-db
+            - friday-redis
+        volumes:
+            - ./api:/app
+        networks:
+            - friday
+    friday-db:
+        container_name: friday-db
+        image: postgres:15
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "pg_isready",
+                    "-q",
+                    "-d",
+                    "${DB_DATABASE}",
+                    "-U",
+                    "${DB_USERNAME}",
+                ]
+            retries: 3
+            timeout: 5s
+        networks:
+            - friday
+    friday-redis:
+        container_name: friday-redis
+        image: redis:latest
+        ports:
+            - "6379:6379"
+        networks:
+            - friday
+        volumes:
+            - ./data/redis:/data
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+    friday-ui:
+        container_name: friday-ui
+        build:
+            context: ./ui
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        networks:
+            - friday
+networks:
+    friday:
+        driver: bridge
