@@ -1,5 +1,7 @@
 package com.miniyus.friday.infrastructure.jpa.repositories;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
@@ -11,7 +13,7 @@ import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
  * @date 2023/09/02
  */
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    public UserEntity findByEmail(String email);
+    public Optional<UserEntity> findByEmail(String email);
 
-    public UserEntity findBySnsIdAndProvider(String snsId, String provider);
+    public Optional<UserEntity> findBySnsIdAndProvider(String snsId, String provider);
 }

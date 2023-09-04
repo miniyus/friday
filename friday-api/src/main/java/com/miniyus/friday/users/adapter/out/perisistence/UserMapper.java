@@ -11,21 +11,17 @@ import com.miniyus.friday.users.domain.User;
  * @author miniyus
  * @date 2023/09/02
  */
+@Component
 public class UserMapper {
 
     public static UserEntity toEntity(User domain) {
         return new UserEntity(
-                domain.getId(),
                 domain.getSnsId(),
                 domain.getProvider(),
                 domain.getEmail(),
                 domain.getPassword(),
                 domain.getName(),
-                domain.getRole(),
-                domain.getCreatedAt(),
-                domain.getUpdatedAt(),
-                domain.getDeletedAt(),
-                null);
+                domain.getRole());
     }
 
     public static User toDomain(UserEntity entity) {

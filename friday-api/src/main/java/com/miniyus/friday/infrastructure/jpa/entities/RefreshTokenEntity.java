@@ -1,10 +1,8 @@
 package com.miniyus.friday.infrastructure.jpa.entities;
 
 import java.time.LocalDateTime;
-
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import com.miniyus.friday.infrastructure.jpa.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,7 +11,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
@@ -23,12 +22,12 @@ import lombok.NoArgsConstructor;
  * @date 2023/09/02
  */
 @Entity
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Where(clause = "revoked = false")
 @Table(name = "refresh_token")
-public class RefreshTokenEntity {
+public class RefreshTokenEntity extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -41,13 +40,23 @@ public class RefreshTokenEntity {
 
     private boolean revoked;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "access_token_id")
     private AccessTokenEntity accessToken;
+
+    /**
+     * @param type
+     * @param token
+     * @param expiresAt
+     */
+    @Builder
+    public RefreshTokenEntity(String type, String token, LocalDateTime expiresAt) {
+        this.type = type;
+        this.token = token;
+        this.expiresAt = expiresAt;
+    }
+
+    public void revoke() {
+        this.revoked = true;
+    }
 }

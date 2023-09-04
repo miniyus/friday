@@ -10,5 +10,5 @@ import com.miniyus.friday.infrastructure.jpa.entities.RefreshTokenEntity;
  * @date 2023/09/02
  */
 public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Long> {
-
+    RefreshTokenEntity findByToken(String token);
 }
