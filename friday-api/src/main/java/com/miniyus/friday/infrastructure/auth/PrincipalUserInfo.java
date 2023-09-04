@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miniyus.friday.infrastructure.auth.oauth2.OAuth2Provider;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
@@ -30,6 +31,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
     private String name;
 
     @Nullable
+    @JsonIgnore
     private String password;
 
     private String role;

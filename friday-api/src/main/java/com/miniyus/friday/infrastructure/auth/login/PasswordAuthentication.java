@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class PasswordAuthentication {
     private String username;
+
     private String password;
 
     public PasswordAuthentication(String username, String password) {

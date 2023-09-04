@@ -1,5 +1,8 @@
 package com.miniyus.friday.infrastructure.jwt;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +48,7 @@ public class JwtProvider {
         Date now = new Date();
         return JWT.create()
                 .withSubject(ACCESS_TOKEN_SUBJECT)
-                .withExpiresAt(new Date(now.getTime() + accessTokenExpiration)) // 토큰 만료 시간 설정
+                .withExpiresAt(new Date(now.getTime() + (accessTokenExpiration * 1000))) // 토큰 만료 시간 설정
                 // 클레임으로는 저희는 email 하나만 사용합니다.
                 // 추가적으로 식별자나, 이름 등의 정보를 더 추가하셔도 됩니다.
                 // 추가하실 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
@@ -61,7 +64,7 @@ public class JwtProvider {
         Date now = new Date();
         return JWT.create()
                 .withSubject(REFRESH_TOKEN_SUBJECT)
-                .withExpiresAt(new Date(now.getTime() + refreshTokenExpiration))
+                .withExpiresAt(new Date(now.getTime() + (refreshTokenExpiration * 1000)))
                 .sign(Algorithm.HMAC512(secret));
     }
 

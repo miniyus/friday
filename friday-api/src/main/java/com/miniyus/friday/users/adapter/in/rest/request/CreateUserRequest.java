@@ -4,6 +4,9 @@ import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 /**
@@ -12,7 +15,9 @@ import lombok.Value;
  * @author miniyus
  * @date 2023/09/02
  */
-@Value
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateUserRequest {
     @NotBlank
     @Email
@@ -29,10 +34,10 @@ public class CreateUserRequest {
 
     public CreateUserCommand toCommand() {
         return CreateUserCommand.builder()
-            .email(email)
-            .password(password)
-            .name(name)
-            .role(role)
-            .build();
+                .email(email)
+                .password(password)
+                .name(name)
+                .role(role)
+                .build();
     }
 }

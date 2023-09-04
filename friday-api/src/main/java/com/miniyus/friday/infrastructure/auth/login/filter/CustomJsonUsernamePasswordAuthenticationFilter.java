@@ -2,34 +2,17 @@ package com.miniyus.friday.infrastructure.auth.login.filter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.common.error.AuthErrorCode;
-import com.miniyus.friday.common.error.AuthErrorException;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.auth.login.PasswordAuthentication;
-import com.miniyus.friday.infrastructure.auth.login.response.PasswordTokenResponse;
-import com.miniyus.friday.infrastructure.jwt.IssueToken;
-import com.miniyus.friday.infrastructure.jwt.JwtService;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -38,21 +21,17 @@ import lombok.extern.slf4j.Slf4j;
  * @author seongminyoo
  * @date 2023/09/04
  */
-@Component
-public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+@Slf4j
+public class CustomJsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private static final String DEFAULT_LOGIN_REQUEST_URL = "/login"; // "/login"으로 오는 요청을 처리
     private static final String HTTP_METHOD = "POST"; // 로그인 HTTP 메소드는 POST
     private static final String CONTENT_TYPE = "application/json"; // JSON 타입의 데이터로 오는 로그인 요청만 처리
-    private static final String USERNAME_KEY = "email"; // 회원 로그인 시 이메일 요청 JSON Key : "email"
-    private static final String PASSWORD_KEY = "password"; // 회원 로그인 시 비밀번호 요청 JSon Key : "password"
     private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER = new AntPathRequestMatcher(
             DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD); // "/login" + POST로 온 요청에 매칭된다.
 
-    // private final AuthenticationManager authenticationManager;
-    // private final JwtService jwtService;
     private final ObjectMapper objectMapper;
 
-    public JsonUsernamePasswordAuthenticationFilter(ObjectMapper objectMapper) {
+    public CustomJsonUsernamePasswordAuthenticationFilter(ObjectMapper objectMapper) {
         super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER); // 위에서 설정한 "login" + POST로 온 요청을 처리하기 위해 설정
         this.objectMapper = objectMapper;
     }
@@ -92,12 +71,11 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
 
         String email = usernamePassword.getUsername();
         String password = usernamePassword.getPassword();
-
+        log.debug("input email: {}", email);
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);// principal
                                                                                                                    // 과
                                                                                                                    // credentials
                                                                                                                    // 전달
-
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

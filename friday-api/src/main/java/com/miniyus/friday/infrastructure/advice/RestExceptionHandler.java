@@ -70,6 +70,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex, WebRequest request) {
         var errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
         log.error(ex.toString());
+        ex.printStackTrace();
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 errorCode.name(),

@@ -41,6 +41,7 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = true)
     private String provider;
 
+    @Column(unique = true)
     private String email;
 
     private String password;

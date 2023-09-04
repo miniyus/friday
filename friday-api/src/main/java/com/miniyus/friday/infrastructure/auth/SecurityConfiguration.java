@@ -3,22 +3,27 @@ package com.miniyus.friday.infrastructure.auth;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import com.miniyus.friday.infrastructure.auth.login.PasswordAuthenciationProvider;
-import com.miniyus.friday.infrastructure.auth.login.filter.JwtAuthenticationFilter;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miniyus.friday.infrastructure.auth.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
+import com.miniyus.friday.infrastructure.auth.login.handler.LoginFailureHandler;
+import com.miniyus.friday.infrastructure.auth.login.handler.LoginSuccessHandler;
 import com.miniyus.friday.infrastructure.auth.oauth2.handler.OAuth2AccessDeniedHandler;
 import com.miniyus.friday.infrastructure.auth.oauth2.handler.OAuth2AuthenticationEntryPoint;
 import com.miniyus.friday.infrastructure.auth.oauth2.handler.OAuth2FailureHandler;
 import com.miniyus.friday.infrastructure.auth.oauth2.handler.OAuth2SuccessHandler;
-
+import com.miniyus.friday.infrastructure.jwt.JwtAuthenticationFilter;
+import com.miniyus.friday.infrastructure.jwt.JwtService;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -37,18 +42,21 @@ public class SecurityConfiguration {
 	private final OAuth2FailureHandler failureHandler;
 	private final OAuth2AuthenticationEntryPoint authenticationEntryPoint;
 	private final OAuth2AccessDeniedHandler accessDeniedHandler;
-	private final JwtAuthenticationFilter jwtAuthenticationFilter;
-	private final PasswordAuthenciationProvider passwordAuthenciationProvider;
+	private final ObjectMapper objectMapper;
+	private final JwtService jwtService;
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
+				// .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
+				.requestMatchers(AntPathRequestMatcher.antMatcher("/signup")).permitAll()
 				.anyRequest().authenticated());
 		http.formLogin(form -> form.disable());
+		http.httpBasic(basic -> basic.disable());
+		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.csrf(csrf -> csrf.disable());
 		http.oauth2Login(oauth2Login -> oauth2Login
-				.loginPage("/oauth2/login")
 				.authorizationEndpoint(authorization -> authorization
 						.baseUri("/oauth2/authorization"))
 				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
@@ -58,15 +66,24 @@ public class SecurityConfiguration {
 				.successHandler(successHandler)
 				.failureHandler(failureHandler));
 		http.userDetailsService(userDetailsService);
-		http.authenticationProvider(passwordAuthenciationProvider);
-		http.addFilterBefore(new JwtAuthenticationFilter(authenticationManager(http)),
-				UsernamePasswordAuthenticationFilter.class);
 		http.exceptionHandling(exceptHandling -> exceptHandling
 				.authenticationEntryPoint(authenticationEntryPoint)
 				.accessDeniedHandler(accessDeniedHandler));
 		http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
-		http.csrf(csrf -> csrf.disable());
+
+		http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
+		http.addFilterBefore(jwtAuthenticationFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
 		return http.build();
+	}
+
+	@Bean
+	public Filter customJsonUsernamePasswordAuthenticationFilter() {
+		CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordLoginFilter = new CustomJsonUsernamePasswordAuthenticationFilter(
+				objectMapper);
+		customJsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
+		customJsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+		customJsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+		return customJsonUsernamePasswordLoginFilter;
 	}
 
 	@Bean
@@ -75,11 +92,33 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(HttpSecurity http)
-			throws Exception {
-		AuthenticationManagerBuilder authenticationManagerBuilder = http
-				.getSharedObject(AuthenticationManagerBuilder.class);
-		authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-		return authenticationManagerBuilder.build();
+	public AuthenticationManager authenticationManager() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setPasswordEncoder(passwordEncoder());
+		provider.setUserDetailsService(userDetailsService);
+		return new ProviderManager(provider);
+	}
+
+	/**
+	 * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+	 */
+	@Bean
+	public LoginSuccessHandler loginSuccessHandler() {
+		return new LoginSuccessHandler(jwtService, objectMapper);
+	}
+
+	/**
+	 * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+	 */
+	@Bean
+	public LoginFailureHandler loginFailureHandler() {
+		return new LoginFailureHandler(objectMapper);
+	}
+
+	@Bean
+	public JwtAuthenticationFilter jwtAuthenticationFilter() {
+		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtService,
+				userDetailsService, objectMapper);
+		return jwtAuthenticationFilter;
 	}
 }

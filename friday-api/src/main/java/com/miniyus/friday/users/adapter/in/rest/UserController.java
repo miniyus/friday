@@ -1,21 +1,17 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
 import java.net.URI;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.users.domain.User;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -28,10 +24,11 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/users")
+@PreAuthorize("hasAuthority('USER')")
 public class UserController {
     private final CreateUserUsecase createUserUsecase;
 
-    @PostMapping("/")
+    @PostMapping("")
     public ResponseEntity<CreateUserResponse> createUser(
             @Valid @RequestBody CreateUserRequest request,
             UriComponentsBuilder uriComponentsBuilder) {

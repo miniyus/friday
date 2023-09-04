@@ -10,6 +10,10 @@ spring:
         username: sa
         password: pass
         driverClassName: org.h2.Driver
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: create
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -76,7 +80,7 @@ jwt:
     secret: jwt-secret
     access:
         expiration: 3600
-        header: access_token
+        header: Authorization
     refresh:
         expiration: 36000
-        header: refresh_token
+        header: RefreshToken

@@ -13,9 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.auth.UserRole;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
-import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -97,12 +95,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     public void checkAccessTokenAndAuthentication(HttpServletRequest request, HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
-        log.info("checkAccessTokenAndAuthentication() 호출");
+        log.debug("checkAccessTokenAndAuthentication() 호출");
+        log.debug("access token: {}", jwtService.extractAccessToken(request));
         jwtService.extractAccessToken(request)
                 .filter(jwtService::isTokenValid)
                 .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
                         .ifPresent(email -> Optional.of(userDetailsService.loadUserByUsername(email))
                                 .ifPresent(this::saveAuthentication)));
+        log.debug("next filter");
 
         filterChain.doFilter(request, response);
     }
@@ -126,6 +126,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      */
     public void saveAuthentication(UserDetails user) {
         PrincipalUserInfo principal = (PrincipalUserInfo) user;
+        log.debug("save auth: {}", user.getUsername());
 
         String password = principal.getPassword();
         if (password == null) {
