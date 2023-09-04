@@ -27,7 +27,7 @@
                             "name": "isTokenValidTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:72"
                           }
                         ],
                         "name": "JwtProviderTest",

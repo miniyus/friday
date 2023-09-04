@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
       "event": "call",
       "id": 1,
-      "lineno": 57,
+      "lineno": 72,
       "method_id": "isTokenValidTest",
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
-        "object_id": 100703210,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@6009bea"
+        "object_id": 300104620,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@11e33bac"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "token",
-          "object_id": 248050873,
+          "object_id": 1408549350,
           "value": "I'm a Token"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 1970707120,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@75769ab0"
+        "object_id": 926905424,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@373f7450"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.004085,
+      "elapsed": 0.0036688,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.lang.Boolean",
-        "object_id": 2118413714,
+        "object_id": 1168076863,
         "value": "false"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0045112,
+      "elapsed": 0.0039773,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -80,7 +80,7 @@
       "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
       "method_id": "isTokenValidTest"
     },
-    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57",
+    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:72",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -113,7 +113,7 @@
                               "name": "isTokenValidTest",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57"
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:72"
                             }
                           ],
                           "name": "JwtProviderTest",

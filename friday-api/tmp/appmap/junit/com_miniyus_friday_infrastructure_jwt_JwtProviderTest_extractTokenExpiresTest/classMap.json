@@ -15,7 +15,7 @@
                             "name": "extractTokenExpiresTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:63"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88"
                           }
                         ],
                         "name": "JwtProviderTest",

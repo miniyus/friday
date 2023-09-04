@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
       "event": "call",
       "id": 1,
-      "lineno": 70,
+      "lineno": 101,
       "method_id": "extractEmailTest",
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
-        "object_id": 818010696,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@30c1da48"
+        "object_id": 1199894489,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@4784efd9"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "accessToken",
-          "object_id": 1058994646,
-          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5Mzg0MjQwNywiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.RbB1XCNhhY7zaFtk4ZfgyIHTRMfX7hxlG3W1kgrzXknIFrVWJQ2xQhJJd1kuIgt_6YnRXPYnSVoWpGWYDI5muw"
+          "object_id": 1115349385,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5Mzg0MzQxOSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.kXuJqqi5Yv7Vu6D8x5Rc1uuZkFcklbhhgrfhM0597mtILjQhSKCsYwxapCStFmHthwZypUvHx_1n56VtJ7IYyA"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 1134976216,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@43a65cd8"
+        "object_id": 1069163325,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@3fba233d"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000732,
+      "elapsed": 0.00007,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.util.Optional",
-        "object_id": 24404443,
+        "object_id": 380234542,
         "value": "Optional[miniyus@gmail.com]"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0002,
+      "elapsed": 0.0001958,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -80,7 +80,7 @@
       "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
       "method_id": "extractEmailTest"
     },
-    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:70",
+    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -113,7 +113,7 @@
                               "name": "extractEmailTest",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:70"
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101"
                             }
                           ],
                           "name": "JwtProviderTest",

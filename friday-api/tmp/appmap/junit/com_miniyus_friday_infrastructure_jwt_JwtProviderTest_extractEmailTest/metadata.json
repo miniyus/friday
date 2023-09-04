@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
     "method_id": "extractEmailTest"
   },
-  "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:70",
+  "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101",
   "framework": {},
   "test_status": "succeeded"
 }

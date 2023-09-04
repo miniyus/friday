@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
     "method_id": "isTokenValidTest"
   },
-  "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57",
+  "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:72",
   "framework": {},
   "test_status": "succeeded"
 }

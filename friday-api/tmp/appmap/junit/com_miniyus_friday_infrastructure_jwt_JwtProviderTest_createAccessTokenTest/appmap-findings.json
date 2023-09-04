@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
         "method_id": "createAccessTokenTest"
       },
-      "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:41",
+      "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:45",
       "framework": {},
       "test_status": "succeeded"
     }

@@ -33,7 +33,7 @@
                             "name": "createRefreshTokenTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:50"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:59"
                           }
                         ],
                         "name": "JwtProviderTest",

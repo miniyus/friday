@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
         "method_id": "extractTokenExpiresTest"
       },
-      "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:63",
+      "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88",
       "framework": {},
       "test_status": "succeeded"
     }

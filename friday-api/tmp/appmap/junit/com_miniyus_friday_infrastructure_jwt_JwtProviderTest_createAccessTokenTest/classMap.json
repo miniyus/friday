@@ -33,7 +33,7 @@
                             "name": "createAccessTokenTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:41"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:45"
                           }
                         ],
                         "name": "JwtProviderTest",

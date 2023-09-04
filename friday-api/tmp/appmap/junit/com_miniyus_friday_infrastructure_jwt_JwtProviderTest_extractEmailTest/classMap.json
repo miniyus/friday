@@ -27,7 +27,7 @@
                             "name": "extractEmailTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:70"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101"
                           }
                         ],
                         "name": "JwtProviderTest",
