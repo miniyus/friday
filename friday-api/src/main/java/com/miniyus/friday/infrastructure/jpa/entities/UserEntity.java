@@ -74,16 +74,34 @@ public class UserEntity extends BaseEntity {
         this.role = role;
     }
 
+    /**
+     * Adds an access token to the list of access tokens.
+     *
+     * @param accessToken the access token to be added
+     */
     public void addAccessToken(AccessTokenEntity accessToken) {
         this.accessTokens.add(accessToken);
     }
 
+    /**
+     * Updates the password, name, and role of the object.
+     *
+     * @param password the new password to be set
+     * @param name     the new name to be set
+     * @param role     the new role to be set
+     */
     public void update(String password, String name, String role) {
         this.password = password;
         this.name = name;
         this.role = role;
     }
 
+    /**
+     * Deletes the object.
+     *
+     * @param None This function does not take any parameters.
+     * @return This function does not return anything.
+     */
     public void delete() {
         this.deletedAt = LocalDateTime.now();
     }

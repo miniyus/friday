@@ -1,11 +1,9 @@
-// src/components/SideMenu.tsx
-import React from 'react';
-import { List, ListItemButton, ListItemText, Toolbar, IconButton, Divider } from '@mui/material';
+import { List, Toolbar, IconButton, Divider } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { Link } from 'react-router-dom';
 import MuiDrawer from '@mui/material/Drawer';
 import { styled } from '@mui/material/styles';
 import ToggleableProps from './ToggleableProps';
+import MenuList from './MenuList';
 
 const drawerWidth: number = 240;
 
@@ -35,7 +33,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-const SideMenu: React.FC<ToggleableProps> = ({ open, toggleDrawer }) => {
+export default function SideMenu({ open, toggleDrawer }: ToggleableProps) {
     return (
         <Drawer variant="permanent" anchor="left" open={open}>
             <Toolbar
@@ -52,16 +50,8 @@ const SideMenu: React.FC<ToggleableProps> = ({ open, toggleDrawer }) => {
             </Toolbar>
             <Divider />
             <List component="nav">
-                <ListItemButton component={Link} to="/">
-                    <ListItemText primary="홈" />
-                </ListItemButton>
-                <ListItemButton component={Link} to="/about">
-                    <ListItemText primary="About" />
-                </ListItemButton>
-                {/* 다른 메뉴 항목 추가 */}
+                <MenuList />
             </List>
         </Drawer>
     );
 };
-
-export default SideMenu;

@@ -24,8 +24,13 @@ public class LocaleConfig implements WebMvcConfigurer {
      */
     @Bean
     public LocaleResolver localeResolver() {
+        // Create a new instance of AcceptHeaderLocaleResolver
         var localeResolver = new AcceptHeaderLocaleResolver();
+
+        // Set the default locale to Locale.KOREA
         localeResolver.setDefaultLocale(Locale.KOREA);
+
+        // Return the LocaleResolver bean
         return localeResolver;
     }
 }

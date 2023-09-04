@@ -1,17 +1,13 @@
 package com.miniyus.friday.infrastructure.jwt;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,24 +16,19 @@ import lombok.extern.slf4j.Slf4j;
  * @author seongminyoo
  * @date 2023/08/31
  */
-@Component
 @Slf4j
 @Getter
+@RequiredArgsConstructor
 public class JwtProvider {
-    @Value("${jwt.secret}")
-    private String secret;
+    private final String secret;
 
-    @Value("${jwt.access.expiration}")
-    private Long accessTokenExpiration;
+    private final Long accessTokenExpiration;
 
-    @Value("${jwt.refresh.expiration}")
-    private Long refreshTokenExpiration;
+    private final Long refreshTokenExpiration;
 
-    @Value("${jwt.access.header}")
-    private String accessTokenHeader;
+    private final String accessTokenHeader;
 
-    @Value("${jwt.refresh.header}")
-    private String refreshTokenHeader;
+    private final String refreshTokenHeader;
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "RefreshToken";

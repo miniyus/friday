@@ -7,7 +7,7 @@ RUN mkdir /react
 WORKDIR /react
 
 COPY package.json .
-COPY package-lock.json .
+COPY yarn.lock .
 COPY .env .
 
 RUN yarn install

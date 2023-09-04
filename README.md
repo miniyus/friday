@@ -14,10 +14,14 @@
     -   roles
     -   authorities
 
-## api
+## database
+
+### [ERD](https://dbdiagram.io/d/64f5c7b602bd1c4a5eecb606)
+
+## [api](./friday-api/README.md)
 
 -   SpringBoot REST API
 
-## ui
+## [ui](./friday-ui/README.md)
 
 -   React JS

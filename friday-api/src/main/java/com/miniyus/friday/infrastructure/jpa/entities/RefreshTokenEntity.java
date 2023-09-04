@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * [description]
+ * Refresh Token Entity
  *
  * @author miniyus
  * @date 2023/09/02
@@ -56,6 +56,12 @@ public class RefreshTokenEntity extends BaseEntity {
         this.expiresAt = expiresAt;
     }
 
+    /**
+     * Revoke the access of the function.
+     *
+     * @param None
+     * @return None
+     */
     public void revoke() {
         this.revoked = true;
     }

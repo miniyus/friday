@@ -1,10 +1,11 @@
 // src/pages/Home.tsx
 import React from 'react';
-import { Container, Typography, Box, Grid } from '@mui/material';
+import { Typography, Box } from '@mui/material';
+import PageLayout from '../components/layouts/PaageLayout';
 
 const Home: React.FC = () => {
     return (
-        <Grid>
+        <PageLayout>
             <Box textAlign="center" my={4}>
                 <Typography variant="h4" component="h1">
                     홈 페이지
@@ -13,7 +14,7 @@ const Home: React.FC = () => {
                     이곳은 홈 페이지입니다.
                 </Typography>
             </Box>
-        </Grid >
+        </PageLayout >
     );
 };
 

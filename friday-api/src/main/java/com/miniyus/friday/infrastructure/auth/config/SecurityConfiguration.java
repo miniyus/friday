@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.auth;
+package com.miniyus.friday.infrastructure.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
+import com.miniyus.friday.infrastructure.auth.PrincipalUserService;
 import com.miniyus.friday.infrastructure.auth.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
 import com.miniyus.friday.infrastructure.auth.login.handler.LoginFailureHandler;
 import com.miniyus.friday.infrastructure.auth.login.handler.LoginSuccessHandler;
@@ -51,7 +53,8 @@ public class SecurityConfiguration {
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
 				// .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/signup")).permitAll()
-				.anyRequest().authenticated());
+				// .anyRequest().authenticated()
+				.anyRequest().permitAll());
 		http.formLogin(form -> form.disable());
 		http.httpBasic(basic -> basic.disable());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

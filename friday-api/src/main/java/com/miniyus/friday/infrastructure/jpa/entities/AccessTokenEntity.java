@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * [description]
+ * Access Token Entity
  *
  * @author miniyus
  * @date 2023/09/02
@@ -62,15 +62,31 @@ public class AccessTokenEntity extends BaseEntity {
         this.expiresAt = expiresAt;
     }
 
+    /**
+     * Adds a refresh token to the object.
+     *
+     * @param refreshToken the refresh token entity to be added
+     */
     public void addRefreshToken(RefreshTokenEntity refreshToken) {
         this.refreshToken = refreshToken;
     }
 
+    /**
+     * Removes the specified refresh token.
+     *
+     * @param refreshToken the refresh token to be removed
+     */
     public void removeRefreshToken(RefreshTokenEntity refreshToken) {
         refreshToken.revoke();
         this.refreshToken = refreshToken;
     }
 
+    /**
+     * Revoke the access of the user.
+     *
+     * @param None This function does not take any parameters.
+     * @return None This function does not return any value.
+     */
     public void revoke() {
         this.revoked = true;
     }

@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@mui/icons-material": "^5.14.7",
-    "@mui/styled-engine-sc": "^5.14.7",
-    "@mui/system": "^5.14.7",
-    "styled-components": "^6.0.7"
-  }
-}

@@ -5,10 +5,11 @@ import Navbar from './components/layouts/NavBar';
 import Home from './pages/Home';
 import About from './pages/About';
 import SideMenu from './components/layouts/SideMenu'; // SideMenu import 추가
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
+import Host from './pages/hosts';
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
@@ -41,6 +42,7 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/hosts" element={<Host />} />
               </Routes>
             </Container>
           </Box>

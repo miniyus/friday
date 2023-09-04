@@ -1,12 +1,10 @@
 // src/components/Navbar.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
+import { Toolbar, Typography, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import ToggleableProps from './ToggleableProps';
-import { title } from 'process';
+import NavItems from './NavItems';
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -35,9 +33,9 @@ interface NavBarProps extends ToggleableProps {
     title: string;
 }
 
-const Navbar: React.FC<NavBarProps> = ({ open, toggleDrawer, title }) => {
+export default function Navbar({ open, toggleDrawer, title }: NavBarProps) {
     return (
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute" open={open} >
             <Toolbar
                 sx={{
                     pr: '24px', // keep right padding when drawer closed
@@ -58,19 +56,8 @@ const Navbar: React.FC<NavBarProps> = ({ open, toggleDrawer, title }) => {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}
                 </Typography>
-                <Box mr={2}>
-                    <Button color="inherit" component={Link} to="/">
-                        홈
-                    </Button>
-                </Box>
-                <Box>
-                    <Button color="inherit" component={Link} to="/about">
-                        About
-                    </Button>
-                </Box>
+                <NavItems />
             </Toolbar>
         </AppBar>
     );
 };
-
-export default Navbar;

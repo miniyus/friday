@@ -12,8 +12,10 @@ import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 
 /**
- * [description]
- *
+ * Base Entity
+ * 
+ * auto fill createdAt, updatedAt
+ * 
  * @author seongminyoo
  * @date 2023/09/04
  */

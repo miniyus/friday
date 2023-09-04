@@ -13,8 +13,6 @@
 -   Bookmark
 -   Image
 
-#### ERD
-
 ### Business Domain
 
 -   User

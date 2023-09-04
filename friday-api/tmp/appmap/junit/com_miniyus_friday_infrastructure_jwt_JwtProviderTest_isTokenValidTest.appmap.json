@@ -1,0 +1,143 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 57,
+      "method_id": "isTokenValidTest",
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+        "object_id": 100703210,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@6009bea"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+      "event": "call",
+      "id": 2,
+      "lineno": 155,
+      "method_id": "isTokenValid",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "token",
+          "object_id": 248050873,
+          "value": "I'm a Token"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+        "object_id": 1970707120,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@75769ab0"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.004085,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "return_value": {
+        "class": "java.lang.Boolean",
+        "object_id": 2118413714,
+        "value": "false"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0045112,
+      "event": "return",
+      "id": 4,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "Jwt provider is token valid",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "method_id": "isTokenValidTest"
+    },
+    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "isTokenValid",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:155"
+                            }
+                          ],
+                          "name": "JwtProvider",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "isTokenValidTest",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:57"
+                            }
+                          ],
+                          "name": "JwtProviderTest",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "jwt",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 63,
+      "method_id": "extractTokenExpiresTest",
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+        "object_id": 1818090701,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@6c5ddccd"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+      "event": "call",
+      "id": 2,
+      "lineno": 129,
+      "method_id": "extractExpiresAt",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "accessToken",
+          "object_id": 1812995265,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5Mzg0MjQwNywiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.RbB1XCNhhY7zaFtk4ZfgyIHTRMfX7hxlG3W1kgrzXknIFrVWJQ2xQhJJd1kuIgt_6YnRXPYnSVoWpGWYDI5muw"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+        "object_id": 31184256,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@1dbd580"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000413,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 2098041249,
+        "value": "Optional[Tue Sep 05 00:46:47 KST 2023]"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000563,
+      "event": "return",
+      "id": 4,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "Jwt provider extract token expires",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "method_id": "extractTokenExpiresTest"
+    },
+    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:63",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "extractTokenExpiresTest",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:63"
+                            }
+                          ],
+                          "name": "JwtProviderTest",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "extractExpiresAt",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:129"
+                            }
+                          ],
+                          "name": "JwtProvider",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "jwt",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}
