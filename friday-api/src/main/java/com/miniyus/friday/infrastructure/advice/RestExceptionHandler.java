@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.ErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.infrastructure.auth.oauth2.exception.NotSupportProviderException;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

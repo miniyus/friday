@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE user SET deleted_at = NOW() WHERE id = ?")
-@Table(name = "tbl_user")
+@Table(name = "auth_user")
 @Getter
 public class UserEntity extends BaseEntity {
     @Id
@@ -80,6 +80,10 @@ public class UserEntity extends BaseEntity {
      * @param accessToken the access token to be added
      */
     public void addAccessToken(AccessTokenEntity accessToken) {
+        if (this.accessTokens == null) {
+            this.accessTokens = new java.util.ArrayList<>();
+        }
+
         this.accessTokens.add(accessToken);
     }
 

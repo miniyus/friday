@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 /**
- * JWTService
+ * JWT Service
  * 
  * @author seongminyoo
  * @date 2023/08/31

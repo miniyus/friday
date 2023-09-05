@@ -43,3 +43,5 @@ out/
 .env
 data/*
 node_modules
+.gitsecret/keys/random_seed
+!*.secret
