@@ -11,12 +11,13 @@ import com.miniyus.friday.infrastructure.jpa.entities.RefreshTokenEntity;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.RefreshTokenRepository;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
-
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
 /**
  * JWT Service
+ * * issue token
+ * * refresh token
  * 
  * @author seongminyoo
  * @date 2023/08/31
@@ -28,6 +29,13 @@ public class JwtService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    /**
+     * Generates a token for the given user ID.
+     *
+     * @param userId the ID of the user
+     * @return an object containing the generated token, its expiration time, and
+     *         the refresh token
+     */
     public IssueToken issueToken(Long userId) {
         UserEntity userEntity = userRepository.findById(userId).get();
 
@@ -42,6 +50,13 @@ public class JwtService {
                 accessToken.getRefreshToken().getToken());
     }
 
+    /**
+     * Generates an issue token for the given email.
+     *
+     * @param email the email of the user
+     * @return an IssueToken object containing the access token, access token
+     *         expiration, and refresh token
+     */
     public IssueToken issueToken(String email) {
         UserEntity userEntity = userRepository.findByEmail(email).get();
 
@@ -56,6 +71,12 @@ public class JwtService {
                 accessToken.getRefreshToken().getToken());
     }
 
+    /**
+     * Creates an access token for the given user entity.
+     *
+     * @param userEntity the user entity for which the access token is created
+     * @return the created access token entity
+     */
     private AccessTokenEntity createAccessToken(UserEntity userEntity) {
         String token = jwtProvider.createAccessToken(userEntity.getEmail());
 
@@ -78,6 +99,12 @@ public class JwtService {
         return tokenEntity;
     }
 
+    /**
+     * Create a new refresh token based on the given access token.
+     *
+     * @param tokenEntity the access token entity
+     * @return the newly created refresh token entity
+     */
     private RefreshTokenEntity createRefreshToken(AccessTokenEntity tokenEntity) {
         String refreshToken = jwtProvider.createRefreshToken();
         Date expiresAt = jwtProvider.extractExpiresAt(refreshToken).get();
@@ -94,6 +121,12 @@ public class JwtService {
         return refreshTokenEntity;
     }
 
+    /**
+     * Retrieves the user entity associated with the given refresh token.
+     *
+     * @param refreshToken the refresh token used to retrieve the user entity
+     * @return the user entity associated with the refresh token
+     */
     public UserEntity getUserByRefreshToken(String refreshToken) {
         RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findByToken(refreshToken);
         if (refreshTokenEntity == null) {
@@ -105,18 +138,46 @@ public class JwtService {
                 .getUser();
     }
 
+    /**
+     * Extracts the access token from the provided HTTP servlet request.
+     *
+     * @param request the HTTP servlet request object from which the access token is
+     *                to be extracted
+     * @return an optional string containing the access token, or empty if it could
+     *         not be extracted
+     */
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         return jwtProvider.extractAccessToken(request);
     }
 
+    /**
+     * A description of the entire Java function.
+     *
+     * @param accessToken description of parameter
+     * @return description of return value
+     */
     public Optional<String> extractEmail(String accessToken) {
         return jwtProvider.extractEmail(accessToken);
     }
 
+    /**
+     * Extracts the refresh token from the provided HttpServletRequest.
+     *
+     * @param request the HttpServletRequest object containing the request
+     *                information
+     * @return an Optional<String> representing the extracted refresh token, or an
+     *         empty Optional if no refresh token is found
+     */
     public Optional<String> extractRefreshToken(HttpServletRequest request) {
         return jwtProvider.extractRefreshToken(request);
     }
 
+    /**
+     * Checks if the given token is valid.
+     *
+     * @param token the token to be checked
+     * @return true if the token is valid, false otherwise
+     */
     public boolean isTokenValid(String token) {
         return jwtProvider.isTokenValid(token);
     }
