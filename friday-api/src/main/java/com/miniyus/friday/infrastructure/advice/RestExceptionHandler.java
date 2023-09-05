@@ -168,6 +168,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
 
+    /**
+     * Handles the NotSupportProviderException and returns an ErrorResponse object.
+     *
+     * @param ex      the NotSupportProviderException that occurred
+     * @param request the WebRequest object
+     * @return the ResponseEntity containing the ErrorResponse object
+     */
     @ExceptionHandler(NotSupportProviderException.class)
     protected final ResponseEntity<ErrorResponse> handleNotSupportProviderException(NotSupportProviderException ex,
             WebRequest request) {
