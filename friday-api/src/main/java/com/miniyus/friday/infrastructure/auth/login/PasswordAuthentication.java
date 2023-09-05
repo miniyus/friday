@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 /**
- * [description]
+ * PasswordAuthentication
  *
+ * password authentication user info
+ * 
  * @author seongminyoo
  * @date 2023/09/04
  */

@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /**
- * [description]
+ * Signup Controller
  *
  * @author seongminyoo
  * @date 2023/09/04
@@ -32,6 +32,12 @@ public class SignupController {
     private final PasswordEncoder passwordEncoder;
     private final JwtConfiguration jwtConfiguration;
 
+    /**
+     * Creates a new user account by signing up.
+     *
+     * @param authentication the user authentication information
+     * @return the principal user info of the newly created user
+     */
     @PostMapping("/signup")
     public ResponseEntity<PrincipalUserInfo> signup(@Valid @RequestBody PasswordUserInfo authentication) {
         PrincipalUserDetailsService service = (PrincipalUserDetailsService) userDetailsService;
@@ -41,11 +47,16 @@ public class SignupController {
         return ResponseEntity.created(null).body(user);
     }
 
+    /**
+     * Retrieves the JWT configuration details.
+     *
+     * @return A ResponseEntity containing a map with the access, and
+     *         refresh values of the JWT configuration.
+     */
     @GetMapping("/jwt-config")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Map<String, Object>> jwtTest() {
         Map<String, Object> resMap = new HashMap<String, Object>();
-        resMap.put("secret", jwtConfiguration.getSecret());
         resMap.put("access", jwtConfiguration.getAccess());
         resMap.put("refresh", jwtConfiguration.getRefresh());
 
