@@ -2,17 +2,24 @@ import { ListItemButton, ListItemText } from "@mui/material";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
-export default function MenuList() {
+export interface MenuListProps {
+    text: { [key: string]: string };
+}
+
+export default function MenuList(props: MenuListProps) {
     return (
         <Fragment>
             <ListItemButton component={Link} to="/">
-                <ListItemText primary="홈" />
+                <ListItemText primary={props.text.home} />
             </ListItemButton>
             <ListItemButton component={Link} to="/about">
-                <ListItemText primary="About" />
+                <ListItemText primary={props.text.about} />
             </ListItemButton>
             <ListItemButton component={Link} to="/hosts">
-                <ListItemText primary="Hosts" />
+                <ListItemText primary={props.text.hosts} />
+            </ListItemButton>
+            <ListItemButton component={Link} to="/search">
+                <ListItemText primary={props.text.search} />
             </ListItemButton>
         </Fragment>
     )

@@ -1,0 +1,23 @@
+{
+    "common": {
+        "title": "Friday UI"
+    },
+    "layouts": {
+        "menu": {
+            "home": "home",
+            "about": "about",
+            "hosts": "hosts",
+            "search": "search"
+        },
+        "navigation": {
+            "home": "home",
+            "about": "about",
+            "hosts": "hosts",
+            "search": "search"
+        }
+    },
+    "pages": {
+        "hosts": {},
+        "search": {}
+    }
+}

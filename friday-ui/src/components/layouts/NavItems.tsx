@@ -3,22 +3,21 @@ import Button from '@mui/material/Button';
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function NavItems() {
+export interface NavItemsProps {
+    text: { [key: string]: string };
+}
+
+export default function NavItems(props: NavItemsProps) {
     return (
         <Fragment>
             <Box mr={2}>
                 <Button color="inherit" component={Link} to="/">
-                    홈
+                    {props.text.home}
                 </Button>
             </Box>
             <Box>
                 <Button color="inherit" component={Link} to="/about">
-                    About
-                </Button>
-            </Box>
-            <Box>
-                <Button color="inherit" component={Link} to="/hosts">
-                    Hosts
+                    {props.text.about}
                 </Button>
             </Box>
         </Fragment>

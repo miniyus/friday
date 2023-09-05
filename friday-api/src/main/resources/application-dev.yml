@@ -73,10 +73,11 @@ spring:
             enabled: false
 logging:
     level:
-        "[org.springframework.web]": ${LOG_LEVEL}
-        "[com.miniyus.friday]": ${LOG_LEVEL}
-        "[org.hibernate.sql]": ${LOG_LEVEL}
-        "[org.hibernate.type.descriptor.sql.spi]": ${LOG_LEVEL}
+        root: warn
+        tomcat: warn
+        org.springframework.web: ${LOG_LEVEL}
+        com.miniyus.friday: ${LOG_LEVEL}
+        org.hibernate.SQL: error
 
 management:
     endpoints:

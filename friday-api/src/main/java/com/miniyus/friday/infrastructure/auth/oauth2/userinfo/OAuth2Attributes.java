@@ -31,6 +31,8 @@ public class OAuth2Attributes {
             Map<String, Object> attributes) {
         String provider = registrationId;
 
+        log.debug("oauth provider : {}", provider);
+
         if ("naver".equals(provider)) {
             var naver = ofNaver("id", attributes);
             naver.provider = provider;

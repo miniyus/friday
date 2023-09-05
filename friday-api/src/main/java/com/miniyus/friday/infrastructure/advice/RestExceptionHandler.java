@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.ErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
+import com.miniyus.friday.infrastructure.auth.oauth2.exception.NotSupportProviderException;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -60,55 +64,27 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handles the exception of type Exception and returns a ResponseEntity
-     * 
-     * @param ex
-     * @param request
-     * @return
+     * Handles the NoHandlerFoundException and returns a ResponseEntity containing
+     * error details.
+     *
+     * @param ex      the NoHandlerFoundException
+     * @param headers the HttpHeaders
+     * @param status  the HttpStatusCode
+     * @param request the WebRequest
+     * @return the ResponseEntity containing error details
      */
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex, WebRequest request) {
-        var errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
-        log.error(ex.toString());
-        ex.printStackTrace();
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
-                ex.getMessage());
-        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
-    }
-
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         var errorCode = ErrorCode.NOT_FOUND;
-        log.error(ex.toString());
+
+        log.debug(ex.toString());
+
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 errorCode.name(),
                 ex.getMessage());
         return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
-    }
-
-    /**
-     * Handles the exception of type CommonErrorException and returns a
-     * ResponseEntity
-     * with an ErrorResponse object containing the error details.
-     *
-     * @param ex      the CommonErrorException object representing the exception
-     * @param request the WebRequest object representing the HTTP request
-     * @return a ResponseEntity object containing the error details
-     */
-    @ExceptionHandler(RestErrorException.class)
-    public final ResponseEntity<ErrorResponse> handleApiException(RestErrorException ex, WebRequest request) {
-        var errorCode = ex.getErrorCode();
-        log.debug(ex.toString());
-        ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
-                ex.getMessage());
-
-        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
 
     /**
@@ -147,4 +123,64 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 details);
         return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    /**
+     * Handles the exception of type Exception and returns a ResponseEntity
+     * 
+     * @param ex
+     * @param request
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex, WebRequest request) {
+        var errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+
+        log.error(ex.getMessage());
+        log.debug(ex.toString());
+
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                errorCode.name(),
+                ex.getMessage());
+        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+    }
+
+    /**
+     * Handles the exception of type CommonErrorException and returns a
+     * ResponseEntity
+     * with an ErrorResponse object containing the error details.
+     *
+     * @param ex      the CommonErrorException object representing the exception
+     * @param request the WebRequest object representing the HTTP request
+     * @return a ResponseEntity object containing the error details
+     */
+    @ExceptionHandler(RestErrorException.class)
+    protected final ResponseEntity<ErrorResponse> handleApiException(RestErrorException ex, WebRequest request) {
+        var errorCode = ex.getErrorCode();
+
+        log.error(ex.toString());
+
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                errorCode.name(),
+                ex.getMessage());
+
+        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+    }
+
+    @ExceptionHandler(NotSupportProviderException.class)
+    protected final ResponseEntity<ErrorResponse> handleNotSupportProviderException(NotSupportProviderException ex,
+            WebRequest request) {
+        var errorCode = AuthErrorCode.SERVER_ERROR;
+
+        log.error(ex.toString());
+
+        ErrorResponse errorDetails = new ErrorResponse(
+                LocalDateTime.now(),
+                errorCode.name(),
+                ex.getMessage());
+
+        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+    }
+
 }

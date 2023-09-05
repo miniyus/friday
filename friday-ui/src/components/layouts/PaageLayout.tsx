@@ -1,13 +1,13 @@
 import React, { ReactNode } from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Paper } from '@mui/material';
 
 const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <Grid>
-            <Box textAlign="center" my={4}>
+            <Box textAlign="center" my={5}>
                 {children}
             </Box>
-        </Grid >
+        </Grid>
     );
 };
 

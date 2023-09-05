@@ -1,10 +1,12 @@
 // src/components/Navbar.tsx
-import { Toolbar, Typography, IconButton } from '@mui/material';
+import { Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Menu as MenuIcon } from '@mui/icons-material';
+import LanguageIcon from '@mui/icons-material/Language';
 import ToggleableProps from './ToggleableProps';
 import NavItems from './NavItems';
+import { useState } from 'react';
 const drawerWidth: number = 240;
 
 interface AppBarProps extends MuiAppBarProps {
@@ -31,9 +33,21 @@ const AppBar = styled(MuiAppBar, {
 
 interface NavBarProps extends ToggleableProps {
     title: string;
+    text: { [key: string]: string };
+    changeLang: (lng: string) => any;
 }
 
-export default function Navbar({ open, toggleDrawer, title }: NavBarProps) {
+export default function Navbar({ open, toggleDrawer, title, text, changeLang }: NavBarProps) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
+
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    }
+
     return (
         <AppBar position="absolute" open={open} >
             <Toolbar
@@ -56,7 +70,34 @@ export default function Navbar({ open, toggleDrawer, title }: NavBarProps) {
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                     {title}
                 </Typography>
-                <NavItems />
+                <NavItems text={text} />
+                <IconButton
+                    edge="end"
+                    color="inherit"
+                    aria-label="language"
+                    onClick={handleClick}
+                    size="large"
+                >
+                    <LanguageIcon />
+                </IconButton>
+                <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={() => changeLang('en')}>en</MenuItem>
+                    <MenuItem onClick={() => changeLang('ko')}>ko</MenuItem>
+                </Menu>
             </Toolbar>
         </AppBar>
     );

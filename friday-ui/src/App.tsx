@@ -1,5 +1,5 @@
 // src/App.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/layouts/NavBar';
 import Home from './pages/Home';
@@ -10,21 +10,51 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Host from './pages/hosts';
+import { useTranslation } from 'react-i18next';
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-const App: React.FC = () => {
+export default function App() {
   const [open, setOpen] = React.useState(true);
+  const { t, i18n } = useTranslation();
+
+  const [sideMenuText, setSideMenuText] = React.useState({});
+  const [navText, setNavText] = React.useState({});
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
+  useEffect(() => {
+    setSideMenuText({
+      home: t('layouts.navigation.home'),
+      about: t('layouts.navigation.about'),
+      hosts: t('layouts.navigation.hosts'),
+      search: t('layouts.navigation.search'),
+    });
+
+    setNavText({
+      home: t('layouts.navigation.home'),
+      about: t('layouts.navigation.about'),
+    })
+
+  }, []);
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <Router>
-          <Navbar open={open} toggleDrawer={toggleDrawer} title={'FriDay: UI'} />
-          <SideMenu open={open} toggleDrawer={toggleDrawer} /> {/* SideMenu 추가 */}
+          <Navbar
+            open={open}
+            toggleDrawer={toggleDrawer}
+            title={t('common.title')}
+            changeLang={changeLanguage}
+            text={navText} />
+          <SideMenu open={open} toggleDrawer={toggleDrawer} text={sideMenuText} /> {/* SideMenu 추가 */}
           <Box
             component="main"
             sx={{
@@ -51,5 +81,3 @@ const App: React.FC = () => {
     </ThemeProvider>
   );
 };
-
-export default App;
