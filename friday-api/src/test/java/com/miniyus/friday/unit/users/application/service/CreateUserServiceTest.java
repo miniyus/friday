@@ -14,7 +14,6 @@ import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
 import com.miniyus.friday.users.application.service.CreateUserService;
 import com.miniyus.friday.users.domain.User;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Create User Service
@@ -22,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
  * @author miniyus
  * @date 2023/09/06
  */
-@Slf4j
 @ExtendWith(MockitoExtension.class)
 public class CreateUserServiceTest {
     @Mock

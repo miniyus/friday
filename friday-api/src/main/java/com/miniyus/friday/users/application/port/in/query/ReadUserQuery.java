@@ -2,6 +2,8 @@ package com.miniyus.friday.users.application.port.in.query;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+
 import com.miniyus.friday.users.domain.User;
 
 /**
@@ -13,7 +15,7 @@ import com.miniyus.friday.users.domain.User;
 public interface ReadUserQuery {
     Collection<User> findAll();
 
-    Collection<User> findAll(ReadUserCommand command);
+    Page<User> findAll(ReadUserCommand command);
 
     User findById(Long id);
 }

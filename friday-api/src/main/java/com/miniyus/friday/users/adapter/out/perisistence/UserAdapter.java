@@ -1,6 +1,5 @@
 package com.miniyus.friday.users.adapter.out.perisistence;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -57,8 +56,7 @@ public class UserAdapter implements CreateUserPort, ReadUserPort {
 
     @Override
     public User findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return UserMapper.toDomain(userRepository.findById(id).orElse(null));
     }
 
 }

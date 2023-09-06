@@ -2,6 +2,7 @@ package com.miniyus.friday.users.application.service;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.miniyus.friday.users.application.port.in.query.ReadUserCommand;
@@ -28,12 +29,7 @@ public class ReadUserService implements ReadUserQuery {
     }
 
     @Override
-    public Collection<User> findAll(ReadUserCommand command) {
-        // just find all
-        if (command == null) {
-            return readUserPort.findAll();
-        }
-
+    public Page<User> findAll(ReadUserCommand command) {
         // find by conditions
         SearchUser search = User.SearchUser.builder()
                 .email(command.getEmail())
