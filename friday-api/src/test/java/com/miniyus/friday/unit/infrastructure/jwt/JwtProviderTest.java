@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.jwt;
+package com.miniyus.friday.unit.infrastructure.jwt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 
 /**
  * Jwt Provider Test

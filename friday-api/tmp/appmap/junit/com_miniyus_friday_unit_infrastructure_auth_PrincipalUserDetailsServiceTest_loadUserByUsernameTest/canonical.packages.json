@@ -1,0 +1,4 @@
+[
+  "com/miniyus/friday/infrastructure/auth",
+  "com/miniyus/friday/unit/infrastructure/auth"
+]

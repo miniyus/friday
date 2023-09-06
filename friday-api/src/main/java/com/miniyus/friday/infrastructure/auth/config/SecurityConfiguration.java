@@ -16,7 +16,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserService;
-import com.miniyus.friday.infrastructure.auth.login.filter.CustomJsonUsernamePasswordAuthenticationFilter;
+import com.miniyus.friday.infrastructure.auth.login.filter.PasswordAuthenticationFilter;
 import com.miniyus.friday.infrastructure.auth.login.handler.LoginFailureHandler;
 import com.miniyus.friday.infrastructure.auth.login.handler.LoginSuccessHandler;
 import com.miniyus.friday.infrastructure.auth.oauth2.handler.OAuth2AccessDeniedHandler;
@@ -53,8 +53,8 @@ public class SecurityConfiguration {
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
 				// .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/signup")).permitAll()
-				// .anyRequest().authenticated()
-				.anyRequest().permitAll());
+				.anyRequest().authenticated());
+		// .anyRequest().permitAll());
 		http.formLogin(form -> form.disable());
 		http.httpBasic(basic -> basic.disable());
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
@@ -74,19 +74,19 @@ public class SecurityConfiguration {
 				.accessDeniedHandler(accessDeniedHandler));
 		http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
 
-		http.addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class);
-		http.addFilterBefore(jwtAuthenticationFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class);
+		http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
+		http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
 		return http.build();
 	}
 
 	@Bean
-	public Filter customJsonUsernamePasswordAuthenticationFilter() {
-		CustomJsonUsernamePasswordAuthenticationFilter customJsonUsernamePasswordLoginFilter = new CustomJsonUsernamePasswordAuthenticationFilter(
+	public Filter passwordAuthenticationFilter() {
+		PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
 				objectMapper);
-		customJsonUsernamePasswordLoginFilter.setAuthenticationManager(authenticationManager());
-		customJsonUsernamePasswordLoginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
-		customJsonUsernamePasswordLoginFilter.setAuthenticationFailureHandler(loginFailureHandler());
-		return customJsonUsernamePasswordLoginFilter;
+		loginFilter.setAuthenticationManager(authenticationManager());
+		loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+		loginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+		return loginFilter;
 	}
 
 	@Bean
@@ -120,8 +120,9 @@ public class SecurityConfiguration {
 
 	@Bean
 	public JwtAuthenticationFilter jwtAuthenticationFilter() {
-		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtService,
-				userDetailsService, objectMapper);
-		return jwtAuthenticationFilter;
+		return new JwtAuthenticationFilter(
+				jwtService,
+				userDetailsService,
+				objectMapper);
 	}
 }

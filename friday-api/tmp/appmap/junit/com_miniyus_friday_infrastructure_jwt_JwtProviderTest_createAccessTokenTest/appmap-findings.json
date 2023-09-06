@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1693782680650.5154
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_infrastructure_jwt_JwtProviderTest_createAccessTokenTest.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_infrastructure_jwt_JwtProviderTest_createAccessTokenTest.appmap.json": {
       "name": "Jwt provider create access token",
       "recording": {
         "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",

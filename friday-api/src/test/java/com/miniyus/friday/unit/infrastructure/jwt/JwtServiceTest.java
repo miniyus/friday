@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.jwt;
+package com.miniyus.friday.unit.infrastructure.jwt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -14,6 +14,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.RefreshTokenRepository;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
+import com.miniyus.friday.infrastructure.jwt.JwtService;
 
 /**
  * JWT Service Test

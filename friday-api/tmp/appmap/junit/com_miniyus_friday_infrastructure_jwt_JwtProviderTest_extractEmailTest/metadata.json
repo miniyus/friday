@@ -20,5 +20,9 @@
   },
   "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101",
   "framework": {},
-  "test_status": "succeeded"
+  "test_status": "failed",
+  "exception": {
+    "class": "java.util.NoSuchElementException",
+    "message": "No value present"
+  }
 }

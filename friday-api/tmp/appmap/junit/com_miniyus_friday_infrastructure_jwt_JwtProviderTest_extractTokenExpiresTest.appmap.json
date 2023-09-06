@@ -1,1 +1,155 @@
-{"events":[{"defined_class":"com.miniyus.friday.infrastructure.jwt.JwtProviderTest","event":"call","id":30,"lineno":88,"method_id":"extractTokenExpiresTest","path":"com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java","receiver":{"class":"com.miniyus.friday.infrastructure.jwt.JwtProviderTest","object_id":615014502,"value":"com.miniyus.friday.infrastructure.jwt.JwtProviderTest@24a86066"},"static":false,"thread_id":1},{"defined_class":"com.miniyus.friday.infrastructure.jwt.JwtProvider","event":"call","id":31,"lineno":129,"method_id":"extractExpiresAt","parameters":[{"class":"java.lang.String","kind":"req","name":"accessToken","object_id":0}],"path":"com/miniyus/friday/infrastructure/jwt/JwtProvider.java","receiver":{"class":"com.miniyus.friday.infrastructure.jwt.JwtProvider","object_id":1413491716,"value":"com.miniyus.friday.infrastructure.jwt.JwtProvider@54402c04"},"static":false,"thread_id":1},{"elapsed":2.59E-5,"event":"return","id":32,"parent_id":31,"return_value":{"class":"java.util.Optional","object_id":578102596,"value":"Optional.empty"},"thread_id":1},{"elapsed":4.72E-5,"event":"return","exceptions":[{"class":"java.util.NoSuchElementException","lineno":143,"message":"No value present","object_id":1530638839,"path":"Optional.java"}],"id":33,"parent_id":30,"thread_id":1}],"classMap":[{"children":[{"children":[{"children":[{"children":[{"children":[{"children":[{"labels":[],"location":"com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88","name":"extractTokenExpiresTest","static":false,"type":"function"}],"location":"com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java","name":"JwtProviderTest","static":false,"type":"class"},{"children":[{"labels":[],"location":"com/miniyus/friday/infrastructure/jwt/JwtProvider.java:129","name":"extractExpiresAt","static":false,"type":"function"}],"location":"com/miniyus/friday/infrastructure/jwt/JwtProvider.java","name":"JwtProvider","static":false,"type":"class"}],"name":"jwt","type":"package"}],"name":"infrastructure","type":"package"}],"name":"friday","type":"package"}],"name":"miniyus","type":"package"}],"name":"com","type":"package"}],"version":"1.2","metadata":{"name":"Jwt provider extract token expires","app":"friday-api","language":{"name":"java","version":"17.0.8+7-LTS","engine":"OpenJDK 64-Bit Server VM"},"client":{"name":"appmap-java","url":"https://github.com/appland/appmap-java"},"recorder":{"name":"junit","type":"tests"},"recording":{"defined_class":"com.miniyus.friday.infrastructure.jwt.JwtProviderTest","method_id":"extractTokenExpiresTest"},"source_location":"com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88","framework":{},"test_status":"failed","exception":{"class":"java.util.NoSuchElementException","message":"No value present"}},"eventUpdates":{}}
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 88,
+      "method_id": "extractTokenExpiresTest",
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+        "object_id": 615014502,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest@24a86066"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+      "event": "call",
+      "id": 2,
+      "lineno": 129,
+      "method_id": "extractExpiresAt",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "accessToken",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+        "object_id": 1413491716,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@54402c04"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000259,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 578102596,
+        "value": "Optional.empty"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000472,
+      "event": "return",
+      "exceptions": [
+        {
+          "class": "java.util.NoSuchElementException",
+          "lineno": 143,
+          "message": "No value present",
+          "object_id": 1530638839,
+          "path": "Optional.java"
+        }
+      ],
+      "id": 4,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "Jwt provider extract token expires",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
+      "method_id": "extractTokenExpiresTest"
+    },
+    "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88",
+    "framework": {},
+    "test_status": "failed",
+    "exception": {
+      "class": "java.util.NoSuchElementException",
+      "message": "No value present"
+    }
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "extractTokenExpiresTest",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:88"
+                            }
+                          ],
+                          "name": "JwtProviderTest",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "extractExpiresAt",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:129"
+                            }
+                          ],
+                          "name": "JwtProvider",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "jwt",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}

@@ -1,0 +1,176 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "snsId",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "credentialsNonExpired",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "attributes",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "provider",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "role",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "accountNonLocked",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "accountNonExpired",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "name",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "password",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "enabled",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "authorities",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "build",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "id",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "username",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          }
+                        ],
+                        "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "loadUserByUsername",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserDetailsService.java:78"
+                          }
+                        ],
+                        "name": "PrincipalUserDetailsService",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "builder",
+                            "type": "function",
+                            "static": true,
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                          }
+                        ],
+                        "name": "PrincipalUserInfo",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "auth",
+                    "type": "package"
+                  }
+                ],
+                "name": "infrastructure",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "loadUserByUsernameTest",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest.java:83"
+                              }
+                            ],
+                            "name": "PrincipalUserDetailsServiceTest",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "auth",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "infrastructure",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

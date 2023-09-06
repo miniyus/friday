@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1693782680650.5154
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_infrastructure_jwt_JwtProviderTest_extractEmailTest.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_infrastructure_jwt_JwtProviderTest_extractEmailTest.appmap.json": {
       "name": "Jwt provider extract email",
       "recording": {
         "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProviderTest",
@@ -52,7 +52,11 @@
       },
       "source_location": "com/miniyus/friday/infrastructure/jwt/JwtProviderTest.java:101",
       "framework": {},
-      "test_status": "succeeded"
+      "test_status": "failed",
+      "exception": {
+        "class": "java.util.NoSuchElementException",
+        "message": "No value present"
+      }
     }
   },
   "findings": [],
@@ -462,7 +466,12 @@
         }
       ],
       "testStatuses": [],
-      "exceptions": []
+      "exceptions": [
+        {
+          "class": "java.util.NoSuchElementException",
+          "message": "No value present"
+        }
+      ]
     }
   }
 }

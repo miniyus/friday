@@ -29,7 +29,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SignupController {
     private final UserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;
     private final JwtConfiguration jwtConfiguration;
 
     /**
@@ -41,7 +40,7 @@ public class SignupController {
     @PostMapping("/signup")
     public ResponseEntity<PrincipalUserInfo> signup(@Valid @RequestBody PasswordUserInfo authentication) {
         PrincipalUserDetailsService service = (PrincipalUserDetailsService) userDetailsService;
-        authentication.encodePassword(passwordEncoder);
+
         var user = service.create(authentication);
 
         return ResponseEntity.created(null).body(user);
