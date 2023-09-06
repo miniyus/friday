@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.miniyus.friday.infrastructure.auth.login.userinfo.PasswordUserInfo;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PrincipalUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

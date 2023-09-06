@@ -1,12 +1,16 @@
 package com.miniyus.friday.unit.infrastructure.auth;
 
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserService;
 import com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo;
@@ -30,6 +34,12 @@ public class PrincipalUserServiceTest {
 
     private UserEntity testUser;
 
+    /**
+     * Set up the test environment before each test case.
+     *
+     * @param None No parameters are required.
+     * @return None This method does not return anything.
+     */
     @BeforeEach
     void setUp() {
         testUser = UserEntity.builder()
@@ -40,8 +50,16 @@ public class PrincipalUserServiceTest {
                 .build();
     }
 
+    /**
+     * Creates an OAuth2 user.
+     *
+     * @param  None
+     * @return None
+     */
     @Test
     void createOAuth2User() {
+        when(userRepository.save(any())).thenReturn(testUser);
+        
         OAuth2UserInfo userInfo = GoogleUserInfo.builder()
                 .snsId("test1234")
                 .email("miniyu97@gmail.com")
@@ -50,6 +68,9 @@ public class PrincipalUserServiceTest {
                 .build();
 
         PrincipalUserInfo principal = principalUserService.create(userInfo);
-
+        assertNotNull(principal, "failed to create principal");
+        assertNotEquals(testUser.getProvider(), userInfo.getSnsId(), "not equal snsId");
+        assertNotEquals(testUser.getEmail(), userInfo.getEmail(), "not equal email");
+        assertNotEquals(testUser.getProvider(), userInfo.getProvider(), "not equal provider");
     }
 }

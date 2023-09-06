@@ -15,6 +15,8 @@ import com.miniyus.friday.infrastructure.auth.oauth2.userinfo.OAuth2Attributes;
 import com.miniyus.friday.infrastructure.auth.oauth2.userinfo.OAuth2UserInfo;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -25,6 +27,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
 	private final UserRepository userRepository;

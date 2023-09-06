@@ -6,14 +6,17 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.auth.login.userinfo.PasswordUserInfo;
+import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.jwt.IssueToken;
+import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.jwt.config.JwtConfiguration;
 
 import jakarta.validation.Valid;
@@ -27,8 +30,10 @@ import lombok.RequiredArgsConstructor;
  */
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/v1")
 public class SignupController {
     private final UserDetailsService userDetailsService;
+    private final JwtService jwtService;
     private final JwtConfiguration jwtConfiguration;
 
     /**
@@ -37,7 +42,7 @@ public class SignupController {
      * @param authentication the user authentication information
      * @return the principal user info of the newly created user
      */
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<PrincipalUserInfo> signup(@Valid @RequestBody PasswordUserInfo authentication) {
         PrincipalUserDetailsService service = (PrincipalUserDetailsService) userDetailsService;
 
@@ -52,7 +57,7 @@ public class SignupController {
      * @return A ResponseEntity containing a map with the access, and
      *         refresh values of the JWT configuration.
      */
-    @GetMapping("/jwt-config")
+    @GetMapping("/auth/jwt-config")
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Map<String, Object>> jwtTest() {
         Map<String, Object> resMap = new HashMap<String, Object>();
@@ -60,5 +65,13 @@ public class SignupController {
         resMap.put("refresh", jwtConfiguration.getRefresh());
 
         return ResponseEntity.ok().body(resMap);
+    }
+
+    @PostMapping("/auth/refresh")
+    public ResponseEntity<IssueToken> refresh(@RequestBody String refreshToken) {
+        UserEntity user = jwtService.getUserByRefreshToken(refreshToken);
+        return ResponseEntity
+                .created(null)
+                .body(jwtService.issueToken(user.getId()));
     }
 }

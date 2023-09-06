@@ -1,0 +1,24 @@
+{
+  "name": "Principal user service create o auth 2 user",
+  "app": "friday-api",
+  "language": {
+    "name": "java",
+    "version": "17.0.8+7-LTS",
+    "engine": "OpenJDK 64-Bit Server VM"
+  },
+  "client": {
+    "name": "appmap-java",
+    "url": "https://github.com/appland/appmap-java"
+  },
+  "recorder": {
+    "name": "junit",
+    "type": "tests"
+  },
+  "recording": {
+    "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
+    "method_id": "createOAuth2User"
+  },
+  "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:49",
+  "framework": {},
+  "test_status": "succeeded"
+}

@@ -12,6 +12,7 @@ import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.RefreshTokenRepository;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class JwtService {
     private final JwtProvider jwtProvider;
     private final UserRepository userRepository;

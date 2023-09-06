@@ -1,0 +1,152 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "email",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "password",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      }
+                                    ],
+                                    "name": "CreateUserCommand$CreateUserCommandBuilder",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      }
+                                    ],
+                                    "name": "CreateUserCommand",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "usecase",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "in",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "port",
+                        "type": "package"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "createUser",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/users/application/service/CreateUserService.java:24"
+                              }
+                            ],
+                            "name": "CreateUserService",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "service",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "application",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "createUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest.java:61"
+                                  }
+                                ],
+                                "name": "CreateUserServiceTest",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "service",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "application",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]
