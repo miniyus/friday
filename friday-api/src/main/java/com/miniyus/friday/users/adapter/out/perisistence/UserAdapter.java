@@ -43,7 +43,7 @@ public class UserAdapter implements CreateUserPort, ReadUserPort {
 
     @Override
     public Page<User> findAll(SearchUser searchUser, Pageable pageable) {
-        Page<UserEntity> userEntities = userRepository.findByEntity(
+        Page<UserEntity> userEntities = userRepository.findAll(
                 searchUser.getEmail(),
                 searchUser.getName(),
                 searchUser.getCreatedAtStart(),

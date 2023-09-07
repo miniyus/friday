@@ -26,7 +26,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class PrincipalUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity, Map<String, Object> attributes) {
         return PrincipalUserInfo.builder()
@@ -60,13 +59,11 @@ public class PrincipalUserDetailsService implements UserDetailsService {
     };
 
     public PrincipalUserInfo create(PasswordUserInfo userInfo) {
-        String encodedPassword = passwordEncoder.encode(userInfo.getPassword());
-
         UserEntity entity = UserEntity.builder()
                 .snsId(null)
                 .provider(null)
                 .email(userInfo.getEmail())
-                .password(encodedPassword)
+                .password(userInfo.getPassword())
                 .name(userInfo.getName())
                 .role(userInfo.getRole())
                 .build();

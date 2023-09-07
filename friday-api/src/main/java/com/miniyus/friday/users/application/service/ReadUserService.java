@@ -31,7 +31,7 @@ public class ReadUserService implements ReadUserQuery {
     @Override
     public Page<User> findAll(ReadUserCommand command) {
         // find by conditions
-        SearchUser search = User.SearchUser.builder()
+        SearchUser search = SearchUser.builder()
                 .email(command.getEmail())
                 .name(command.getName())
                 .createdAtStart(command.getCreatedAtStart())

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +36,7 @@ public class SignupController {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final JwtConfiguration jwtConfiguration;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Creates a new user account by signing up.
@@ -45,6 +47,8 @@ public class SignupController {
     @PostMapping("/auth/signup")
     public ResponseEntity<PrincipalUserInfo> signup(@Valid @RequestBody PasswordUserInfo authentication) {
         PrincipalUserDetailsService service = (PrincipalUserDetailsService) userDetailsService;
+
+        authentication.encodePassword(passwordEncoder);
 
         var user = service.create(authentication);
 

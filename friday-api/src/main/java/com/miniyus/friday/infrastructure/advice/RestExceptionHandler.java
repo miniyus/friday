@@ -81,7 +81,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 errorCode.name(),
-                ex.getMessage());
+                translateMessage("exception.notFound"));
         return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
     }
 
@@ -117,7 +117,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 ErrorCode.BAD_REQUEST.name(),
-                "Validation Failed",
+                translateMessage("exception.validationFail"),
                 details);
         return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
     }
@@ -183,7 +183,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorDetails = new ErrorResponse(
                 LocalDateTime.now(),
                 errorCode.name(),
-                ex.getMessage());
+                translateMessage("exception.notSupportProvider"));
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }

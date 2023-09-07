@@ -2,6 +2,9 @@ package com.miniyus.friday.infrastructure.auth.oauth2.handler;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -25,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
     private final ObjectMapper objectMapper;
+    private final MessageSource messageSource;
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response,
@@ -35,11 +39,15 @@ public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 code.name(),
-                exception.getMessage(),
+                messageSource.getMessage(
+                        "exception.accessDenined",
+                        null,
+                        exception.getLocalizedMessage(),
+                        LocaleContextHolder.getLocale()),
                 null);
         String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
 
-        response.setHeader("Content-Type", "application/json");
+        response.setHeader("Content-Type", "application/json;utf-8");
         response.setStatus(code.getStatusCode());
         response.getWriter().write(errorJsonBody);
     }

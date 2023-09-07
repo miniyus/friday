@@ -3,6 +3,8 @@ package com.miniyus.friday.infrastructure.auth.oauth2.handler;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,8 @@ import lombok.extern.slf4j.Slf4j;
 public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper objectMapper;
 
+    private final MessageSource messageSource;
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
@@ -36,11 +40,14 @@ public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint 
         ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 code.name(),
-                exception.getMessage(),
+                messageSource.getMessage("exception.accessDenined",
+                        null,
+                        exception.getLocalizedMessage(),
+                        LocaleContextHolder.getLocale()),
                 null);
         String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
 
-        response.setHeader("Content-Type", "application/json");
+        response.setHeader("Content-Type", "application/json;utf-8");
         response.setStatus(code.getStatusCode());
         response.getWriter().write(errorJsonBody);
     }

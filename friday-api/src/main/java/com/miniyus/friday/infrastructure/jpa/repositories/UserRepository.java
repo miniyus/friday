@@ -34,14 +34,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
          */
         public Optional<UserEntity> findBySnsIdAndProvider(String snsId, String provider);
 
-        @Query("select u from UserEntity u" +
+        @Query(value = "select u from UserEntity u" +
                         "WHERE (u.email = :email OR :email IS NULL)" +
                         "AND (u.name = :name OR :name IS NULL)" +
-                        "AND (:createdAtStart IS NULL OR :createdAtEnd IS NULL" +
+                        "AND (:createdAtStart IS NULL OR :createdAtEnd IS NULL " +
                         "OR u.createdAt BETWEEN :createdAtStart AND :createdAtEnd)" +
-                        "AND (:updatedAtStart IS NULL OR :updatedAtEnd IS NULL" +
-                        "OR u.updatedAt BETWEE :updatedAtStart AN :updatedAtEnd)")
-        public Page<UserEntity> findByEntity(
+                        "AND (:updatedAtStart IS NULL OR :updatedAtEnd IS NULL " +
+                        "OR u.updatedAt BETWEE :updatedAtStart AN :updatedAtEnd)", nativeQuery = true)
+        public Page<UserEntity> findAll(
                         @Param("email") String email,
                         @Param("name") String name,
                         @Param("createdAtStart") LocalDateTime createdAtStart,
