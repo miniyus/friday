@@ -34,10 +34,8 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
 
         AuthErrorCode code = AuthErrorCode.INVALID_CLIENT;
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                code.name(),
-                exception.getMessage(),
-                null);
+                code,
+                exception.getMessage());
         String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
 
         response.setHeader("Content-Type", "application/json");

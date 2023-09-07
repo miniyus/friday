@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miniyus.friday.common.error.ErrorCode;
 import com.miniyus.friday.infrastructure.advice.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,8 +31,7 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         response.setContentType("application/json;charset=UTF-8");
 
         String jsonBody = objectMapper.writeValueAsString(new ErrorResponse(
-                LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.name(),
+                ErrorCode.BAD_REQUEST,
                 exception.getMessage()));
 
         response.getWriter().write(jsonBody);

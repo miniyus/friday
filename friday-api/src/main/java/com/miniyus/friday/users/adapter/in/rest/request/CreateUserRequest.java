@@ -4,6 +4,7 @@ import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,8 +15,9 @@ import lombok.NoArgsConstructor;
  * @date 2023/09/02
  */
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CreateUserRequest {
     @NotBlank
     @Email

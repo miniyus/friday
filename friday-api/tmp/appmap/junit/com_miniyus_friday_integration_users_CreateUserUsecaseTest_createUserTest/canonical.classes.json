@@ -1,0 +1,7 @@
+[
+  "com/miniyus/friday/users/adapter/in/rest/UserController",
+  "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest",
+  "com/miniyus/friday/users/adapter/in/rest/response/CreateUserResponse",
+  "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand",
+  "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand$CreateUserCommandBuilder"
+]

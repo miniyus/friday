@@ -1,6 +1,5 @@
 package com.miniyus.friday.infrastructure.advice;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,8 +78,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.debug(ex.toString());
 
         ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
+                errorCode,
                 translateMessage("exception.notFound"));
         return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
     }
@@ -115,8 +113,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                ErrorCode.BAD_REQUEST.name(),
+                ErrorCode.BAD_REQUEST,
                 translateMessage("exception.validationFail"),
                 details);
         return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
@@ -137,8 +134,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.debug(ex.toString());
 
         ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
+                errorCode,
                 ex.getMessage());
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
@@ -159,8 +155,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ex.toString());
 
         ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
+                errorCode,
                 ex.getMessage());
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
@@ -181,8 +176,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ex.toString());
 
         ErrorResponse errorDetails = new ErrorResponse(
-                LocalDateTime.now(),
-                errorCode.name(),
+                errorCode,
                 translateMessage("exception.notSupportProvider"));
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());

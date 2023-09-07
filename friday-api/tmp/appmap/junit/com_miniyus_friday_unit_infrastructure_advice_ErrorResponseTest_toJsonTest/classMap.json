@@ -17,7 +17,7 @@
                                 "name": "toJsonTest",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/unit/infrastructure/advice/ErrorResponseTest.java:32"
+                                "location": "com/miniyus/friday/unit/infrastructure/advice/ErrorResponseTest.java:47"
                               }
                             ],
                             "name": "ErrorResponseTest",

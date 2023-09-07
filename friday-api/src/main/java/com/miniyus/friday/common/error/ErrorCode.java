@@ -21,12 +21,12 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(20, 500),
     SERVER_UNAVAILABLE(21, 503);
 
-    private final int code;
-    private final int status;
+    private final int errorCode;
+    private final int statusCode;
 
     ErrorCode(int code, int status) {
-        this.code = code;
-        this.status = status;
+        this.errorCode = code;
+        this.statusCode = status;
     }
 
     /**
@@ -34,8 +34,8 @@ public enum ErrorCode {
      *
      * @return the code value
      */
-    public int getCode() {
-        return code;
+    public int getErrorCode() {
+        return errorCode;
     }
 
     /**
@@ -44,12 +44,12 @@ public enum ErrorCode {
      * @param None No parameters are accepted by this function.
      * @return int The status value of the function.
      */
-    public int getStatus() {
-        return status;
+    public int getStatusCode() {
+        return statusCode;
     }
 
     public HttpStatus getHttpStatus() {
-        return HttpStatus.valueOf(status);
+        return HttpStatus.valueOf(statusCode);
     }
 
     /**
@@ -61,7 +61,7 @@ public enum ErrorCode {
      */
     public static ErrorCode fromCode(int code) {
         for (ErrorCode e : ErrorCode.values()) {
-            if (e.getCode() == code) {
+            if (e.getErrorCode() == code) {
                 return e;
             }
         }
@@ -77,7 +77,7 @@ public enum ErrorCode {
      */
     public static ErrorCode fromStatus(int status) {
         for (ErrorCode e : ErrorCode.values()) {
-            if (e.getStatus() == status) {
+            if (e.getStatusCode() == status) {
                 return e;
             }
         }

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.miniyus.friday.users.domain.User;
 
+import lombok.Builder;
 import lombok.Value;
 
 /**
@@ -13,6 +14,7 @@ import lombok.Value;
  * @date 2023/09/02
  */
 @Value
+@Builder
 public class CreateUserResponse {
     private Long id;
     private String email;

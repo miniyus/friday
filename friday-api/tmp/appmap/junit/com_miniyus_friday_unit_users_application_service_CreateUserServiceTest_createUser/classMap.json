@@ -115,7 +115,7 @@
                                     "name": "createUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest.java:61"
+                                    "location": "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest.java:53"
                                   }
                                 ],
                                 "name": "CreateUserServiceTest",

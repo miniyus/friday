@@ -72,10 +72,7 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
         String email = usernamePassword.getUsername();
         String password = usernamePassword.getPassword();
         log.debug("input email: {}", email);
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);// principal
-                                                                                                                   // 과
-                                                                                                                   // credentials
-                                                                                                                   // 전달
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(email, password);
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

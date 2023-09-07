@@ -38,13 +38,11 @@ public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         AuthErrorCode code = AuthErrorCode.ACCESS_DENINED;
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                code.name(),
+                code,
                 messageSource.getMessage("exception.accessDenined",
                         null,
                         exception.getLocalizedMessage(),
-                        LocaleContextHolder.getLocale()),
-                null);
+                        LocaleContextHolder.getLocale()));
         String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
 
         response.setHeader("Content-Type", "application/json;utf-8");

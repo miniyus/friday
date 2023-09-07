@@ -1,0 +1,50 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "simplaPageCustomFieldTest",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:64"
+                              }
+                            ],
+                            "name": "SimplePageTest",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "response",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "common",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

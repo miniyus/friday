@@ -4,7 +4,7 @@ server:
             force-response: true
 spring:
     profiles:
-        active: ${APP_ENV}
+        active: ${APP_ENV:local}
         default: local
     h2:
         console:
@@ -26,16 +26,16 @@ spring:
             client:
                 registration:
                     google:
-                        client-id: google-client-id
-                        client-secret: google-client-secret
+                        client-id: ${GOOGLE_CLIENT_ID:google-client-id}
+                        client-secret: ${GOOGLE_CLIENT_SECRET:google-client-secret}
                         scope:
                             - email
                             - profile
                         redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
                         provider: google
                     naver:
-                        client-id: xxx
-                        client-secret: xxx
+                        client-id: ${NAVER_CLIENT_ID:naver-client-id}
+                        client-secret: ${NAVER_CLIENT_SECRET:naver-client-secret}
                         scope:
                             - name
                             - email
@@ -45,8 +45,8 @@ spring:
                         redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}" #코드를 받는 uri(naver 의 콜백 uri)
                         provider: naver
                     kakao:
-                        client-id: xxx
-                        client-secret: xxx
+                        client-id: ${KAKAO_CLIENT_ID:kakao-client-id}
+                        client-secret: ${KAKAO_CLIENT_SECRET:kakao-client-secret}
                         scope:
                             - profile_nickname
                             - account_email

@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.users.application.service.CreateUserServiceTest",
     "method_id": "createUser"
   },
-  "source_location": "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest.java:61",
+  "source_location": "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest.java:53",
   "framework": {},
   "test_status": "succeeded"
 }

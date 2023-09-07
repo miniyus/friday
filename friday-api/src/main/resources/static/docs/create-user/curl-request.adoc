@@ -1,0 +1,8 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/v1/users' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -H 'Accept: application/json' \
+    -H 'X-CSRF-TOKEN: h5u7Jrud0_gjGZwCjFQwd1JRekdwDX-NgpQt9JRS2J_E24jBtavdQ96rsM0OL64yuHkERGdjVyVIaEigtqUYx_Vh7K31ubr1' \
+    -d '{"email":"miniyu97@gmail.com","password":"password@1234","name":"smyoo","role":"USER"}'
+----

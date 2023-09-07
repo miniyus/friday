@@ -1,0 +1,7 @@
+[source,bash]
+----
+$ echo '{"email":"miniyu97@gmail.com","password":"password@1234","name":"smyoo","role":"USER"}' | http POST 'http://localhost:8080/v1/users' \
+    'Content-Type:application/json;charset=UTF-8' \
+    'Accept:application/json' \
+    'X-CSRF-TOKEN:h5u7Jrud0_gjGZwCjFQwd1JRekdwDX-NgpQt9JRS2J_E24jBtavdQ96rsM0OL64yuHkERGdjVyVIaEigtqUYx_Vh7K31ubr1'
+----
