@@ -51,7 +51,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-				// .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/**")).permitAll()
+				.requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**")).permitAll()
 				.requestMatchers(AntPathRequestMatcher.antMatcher("/signup")).permitAll()
 				.anyRequest().authenticated());
 		// .anyRequest().permitAll());

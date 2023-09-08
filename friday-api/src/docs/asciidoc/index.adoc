@@ -1,5 +1,7 @@
-= REST Docs 문서 만들기 (글의 제목)
-hello(부제)
+= Friday REST Docs
+
+friday REST API documentaion
+
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs // 문서에 표기되는 코드들의 하이라이팅을 highlightjs를 사용
@@ -10,6 +12,6 @@ hello(부제)
 [[users-API]]
 == Users API
 
-[[user-생성]]
-=== User 생성
-operation::user-create[snippets='http-request,path-parameters,http-response,request-body,response-body']
+[[create-user]]
+=== Create user
+operation::create-user[snippets='http-request,http-response,request-body,response-body']
