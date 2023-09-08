@@ -31,9 +31,13 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final ObjectMapper objectMapper;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+    public void onAuthenticationSuccess(
+            HttpServletRequest request,
+            HttpServletResponse response,
             Authentication authentication) throws IOException {
+
         var userDetails = (PrincipalUserInfo) authentication.getPrincipal();
+
         IssueToken tokens = jwtService.issueToken(userDetails.getId());
 
         log.debug("로그인에 성공하였습니다. 이메일 : {}", userDetails.getUsername());

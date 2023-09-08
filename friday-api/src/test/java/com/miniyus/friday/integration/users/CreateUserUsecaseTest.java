@@ -43,7 +43,10 @@ import org.springframework.test.web.servlet.ResultActions;
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-@AutoConfigureRestDocs(uriScheme = "http", uriHost = "localhost", uriPort = 8080,
+@AutoConfigureRestDocs(
+        uriScheme = "http",
+        uriHost = "localhost",
+        uriPort = 8080,
         outputDir = "build/generated-snippets")
 public class CreateUserUsecaseTest {
     @Autowired
@@ -72,7 +75,8 @@ public class CreateUserUsecaseTest {
                 .content(objectMapper.writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
-        result.andExpect(status().isCreated()).andExpect(jsonPath("$.id").value(response.getId()))
+        result.andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(response.getId()))
                 .andExpect(jsonPath("$.email").value(response.getEmail()))
                 .andExpect(jsonPath("$.name").value(response.getName()))
                 .andExpect(jsonPath("$.role").value(response.getRole()))
@@ -80,12 +84,14 @@ public class CreateUserUsecaseTest {
                 .andExpect(jsonPath("$.provider").value(response.getProvider()))
                 .andExpect(jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(jsonPath("$.updatedAt").isNotEmpty())
-                .andDo(MockMvcRestDocumentation.document("create-user", getDocumentRequest(),
+                .andDo(MockMvcRestDocumentation.document(
+                        "create-user",
+                        getDocumentRequest(),
                         getDocumentResponse(),
                         requestFields(fieldWithPath("email").description("이메일"),
                                 fieldWithPath("name").description("이름"),
                                 fieldWithPath("password").description("비밀번호"),
-                                fieldWithPath("role").description("역할").optional()),
+                                fieldWithPath("role").description("역할")),
                         responseFields(fieldWithPath("id").description("user identifier"),
                                 fieldWithPath("email").description("email"),
                                 fieldWithPath("name").description("name"),
