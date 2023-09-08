@@ -14,73 +14,55 @@
                           {
                             "children": [
                               {
-                                "name": "builder",
-                                "type": "function",
-                                "static": true,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "children": [
+                                  {
+                                    "name": "email",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
+                                  },
+                                  {
+                                    "name": "name",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
+                                  },
+                                  {
+                                    "name": "build",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
+                                  },
+                                  {
+                                    "name": "password",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
+                                  }
+                                ],
+                                "name": "PasswordUserInfo$PasswordUserInfoBuilder",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "builder",
+                                    "type": "function",
+                                    "static": true,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
+                                  }
+                                ],
+                                "name": "PasswordUserInfo",
+                                "type": "class"
                               }
                             ],
-                            "name": "UserEntity",
-                            "type": "class"
-                          },
-                          {
-                            "children": [
-                              {
-                                "name": "provider",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "password",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "email",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "build",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "role",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "snsId",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "name",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              }
-                            ],
-                            "name": "UserEntity$UserEntityBuilder",
-                            "type": "class"
+                            "name": "userinfo",
+                            "type": "package"
                           }
                         ],
-                        "name": "entities",
+                        "name": "login",
                         "type": "package"
-                      }
-                    ],
-                    "name": "jpa",
-                    "type": "package"
-                  },
-                  {
-                    "children": [
+                      },
                       {
                         "children": [
                           {
@@ -174,60 +156,6 @@
                       {
                         "children": [
                           {
-                            "children": [
-                              {
-                                "children": [
-                                  {
-                                    "name": "email",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:24"
-                                  },
-                                  {
-                                    "name": "name",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:24"
-                                  },
-                                  {
-                                    "name": "build",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:24"
-                                  },
-                                  {
-                                    "name": "password",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:24"
-                                  }
-                                ],
-                                "name": "PasswordUserInfo$PasswordUserInfoBuilder",
-                                "type": "class"
-                              },
-                              {
-                                "children": [
-                                  {
-                                    "name": "builder",
-                                    "type": "function",
-                                    "static": true,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:24"
-                                  }
-                                ],
-                                "name": "PasswordUserInfo",
-                                "type": "class"
-                              }
-                            ],
-                            "name": "userinfo",
-                            "type": "package"
-                          }
-                        ],
-                        "name": "login",
-                        "type": "package"
-                      },
-                      {
-                        "children": [
-                          {
                             "name": "create",
                             "type": "function",
                             "static": false,
@@ -251,6 +179,78 @@
                       }
                     ],
                     "name": "auth",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "builder",
+                                "type": "function",
+                                "static": true,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              }
+                            ],
+                            "name": "UserEntity",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "provider",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "password",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "email",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "build",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "role",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "snsId",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              },
+                              {
+                                "name": "name",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                              }
+                            ],
+                            "name": "UserEntity$UserEntityBuilder",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "entities",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "jpa",
                     "type": "package"
                   }
                 ],

@@ -3,7 +3,7 @@
   "app": "friday-api",
   "language": {
     "name": "java",
-    "version": "17.0.8+7-LTS",
+    "version": "17.0.8+0",
     "engine": "OpenJDK 64-Bit Server VM"
   },
   "client": {

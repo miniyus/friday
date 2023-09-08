@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1693782680650.5154
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_FridayApplicationTests_contextLoads.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_FridayApplicationTests_contextLoads.appmap.json": {
       "name": "Friday applications context loads",
       "recording": {
         "defined_class": "com.miniyus.friday.FridayApplicationTests",
@@ -451,7 +451,7 @@
       "languages": [
         {
           "name": "java",
-          "version": "17.0.8+7-LTS",
+          "version": "17.0.8+0",
           "engine": "OpenJDK 64-Bit Server VM"
         }
       ],

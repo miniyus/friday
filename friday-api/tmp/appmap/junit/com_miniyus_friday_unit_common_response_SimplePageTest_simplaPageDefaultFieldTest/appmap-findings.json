@@ -41,16 +41,16 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1693782680650.5154
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_common_response_SimplePageTest_simplaPageDefaultFieldTest.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_common_response_SimplePageTest_simplaPageDefaultFieldTest.appmap.json": {
       "name": "Simple page simpla page default field",
       "recording": {
         "defined_class": "com.miniyus.friday.unit.common.response.SimplePageTest",
         "method_id": "simplaPageDefaultFieldTest"
       },
-      "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:35",
+      "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:34",
       "framework": {},
       "test_status": "succeeded"
     }
@@ -451,7 +451,7 @@
       "languages": [
         {
           "name": "java",
-          "version": "17.0.8+7-LTS",
+          "version": "17.0.8+0",
           "engine": "OpenJDK 64-Bit Server VM"
         }
       ],

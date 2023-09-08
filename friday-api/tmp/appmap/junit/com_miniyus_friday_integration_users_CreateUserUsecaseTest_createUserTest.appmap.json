@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.integration.users.CreateUserUsecaseTest",
       "event": "call",
       "id": 1,
-      "lineno": 60,
+      "lineno": 57,
       "method_id": "createUserTest",
       "path": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java",
       "receiver": {
         "class": "com.miniyus.friday.integration.users.CreateUserUsecaseTest",
-        "object_id": 2015445992,
-        "value": "com.miniyus.friday.integration.users.CreateUserUsecaseTest@782143e8"
+        "object_id": 2133955451,
+        "value": "com.miniyus.friday.integration.users.CreateUserUsecaseTest@7f31937b"
       },
       "static": false,
       "thread_id": 1
@@ -26,8 +26,8 @@
           "class": "com.miniyus.friday.users.domain.User",
           "kind": "req",
           "name": "user",
-          "object_id": 1007717381,
-          "value": "com.miniyus.friday.users.domain.User@3c108c05"
+          "object_id": 1670210122,
+          "value": "com.miniyus.friday.users.domain.User@638d624a"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/response/CreateUserResponse.java",
@@ -35,14 +35,14 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0028933,
+      "elapsed": 0.0032857,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse",
-        "object_id": 1818951921,
-        "value": "CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-07T23:52:03.218032, updatedAt=2023-09-07T23:52:03.218038)"
+        "object_id": 2048174950,
+        "value": "CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-08T08:21:21.408726, updatedAt=2023-09-08T08:21:21.408730)"
       },
       "thread_id": 1
     },
@@ -57,13 +57,13 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0018856,
+      "elapsed": 0.0019937,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -79,27 +79,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 809350665,
+          "object_id": 52813883,
           "value": "miniyu97@gmail.com"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0001229,
+      "elapsed": 0.0001613,
       "event": "return",
       "id": 7,
       "parent_id": 6,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -115,27 +115,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 507046070,
+          "object_id": 1808961098,
           "value": "smyoo"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=null, name=smyoo, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000065,
+      "elapsed": 0.0000079,
       "event": "return",
       "id": 9,
       "parent_id": 8,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=null, name=smyoo, role=null)"
       },
       "thread_id": 1
@@ -151,27 +151,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "password",
-          "object_id": 1505490990,
+          "object_id": 90081468,
           "value": "password@1234"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000062,
+      "elapsed": 0.0000072,
       "event": "return",
       "id": 11,
       "parent_id": 10,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=null)"
       },
       "thread_id": 1
@@ -187,27 +187,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1974726426,
+          "object_id": 1413677222,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000072,
+      "elapsed": 0.0000076,
       "event": "return",
       "id": 13,
       "parent_id": 12,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "thread_id": 1
@@ -221,21 +221,21 @@
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest$CreateUserRequestBuilder",
-        "object_id": 2048109909,
+        "object_id": 595363608,
         "value": "CreateUserRequest.CreateUserRequestBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000065,
+      "elapsed": 0.0000074,
       "event": "return",
       "id": 15,
       "parent_id": 14,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest",
-        "object_id": 1138931930,
-        "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@43e2b8da"
+        "object_id": 1276310858,
+        "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@4c12f54a"
       },
       "thread_id": 1
     },
@@ -244,7 +244,7 @@
       "http_server_request": {
         "headers": {
           "Accept": "application/json",
-          "X-CSRF-TOKEN": "JtoNTWREEAJPJLOujlOlXllO5hFG1egjQiRHNdfCpHrs53GhEu9pf10lImRiRtGYvn6RPWp7yylztI0OIRR-B-ehxxndhRSV",
+          "X-CSRF-TOKEN": "kbYrnXxn0MY5qIoEzjXcLKE9kcGmAzCNNHCBBFfQDyD-UfI8oY8S-RkBtKUUmb9lrRjoSMcJvKOfMgagDRTjNGbnaxLGNcoN",
           "Content-Length": "86",
           "Content-Type": "application/json;charset=UTF-8"
         },
@@ -267,22 +267,22 @@
           "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest",
           "kind": "req",
           "name": "request",
-          "object_id": 499085946,
-          "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@1dbf727a"
+          "object_id": 1907565575,
+          "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@71b32407"
         },
         {
           "class": "org.springframework.web.servlet.support.ServletUriComponentsBuilder",
           "kind": "req",
           "name": "uriComponentsBuilder",
-          "object_id": 1107909014,
-          "value": "org.springframework.web.servlet.support.ServletUriComponentsBuilder@42095996"
+          "object_id": 1887123617,
+          "value": "org.springframework.web.servlet.support.ServletUriComponentsBuilder@707b38a1"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/UserController.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.UserController",
-        "object_id": 1551484396,
-        "value": "com.miniyus.friday.users.adapter.in.rest.UserController@5c79c5ec"
+        "object_id": 2018719292,
+        "value": "com.miniyus.friday.users.adapter.in.rest.UserController@7853363c"
       },
       "static": false,
       "thread_id": 1
@@ -296,8 +296,8 @@
       "path": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest",
-        "object_id": 499085946,
-        "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@1dbf727a"
+        "object_id": 1907565575,
+        "value": "com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest@71b32407"
       },
       "static": false,
       "thread_id": 1
@@ -313,13 +313,13 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0035258,
+      "elapsed": 0.0018352,
       "event": "return",
       "id": 20,
       "parent_id": 19,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -335,27 +335,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 1792932386,
+          "object_id": 494769804,
           "value": "miniyu97@gmail.com"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000662,
+      "elapsed": 0.0000265,
       "event": "return",
       "id": 22,
       "parent_id": 21,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -371,27 +371,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "password",
-          "object_id": 122376732,
+          "object_id": 283057972,
           "value": "password@1234"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.00001,
+      "elapsed": 0.0000069,
       "event": "return",
       "id": 24,
       "parent_id": 23,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=null, role=null)"
       },
       "thread_id": 1
@@ -407,27 +407,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 1731160567,
+          "object_id": 1877441175,
           "value": "smyoo"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000069,
+      "elapsed": 0.0000078,
       "event": "return",
       "id": 26,
       "parent_id": 25,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=null)"
       },
       "thread_id": 1
@@ -443,27 +443,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1789861096,
+          "object_id": 1558857633,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000006,
+      "elapsed": 0.0000076,
       "event": "return",
       "id": 28,
       "parent_id": 27,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "thread_id": 1
@@ -477,32 +477,32 @@
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1160316046,
+        "object_id": 1380728404,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000084,
+      "elapsed": 0.0000068,
       "event": "return",
       "id": 30,
       "parent_id": 29,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand",
-        "object_id": 1864820597,
+        "object_id": 760378182,
         "value": "CreateUserCommand(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0037965,
+      "elapsed": 0.0019759,
       "event": "return",
       "id": 31,
       "parent_id": 18,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand",
-        "object_id": 1864820597,
+        "object_id": 760378182,
         "value": "CreateUserCommand(email=miniyu97@gmail.com, password=password@1234, name=smyoo, role=USER)"
       },
       "thread_id": 1
@@ -518,8 +518,8 @@
           "class": "com.miniyus.friday.users.domain.User",
           "kind": "req",
           "name": "user",
-          "object_id": 1007717381,
-          "value": "com.miniyus.friday.users.domain.User@3c108c05"
+          "object_id": 1670210122,
+          "value": "com.miniyus.friday.users.domain.User@638d624a"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/response/CreateUserResponse.java",
@@ -527,31 +527,31 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000804,
+      "elapsed": 0.0000099,
       "event": "return",
       "id": 33,
       "parent_id": 32,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse",
-        "object_id": 1735593387,
-        "value": "CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-07T23:52:03.218032, updatedAt=2023-09-07T23:52:03.218038)"
+        "object_id": 934192727,
+        "value": "CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-08T08:21:21.408726, updatedAt=2023-09-08T08:21:21.408730)"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0058438,
+      "elapsed": 0.0026065,
       "event": "return",
       "id": 34,
       "parent_id": 17,
       "return_value": {
         "class": "org.springframework.http.ResponseEntity",
-        "object_id": 451667801,
-        "value": "<201 CREATED Created,CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-07T23:52:03.218032, updatedAt=2023-09-07T23:52:03.218038),[Location:\"http://localhost:8080/v1/users/1\"]>"
+        "object_id": 1034246552,
+        "value": "<201 CREATED Created,CreateUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-08T08:21:21.408726, updatedAt=2023-09-08T08:21:21.408730),[Location:\"http://localhost:8080/v1/users/1\"]>"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0222726,
+      "elapsed": 0.0168655,
       "event": "return",
       "http_server_response": {
         "headers": {
@@ -571,7 +571,7 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.039771,
+      "elapsed": 0.0357153,
       "event": "return",
       "id": 36,
       "parent_id": 1,
@@ -584,7 +584,7 @@
     "app": "friday-api",
     "language": {
       "name": "java",
-      "version": "17.0.8+7-LTS",
+      "version": "17.0.8+0",
       "engine": "OpenJDK 64-Bit Server VM"
     },
     "client": {
@@ -599,7 +599,7 @@
       "defined_class": "com.miniyus.friday.integration.users.CreateUserUsecaseTest",
       "method_id": "createUserTest"
     },
-    "source_location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:60",
+    "source_location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:57",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -806,7 +806,7 @@
                               "name": "createUserTest",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:60"
+                              "location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:57"
                             }
                           ],
                           "name": "CreateUserUsecaseTest",

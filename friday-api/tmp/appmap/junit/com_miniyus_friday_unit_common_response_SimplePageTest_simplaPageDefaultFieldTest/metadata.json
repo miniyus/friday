@@ -3,7 +3,7 @@
   "app": "friday-api",
   "language": {
     "name": "java",
-    "version": "17.0.8+7-LTS",
+    "version": "17.0.8+0",
     "engine": "OpenJDK 64-Bit Server VM"
   },
   "client": {
@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.common.response.SimplePageTest",
     "method_id": "simplaPageDefaultFieldTest"
   },
-  "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:35",
+  "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:34",
   "framework": {},
   "test_status": "succeeded"
 }

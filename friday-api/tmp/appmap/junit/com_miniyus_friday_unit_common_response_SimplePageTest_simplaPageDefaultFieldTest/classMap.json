@@ -17,7 +17,7 @@
                                 "name": "simplaPageDefaultFieldTest",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:35"
+                                "location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:34"
                               }
                             ],
                             "name": "SimplePageTest",

@@ -3,7 +3,7 @@
   "app": "friday-api",
   "language": {
     "name": "java",
-    "version": "17.0.8+7-LTS",
+    "version": "17.0.8+0",
     "engine": "OpenJDK 64-Bit Server VM"
   },
   "client": {
@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
     "method_id": "createOAuth2User"
   },
-  "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:49",
+  "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61",
   "framework": {},
   "test_status": "succeeded"
 }

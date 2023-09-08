@@ -177,7 +177,7 @@
                             "name": "create",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserService.java:69"
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserService.java:72"
                           }
                         ],
                         "name": "PrincipalUserService",
@@ -287,7 +287,7 @@
                                 "name": "createOAuth2User",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:49"
+                                "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61"
                               }
                             ],
                             "name": "PrincipalUserServiceTest",

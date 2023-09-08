@@ -41,16 +41,16 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1693782680650.5154
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserServiceTest_createOAuth2User.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserServiceTest_createOAuth2User.appmap.json": {
       "name": "Principal user service create o auth 2 user",
       "recording": {
         "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
         "method_id": "createOAuth2User"
       },
-      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:49",
+      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61",
       "framework": {},
       "test_status": "succeeded"
     }
@@ -451,7 +451,7 @@
       "languages": [
         {
           "name": "java",
-          "version": "17.0.8+7-LTS",
+          "version": "17.0.8+0",
           "engine": "OpenJDK 64-Bit Server VM"
         }
       ],

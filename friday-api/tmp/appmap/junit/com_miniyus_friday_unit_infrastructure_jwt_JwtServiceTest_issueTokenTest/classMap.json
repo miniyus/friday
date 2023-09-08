@@ -1,0 +1,224 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "isTokenValid",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:155"
+                          },
+                          {
+                            "name": "createAccessToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:39"
+                          },
+                          {
+                            "name": "extractExpiresAt",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:129"
+                          },
+                          {
+                            "name": "createRefreshToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:55"
+                          },
+                          {
+                            "name": "extractEmail",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:115"
+                          }
+                        ],
+                        "name": "JwtProvider",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "name": "issueToken",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtService.java:63"
+                          }
+                        ],
+                        "name": "JwtService",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "jwt",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "type",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              },
+                              {
+                                "name": "token",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              },
+                              {
+                                "name": "expiresAt",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              },
+                              {
+                                "name": "build",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              }
+                            ],
+                            "name": "AccessTokenEntity$AccessTokenEntityBuilder",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "token",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/RefreshTokenEntity.java:52"
+                              },
+                              {
+                                "name": "type",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/RefreshTokenEntity.java:52"
+                              },
+                              {
+                                "name": "build",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/RefreshTokenEntity.java:52"
+                              },
+                              {
+                                "name": "expiresAt",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/RefreshTokenEntity.java:52"
+                              }
+                            ],
+                            "name": "RefreshTokenEntity$RefreshTokenEntityBuilder",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "builder",
+                                "type": "function",
+                                "static": true,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/RefreshTokenEntity.java:52"
+                              }
+                            ],
+                            "name": "RefreshTokenEntity",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "addRefreshToken",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:71"
+                              },
+                              {
+                                "name": "builder",
+                                "type": "function",
+                                "static": true,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              }
+                            ],
+                            "name": "AccessTokenEntity",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "addAccessToken",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:83"
+                              }
+                            ],
+                            "name": "UserEntity",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "entities",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "jpa",
+                    "type": "package"
+                  }
+                ],
+                "name": "infrastructure",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "issueTokenTest",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/unit/infrastructure/jwt/JwtServiceTest.java:79"
+                              }
+                            ],
+                            "name": "JwtServiceTest",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "jwt",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "infrastructure",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

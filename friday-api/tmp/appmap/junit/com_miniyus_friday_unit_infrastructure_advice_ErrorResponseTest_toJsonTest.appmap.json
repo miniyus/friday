@@ -9,14 +9,14 @@
       "path": "com/miniyus/friday/unit/infrastructure/advice/ErrorResponseTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest",
-        "object_id": 2067426965,
-        "value": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest@7b3a6e95"
+        "object_id": 182203204,
+        "value": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest@adc3344"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0215216,
+      "elapsed": 0.0031694,
       "event": "return",
       "id": 2,
       "parent_id": 1,
@@ -29,7 +29,7 @@
     "app": "friday-api",
     "language": {
       "name": "java",
-      "version": "17.0.8+7-LTS",
+      "version": "17.0.8+0",
       "engine": "OpenJDK 64-Bit Server VM"
     },
     "client": {

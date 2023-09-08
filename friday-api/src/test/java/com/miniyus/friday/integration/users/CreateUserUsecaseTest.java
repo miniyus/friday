@@ -36,7 +36,6 @@ import com.miniyus.friday.users.domain.User;
  * @author miniyus
  * @date 2023/09/07
  */
-@ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = UserController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureMockMvc

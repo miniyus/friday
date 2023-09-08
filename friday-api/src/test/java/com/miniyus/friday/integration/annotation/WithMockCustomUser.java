@@ -15,9 +15,22 @@ import com.miniyus.friday.infrastructure.auth.UserRole;
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithMockCustomUserSecurityContextFactory.class)
 public @interface WithMockCustomUser {
+
+    /**
+     * 
+     * @return username
+     */
     String username() default "username";
 
+    /**
+     * 
+     * @return name
+     */
     String name() default "name";
 
+    /**
+     * 
+     * @return role
+     */
     UserRole role() default UserRole.USER;
 }

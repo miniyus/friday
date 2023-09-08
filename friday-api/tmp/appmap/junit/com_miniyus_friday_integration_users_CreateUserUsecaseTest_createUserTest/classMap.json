@@ -201,7 +201,7 @@
                             "name": "createUserTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:60"
+                            "location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:57"
                           }
                         ],
                         "name": "CreateUserUsecaseTest",

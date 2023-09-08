@@ -1,0 +1,161 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 103,
+      "method_id": "extractEmailTest",
+      "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
+        "object_id": 74503297,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@470d481"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+      "event": "call",
+      "id": 2,
+      "lineno": 115,
+      "method_id": "extractEmail",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "accessToken",
+          "object_id": 530101930,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDEzMjE3MSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.OX3GeZ8mu6QfQwrFDgHzR9eRYHM7GdCOmLtCBUhCrE0iN2eNt5wXunNRmTRqfbNP9onnjr92dSiTOoU8831XSw"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
+        "object_id": 2110988176,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@7dd31f90"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000267,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "return_value": {
+        "class": "java.util.Optional",
+        "object_id": 525866683,
+        "value": "Optional[miniyus@gmail.com]"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000345,
+      "event": "return",
+      "id": 4,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "Jwt provider extract email",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+0",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
+      "method_id": "extractEmailTest"
+    },
+    "source_location": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java:103",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "extractEmail",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java:115"
+                            }
+                          ],
+                          "name": "JwtProvider",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "jwt",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "name": "extractEmailTest",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java:103"
+                                }
+                              ],
+                              "name": "JwtProviderTest",
+                              "type": "class"
+                            }
+                          ],
+                          "name": "jwt",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "infrastructure",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "unit",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}
