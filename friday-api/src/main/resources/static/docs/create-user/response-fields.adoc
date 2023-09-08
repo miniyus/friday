@@ -1,45 +1,29 @@
-[cols="5,3,5,5"]
-===== Response Data Fields
+===== Request Fields
 |===
-|필드명|타입|양식|설명
-
-|`+id+`
-|`+Number+`
-|
-|user identifier
+|필드명|타입|필수값|양식|설명
 
 |`+email+`
 |`+String+`
+|true
 |
-|email
+|이메일
 
 |`+name+`
 |`+String+`
+|true
 |
-|name
+|이름
+
+|`+password+`
+|`+String+`
+|true
+|
+|비밀번호
 
 |`+role+`
 |`+String+`
 |
-|role
-
-|`+snsId+`
-|`+Null+`
 |
-|snsId
+|역할
 
-|`+provider+`
-|`+Null+`
-|
-|provider
-
-|`+createdAt+`
-|`+String+`
-|
-|createdAt
-
-|`+updatedAt+`
-|`+String+`
-|
-|updatedAt
-
+|===
