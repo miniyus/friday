@@ -464,7 +464,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 107
-X-CSRF-TOKEN: mguovHuMX91wCNm9wlRVULvVoj5QFcyD6Us6r3sEf2kNil0BrT2cjhjoZ7lda-uLoXlhYonsjwdiJ66uii4Dmx89Sl09vm01
+X-CSRF-TOKEN: c-mMUXHTXOQYYcQEZUxyvqHFHkJ61Rmn9BsbLd5g3GoQJKXjEtC9ZkfqPtU1UPIxBmFG2MOjM3tLtn2KzCN9He8C6AhzRpDR
 Host: localhost:8080
 
 {
@@ -498,10 +498,64 @@ Content-Length: 218
   "role" : "USER",
   "snsId" : null,
   "provider" : null,
-  "createdAt" : "2023-09-08T13:25:58.889716",
-  "updatedAt" : "2023-09-08T13:25:58.889727"
+  "createdAt" : "2023-09-08T20:31:58.594032",
+  "updatedAt" : "2023-09-08T20:31:58.594044"
 }</code></pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="create-user_request_fields"><a class="link" href="#create-user_request_fields">Request fields</a></h4>
+<div class="sect4">
+<h5 id="_request_fields"><a class="link" href="#_request_fields">Request Fields</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">필수값</th>
+<th class="tableblock halign-left valign-top">양식</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">역할</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect3">
@@ -518,20 +572,90 @@ Content-Length: 218
 </div>
 </div>
 <div class="sect3">
-<h4 id="create-user_response_body"><a class="link" href="#create-user_response_body">Response body</a></h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-json" data-lang="json">{
+<h4 id="create-user_response_fields"><a class="link" href="#create-user_response_fields">Response fields</a></h4>
+<div class="sect4">
+<h5 id="_response_data_fields"><a class="link" href="#_response_data_fields">Response Data Fields</a></h5>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">필드명</th>
+<th class="tableblock halign-left valign-top">타입</th>
+<th class="tableblock halign-left valign-top">양식</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user identifier</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">role</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snsId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">snsId</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>provider</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>updatedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">updatedAt</p>
+<p class="tableblock"><a id="create-user_response_body"></a>
+== Response body</p>
+<p class="tableblock">[source,json,options="nowrap"]
+----
+{
   "id" : 1,
-  "email" : "miniyu97@gmail.com",
+  "email" : "<a href="mailto:miniyu97@gmail.com">miniyu97@gmail.com</a>",
   "name" : "smyoo",
   "role" : "USER",
   "snsId" : null,
   "provider" : null,
-  "createdAt" : "2023-09-08T13:25:58.889716",
-  "updatedAt" : "2023-09-08T13:25:58.889727"
-}</code></pre>
-</div>
+  "createdAt" : "2023-09-08T20:31:58.594032",
+  "updatedAt" : "2023-09-08T20:31:58.594044"
+}
+----</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -541,7 +665,7 @@ Content-Length: 218
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-09-08 11:52:32 +0900
+Last updated 2023-09-08 19:49:48 +0900
 </div>
 </div>
 </body>

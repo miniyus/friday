@@ -1,4 +1,13 @@
 [source,json,options="nowrap"]
 ----
-{"id":1,"email":"miniyu97@gmail.com","name":"smyoo","role":"USER","snsId":null,"provider":null,"createdAt":"2023-09-08T00:50:20.804961","updatedAt":"2023-09-08T00:50:20.804972"}
+{
+  "id" : 1,
+  "email" : "miniyu97@gmail.com",
+  "name" : "smyoo",
+  "role" : "USER",
+  "snsId" : null,
+  "provider" : null,
+  "createdAt" : "2023-09-08T20:30:48.964235",
+  "updatedAt" : "2023-09-08T20:30:48.964247"
+}
 ----

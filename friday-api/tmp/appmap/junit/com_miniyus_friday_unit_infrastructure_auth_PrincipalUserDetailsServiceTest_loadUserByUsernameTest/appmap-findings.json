@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693782680650.5154
+    "timestampMs": 1693615970889.4014
   },
   "appMapMetadata": {
-    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserDetailsServiceTest_loadUserByUsernameTest.appmap.json": {
+    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserDetailsServiceTest_loadUserByUsernameTest.appmap.json": {
       "name": "Principal user details service load user by username",
       "recording": {
         "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserDetailsServiceTest",

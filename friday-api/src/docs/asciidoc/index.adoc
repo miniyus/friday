@@ -14,4 +14,4 @@ friday REST API documentaion
 
 [[create-user]]
 === Create user
-operation::create-user[snippets='http-request,http-response,request-body,response-body']
+operation::create-user[snippets='http-request,http-response,request-fields,request-body,response-fields,response-body']
