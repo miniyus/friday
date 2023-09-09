@@ -451,7 +451,7 @@
       "languages": [
         {
           "name": "java",
-          "version": "17.0.8+0",
+          "version": "17.0.8+7-LTS",
           "engine": "OpenJDK 64-Bit Server VM"
         }
       ],

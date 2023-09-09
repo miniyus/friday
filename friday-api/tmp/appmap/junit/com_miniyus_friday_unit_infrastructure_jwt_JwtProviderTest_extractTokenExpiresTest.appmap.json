@@ -9,8 +9,8 @@
       "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
-        "object_id": 2026159779,
-        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@78c4bea3"
+        "object_id": 204042925,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@c2972ad"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "accessToken",
-          "object_id": 2105626052,
-          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDEzMjE3MSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.OX3GeZ8mu6QfQwrFDgHzR9eRYHM7GdCOmLtCBUhCrE0iN2eNt5wXunNRmTRqfbNP9onnjr92dSiTOoU8831XSw"
+          "object_id": 804953376,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDI2MDI3NCwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.wt91mZxCVGUQOI4J2zCQXJktKkEZHhFMuDNFAxMRsLOwVRL5UIrCFKpPF6IANmw37K85LfYfexi13UouXKMTdw"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 573795063,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@22336af7"
+        "object_id": 409267110,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@1864eba6"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000026,
+      "elapsed": 0.0000388,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.util.Optional",
-        "object_id": 277496092,
-        "value": "Optional[Fri Sep 08 09:16:11 KST 2023]"
+        "object_id": 559882963,
+        "value": "Optional[Sat Sep 09 20:51:14 KST 2023]"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000329,
+      "elapsed": 0.0000475,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -65,7 +65,7 @@
     "app": "friday-api",
     "language": {
       "name": "java",
-      "version": "17.0.8+0",
+      "version": "17.0.8+7-LTS",
       "engine": "OpenJDK 64-Bit Server VM"
     },
     "client": {

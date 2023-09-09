@@ -1,0 +1,108 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "fromDomain",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/response/RetrieveUserResponse.java:21"
+                                      }
+                                    ],
+                                    "name": "RetrieveUserResponse",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "response",
+                                "type": "package"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "retrieveUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:86"
+                                  }
+                                ],
+                                "name": "UserController",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "rest",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "in",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "retrieveUserTest",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:137"
+                          }
+                        ],
+                        "name": "UserControllerTest",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "GET /v1/users/{id}"
+      }
+    ]
+  }
+]

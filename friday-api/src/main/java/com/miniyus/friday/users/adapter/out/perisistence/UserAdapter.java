@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
-import com.miniyus.friday.users.application.port.out.ReadUserPort;
+import com.miniyus.friday.users.application.port.out.DeleteUserPort;
+import com.miniyus.friday.users.application.port.out.RetrieveUserPort;
+import com.miniyus.friday.users.application.port.out.UpdateUserPort;
 import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.users.domain.User.SearchUser;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,8 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Component
-public class UserAdapter implements CreateUserPort, ReadUserPort {
+public class UserAdapter
+        implements CreateUserPort, RetrieveUserPort, UpdateUserPort, DeleteUserPort {
     private final UserRepository userRepository;
 
     @Override
@@ -57,6 +60,25 @@ public class UserAdapter implements CreateUserPort, ReadUserPort {
     @Override
     public User findById(Long id) {
         return UserMapper.toDomain(userRepository.findById(id).orElse(null));
+    }
+
+    private User save(User user) {
+        return UserMapper.toDomain(userRepository.save(UserMapper.toEntity(user)));
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return this.save(user);
+    }
+
+    @Override
+    public User resetPassword(User user) {
+        return this.save(user);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
 }

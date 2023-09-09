@@ -1,8 +1,6 @@
 package com.miniyus.friday.infrastructure.auth.login.userinfo;
 
 import com.miniyus.friday.infrastructure.auth.UserRole;
-
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,9 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.miniyus.friday.common.validation.annotation.Enum;
 
 /**

@@ -4,19 +4,19 @@
       "defined_class": "com.miniyus.friday.unit.common.response.SimplePageTest",
       "event": "call",
       "id": 1,
-      "lineno": 34,
+      "lineno": 35,
       "method_id": "simplaPageDefaultFieldTest",
       "path": "com/miniyus/friday/unit/common/response/SimplePageTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.common.response.SimplePageTest",
-        "object_id": 1655397987,
-        "value": "com.miniyus.friday.unit.common.response.SimplePageTest@62ab5e63"
+        "object_id": 622946713,
+        "value": "com.miniyus.friday.unit.common.response.SimplePageTest@25216999"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0189235,
+      "elapsed": 0.0184534,
       "event": "return",
       "id": 2,
       "parent_id": 1,
@@ -29,7 +29,7 @@
     "app": "friday-api",
     "language": {
       "name": "java",
-      "version": "17.0.8+0",
+      "version": "17.0.8+7-LTS",
       "engine": "OpenJDK 64-Bit Server VM"
     },
     "client": {
@@ -44,7 +44,7 @@
       "defined_class": "com.miniyus.friday.unit.common.response.SimplePageTest",
       "method_id": "simplaPageDefaultFieldTest"
     },
-    "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:34",
+    "source_location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:35",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -67,7 +67,7 @@
                                   "name": "simplaPageDefaultFieldTest",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:34"
+                                  "location": "com/miniyus/friday/unit/common/response/SimplePageTest.java:35"
                                 }
                               ],
                               "name": "SimplePageTest",

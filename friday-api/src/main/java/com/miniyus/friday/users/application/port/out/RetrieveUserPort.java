@@ -12,7 +12,7 @@ import com.miniyus.friday.users.domain.User.SearchUser;
  * @author miniyus
  * @date 2023/09/06
  */
-public interface ReadUserPort {
+public interface RetrieveUserPort {
     Collection<User> findAll();
 
     Page<User> findAll(Pageable pageable);

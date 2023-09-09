@@ -1,8 +1,6 @@
 package com.miniyus.friday.infrastructure.auth.oauth2.handler;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.AuthenticationException;

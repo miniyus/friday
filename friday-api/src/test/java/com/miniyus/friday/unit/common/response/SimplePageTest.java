@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.ActiveProfiles;
 import com.miniyus.friday.common.response.SimplePage;
@@ -67,16 +69,13 @@ public class SimplePageTest {
         var details = new ArrayList<Map<String, String>>();
         details.add(detail);
 
-        var sort = new ArrayList<String>();
-
-        SimplePage<Map<String, String>> tsetResponse = new SimplePage<Map<String, String>>(
-                details,
-                1L,
-                1,
-                1,
-                10,
-                sort,
-                "custom");
+        var page = PageRequest.of(1, 10, Sort.by("field1"));
+        SimplePage<Map<String, String>> tsetResponse =
+                new SimplePage<Map<String, String>>(
+                        details,
+                        1L,
+                        page,
+                        "custom");
 
         assertThat(json.write(tsetResponse))
                 .hasJsonPathNumberValue("@.totalElements")

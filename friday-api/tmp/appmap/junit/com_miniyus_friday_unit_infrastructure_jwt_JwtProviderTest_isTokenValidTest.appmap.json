@@ -9,8 +9,8 @@
       "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
-        "object_id": 420861094,
-        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@1915d4a6"
+        "object_id": 1368955026,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@51989892"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "token",
-          "object_id": 367911246,
+          "object_id": 413776276,
           "value": "I'm a Token"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 136369669,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@820d605"
+        "object_id": 229662478,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@db05f0e"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0001232,
+      "elapsed": 0.0004609,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.lang.Boolean",
-        "object_id": 14408802,
+        "object_id": 1933372753,
         "value": "false"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0001832,
+      "elapsed": 0.0004952,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -65,7 +65,7 @@
     "app": "friday-api",
     "language": {
       "name": "java",
-      "version": "17.0.8+0",
+      "version": "17.0.8+7-LTS",
       "engine": "OpenJDK 64-Bit Server VM"
     },
     "client": {

@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "GET /v1/users/{id}",
+    "callee": "com/miniyus"
+  },
+  {
+    "caller": "com/miniyus",
+    "callee": "GET /v1/users/{id}"
+  }
+]

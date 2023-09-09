@@ -105,7 +105,7 @@
                             "name": "loadUserByUsername",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserDetailsService.java:76"
+                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserDetailsService.java:77"
                           }
                         ],
                         "name": "PrincipalUserDetailsService",

@@ -49,25 +49,23 @@ public class SimplePage<T> extends PageImpl<T> {
         this.resource.put("resources", content);
     }
 
-    @JsonCreator
     public SimplePage(
             final List<T> content,
-            @JsonProperty("totalElements") final long totalElements,
-            @JsonProperty("totalPages") final int totalPages,
-            @JsonProperty("page") final int page,
-            @JsonProperty("size") final int size,
-            @JsonProperty("sort") final List<String> sort,
+            final long totalElements,
+            final Pageable pageable,
             final String resourceFieldName) {
-        super(content, PageRequest.of(page, size, Sort.by(sort.stream()
-                .map(el -> el.split(","))
-                .map(ar -> new Sort.Order(Sort.Direction.fromString(ar[1]), ar[0]))
-                .collect(Collectors.toList()))), totalElements);
+        super(content, pageable, totalElements);
         this.resource = new HashMap<String, List<T>>();
         this.resource.put(resourceFieldName, content);
     }
 
-    public SimplePage(final List<T> content, final long totalElements, final Pageable pageable) {
+    public SimplePage(
+            final List<T> content,
+            final long totalElements,
+            final Pageable pageable) {
         super(content, pageable, totalElements);
+        this.resource = new HashMap<String, List<T>>();
+        this.resource.put("resources", content);
     }
 
     public int getPage() {
@@ -84,5 +82,9 @@ public class SimplePage<T> extends PageImpl<T> {
     @JsonAnyGetter
     public Map<String, List<T>> getResource() {
         return resource;
+    }
+
+    public static <R, T> SimplePageBuilder<R, T> builder() {
+        return new SimplePageBuilder<R, T>();
     }
 }

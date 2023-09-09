@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
-import com.miniyus.friday.users.application.service.CreateUserService;
+import com.miniyus.friday.users.application.service.UserService;
 import com.miniyus.friday.users.domain.User;
 
 /**
@@ -22,12 +22,12 @@ import com.miniyus.friday.users.domain.User;
  * @date 2023/09/06
  */
 @ExtendWith(MockitoExtension.class)
-public class CreateUserServiceTest {
+public class UserServiceTest {
     @Mock
     private CreateUserPort createUserPort;
 
     @InjectMocks
-    private CreateUserService createUserService;
+    private UserService createUserService;
 
     private CreateUserCommand createUserCommand;
 

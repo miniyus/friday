@@ -1,0 +1,4 @@
+[
+  "com/miniyus/friday/users/adapter/in/rest/UserController",
+  "com/miniyus/friday/users/adapter/in/rest/response/RetrieveUserResponse"
+]

@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.miniyus.friday.infrastructure.auth.CustomUserDetailsService;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.auth.login.userinfo.PasswordUserInfo;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.jwt.config.JwtConfiguration;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 

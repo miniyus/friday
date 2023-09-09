@@ -12,84 +12,6 @@
                       {
                         "children": [
                           {
-                            "children": [
-                              {
-                                "children": [
-                                  {
-                                    "name": "email",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  },
-                                  {
-                                    "name": "name",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  },
-                                  {
-                                    "name": "build",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  },
-                                  {
-                                    "name": "role",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  },
-                                  {
-                                    "name": "password",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  }
-                                ],
-                                "name": "PasswordUserInfo$PasswordUserInfoBuilder",
-                                "type": "class"
-                              },
-                              {
-                                "children": [
-                                  {
-                                    "name": "encodePassword",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:47"
-                                  },
-                                  {
-                                    "name": "builder",
-                                    "type": "function",
-                                    "static": true,
-                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:27"
-                                  }
-                                ],
-                                "name": "PasswordUserInfo",
-                                "type": "class"
-                              }
-                            ],
-                            "name": "userinfo",
-                            "type": "package"
-                          },
-                          {
-                            "children": [
-                              {
-                                "name": "signup",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/auth/login/SignupController.java:51"
-                              }
-                            ],
-                            "name": "SignupController",
-                            "type": "class"
-                          }
-                        ],
-                        "name": "login",
-                        "type": "package"
-                      },
-                      {
-                        "children": [
-                          {
                             "name": "snsId",
                             "type": "function",
                             "static": false,
@@ -176,6 +98,84 @@
                         ],
                         "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
                         "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "email",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  },
+                                  {
+                                    "name": "name",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  },
+                                  {
+                                    "name": "build",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  },
+                                  {
+                                    "name": "password",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  },
+                                  {
+                                    "name": "role",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  }
+                                ],
+                                "name": "PasswordUserInfo$PasswordUserInfoBuilder",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "encodePassword",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:43"
+                                  },
+                                  {
+                                    "name": "builder",
+                                    "type": "function",
+                                    "static": true,
+                                    "location": "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo.java:23"
+                                  }
+                                ],
+                                "name": "PasswordUserInfo",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "userinfo",
+                            "type": "package"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "signup",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/auth/login/SignupController.java:48"
+                              }
+                            ],
+                            "name": "SignupController",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "login",
+                        "type": "package"
                       },
                       {
                         "children": [
@@ -295,7 +295,7 @@
                                     "name": "signupTest",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:78"
+                                    "location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:77"
                                   }
                                 ],
                                 "name": "SignupControllerTest",

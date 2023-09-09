@@ -20,6 +20,9 @@ import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserUsecase;
+import com.miniyus.friday.users.application.port.in.usecase.DeleteUserUsecase;
+import com.miniyus.friday.users.application.port.in.usecase.UpdateUserUsecase;
+import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.domain.User;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
@@ -50,7 +53,7 @@ import org.springframework.test.web.servlet.ResultActions;
         uriHost = "localhost",
         uriPort = 8080,
         outputDir = "build/generated-snippets")
-public class CreateUserUsecaseTest {
+public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -60,11 +63,29 @@ public class CreateUserUsecaseTest {
     @MockBean
     private CreateUserUsecase createUserUsecase;
 
+    @MockBean
+    private RetrieveUserQuery retrieveUserQuery;
+
+    @MockBean
+    private UpdateUserUsecase updateUserUsecase;
+
+    @MockBean
+    private DeleteUserUsecase deleteUserUsecase;
+
     @Test
     @WithMockCustomUser(username = "testser@gmail.com", role = UserRole.USER)
     public void createUserTest() throws Exception {
-        User domain = new User(1L, "miniyu97@gmail.com", "password@1234", "smyoo", "USER", null,
-                null, LocalDateTime.now(), LocalDateTime.now(), null);
+        User domain = new User(
+                1L,
+                "miniyu97@gmail.com",
+                "password@1234",
+                "smyoo",
+                "USER",
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null);
 
         when(createUserUsecase.createUser(any(CreateUserCommand.class))).thenReturn(domain);
 
@@ -99,6 +120,55 @@ public class CreateUserUsecaseTest {
                                 fieldWithPath("name").description("이름"),
                                 fieldWithPath("password").description("비밀번호"),
                                 fieldWithPath("role").description("역할")),
+                        responseFields(
+                                fieldWithPath("id").description("user identifier"),
+                                fieldWithPath("email").description("email"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("role").description("role"),
+                                fieldWithPath("snsId").description("snsId"),
+                                fieldWithPath("provider").description("provider"),
+                                fieldWithPath("createdAt").description("createdAt"),
+                                fieldWithPath("updatedAt").description("updatedAt"))));
+    }
+
+    @Test
+    @WithMockCustomUser(username = "miniyus@gmail.com", role = UserRole.USER)
+    void retrieveUserTest() throws Exception {
+        User domain = new User(
+                1L,
+                "miniyu97@gmail.com",
+                "password@1234",
+                "smyoo",
+                "USER",
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null);
+
+        when(retrieveUserQuery.findById(1L)).thenReturn(domain);
+
+        var result = mockMvc.perform(
+                get("/v1/users/1")
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer {access-token}")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(domain.getId()))
+                .andExpect(jsonPath("$.name").value(domain.getName()))
+                .andExpect(jsonPath("$.email").value(domain.getEmail()))
+                .andExpect(jsonPath("$.role").value(domain.getRole()))
+                .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
+                .andExpect(jsonPath("$.createdAt").isNotEmpty())
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+                .andDo(MockMvcRestDocumentation.document(
+                        "retrieve-user",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("인증 토큰")),
                         responseFields(
                                 fieldWithPath("id").description("user identifier"),
                                 fieldWithPath("email").description("email"),

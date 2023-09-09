@@ -3,7 +3,7 @@
   "app": "friday-api",
   "language": {
     "name": "java",
-    "version": "17.0.8+0",
+    "version": "17.0.8+7-LTS",
     "engine": "OpenJDK 64-Bit Server VM"
   },
   "client": {
@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.FridayApplicationTests",
     "method_id": "contextLoads"
   },
-  "source_location": "com/miniyus/friday/FridayApplicationTests.java:14",
+  "source_location": "com/miniyus/friday/FridayApplicationTests.java:13",
   "framework": {},
   "test_status": "succeeded"
 }

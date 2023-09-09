@@ -1,7 +1,6 @@
 package com.miniyus.friday.infrastructure.auth.oauth2.handler;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import com.miniyus.friday.common.error.AuthErrorCode;

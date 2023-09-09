@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.integration.infrastructure.auth.login.SignupControllerTest",
         "method_id": "signupTest"
       },
-      "source_location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:78",
+      "source_location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:77",
       "framework": {},
       "test_status": "succeeded"
     }

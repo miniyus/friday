@@ -13,7 +13,7 @@ import lombok.Value;
  */
 @Value
 @Builder
-public class ReadUserCommand {
+public class RetrieveUserCommand {
     private String email;
     private String name;
     private LocalDateTime createdAtStart;
