@@ -4,6 +4,8 @@ import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentRequest;
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
+import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -71,7 +73,9 @@ public class CreateUserUsecaseTest {
         CreateUserRequest request = CreateUserRequest.builder().email("miniyu97@gmail.com")
                 .name("smyoo").password("password@1234").role(UserRole.USER.getValue()).build();
 
-        ResultActions result = this.mockMvc.perform(post("/v1/users").with(csrf().asHeader())
+        ResultActions result = this.mockMvc.perform(post("/v1/users")
+                .with(csrf().asHeader())
+                .header("Authorization", "Bearer {access-token}")
                 .content(objectMapper.writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON));
 
@@ -88,11 +92,15 @@ public class CreateUserUsecaseTest {
                         "create-user",
                         getDocumentRequest(),
                         getDocumentResponse(),
-                        requestFields(fieldWithPath("email").description("이메일"),
+                        requestHeaders(
+                                headerWithName("Authorization").description("인증 토큰")),
+                        requestFields(
+                                fieldWithPath("email").description("이메일"),
                                 fieldWithPath("name").description("이름"),
                                 fieldWithPath("password").description("비밀번호"),
                                 fieldWithPath("role").description("역할")),
-                        responseFields(fieldWithPath("id").description("user identifier"),
+                        responseFields(
+                                fieldWithPath("id").description("user identifier"),
                                 fieldWithPath("email").description("email"),
                                 fieldWithPath("name").description("name"),
                                 fieldWithPath("role").description("role"),

@@ -1,9 +1,0 @@
-[source,json,options="nowrap"]
-----
-{
-  "email" : "miniyu97@gmail.com",
-  "password" : "password@1234",
-  "name" : "smyoo",
-  "role" : "USER"
-}
-----

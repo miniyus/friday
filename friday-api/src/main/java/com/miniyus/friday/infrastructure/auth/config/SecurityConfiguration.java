@@ -38,91 +38,92 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-	private final PrincipalUserService userService;
-	private final PrincipalUserDetailsService userDetailsService;
-	private final OAuth2SuccessHandler successHandler;
-	private final OAuth2FailureHandler failureHandler;
-	private final OAuth2AuthenticationEntryPoint authenticationEntryPoint;
-	private final OAuth2AccessDeniedHandler accessDeniedHandler;
-	private final ObjectMapper objectMapper;
-	private final JwtService jwtService;
+    private final PrincipalUserService userService;
+    private final PrincipalUserDetailsService userDetailsService;
+    private final OAuth2SuccessHandler successHandler;
+    private final OAuth2FailureHandler failureHandler;
+    private final OAuth2AuthenticationEntryPoint authenticationEntryPoint;
+    private final OAuth2AccessDeniedHandler accessDeniedHandler;
+    private final ObjectMapper objectMapper;
+    private final JwtService jwtService;
 
-	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**")).permitAll()
-				.requestMatchers(AntPathRequestMatcher.antMatcher("/signup")).permitAll()
-				.anyRequest().authenticated());
-		// .anyRequest().permitAll());
-		http.formLogin(form -> form.disable());
-		http.httpBasic(basic -> basic.disable());
-		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.csrf(csrf -> csrf.disable());
-		http.oauth2Login(oauth2Login -> oauth2Login
-				.authorizationEndpoint(authorization -> authorization
-						.baseUri("/oauth2/authorization"))
-				.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-						.userService(userService))
-				.redirectionEndpoint(redirect -> redirect
-						.baseUri("/oauth2/callback/**"))
-				.successHandler(successHandler)
-				.failureHandler(failureHandler));
-		http.userDetailsService(userDetailsService);
-		http.exceptionHandling(exceptHandling -> exceptHandling
-				.authenticationEntryPoint(authenticationEntryPoint)
-				.accessDeniedHandler(accessDeniedHandler));
-		http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**")).permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/auth/signup")).permitAll()
+                .anyRequest().authenticated());
+        // anyRequest().permitAll());
+        http.formLogin(form -> form.disable());
+        http.httpBasic(basic -> basic.disable());
+        http.sessionManagement(
+                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.csrf(csrf -> csrf.disable());
+        http.oauth2Login(oauth2Login -> oauth2Login
+                .authorizationEndpoint(authorization -> authorization
+                        .baseUri("/oauth2/authorization"))
+                .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+                        .userService(userService))
+                .redirectionEndpoint(redirect -> redirect
+                        .baseUri("/oauth2/callback/**"))
+                .successHandler(successHandler)
+                .failureHandler(failureHandler));
+        http.userDetailsService(userDetailsService);
+        http.exceptionHandling(exceptHandling -> exceptHandling
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .accessDeniedHandler(accessDeniedHandler));
+        http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
 
-		http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
-		http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
-		return http.build();
-	}
+        http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
+        return http.build();
+    }
 
-	@Bean
-	public Filter passwordAuthenticationFilter() {
-		PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
-				objectMapper);
-		loginFilter.setAuthenticationManager(authenticationManager());
-		loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
-		loginFilter.setAuthenticationFailureHandler(loginFailureHandler());
-		return loginFilter;
-	}
+    @Bean
+    public Filter passwordAuthenticationFilter() {
+        PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
+                objectMapper);
+        loginFilter.setAuthenticationManager(authenticationManager());
+        loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+        loginFilter.setAuthenticationFailureHandler(loginFailureHandler());
+        return loginFilter;
+    }
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	public AuthenticationManager authenticationManager() {
-		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-		provider.setPasswordEncoder(passwordEncoder());
-		provider.setUserDetailsService(userDetailsService);
-		return new ProviderManager(provider);
-	}
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setUserDetailsService(userDetailsService);
+        return new ProviderManager(provider);
+    }
 
-	/**
-	 * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
-	 */
-	@Bean
-	public LoginSuccessHandler loginSuccessHandler() {
-		return new LoginSuccessHandler(jwtService, objectMapper);
-	}
+    /**
+     * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+     */
+    @Bean
+    public LoginSuccessHandler loginSuccessHandler() {
+        return new LoginSuccessHandler(jwtService, objectMapper);
+    }
 
-	/**
-	 * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
-	 */
-	@Bean
-	public LoginFailureHandler loginFailureHandler() {
-		return new LoginFailureHandler(objectMapper);
-	}
+    /**
+     * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+     */
+    @Bean
+    public LoginFailureHandler loginFailureHandler() {
+        return new LoginFailureHandler(objectMapper);
+    }
 
-	@Bean
-	public JwtAuthenticationFilter jwtAuthenticationFilter() {
-		return new JwtAuthenticationFilter(
-				jwtService,
-				userDetailsService,
-				objectMapper);
-	}
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter(
+                jwtService,
+                userDetailsService,
+                objectMapper);
+    }
 }

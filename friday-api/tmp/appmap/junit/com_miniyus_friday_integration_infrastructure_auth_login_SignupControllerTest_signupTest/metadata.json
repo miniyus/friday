@@ -1,5 +1,5 @@
 {
-  "name": "Create user usecase create user",
+  "name": "Signup controller signup",
   "app": "friday-api",
   "language": {
     "name": "java",
@@ -15,10 +15,10 @@
     "type": "tests"
   },
   "recording": {
-    "defined_class": "com.miniyus.friday.integration.users.CreateUserUsecaseTest",
-    "method_id": "createUserTest"
+    "defined_class": "com.miniyus.friday.integration.infrastructure.auth.login.SignupControllerTest",
+    "method_id": "signupTest"
   },
-  "source_location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:66",
+  "source_location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:78",
   "framework": {},
   "test_status": "succeeded"
 }

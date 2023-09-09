@@ -27,9 +27,6 @@ import com.miniyus.friday.common.validation.annotation.Enum;
 @Builder
 public class PasswordUserInfo {
 
-    @Nullable
-    private Long id;
-
     @Email
     @NotBlank
     private String email;

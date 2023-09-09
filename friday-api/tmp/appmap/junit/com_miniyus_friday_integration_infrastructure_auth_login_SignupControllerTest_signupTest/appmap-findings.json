@@ -44,13 +44,13 @@
     "timestampMs": 1693615970889.4014
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_users_CreateUserUsecaseTest_createUserTest.appmap.json": {
-      "name": "Create user usecase create user",
+    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_infrastructure_auth_login_SignupControllerTest_signupTest.appmap.json": {
+      "name": "Signup controller signup",
       "recording": {
-        "defined_class": "com.miniyus.friday.integration.users.CreateUserUsecaseTest",
-        "method_id": "createUserTest"
+        "defined_class": "com.miniyus.friday.integration.infrastructure.auth.login.SignupControllerTest",
+        "method_id": "signupTest"
       },
-      "source_location": "com/miniyus/friday/integration/users/CreateUserUsecaseTest.java:66",
+      "source_location": "com/miniyus/friday/integration/infrastructure/auth/login/SignupControllerTest.java:78",
       "framework": {},
       "test_status": "succeeded"
     }

@@ -1,0 +1,7 @@
+[
+  "com/miniyus/friday/common/validation/EnumValidator",
+  "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo",
+  "com/miniyus/friday/infrastructure/auth/login/SignupController",
+  "com/miniyus/friday/infrastructure/auth/login/userinfo/PasswordUserInfo",
+  "com/miniyus/friday/infrastructure/auth/oauth2/OAuth2Provider"
+]

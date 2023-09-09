@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.miniyus.friday.infrastructure.auth.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.auth.login.userinfo.PasswordUserInfo;
@@ -33,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/v1")
 public class SignupController {
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final JwtConfiguration jwtConfiguration;
     private final PasswordEncoder passwordEncoder;
@@ -45,21 +46,18 @@ public class SignupController {
      * @return the principal user info of the newly created user
      */
     @PostMapping("/auth/signup")
-    public ResponseEntity<PrincipalUserInfo> signup(@Valid @RequestBody PasswordUserInfo authentication) {
-        PrincipalUserDetailsService service = (PrincipalUserDetailsService) userDetailsService;
-
+    public ResponseEntity<PrincipalUserInfo> signup(
+            @Valid @RequestBody PasswordUserInfo authentication) {
         authentication.encodePassword(passwordEncoder);
-
-        var user = service.create(authentication);
-
+        var user = userDetailsService.create(authentication);
         return ResponseEntity.created(null).body(user);
     }
 
     /**
      * Retrieves the JWT configuration details.
      *
-     * @return A ResponseEntity containing a map with the access, and
-     *         refresh values of the JWT configuration.
+     * @return A ResponseEntity containing a map with the access, and refresh values of the JWT
+     *         configuration.
      */
     @GetMapping("/auth/jwt-config")
     @PreAuthorize("hasAuthority('USER')")

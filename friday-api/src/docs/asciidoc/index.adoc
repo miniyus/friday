@@ -1,17 +1,51 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
 = Friday REST Docs
-
 friday REST API documentaion
-
 :doctype: book
 :icons: font
-:source-highlighter: highlightjs // 문서에 표기되는 코드들의 하이라이팅을 highlightjs를 사용
-:toc: left // toc (Table Of Contents)를 문서의 좌측에 두기
-:toclevels: 2
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
 :sectlinks:
+
+[[APIs]]
+== APIs
+
+[[auth-API]]
+== Auth API
+
+[[auth-signup]]
+=== signup
+
+==== Request
+include::{snippets}/auth-signup/request-fields.adoc[]
+
+===== Http Request
+include::{snippets}/auth-signup/http-request.adoc[]
+
+==== Response
+include::{snippets}/auth-signup/response-fields.adoc[]
+
+===== Http Response
+include::{snippets}/auth-signup/http-response.adoc[]
 
 [[users-API]]
 == Users API
 
 [[create-user]]
 === Create user
-operation::create-user[snippets='http-request,http-response,request-fields,request-body,response-fields,response-body']
+
+==== Request
+include::{snippets}/create-user/request-headers.adoc[]
+include::{snippets}/create-user/request-fields.adoc[]
+
+===== Http Request
+include::{snippets}/create-user/http-request.adoc[]
+
+==== Response
+include::{snippets}/create-user/response-fields.adoc[]
+
+===== Http Response
+include::{snippets}/create-user/http-response.adoc[]

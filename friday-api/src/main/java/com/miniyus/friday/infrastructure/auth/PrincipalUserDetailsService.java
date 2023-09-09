@@ -23,10 +23,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PrincipalUserDetailsService implements UserDetailsService {
+public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private final UserRepository userRepository;
 
-    private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity, Map<String, Object> attributes) {
+    private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
+            Map<String, Object> attributes) {
         return PrincipalUserInfo.builder()
                 .id(entity.getId())
                 .snsId(entity.getSnsId())
@@ -57,6 +58,7 @@ public class PrincipalUserDetailsService implements UserDetailsService {
         return authorities;
     };
 
+    @Override
     public PrincipalUserInfo create(PasswordUserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
                 .snsId(null)

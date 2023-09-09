@@ -1,0 +1,7 @@
+[
+  "com/miniyus/friday/common/validation",
+  "com/miniyus/friday/infrastructure/auth",
+  "com/miniyus/friday/infrastructure/auth/login",
+  "com/miniyus/friday/infrastructure/auth/login/userinfo",
+  "com/miniyus/friday/infrastructure/auth/oauth2"
+]

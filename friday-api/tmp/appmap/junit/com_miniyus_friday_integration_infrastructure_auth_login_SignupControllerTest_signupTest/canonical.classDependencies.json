@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "POST /v1/auth/signup",
+    "callee": "com/miniyus"
+  },
+  {
+    "caller": "com/miniyus",
+    "callee": "POST /v1/auth/signup"
+  }
+]
