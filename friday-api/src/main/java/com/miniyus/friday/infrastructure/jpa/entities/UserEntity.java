@@ -1,16 +1,13 @@
 package com.miniyus.friday.infrastructure.jpa.entities;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.jpa.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Where(clause = "deleted_at IS NULL")
-@SQLDelete(sql = "UPDATE user SET deleted_at = NOW() WHERE id = ?")
+@SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")
 @Table(name = "auth_user")
 @Getter
 public class UserEntity extends BaseEntity {
@@ -53,9 +50,6 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = true)
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Collection<AccessTokenEntity> accessTokens;
-
     /**
      * @param snsId
      * @param provider
@@ -65,7 +59,8 @@ public class UserEntity extends BaseEntity {
      * @param role
      */
     @Builder
-    public UserEntity(String snsId, String provider, String email, String password, String name, String role) {
+    public UserEntity(String snsId, String provider, String email, String password, String name,
+            String role) {
         this.snsId = snsId;
         this.provider = provider;
         this.email = email;
@@ -75,24 +70,11 @@ public class UserEntity extends BaseEntity {
     }
 
     /**
-     * Adds an access token to the list of access tokens.
-     *
-     * @param accessToken the access token to be added
-     */
-    public void addAccessToken(AccessTokenEntity accessToken) {
-        if (this.accessTokens == null) {
-            this.accessTokens = new java.util.ArrayList<>();
-        }
-
-        this.accessTokens.add(accessToken);
-    }
-
-    /**
      * Updates the password, name, and role of the object.
      *
      * @param password the new password to be set
-     * @param name     the new name to be set
-     * @param role     the new role to be set
+     * @param name the new name to be set
+     * @param role the new role to be set
      */
     public void update(String password, String name, String role) {
         this.password = password;

@@ -1,0 +1,7 @@
+[
+  {
+    "route": "DELETE /v1/users/{id}",
+    "parameters": "()",
+    "status": 204
+  }
+]

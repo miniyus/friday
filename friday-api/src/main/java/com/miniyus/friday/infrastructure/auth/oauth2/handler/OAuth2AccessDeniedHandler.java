@@ -33,11 +33,11 @@ public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
             AccessDeniedException exception) throws IOException, ServletException {
         log.debug("Access Denied: {}", exception.getMessage());
 
-        AuthErrorCode code = AuthErrorCode.ACCESS_DENINED;
+        AuthErrorCode code = AuthErrorCode.ACCESS_DENIED;
         ErrorResponse errorResponse = new ErrorResponse(
                 code,
                 messageSource.getMessage(
-                        "exception.accessDenined",
+                        "exception.accessDenied",
                         null,
                         exception.getLocalizedMessage(),
                         LocaleContextHolder.getLocale()));

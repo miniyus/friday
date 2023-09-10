@@ -72,12 +72,18 @@ spring:
         restart:
             enabled: false
 logging:
+    file:
+        path: logs
+        name: friday-api.log
+    logback:
+        rollingpolicy:
+            file-name-pattern: friday-api-%d{yyyy-MM-dd}.log
     level:
         root: warn
         tomcat: warn
         org.springframework.web: ${LOG_LEVEL}
         com.miniyus.friday: ${LOG_LEVEL}
-        org.hibernate.SQL: error
+        org.hibernate: error
 
 management:
     endpoints:
@@ -88,7 +94,7 @@ jwt:
     secret: ${JWT_SECRET}
     access:
         expiration: 3600
-        header: access_token
+        header: Authorization
     refresh:
         expiration: 36000
         header: refresh_token

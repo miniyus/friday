@@ -9,8 +9,8 @@
       "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
-        "object_id": 1630411682,
-        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@612e1ba2"
+        "object_id": 912071871,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@365d1cbf"
       },
       "static": false,
       "thread_id": 1
@@ -26,28 +26,28 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 1065031099,
+          "object_id": 781975304,
           "value": "miniyus@gmail.com"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 915654064,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@3693c5b0"
+        "object_id": 139777755,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@854d6db"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000324,
+      "elapsed": 0.0000263,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.lang.String",
-        "object_id": 867941534,
-        "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDI2MDI3NCwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.wt91mZxCVGUQOI4J2zCQXJktKkEZHhFMuDNFAxMRsLOwVRL5UIrCFKpPF6IANmw37K85LfYfexi13UouXKMTdw"
+        "object_id": 596081235,
+        "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDMzMTM4OSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.CaCIXzUKYB5ZQICqe5jIdSILktY3o66emgy8gGVZ11H0-i7P6lFFZsohufeAsbvOTVRc-p_XTp-ISAtP0hJ2Jg"
       },
       "thread_id": 1
     },
@@ -62,33 +62,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "token",
-          "object_id": 867941534,
-          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDI2MDI3NCwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.wt91mZxCVGUQOI4J2zCQXJktKkEZHhFMuDNFAxMRsLOwVRL5UIrCFKpPF6IANmw37K85LfYfexi13UouXKMTdw"
+          "object_id": 596081235,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDMzMTM4OSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.CaCIXzUKYB5ZQICqe5jIdSILktY3o66emgy8gGVZ11H0-i7P6lFFZsohufeAsbvOTVRc-p_XTp-ISAtP0hJ2Jg"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 915654064,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@3693c5b0"
+        "object_id": 139777755,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@854d6db"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0002559,
+      "elapsed": 0.0000263,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
         "class": "java.lang.Boolean",
-        "object_id": 469018523,
+        "object_id": 1676763984,
         "value": "true"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0003128,
+      "elapsed": 0.0000635,
       "event": "return",
       "id": 6,
       "parent_id": 1,

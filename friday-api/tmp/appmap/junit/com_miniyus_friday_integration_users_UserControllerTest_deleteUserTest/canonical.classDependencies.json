@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "DELETE /v1/users/{id}",
+    "callee": "com/miniyus"
+  },
+  {
+    "caller": "com/miniyus",
+    "callee": "DELETE /v1/users/{id}"
+  }
+]

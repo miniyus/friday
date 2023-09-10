@@ -1,0 +1,28 @@
+{
+  "name": "User adapter retrieve users",
+  "app": "friday-api",
+  "language": {
+    "name": "java",
+    "version": "17.0.8+7-LTS",
+    "engine": "OpenJDK 64-Bit Server VM"
+  },
+  "client": {
+    "name": "appmap-java",
+    "url": "https://github.com/appland/appmap-java"
+  },
+  "recorder": {
+    "name": "junit",
+    "type": "tests"
+  },
+  "recording": {
+    "defined_class": "com.miniyus.friday.unit.users.adapter.out.perisistence.UserAdapterTest",
+    "method_id": "retrieveUsers"
+  },
+  "source_location": "com/miniyus/friday/unit/users/adapter/out/perisistence/UserAdapterTest.java:69",
+  "framework": {},
+  "test_status": "failed",
+  "exception": {
+    "class": "java.lang.NullPointerException",
+    "message": "Cannot invoke \"com.miniyus.friday.infrastructure.jpa.repositories.UserRepository.findAll()\" because \"this.userRepository\" is null"
+  }
+}

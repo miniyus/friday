@@ -1,0 +1,90 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "deleteUserTest",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:318"
+                          }
+                        ],
+                        "name": "UserControllerTest",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "deleteUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:185"
+                                  }
+                                ],
+                                "name": "UserController",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "rest",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "in",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "DELETE /v1/users/{id}"
+      }
+    ]
+  }
+]

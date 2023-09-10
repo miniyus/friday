@@ -11,7 +11,7 @@
                     "name": "contextLoads",
                     "type": "function",
                     "static": false,
-                    "location": "com/miniyus/friday/FridayApplicationTests.java:13"
+                    "location": "com/miniyus/friday/FridayApplicationTests.java:18"
                   }
                 ],
                 "name": "FridayApplicationTests",

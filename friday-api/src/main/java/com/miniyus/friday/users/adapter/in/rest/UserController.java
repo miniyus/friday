@@ -15,24 +15,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.miniyus.friday.common.hexagon.annotation.WebAdapter;
 import com.miniyus.friday.common.response.SimplePage;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse;
 import com.miniyus.friday.users.adapter.in.rest.response.RetrieveUserResponse;
 import com.miniyus.friday.users.adapter.in.rest.response.UpdateUserResponse;
+import com.miniyus.friday.users.application.port.in.query.RetrieveUserCommand;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.users.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.users.application.port.in.usecase.UpdateUserUsecase;
 import com.miniyus.friday.users.domain.User;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
 /**
  * [description]
@@ -44,7 +48,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/users")
-@PreAuthorize("hasAuthority('USER')")
+@Slf4j
 public class UserController {
     private final CreateUserUsecase createUserUsecase;
     private final RetrieveUserQuery readUserQuery;
@@ -59,6 +63,7 @@ public class UserController {
      * @return the ResponseEntity containing the createUser response
      */
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CreateUserResponse> createUser(
             @Valid @RequestBody CreateUserRequest request,
             UriComponentsBuilder uriComponentsBuilder) {
@@ -81,6 +86,7 @@ public class UserController {
      * @return the ResponseEntity containing the RetrieveUserResponse
      */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
     public ResponseEntity<RetrieveUserResponse> retrieveUser(
             @PathVariable Long id) {
         User read = readUserQuery.findById(id);
@@ -98,13 +104,27 @@ public class UserController {
      * @return a ResponseEntity containing a SimplePage of RetrieveUserResponse objects
      */
     @GetMapping("")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SimplePage<RetrieveUserResponse>> retrieveUsers(
-            @RequestParam @Valid RetrieveUserRequest request,
-            @PageableDefault(page = 1, size = 10, sort = "createdAt",
+            @RequestParam(required = false) @Valid RetrieveUserRequest request,
+            @PageableDefault(
+                    page = 1,
+                    size = 10,
+                    sort = "createdAt",
                     direction = Direction.DESC) Pageable pageable) {
 
-        Page<User> users = readUserQuery.findAll(request.toCommand(pageable));
+        RetrieveUserCommand cmd;
+        if (request == null) {
+            cmd = RetrieveUserCommand.builder()
+                    .pageable(pageable)
+                    .build();
+        } else {
+            cmd = request.toCommand(pageable);
+        }
 
+        Page<User> users = readUserQuery.findAll(cmd);
+
+        log.debug("users count: " + users.getContent().size());
         SimplePage<RetrieveUserResponse> response = SimplePage.<User, RetrieveUserResponse>builder()
                 .content(users.getContent())
                 .map(RetrieveUserResponse::fromDomain)
@@ -122,6 +142,7 @@ public class UserController {
      * @return the response entity containing the updated user
      */
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
     public ResponseEntity<UpdateUserResponse> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UpdateUserRequest request) {
@@ -141,10 +162,12 @@ public class UserController {
      * @return the response entity containing the updated user response
      */
     @PatchMapping("/{id}/reset-password")
+    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
     public ResponseEntity<UpdateUserResponse> resetPassword(
             @PathVariable Long id,
-            @RequestBody @Valid String password) {
-        User update = updateUserUsecase.resetPassword(id, password);
+            @RequestBody @Valid ResetPasswordRequest password) {
+
+        User update = updateUserUsecase.resetPassword(id, password.getPassword());
 
         return ResponseEntity.ok().body(UpdateUserResponse.fromDomain(update));
     }
@@ -156,6 +179,8 @@ public class UserController {
      * @return void
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {
         deleteUserUsecase.deleteById(id);
     }

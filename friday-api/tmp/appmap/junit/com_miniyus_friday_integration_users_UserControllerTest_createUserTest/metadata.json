@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
     "method_id": "createUserTest"
   },
-  "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:78",
+  "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:88",
   "framework": {},
   "test_status": "succeeded"
 }

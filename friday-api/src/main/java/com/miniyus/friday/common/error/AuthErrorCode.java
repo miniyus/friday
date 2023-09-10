@@ -9,20 +9,20 @@ import org.springframework.http.HttpStatus;
  * @date 2023/08/28
  */
 public enum AuthErrorCode {
-    ACCESS_DENINED(1, 401),
-    INSUFFICIENT_SCOPE(2, 403),
-    INVALID_CLIENT(3, 400),
-    INVALID_GRANT(4, 400),
-    INVALID_REDIRECT_URI(5, 400),
-    INVALID_REQUEST(6, 400),
-    INVALID_SCOPE(7, 400),
-    INVALID_TOKEN(8, 400),
-    SERVER_ERROR(9, 500),
-    TEMPORARILY_UNAVAILABLE(10, 503),
-    UNAUTHORIZED_CLIENT(11, 401),
-    UNSUPPORTED_GRANT_TYPE(12, 400),
-    UNSUPPORTED_RESPONSE_TYPE(13, 400),
-    UNSUPPORTED_TOKEN_TYPE(14, 400);
+    ACCESS_DENIED(1, 401), // access denied
+    INSUFFICIENT_SCOPE(2, 403), // insufficient scope
+    INVALID_CLIENT(3, 400), // invalid client
+    INVALID_GRANT(4, 400), // invalid grant
+    INVALID_REDIRECT_URI(5, 400), // invalid redirect uri
+    INVALID_REQUEST(6, 400), // invalid request
+    INVALID_SCOPE(7, 400), // invalid scope
+    INVALID_TOKEN(8, 400), // invalid token
+    SERVER_ERROR(9, 500), // server error
+    TEMPORARILY_UNAVAILABLE(10, 503), // temporary unavailable
+    UNAUTHORIZED_CLIENT(11, 401), // unauthorized client
+    UNSUPPORTED_GRANT_TYPE(12, 400), // unsupported grant type
+    UNSUPPORTED_RESPONSE_TYPE(13, 400), // unsupported response type
+    UNSUPPORTED_TOKEN_TYPE(14, 400); // unsupported token type
 
     private final int errorCode;
     private final int statusCode;

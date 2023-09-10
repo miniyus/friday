@@ -46,4 +46,13 @@ public class SimplePageBuilder<R, T> {
                 totalElements,
                 pageable);
     }
+
+    public SimplePage<T> build(String resourceFieldName) {
+        this.content = inputList.stream().map(this.map).toList();
+        return new SimplePage<T>(
+                content,
+                totalElements,
+                pageable,
+                resourceFieldName);
+    }
 }

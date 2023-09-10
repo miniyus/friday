@@ -1,0 +1,10 @@
+[
+  {
+    "caller": "PATCH /v1/users/{id}/reset-password",
+    "callee": "com/miniyus"
+  },
+  {
+    "caller": "com/miniyus",
+    "callee": "PATCH /v1/users/{id}/reset-password"
+  }
+]

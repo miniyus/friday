@@ -1,0 +1,7 @@
+[
+  "com/miniyus/friday/unit/users/application/service/UserServiceTest",
+  "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand",
+  "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand$UpdateUserCommandBuilder",
+  "com/miniyus/friday/users/application/service/UserService",
+  "com/miniyus/friday/users/domain/User"
+]

@@ -92,4 +92,8 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
     public boolean isEnabled() {
         return enabled;
     }
+
+    public Long getId() {
+        return id;
+    }
 }

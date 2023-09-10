@@ -9,7 +9,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,12 +44,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * Translates a message using the provided message code and arguments.
      *
      * @param messageCode the code of the message to be translated
-     * @param args        the arguments to be included in the translated message
-     * @return the translated message or the message code if the translation is not
-     *         found
+     * @param args the arguments to be included in the translated message
+     * @return the translated message or the message code if the translation is not found
      */
     private final String translateMessage(String messageCode, Object... args) {
-        return messageSource.getMessage(messageCode, args, messageCode, LocaleContextHolder.getLocale());
+        return messageSource.getMessage(messageCode, args, messageCode,
+                LocaleContextHolder.getLocale());
     }
 
     /**
@@ -57,22 +59,23 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return the translated message
      */
     private final String translateMessage(String messageCode) {
-        return messageSource.getMessage(messageCode, null, messageCode, LocaleContextHolder.getLocale());
+        return messageSource.getMessage(messageCode, null, messageCode,
+                LocaleContextHolder.getLocale());
     }
 
     /**
-     * Handles the NoHandlerFoundException and returns a ResponseEntity containing
-     * error details.
+     * Handles the NoHandlerFoundException and returns a ResponseEntity containing error details.
      *
-     * @param ex      the NoHandlerFoundException
+     * @param ex the NoHandlerFoundException
      * @param headers the HttpHeaders
-     * @param status  the HttpStatusCode
+     * @param status the HttpStatusCode
      * @param request the WebRequest
      * @return the ResponseEntity containing error details
      */
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(
-            NoHandlerFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+            NoHandlerFoundException ex, HttpHeaders headers, HttpStatusCode status,
+            WebRequest request) {
         var errorCode = ErrorCode.NOT_FOUND;
 
         log.debug(ex.toString());
@@ -86,14 +89,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handles a MethodArgumentNotValidException for validating method arguments.
      *
-     * @param ex      the MethodArgumentNotValidException object
+     * @param ex the MethodArgumentNotValidException object
      * @param headers the HttpHeaders object
-     * @param status  the HttpStatusCode object
+     * @param status the HttpStatusCode object
      * @param request the WebRequest object
      * @return the ResponseEntity<Object> object
      */
     @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex,
             HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         HashMap<String, List<String>> details = new HashMap<>();
 
@@ -127,7 +131,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex, WebRequest request) {
+    public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex,
+            WebRequest request) {
         var errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
 
         log.error(ex.getMessage());
@@ -140,16 +145,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     /**
-     * Handles the exception of type CommonErrorException and returns a
-     * ResponseEntity
-     * with an ErrorResponse object containing the error details.
+     * Handles the exception of type CommonErrorException and returns a ResponseEntity with an
+     * ErrorResponse object containing the error details.
      *
-     * @param ex      the CommonErrorException object representing the exception
+     * @param ex the CommonErrorException object representing the exception
      * @param request the WebRequest object representing the HTTP request
      * @return a ResponseEntity object containing the error details
      */
     @ExceptionHandler(RestErrorException.class)
-    protected final ResponseEntity<ErrorResponse> handleApiException(RestErrorException ex, WebRequest request) {
+    protected final ResponseEntity<ErrorResponse> handleApiException(RestErrorException ex,
+            WebRequest request) {
         var errorCode = ex.getErrorCode();
 
         log.error(ex.toString());
@@ -164,12 +169,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handles the NotSupportProviderException and returns an ErrorResponse object.
      *
-     * @param ex      the NotSupportProviderException that occurred
+     * @param ex the NotSupportProviderException that occurred
      * @param request the WebRequest object
      * @return the ResponseEntity containing the ErrorResponse object
      */
     @ExceptionHandler(NotSupportProviderException.class)
-    protected final ResponseEntity<ErrorResponse> handleNotSupportProviderException(NotSupportProviderException ex,
+    protected final ResponseEntity<ErrorResponse> handleNotSupportProviderException(
+            NotSupportProviderException ex,
             WebRequest request) {
         var errorCode = AuthErrorCode.SERVER_ERROR;
 
@@ -182,4 +188,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    protected final ResponseEntity<ErrorResponse> handleAccessDeniedException(
+            AccessDeniedException ex, WebRequest request) {
+        var errorCode = AuthErrorCode.ACCESS_DENIED;
+
+        ErrorResponse errorDetails = new ErrorResponse(
+                errorCode,
+                translateMessage("exception.accessDenied"));
+
+        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
+            HttpRequestMethodNotSupportedException ex,
+            HttpHeaders headers,
+            HttpStatusCode status,
+            WebRequest request) {
+        var errorCode = ErrorCode.METHOD_NOT_ALLOWED;
+        ErrorResponse errorDetails = new ErrorResponse(
+                errorCode,
+                translateMessage("exception.methodNotAllowed"));
+
+        return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
+    }
 }

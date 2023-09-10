@@ -2,8 +2,10 @@ package com.miniyus.friday.infrastructure.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -36,6 +38,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final PrincipalUserService userService;
@@ -74,7 +77,6 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDeniedHandler));
         http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
-
         http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
         return http.build();
@@ -82,8 +84,14 @@ public class SecurityConfiguration {
 
     @Bean
     public Filter passwordAuthenticationFilter() {
+        AntPathRequestMatcher loginPathRequestMatcher = new AntPathRequestMatcher(
+                "/v1/auth/signin",
+                HttpMethod.POST.name());
+
         PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
+                loginPathRequestMatcher,
                 objectMapper);
+
         loginFilter.setAuthenticationManager(authenticationManager());
         loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
         loginFilter.setAuthenticationFailureHandler(loginFailureHandler());

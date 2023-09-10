@@ -1,0 +1,110 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "findById",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:62"
+                                  }
+                                ],
+                                "name": "UserAdapter",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "toDomain",
+                                    "type": "function",
+                                    "static": true,
+                                    "location": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java:30"
+                                  }
+                                ],
+                                "name": "UserMapper",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "persistence",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "out",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "retrieveUser",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest.java:90"
+                                      }
+                                    ],
+                                    "name": "UserAdapterTest",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "persistence",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "out",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "adapter",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

@@ -16,37 +16,36 @@ import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
  * @date 2023/09/02
  */
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-        /**
-         * Finds a user entity by email.
-         * 
-         * @param email the email of the user to find
-         * @return an optional containing the found user entity, or empty if not found
-         */
-        public Optional<UserEntity> findByEmail(String email);
+    /**
+     * Finds a user entity by email.
+     * 
+     * @param email the email of the user to find
+     * @return an optional containing the found user entity, or empty if not found
+     */
+    public Optional<UserEntity> findByEmail(String email);
 
-        /**
-         * Finds a user entity by social media ID and provider.
-         * 
-         * @param snsId    the social media ID of the user
-         * @param provider the provider of the social media platform
-         * @return an optional user entity that matches the given social media ID and
-         *         provider
-         */
-        public Optional<UserEntity> findBySnsIdAndProvider(String snsId, String provider);
+    /**
+     * Finds a user entity by social media ID and provider.
+     * 
+     * @param snsId the social media ID of the user
+     * @param provider the provider of the social media platform
+     * @return an optional user entity that matches the given social media ID and provider
+     */
+    public Optional<UserEntity> findBySnsIdAndProvider(String snsId, String provider);
 
-        @Query(value = "select u from UserEntity u" +
-                        "WHERE (u.email = :email OR :email IS NULL)" +
-                        "AND (u.name = :name OR :name IS NULL)" +
-                        "AND (:createdAtStart IS NULL OR :createdAtEnd IS NULL " +
-                        "OR u.createdAt BETWEEN :createdAtStart AND :createdAtEnd)" +
-                        "AND (:updatedAtStart IS NULL OR :updatedAtEnd IS NULL " +
-                        "OR u.updatedAt BETWEE :updatedAtStart AN :updatedAtEnd)", nativeQuery = true)
-        public Page<UserEntity> findAll(
-                        @Param("email") String email,
-                        @Param("name") String name,
-                        @Param("createdAtStart") LocalDateTime createdAtStart,
-                        @Param("createdAtEnd") LocalDateTime createdAtEnd,
-                        @Param("updatedAtStart") LocalDateTime updatedAtStart,
-                        @Param("updatedAtEnd") LocalDateTime updatedAtEnd,
-                        Pageable pageable);
+    @Query(value = "select u from UserEntity u" +
+            "WHERE (u.email = :email OR :email IS NULL)" +
+            "AND (u.name = :name OR :name IS NULL)" +
+            "AND (:createdAtStart IS NULL OR :createdAtEnd IS NULL " +
+            "OR u.createdAt BETWEEN :createdAtStart AND :createdAtEnd)" +
+            "AND (:updatedAtStart IS NULL OR :updatedAtEnd IS NULL " +
+            "OR u.updatedAt BETWEE :updatedAtStart AN :updatedAtEnd)", nativeQuery = true)
+    public Page<UserEntity> findAll(
+            @Param("email") String email,
+            @Param("name") String name,
+            @Param("createdAtStart") LocalDateTime createdAtStart,
+            @Param("createdAtEnd") LocalDateTime createdAtEnd,
+            @Param("updatedAtStart") LocalDateTime updatedAtStart,
+            @Param("updatedAtEnd") LocalDateTime updatedAtEnd,
+            Pageable pageable);
 }

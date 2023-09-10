@@ -2,6 +2,7 @@ package com.miniyus.friday.users.application.service;
 
 import java.util.Collection;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserCommand;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
@@ -35,6 +36,8 @@ public class UserService
     private final UpdateUserPort updateUserPort;
 
     private final DeleteUserPort deleteUserPort;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(CreateUserCommand command) {
@@ -95,7 +98,9 @@ public class UserService
     @Override
     public User resetPassword(Long id, String password) {
         User user = readUserPort.findById(id);
-        user.resetPassword(password);
+
+        user.resetPassword(passwordEncoder.encode(password));
+
         return updateUserPort.resetPassword(user);
     }
 

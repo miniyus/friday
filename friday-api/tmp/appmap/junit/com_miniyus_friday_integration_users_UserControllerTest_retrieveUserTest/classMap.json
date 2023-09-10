@@ -37,7 +37,7 @@
                                     "name": "retrieveUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:86"
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:85"
                                   }
                                 ],
                                 "name": "UserController",
@@ -69,7 +69,7 @@
                             "name": "retrieveUserTest",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:137"
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:147"
                           }
                         ],
                         "name": "UserControllerTest",

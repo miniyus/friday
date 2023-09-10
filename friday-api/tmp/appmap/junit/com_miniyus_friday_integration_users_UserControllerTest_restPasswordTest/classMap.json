@@ -1,0 +1,126 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "resetPassword",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:168"
+                                  }
+                                ],
+                                "name": "UserController",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "fromDomain",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/response/UpdateUserResponse.java:27"
+                                      }
+                                    ],
+                                    "name": "UpdateUserResponse",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "response",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "rest",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "in",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "resetPassword",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/users/domain/User.java:46"
+                          }
+                        ],
+                        "name": "User",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "domain",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "restPasswordTest",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:258"
+                          }
+                        ],
+                        "name": "UserControllerTest",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "PATCH /v1/users/{id}/reset-password"
+      }
+    ]
+  }
+]

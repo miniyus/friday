@@ -1,0 +1,62 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "retrieveUsers",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/unit/users/adapter/out/perisistence/UserAdapterTest.java:69"
+                                      }
+                                    ],
+                                    "name": "UserAdapterTest",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "perisistence",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "out",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "adapter",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

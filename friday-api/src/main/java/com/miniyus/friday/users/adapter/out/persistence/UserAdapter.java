@@ -1,9 +1,9 @@
-package com.miniyus.friday.users.adapter.out.perisistence;
+package com.miniyus.friday.users.adapter.out.persistence;
 
 import java.util.Collection;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
  * @date 2023/09/02
  */
 @RequiredArgsConstructor
-@Component
+@PersistenceAdapter
 public class UserAdapter
         implements CreateUserPort, RetrieveUserPort, UpdateUserPort, DeleteUserPort {
     private final UserRepository userRepository;
@@ -59,7 +59,13 @@ public class UserAdapter
 
     @Override
     public User findById(Long id) {
-        return UserMapper.toDomain(userRepository.findById(id).orElse(null));
+        UserEntity entity = userRepository.findById(id).orElse(null);
+        
+        if (entity == null) {
+            return null;
+        }
+    
+        return UserMapper.toDomain(entity);
     }
 
     private User save(User user) {

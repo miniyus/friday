@@ -9,14 +9,14 @@
       "path": "com/miniyus/friday/unit/common/response/SimplePageTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.common.response.SimplePageTest",
-        "object_id": 383127665,
-        "value": "com.miniyus.friday.unit.common.response.SimplePageTest@16d61071"
+        "object_id": 967828895,
+        "value": "com.miniyus.friday.unit.common.response.SimplePageTest@39afe59f"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0001446,
+      "elapsed": 0.0001946,
       "event": "return",
       "id": 2,
       "parent_id": 1,

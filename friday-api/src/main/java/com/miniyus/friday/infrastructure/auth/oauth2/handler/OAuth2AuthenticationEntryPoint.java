@@ -34,10 +34,10 @@ public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint 
             AuthenticationException exception) throws IOException, ServletException {
         log.debug("Authentication Exception: {}", exception.getMessage());
 
-        AuthErrorCode code = AuthErrorCode.ACCESS_DENINED;
+        AuthErrorCode code = AuthErrorCode.ACCESS_DENIED;
         ErrorResponse errorResponse = new ErrorResponse(
                 code,
-                messageSource.getMessage("exception.accessDenined",
+                messageSource.getMessage("exception.accessDenied",
                         null,
                         exception.getLocalizedMessage(),
                         LocaleContextHolder.getLocale()));

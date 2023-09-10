@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.FridayApplicationTests",
         "method_id": "contextLoads"
       },
-      "source_location": "com/miniyus/friday/FridayApplicationTests.java:13",
+      "source_location": "com/miniyus/friday/FridayApplicationTests.java:18",
       "framework": {},
       "test_status": "succeeded"
     }

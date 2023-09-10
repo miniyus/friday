@@ -17,14 +17,18 @@ import com.miniyus.friday.infrastructure.auth.UserRole;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.users.adapter.in.rest.UserController;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.users.application.port.in.usecase.DeleteUserUsecase;
+import com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand;
 import com.miniyus.friday.users.application.port.in.usecase.UpdateUserUsecase;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.domain.User;
 import java.time.LocalDateTime;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -72,14 +76,19 @@ public class UserControllerTest {
     @MockBean
     private DeleteUserUsecase deleteUserUsecase;
 
+    @BeforeEach
+    void setUp() {
+
+    }
+
     @Test
-    @WithMockCustomUser(username = "testser@gmail.com", role = UserRole.USER)
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
     public void createUserTest() throws Exception {
         User domain = new User(
                 1L,
-                "miniyu97@gmail.com",
+                "tester@gmail.com",
                 "password@1234",
-                "smyoo",
+                "tester",
                 "USER",
                 null,
                 null,
@@ -92,7 +101,7 @@ public class UserControllerTest {
         CreateUserResponse response = CreateUserResponse.fromDomain(domain);
 
         CreateUserRequest request = CreateUserRequest.builder().email("miniyu97@gmail.com")
-                .name("smyoo").password("password@1234").role(UserRole.USER.getValue()).build();
+                .name("tester").password("password@1234").role(UserRole.USER.getValue()).build();
 
         ResultActions result = this.mockMvc.perform(post("/v1/users")
                 .with(csrf().asHeader())
@@ -132,13 +141,13 @@ public class UserControllerTest {
     }
 
     @Test
-    @WithMockCustomUser(username = "miniyus@gmail.com", role = UserRole.USER)
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
     void retrieveUserTest() throws Exception {
         User domain = new User(
                 1L,
-                "miniyu97@gmail.com",
+                "tester@gmail.com",
                 "password@1234",
-                "smyoo",
+                "tester",
                 "USER",
                 null,
                 null,
@@ -178,5 +187,147 @@ public class UserControllerTest {
                                 fieldWithPath("provider").description("provider"),
                                 fieldWithPath("createdAt").description("createdAt"),
                                 fieldWithPath("updatedAt").description("updatedAt"))));
+    }
+
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void updateUserTest() throws Exception {
+        User domain = new User(
+                1L,
+                "tester@gmail.com",
+                "password@1234",
+                "tester",
+                "USER",
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null);
+
+        // when(retrieveUserQuery.findById(1L)).thenReturn(domain);
+
+        domain.updateName("updateName");
+
+        when(updateUserUsecase.updateUser(any(UpdateUserCommand.class))).thenReturn(domain);
+
+        var request = UpdateUserRequest.builder()
+                .name("updateName")
+                .role("USER")
+                .build();
+
+        var result = mockMvc.perform(
+                patch("/v1/users/1")
+                        .content(objectMapper.writeValueAsString(request))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer {access-token}"));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(domain.getId()))
+                .andExpect(jsonPath("$.name").value("updateName"))
+                .andExpect(jsonPath("$.role").value(domain.getRole()))
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+                .andExpect(jsonPath("$.createdAt").isNotEmpty())
+                .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
+                .andExpect(jsonPath("$.provider").value(domain.getProvider()))
+                .andExpect(jsonPath("$.email").value(domain.getEmail()))
+                .andDo(MockMvcRestDocumentation.document(
+                        "update-user",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("인증 토큰")),
+                        requestFields(
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("role").description("role")),
+                        responseFields(
+                                fieldWithPath("id").description("user identifier"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("role").description("role"),
+                                fieldWithPath("updatedAt").description("updatedAt"),
+                                fieldWithPath("createdAt").description("createdAt"),
+                                fieldWithPath("snsId").description("snsId"),
+                                fieldWithPath("provider").description("provider"),
+                                fieldWithPath("email").description("email"))));
+    }
+
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void restPasswordTest() throws Exception {
+        User domain = new User(
+                1L,
+                "tester@gmail.com",
+                "password@1234",
+                "tester",
+                "USER",
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null);
+
+        // when(retrieveUserQuery.findById(1L)).thenReturn(domain);
+
+        domain.resetPassword("resetPassword");
+
+        when(updateUserUsecase.resetPassword(1L, "resetPassword")).thenReturn(domain);
+
+        var request = new ResetPasswordRequest("resetPassword");
+
+        var result = mockMvc.perform(
+                patch("/v1/users/1/reset-password")
+                        .content(objectMapper
+                                .writeValueAsString(request))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer {access-token}"));
+
+        result.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(domain.getId()))
+                .andExpect(jsonPath("$.name").value(domain.getName()))
+                .andExpect(jsonPath("$.role").value(domain.getRole()))
+                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+                .andExpect(jsonPath("$.createdAt").isNotEmpty())
+                .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
+                .andExpect(jsonPath("$.provider").value(domain.getProvider()))
+                .andExpect(jsonPath("$.email").value(domain.getEmail()))
+                .andDo(MockMvcRestDocumentation.document(
+                        "reset-password",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("인증 토큰")),
+                        requestFields(
+                                fieldWithPath("password").description("password")),
+                        responseFields(
+                                fieldWithPath("id").description("user identifier"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("role").description("role"),
+                                fieldWithPath("updatedAt").description("updatedAt"),
+                                fieldWithPath("createdAt").description("createdAt"),
+                                fieldWithPath("snsId").description("snsId"),
+                                fieldWithPath("provider").description("provider"),
+                                fieldWithPath("email").description("email"))));
+    }
+
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void deleteUserTest() throws Exception {
+        var result = mockMvc.perform(
+                delete("/v1/users/1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .with(csrf().asHeader())
+                        .header("Authorization", "Bearer {access-token}"));
+
+        result.andExpect(status().isNoContent())
+                .andDo(MockMvcRestDocumentation.document(
+                        "delete-user",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestHeaders(
+                                headerWithName("Authorization").description("인증 토큰"))));
     }
 }

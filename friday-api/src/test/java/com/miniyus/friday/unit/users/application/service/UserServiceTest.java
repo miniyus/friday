@@ -1,17 +1,25 @@
 package com.miniyus.friday.unit.users.application.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.github.javafaker.Faker;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
+import com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
+import com.miniyus.friday.users.application.port.out.DeleteUserPort;
+import com.miniyus.friday.users.application.port.out.RetrieveUserPort;
+import com.miniyus.friday.users.application.port.out.UpdateUserPort;
 import com.miniyus.friday.users.application.service.UserService;
 import com.miniyus.friday.users.domain.User;
 
@@ -26,41 +34,136 @@ public class UserServiceTest {
     @Mock
     private CreateUserPort createUserPort;
 
+    @Mock
+    private RetrieveUserPort retrieveUserPort;
+
+    @Mock
+    private UpdateUserPort updateUserPort;
+
+    @Mock
+    private DeleteUserPort deleteUserPort;
+
     @InjectMocks
-    private UserService createUserService;
+    private UserService userService;
 
     private CreateUserCommand createUserCommand;
 
-    private User testDomain;
+    private List<User> testDomains;
+
+    private Faker faker = new Faker();
 
     @BeforeEach
     void setUp() {
-        testDomain = new User(
-                1L,
-                "miniyus@gmail.com",
-                "password@1234",
-                "smyoo",
-                "USER",
-                null,
-                null,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                null);
+        testDomains = new ArrayList<User>();
+        for (int i = 0; i < 10; i++) {
+            var testDomain = new User(
+                    i + 1L,
+                    faker.internet().safeEmailAddress(),
+                    faker.internet().password(),
+                    faker.name().fullName(),
+                    "USER",
+                    null,
+                    null,
+                    LocalDateTime.now(),
+                    LocalDateTime.now(),
+                    null);
+            testDomains.add(testDomain);
+        }
     }
 
     @Test
     void createUser() {
+        var testDomain = testDomains.get(0);
+
         createUserCommand = CreateUserCommand.builder()
-                .email("miniyu97@gmail.com")
-                .name("smyoo")
+                .email(testDomain.getEmail())
+                .name(testDomain.getName())
                 .role("USER")
-                .password("password@1234")
+                .password(testDomain.getPassword())
                 .build();
 
         when(createUserPort.createUser(any())).thenReturn(testDomain);
 
-        User created = createUserService.createUser(createUserCommand);
+        User created = userService.createUser(createUserCommand);
 
-        assertEquals(testDomain, created);
+        assertThat(created)
+                .hasFieldOrPropertyWithValue("email", createUserCommand.getEmail())
+                .hasFieldOrPropertyWithValue("name", createUserCommand.getName())
+                .hasFieldOrPropertyWithValue("role", createUserCommand.getRole())
+                .hasFieldOrPropertyWithValue("password", createUserCommand.getPassword());
+    }
+
+    @Test
+    void retrieveUser() throws Exception {
+        var testDomain = testDomains.get(0);
+        when(retrieveUserPort.findById(1L)).thenReturn(testDomain);
+
+        User retrieved = userService.findById(1L);
+
+        assertThat(retrieved)
+                .isNotNull()
+                .hasFieldOrPropertyWithValue("id", 1L)
+                .hasFieldOrPropertyWithValue("email", testDomain.getEmail())
+                .hasFieldOrPropertyWithValue("name", testDomain.getName())
+                .hasFieldOrPropertyWithValue("role", testDomain.getRole())
+                .hasFieldOrPropertyWithValue("password", testDomain.getPassword());
+    }
+
+    @Test
+    void retrieveUsers() throws Exception {
+        when(retrieveUserPort.findAll()).thenReturn(testDomains);
+
+        Collection<User> retrieved = userService.findAll();
+
+        assertThat(retrieved.size())
+            .isNotEqualTo(0)
+            .isEqualTo(testDomains.size());
+    }
+
+    @Test
+    void updateUser() throws Exception {
+        var testDomain = testDomains.get(0);
+        when(updateUserPort.findById(1L)).thenReturn(testDomain);
+
+        var testOrigin = testDomains.get(0);
+
+        var testUpdate = new User(
+                testOrigin.getId(),
+                testOrigin.getEmail(),
+                testOrigin.getPassword(),
+                testOrigin.getName(),
+                testOrigin.getRole(),
+                testOrigin.getSnsId(),
+                testOrigin.getProvider(),
+                testOrigin.getCreatedAt(),
+                testOrigin.getUpdatedAt(),
+                testOrigin.getDeletedAt());
+
+        testUpdate.updateName("testUpdate");
+
+        when(updateUserPort.updateUser(any(User.class))).thenReturn(testUpdate);
+        var command = UpdateUserCommand.builder()
+                .id(1L)
+                .name("testUpdate")
+                .role("USER")
+                .build();
+
+        User updated = userService.updateUser(command);
+
+        assertThat(updated)
+                .hasFieldOrPropertyWithValue("id", command.getId())
+                .hasFieldOrPropertyWithValue("name", command.getName())
+                .hasFieldOrPropertyWithValue("role", command.getRole());
+    }
+
+    @Test
+    void deleteUser() throws Exception {
+        when(retrieveUserPort.findById(1L)).thenReturn(null);
+
+        userService.deleteById(1L);
+
+        User deleted = userService.findById(1L);
+
+        assertThat(deleted).isNull();
     }
 }

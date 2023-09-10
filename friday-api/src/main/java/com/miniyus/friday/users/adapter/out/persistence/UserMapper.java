@@ -1,4 +1,4 @@
-package com.miniyus.friday.users.adapter.out.perisistence;
+package com.miniyus.friday.users.adapter.out.persistence;
 
 import org.springframework.stereotype.Component;
 
@@ -16,23 +16,25 @@ public class UserMapper {
 
     public static UserEntity toEntity(User domain) {
         return new UserEntity(
+                domain.getId(),
                 domain.getSnsId(),
                 domain.getProvider(),
                 domain.getEmail(),
                 domain.getPassword(),
                 domain.getName(),
-                domain.getRole());
+                domain.getRole(),
+                domain.getDeletedAt());
     }
 
     public static User toDomain(UserEntity entity) {
         return new User(
                 entity.getId(),
-                entity.getSnsId(),
-                entity.getProvider(),
                 entity.getEmail(),
                 entity.getPassword(),
                 entity.getName(),
                 entity.getRole(),
+                entity.getSnsId(),
+                entity.getProvider(),
                 entity.getCreatedAt(),
                 entity.getUpdatedAt(),
                 entity.getDeletedAt());

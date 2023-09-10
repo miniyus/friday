@@ -11,15 +11,15 @@ import org.springframework.http.HttpStatus;
  * @date 2023/09/01
  */
 public enum ErrorCode {
-    BAD_REQUEST(10, 400),
-    UNAUTHORIZED(11, 401),
-    FORBIDDEN(12, 403),
-    NOT_FOUND(13, 404),
-    METHOD_NOT_ALLOWED(14, 405),
-    CONFLICT(15, 409),
-    TOO_MANY_REQUESTS(16, 429),
-    INTERNAL_SERVER_ERROR(20, 500),
-    SERVER_UNAVAILABLE(21, 503);
+    BAD_REQUEST(10, 400), // bad request
+    UNAUTHORIZED(11, 401), // unauthorized
+    FORBIDDEN(12, 403), // forbidden
+    NOT_FOUND(13, 404), // not found
+    METHOD_NOT_ALLOWED(14, 405), // method not allowed
+    CONFLICT(15, 409), // conflict
+    TOO_MANY_REQUESTS(16, 429), // too many requests
+    INTERNAL_SERVER_ERROR(20, 500), // internal server error
+    SERVER_UNAVAILABLE(21, 503); // server unavailable
 
     private final int errorCode;
     private final int statusCode;
@@ -56,8 +56,7 @@ public enum ErrorCode {
      * A function to retrieve an ErrorCode object based on a given code.
      *
      * @param code the code to match against the ErrorCode objects
-     * @return the ErrorCode object matching the given code, or null if no match is
-     *         found
+     * @return the ErrorCode object matching the given code, or null if no match is found
      */
     public static ErrorCode fromCode(int code) {
         for (ErrorCode e : ErrorCode.values()) {
@@ -72,8 +71,7 @@ public enum ErrorCode {
      * Finds and returns the ErrorCode object that corresponds to the given status.
      *
      * @param status the status to search for
-     * @return the ErrorCode object that matches the given status, or null if no
-     *         match is found
+     * @return the ErrorCode object that matches the given status, or null if no match is found
      */
     public static ErrorCode fromStatus(int status) {
         for (ErrorCode e : ErrorCode.values()) {

@@ -9,8 +9,8 @@
       "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
-        "object_id": 1368955026,
-        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@51989892"
+        "object_id": 1054204284,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@3ed5e17c"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "token",
-          "object_id": 413776276,
+          "object_id": 1954046870,
           "value": "I'm a Token"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 229662478,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@db05f0e"
+        "object_id": 1284824058,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@4c94dbfa"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0004609,
+      "elapsed": 0.0001223,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.lang.Boolean",
-        "object_id": 1933372753,
+        "object_id": 1682454927,
         "value": "false"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0004952,
+      "elapsed": 0.0006232,
       "event": "return",
       "id": 4,
       "parent_id": 1,

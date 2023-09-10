@@ -1,0 +1,282 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "id",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      }
+                                    ],
+                                    "name": "UpdateUserCommand$UpdateUserCommandBuilder",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      }
+                                    ],
+                                    "name": "UpdateUserCommand",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "usecase",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "in",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "port",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "application",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "updateUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:147"
+                                  }
+                                ],
+                                "name": "UserController",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "fromDomain",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/response/UpdateUserResponse.java:27"
+                                      }
+                                    ],
+                                    "name": "UpdateUserResponse",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "response",
+                                "type": "package"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest.java:21"
+                                      },
+                                      {
+                                        "name": "toCommand",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest.java:31"
+                                      }
+                                    ],
+                                    "name": "UpdateUserRequest",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest.java:21"
+                                      },
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest.java:21"
+                                      },
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest.java:21"
+                                      }
+                                    ],
+                                    "name": "UpdateUserRequest$UpdateUserRequestBuilder",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "request",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "rest",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "in",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "updateName",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/users/domain/User.java:38"
+                          }
+                        ],
+                        "name": "User",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "domain",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "initialize",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:1"
+                          },
+                          {
+                            "name": "isValid",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:18"
+                          },
+                          {
+                            "name": "initialize",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:13"
+                          },
+                          {
+                            "name": "isValid",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:1"
+                          }
+                        ],
+                        "name": "EnumValidator",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "validation",
+                    "type": "package"
+                  }
+                ],
+                "name": "common",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "updateUserTest",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:194"
+                          }
+                        ],
+                        "name": "UserControllerTest",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "PATCH /v1/users/{id}"
+      }
+    ]
+  }
+]

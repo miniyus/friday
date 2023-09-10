@@ -18,6 +18,10 @@ spring:
         show-sql: true
         hibernate:
             ddl-auto: create
+    data:
+        web:
+            pageable:
+                one-indexed-parameters: true
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -72,15 +76,18 @@ spring:
         restart:
             enabled: true
 logging:
+    file:
+        path: logs
+        name: friday-api.log
+    logback:
+        rollingpolicy:
+            file-name-pattern: friday-api-%d{yyyy-MM-dd}.log
     level:
         root: warn
         tomcat: warn
         org.springframework.web: debug
         com.miniyus.friday: debug
-        org.hibernate.SQL: error
-
-    file:
-        path: /var/log/
+        org.hibernate: error
 management:
     endpoints:
         web:

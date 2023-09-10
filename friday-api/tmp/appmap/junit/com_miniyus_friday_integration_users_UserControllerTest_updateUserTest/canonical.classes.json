@@ -1,0 +1,8 @@
+[
+  "com/miniyus/friday/common/validation/EnumValidator",
+  "com/miniyus/friday/users/adapter/in/rest/UserController",
+  "com/miniyus/friday/users/adapter/in/rest/request/UpdateUserRequest",
+  "com/miniyus/friday/users/adapter/in/rest/response/UpdateUserResponse",
+  "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand",
+  "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand$UpdateUserCommandBuilder"
+]

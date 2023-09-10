@@ -1,0 +1,336 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.unit.users.adapter.out.persistence.UserAdapterTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 136,
+      "method_id": "deleteUser",
+      "path": "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.unit.users.adapter.out.persistence.UserAdapterTest",
+        "object_id": 6219287,
+        "value": "com.miniyus.friday.unit.users.adapter.out.persistence.UserAdapterTest@5ee617"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 2,
+      "lineno": 62,
+      "method_id": "findById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 147236827,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@8c6a7db"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 3,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 956856538,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@390878da"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000203,
+      "event": "return",
+      "id": 4,
+      "parent_id": 3,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 635921586,
+        "value": "com.miniyus.friday.users.domain.User@25e764b2"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0001209,
+      "event": "return",
+      "id": 5,
+      "parent_id": 2,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 635921586,
+        "value": "com.miniyus.friday.users.domain.User@25e764b2"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.domain.User",
+      "event": "call",
+      "id": 6,
+      "lineno": 50,
+      "method_id": "delete",
+      "path": "com/miniyus/friday/users/domain/User.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 635921586,
+        "value": "com.miniyus.friday.users.domain.User@25e764b2"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000099,
+      "event": "return",
+      "id": 7,
+      "parent_id": 6,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 8,
+      "lineno": 87,
+      "method_id": "deleteById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 147236827,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@8c6a7db"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0001851,
+      "event": "return",
+      "id": 9,
+      "parent_id": 8,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 10,
+      "lineno": 62,
+      "method_id": "findById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 147236827,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@8c6a7db"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000299,
+      "event": "return",
+      "id": 11,
+      "parent_id": 10,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0004117,
+      "event": "return",
+      "id": 12,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "User adapter delete user",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.unit.users.adapter.out.persistence.UserAdapterTest",
+      "method_id": "deleteUser"
+    },
+    "source_location": "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest.java:136",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "name": "deleteUser",
+                                          "type": "function",
+                                          "static": false,
+                                          "location": "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest.java:136"
+                                        }
+                                      ],
+                                      "name": "UserAdapterTest",
+                                      "type": "class"
+                                    }
+                                  ],
+                                  "name": "persistence",
+                                  "type": "package"
+                                }
+                              ],
+                              "name": "out",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "adapter",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "users",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "unit",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "name": "deleteById",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:87"
+                                    },
+                                    {
+                                      "name": "findById",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:62"
+                                    }
+                                  ],
+                                  "name": "UserAdapter",
+                                  "type": "class"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "name": "toDomain",
+                                      "type": "function",
+                                      "static": true,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java:30"
+                                    }
+                                  ],
+                                  "name": "UserMapper",
+                                  "type": "class"
+                                }
+                              ],
+                              "name": "persistence",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "out",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "adapter",
+                      "type": "package"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "delete",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/users/domain/User.java:50"
+                            }
+                          ],
+                          "name": "User",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "domain",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "users",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}

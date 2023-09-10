@@ -12,30 +12,6 @@
                       {
                         "children": [
                           {
-                            "name": "createUserTest",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:78"
-                          }
-                        ],
-                        "name": "UserControllerTest",
-                        "type": "class"
-                      }
-                    ],
-                    "name": "users",
-                    "type": "package"
-                  }
-                ],
-                "name": "integration",
-                "type": "package"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "children": [
-                          {
                             "children": [
                               {
                                 "children": [
@@ -175,7 +151,7 @@
                                     "name": "createUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:66"
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:65"
                                   }
                                 ],
                                 "name": "UserController",
@@ -213,6 +189,30 @@
                   }
                 ],
                 "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "createUserTest",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/integration/users/UserControllerTest.java:88"
+                          }
+                        ],
+                        "name": "UserControllerTest",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
                 "type": "package"
               }
             ],

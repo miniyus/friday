@@ -90,4 +90,8 @@ public class AccessTokenEntity extends BaseEntity {
     public void revoke() {
         this.revoked = true;
     }
+
+    public void setUser(UserEntity userEntity) {
+        this.user = userEntity;
+    }
 }

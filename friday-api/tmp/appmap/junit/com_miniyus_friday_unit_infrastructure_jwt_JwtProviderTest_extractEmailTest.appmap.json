@@ -9,8 +9,8 @@
       "path": "com/miniyus/friday/unit/infrastructure/jwt/JwtProviderTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest",
-        "object_id": 285029775,
-        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@10fd358f"
+        "object_id": 1403896065,
+        "value": "com.miniyus.friday.unit.infrastructure.jwt.JwtProviderTest@53adc101"
       },
       "static": false,
       "thread_id": 1
@@ -26,33 +26,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "accessToken",
-          "object_id": 756496847,
-          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDI2MDI3NCwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.wt91mZxCVGUQOI4J2zCQXJktKkEZHhFMuDNFAxMRsLOwVRL5UIrCFKpPF6IANmw37K85LfYfexi13UouXKMTdw"
+          "object_id": 1463192690,
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsImV4cCI6MTY5NDMzMTM4OSwiZW1haWwiOiJtaW5peXVzQGdtYWlsLmNvbSJ9.CaCIXzUKYB5ZQICqe5jIdSILktY3o66emgy8gGVZ11H0-i7P6lFFZsohufeAsbvOTVRc-p_XTp-ISAtP0hJ2Jg"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jwt/JwtProvider.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jwt.JwtProvider",
-        "object_id": 1000364774,
-        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@3ba05ae6"
+        "object_id": 1341858364,
+        "value": "com.miniyus.friday.infrastructure.jwt.JwtProvider@4ffb223c"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000348,
+      "elapsed": 0.0000316,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.util.Optional",
-        "object_id": 1288666310,
+        "object_id": 590382622,
         "value": "Optional[miniyus@gmail.com]"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000431,
+      "elapsed": 0.0000396,
       "event": "return",
       "id": 4,
       "parent_id": 1,

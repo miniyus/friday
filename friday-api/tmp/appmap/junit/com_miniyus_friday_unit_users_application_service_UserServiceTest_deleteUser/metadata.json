@@ -1,0 +1,24 @@
+{
+  "name": "User service delete user",
+  "app": "friday-api",
+  "language": {
+    "name": "java",
+    "version": "17.0.8+7-LTS",
+    "engine": "OpenJDK 64-Bit Server VM"
+  },
+  "client": {
+    "name": "appmap-java",
+    "url": "https://github.com/appland/appmap-java"
+  },
+  "recorder": {
+    "name": "junit",
+    "type": "tests"
+  },
+  "recording": {
+    "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
+    "method_id": "deleteUser"
+  },
+  "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164",
+  "framework": {},
+  "test_status": "succeeded"
+}

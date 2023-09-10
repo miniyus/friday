@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
       "event": "call",
       "id": 1,
-      "lineno": 137,
+      "lineno": 147,
       "method_id": "retrieveUserTest",
       "path": "com/miniyus/friday/integration/users/UserControllerTest.java",
       "receiver": {
         "class": "com.miniyus.friday.integration.users.UserControllerTest",
-        "object_id": 1958539691,
-        "value": "com.miniyus.friday.integration.users.UserControllerTest@74bcf1ab"
+        "object_id": 1898634244,
+        "value": "com.miniyus.friday.integration.users.UserControllerTest@712adc04"
       },
       "static": false,
       "thread_id": 1
@@ -21,7 +21,7 @@
         "headers": {
           "Authorization": "Bearer {access-token}",
           "Accept": "application/json",
-          "X-CSRF-TOKEN": "FKO6pYQ78MgkGj5QqUexnRlb4p640PYxKEo77LCSxWrijnbldcHYkuEOlPsJIw02mGqF-yBiz_yP58EcGHICioDz8lvQ6E7X",
+          "X-CSRF-TOKEN": "RnQ1PJbo9N44kD8vdBfqK9MnPeD_-pGHM173n3Dvy-3U1lupJ0FWXq-LxbwV8QhMQjreT7VDEIKayaeqBW-Rq0WN89S252zL",
           "Content-Type": "application/json;charset=UTF-8"
         },
         "normalized_path_info": "/v1/users/{id}",
@@ -36,7 +36,7 @@
       "defined_class": "com.miniyus.friday.users.adapter.in.rest.UserController",
       "event": "call",
       "id": 3,
-      "lineno": 86,
+      "lineno": 85,
       "method_id": "retrieveUser",
       "parameters": [
         {
@@ -50,8 +50,8 @@
       "path": "com/miniyus/friday/users/adapter/in/rest/UserController.java",
       "receiver": {
         "class": "com.miniyus.friday.users.adapter.in.rest.UserController",
-        "object_id": 1207950266,
-        "value": "com.miniyus.friday.users.adapter.in.rest.UserController@47ffdbba"
+        "object_id": 1534995080,
+        "value": "com.miniyus.friday.users.adapter.in.rest.UserController@5b7e2a88"
       },
       "static": false,
       "thread_id": 1
@@ -67,8 +67,8 @@
           "class": "com.miniyus.friday.users.domain.User",
           "kind": "req",
           "name": "user",
-          "object_id": 94745492,
-          "value": "com.miniyus.friday.users.domain.User@5a5b394"
+          "object_id": 795855984,
+          "value": "com.miniyus.friday.users.domain.User@2f6fcc70"
         }
       ],
       "path": "com/miniyus/friday/users/adapter/in/rest/response/RetrieveUserResponse.java",
@@ -76,31 +76,31 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000622,
+      "elapsed": 0.0000167,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
         "class": "com.miniyus.friday.users.adapter.in.rest.response.RetrieveUserResponse",
-        "object_id": 1822122802,
-        "value": "RetrieveUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-09T19:53:04.454746, updatedAt=2023-09-09T19:53:04.454750)"
+        "object_id": 1617324421,
+        "value": "RetrieveUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-10T15:36:23.515190, updatedAt=2023-09-10T15:36:23.515192)"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0015819,
+      "elapsed": 0.0008929,
       "event": "return",
       "id": 6,
       "parent_id": 3,
       "return_value": {
         "class": "org.springframework.http.ResponseEntity",
-        "object_id": 1731685294,
-        "value": "<200 OK OK,RetrieveUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-09T19:53:04.454746, updatedAt=2023-09-09T19:53:04.454750),[]>"
+        "object_id": 1593819485,
+        "value": "<200 OK OK,RetrieveUserResponse(id=1, email=miniyu97@gmail.com, name=smyoo, role=USER, snsId=null, provider=null, createdAt=2023-09-10T15:36:23.515190, updatedAt=2023-09-10T15:36:23.515192),[]>"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.011907,
+      "elapsed": 0.004569,
       "event": "return",
       "http_server_response": {
         "headers": {
@@ -119,7 +119,7 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0214585,
+      "elapsed": 0.0056435,
       "event": "return",
       "id": 8,
       "parent_id": 1,
@@ -147,7 +147,7 @@
       "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
       "method_id": "retrieveUserTest"
     },
-    "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:137",
+    "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:147",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -190,7 +190,7 @@
                                       "name": "retrieveUser",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:86"
+                                      "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:85"
                                     }
                                   ],
                                   "name": "UserController",
@@ -222,7 +222,7 @@
                               "name": "retrieveUserTest",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/integration/users/UserControllerTest.java:137"
+                              "location": "com/miniyus/friday/integration/users/UserControllerTest.java:147"
                             }
                           ],
                           "name": "UserControllerTest",

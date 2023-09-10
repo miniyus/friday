@@ -1,0 +1,205 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 164,
+      "method_id": "deleteUser",
+      "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
+        "object_id": 1836160393,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@6d719589"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.application.service.UserService",
+      "event": "call",
+      "id": 2,
+      "lineno": 104,
+      "method_id": "deleteById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1054762542,
+          "value": "1"
+        }
+      ],
+      "path": "com/miniyus/friday/users/application/service/UserService.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.application.service.UserService",
+        "object_id": 1167145039,
+        "value": "com.miniyus.friday.users.application.service.UserService@4591384f"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000123,
+      "event": "return",
+      "id": 3,
+      "parent_id": 2,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.application.service.UserService",
+      "event": "call",
+      "id": 4,
+      "lineno": 92,
+      "method_id": "findById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1054762542,
+          "value": "1"
+        }
+      ],
+      "path": "com/miniyus/friday/users/application/service/UserService.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.application.service.UserService",
+        "object_id": 1167145039,
+        "value": "com.miniyus.friday.users.application.service.UserService@4591384f"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000053,
+      "event": "return",
+      "id": 5,
+      "parent_id": 4,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000404,
+      "event": "return",
+      "id": 6,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "User service delete user",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
+      "method_id": "deleteUser"
+    },
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "name": "deleteById",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:104"
+                                },
+                                {
+                                  "name": "findById",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:92"
+                                }
+                              ],
+                              "name": "UserService",
+                              "type": "class"
+                            }
+                          ],
+                          "name": "service",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "application",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "users",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "name": "deleteUser",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164"
+                                    }
+                                  ],
+                                  "name": "UserServiceTest",
+                                  "type": "class"
+                                }
+                              ],
+                              "name": "service",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "application",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "users",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "unit",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}

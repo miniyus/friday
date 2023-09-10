@@ -1,0 +1,5 @@
+[
+  "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest",
+  "com/miniyus/friday/users/adapter/out/persistence/UserAdapter",
+  "com/miniyus/friday/users/adapter/out/persistence/UserMapper"
+]

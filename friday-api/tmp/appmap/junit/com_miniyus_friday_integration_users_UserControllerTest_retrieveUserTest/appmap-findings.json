@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
         "method_id": "retrieveUserTest"
       },
-      "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:137",
+      "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:147",
       "framework": {},
       "test_status": "succeeded"
     }

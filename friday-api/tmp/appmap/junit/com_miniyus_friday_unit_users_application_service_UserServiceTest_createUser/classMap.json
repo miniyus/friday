@@ -16,42 +16,6 @@
                               {
                                 "children": [
                                   {
-                                    "name": "createUser",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:53"
-                                  }
-                                ],
-                                "name": "UserServiceTest",
-                                "type": "class"
-                              }
-                            ],
-                            "name": "service",
-                            "type": "package"
-                          }
-                        ],
-                        "name": "application",
-                        "type": "package"
-                      }
-                    ],
-                    "name": "users",
-                    "type": "package"
-                  }
-                ],
-                "name": "unit",
-                "type": "package"
-              },
-              {
-                "children": [
-                  {
-                    "children": [
-                      {
-                        "children": [
-                          {
-                            "children": [
-                              {
-                                "children": [
-                                  {
                                     "children": [
                                       {
                                         "name": "name",
@@ -135,6 +99,42 @@
                   }
                 ],
                 "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "createUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:79"
+                                  }
+                                ],
+                                "name": "UserServiceTest",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "service",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "application",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
                 "type": "package"
               }
             ],

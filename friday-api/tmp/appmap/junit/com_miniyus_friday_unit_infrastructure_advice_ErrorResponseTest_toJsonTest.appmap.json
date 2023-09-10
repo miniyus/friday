@@ -9,14 +9,14 @@
       "path": "com/miniyus/friday/unit/infrastructure/advice/ErrorResponseTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest",
-        "object_id": 1363127070,
-        "value": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest@513fab1e"
+        "object_id": 442940993,
+        "value": "com.miniyus.friday.unit.infrastructure.advice.ErrorResponseTest@1a66be41"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0034364,
+      "elapsed": 0.0036596,
       "event": "return",
       "id": 2,
       "parent_id": 1,

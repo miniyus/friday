@@ -1,0 +1,200 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 318,
+      "method_id": "deleteUserTest",
+      "path": "com/miniyus/friday/integration/users/UserControllerTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.integration.users.UserControllerTest",
+        "object_id": 662786209,
+        "value": "com.miniyus.friday.integration.users.UserControllerTest@278150a1"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "http_server_request": {
+        "headers": {
+          "Authorization": "Bearer {access-token}",
+          "Accept": "application/json",
+          "X-CSRF-TOKEN": "9ODPyubue8Kda9Ir8DVav1WndXwdR1bAqcMAKLLq8nAphqtsxtT5-dPYGKGwW-EflBhuj2HBWEUvdzLtzfYxTIvfykkY45la",
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        "normalized_path_info": "/v1/users/{id}",
+        "path_info": "/v1/users/1",
+        "protocol": "HTTP/1.1",
+        "request_method": "DELETE"
+      },
+      "id": 2,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.in.rest.UserController",
+      "event": "call",
+      "id": 3,
+      "lineno": 185,
+      "method_id": "deleteUser",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1054762542,
+          "value": "1"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/in/rest/UserController.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.in.rest.UserController",
+        "object_id": 953107607,
+        "value": "com.miniyus.friday.users.adapter.in.rest.UserController@38cf4497"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0010162,
+      "event": "return",
+      "id": 4,
+      "parent_id": 3,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0067979,
+      "event": "return",
+      "http_server_response": {
+        "headers": {},
+        "status": 204
+      },
+      "id": 5,
+      "parent_id": 2,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0132065,
+      "event": "return",
+      "id": 6,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "User controller delete user",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.integration.users.UserControllerTest",
+      "method_id": "deleteUserTest"
+    },
+    "source_location": "com/miniyus/friday/integration/users/UserControllerTest.java:318",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "deleteUserTest",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/integration/users/UserControllerTest.java:318"
+                            }
+                          ],
+                          "name": "UserControllerTest",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "users",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "integration",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "name": "deleteUser",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:185"
+                                    }
+                                  ],
+                                  "name": "UserController",
+                                  "type": "class"
+                                }
+                              ],
+                              "name": "rest",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "in",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "adapter",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "users",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    },
+    {
+      "type": "http",
+      "name": "HTTP server requests",
+      "children": [
+        {
+          "type": "route",
+          "name": "DELETE /v1/users/{id}"
+        }
+      ]
+    }
+  ]
+}

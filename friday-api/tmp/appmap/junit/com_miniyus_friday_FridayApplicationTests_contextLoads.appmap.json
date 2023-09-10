@@ -4,19 +4,19 @@
       "defined_class": "com.miniyus.friday.FridayApplicationTests",
       "event": "call",
       "id": 1,
-      "lineno": 13,
+      "lineno": 18,
       "method_id": "contextLoads",
       "path": "com/miniyus/friday/FridayApplicationTests.java",
       "receiver": {
         "class": "com.miniyus.friday.FridayApplicationTests",
-        "object_id": 626837251,
-        "value": "com.miniyus.friday.FridayApplicationTests@255cc703"
+        "object_id": 396069030,
+        "value": "com.miniyus.friday.FridayApplicationTests@179b88a6"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000043,
+      "elapsed": 0.0000271,
       "event": "return",
       "id": 2,
       "parent_id": 1,
@@ -44,7 +44,7 @@
       "defined_class": "com.miniyus.friday.FridayApplicationTests",
       "method_id": "contextLoads"
     },
-    "source_location": "com/miniyus/friday/FridayApplicationTests.java:13",
+    "source_location": "com/miniyus/friday/FridayApplicationTests.java:18",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -61,7 +61,7 @@
                       "name": "contextLoads",
                       "type": "function",
                       "static": false,
-                      "location": "com/miniyus/friday/FridayApplicationTests.java:13"
+                      "location": "com/miniyus/friday/FridayApplicationTests.java:18"
                     }
                   ],
                   "name": "FridayApplicationTests",

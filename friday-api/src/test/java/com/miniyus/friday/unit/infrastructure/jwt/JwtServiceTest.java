@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.jpa.repositories.AccessTokenRepository;
 import com.miniyus.friday.infrastructure.jpa.repositories.RefreshTokenRepository;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
@@ -28,6 +29,9 @@ public class JwtServiceTest {
 
     @Mock
     private UserRepository userRepository;
+
+    @Mock
+    private AccessTokenRepository accessTokenRepository;
 
     @Mock
     private RefreshTokenRepository refreshTokenRepository;
@@ -57,7 +61,11 @@ public class JwtServiceTest {
                 "Authorization",
                 "RefreshToken");
 
-        jwtService = new JwtService(jwtProvider, userRepository, refreshTokenRepository);
+        jwtService = new JwtService(
+                jwtProvider,
+                userRepository,
+                accessTokenRepository,
+                refreshTokenRepository);
 
         testUser = UserEntity.builder()
                 .name("miniyus")

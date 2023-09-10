@@ -1,0 +1,170 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "id",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      },
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      }
+                                    ],
+                                    "name": "UpdateUserCommand$UpdateUserCommandBuilder",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java:13"
+                                      }
+                                    ],
+                                    "name": "UpdateUserCommand",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "usecase",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "in",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "port",
+                        "type": "package"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "name": "updateUser",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/users/application/service/UserService.java:58"
+                              }
+                            ],
+                            "name": "UserService",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "service",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "application",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "updateRole",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/users/domain/User.java:42"
+                          },
+                          {
+                            "name": "updateName",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/users/domain/User.java:38"
+                          }
+                        ],
+                        "name": "User",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "domain",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "updateUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:128"
+                                  }
+                                ],
+                                "name": "UserServiceTest",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "service",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "application",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

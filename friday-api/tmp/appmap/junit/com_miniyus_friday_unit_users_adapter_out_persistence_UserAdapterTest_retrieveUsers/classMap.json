@@ -1,0 +1,124 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "retrieveUsers",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/unit/users/adapter/out/persistence/UserAdapterTest.java:81"
+                                      }
+                                    ],
+                                    "name": "UserAdapterTest",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "persistence",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "out",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "adapter",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "unit",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "name": "findAll",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:37"
+                                  }
+                                ],
+                                "name": "UserAdapter",
+                                "type": "class"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "toDomain",
+                                    "type": "function",
+                                    "static": true,
+                                    "location": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java:30"
+                                  }
+                                ],
+                                "name": "UserMapper",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "persistence",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "out",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "database",
+    "name": "Database",
+    "children": [
+      {
+        "type": "query",
+        "name": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      {
+        "type": "query",
+        "name": "select u1_0.id,u1_0.created_at,u1_0.deleted_at,u1_0.email,u1_0.name,u1_0.password,u1_0.provider,u1_0.role,u1_0.sns_id,u1_0.updated_at from auth_user u1_0 where (u1_0.deleted_at IS NULL)"
+      }
+    ]
+  }
+]

@@ -1,0 +1,218 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "name": "withConfiguration",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:45"
+                      },
+                      {
+                        "name": "withDomainLayer",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:34"
+                      },
+                      {
+                        "name": "check",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:58"
+                      },
+                      {
+                        "name": "withAdaptersLayer",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:29"
+                      },
+                      {
+                        "name": "withApplicationLayer",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:39"
+                      },
+                      {
+                        "name": "boundedContext",
+                        "type": "function",
+                        "static": true,
+                        "location": "com/miniyus/friday/archunit/HexagonalArchitecture.java:21"
+                      }
+                    ],
+                    "name": "HexagonalArchitecture",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "doesNotContainEmptyPackages",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:61"
+                      },
+                      {
+                        "name": "incomingAndOutgoingPortsDoNotDependOnEachOther",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:48"
+                      },
+                      {
+                        "name": "doesNotDependOn",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:44"
+                      },
+                      {
+                        "name": "services",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:35"
+                      },
+                      {
+                        "name": "outgoingPorts",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:30"
+                      },
+                      {
+                        "name": "incomingPorts",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:25"
+                      },
+                      {
+                        "name": "and",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ApplicationLayer.java:40"
+                      }
+                    ],
+                    "name": "ApplicationLayer",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "allAdapterPackages",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:36"
+                      },
+                      {
+                        "name": "and",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:43"
+                      },
+                      {
+                        "name": "dontDependOnEachOther",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:51"
+                      },
+                      {
+                        "name": "incoming",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:31"
+                      },
+                      {
+                        "name": "outgoing",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:26"
+                      },
+                      {
+                        "name": "doesNotContainEmptyPackages",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:66"
+                      },
+                      {
+                        "name": "doesNotDependOn",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/Adapters.java:62"
+                      }
+                    ],
+                    "name": "Adapters",
+                    "type": "class"
+                  },
+                  {
+                    "children": [
+                      {
+                        "name": "fullQualifiedPackage",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:26"
+                      },
+                      {
+                        "name": "denyEmptyPackage",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:59"
+                      },
+                      {
+                        "name": "denyEmptyPackages",
+                        "type": "function",
+                        "static": false,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:71"
+                      },
+                      {
+                        "name": "denyAnyDependency",
+                        "type": "function",
+                        "static": true,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:41"
+                      },
+                      {
+                        "name": "matchAllClassesInPackage",
+                        "type": "function",
+                        "static": true,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:55"
+                      },
+                      {
+                        "name": "denyDependency",
+                        "type": "function",
+                        "static": true,
+                        "location": "com/miniyus/friday/archunit/ArchitectureElement.java:30"
+                      }
+                    ],
+                    "name": "ArchitectureElement",
+                    "type": "class"
+                  }
+                ],
+                "name": "archunit",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "name": "validateRegistrationContextArchitecture",
+                    "type": "function",
+                    "static": false,
+                    "location": "com/miniyus/friday/DependencyRuleTests.java:17"
+                  }
+                ],
+                "name": "DependencyRuleTests",
+                "type": "class"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  }
+]

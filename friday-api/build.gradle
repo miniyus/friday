@@ -47,9 +47,16 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'com.github.javafaker:javafaker:1.0.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.testcontainers:testcontainers:1.19.0'
+	testImplementation 'org.testcontainers:junit-jupiter:1.16.2'  // TC 의존성
+	testImplementation 'org.testcontainers:postgresql:1.17.6'     // PostgreSQL 컨테이너 사용
+	testImplementation 'org.testcontainers:jdbc:1.16.0'
+	testImplementation 'com.tngtech.archunit:archunit:1.1.0'
 
 	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 }
