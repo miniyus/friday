@@ -66,8 +66,9 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
                     "Authentication Content-Type not supported: " + request.getContentType());
         }
 
-        String messageBody =
-                StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
+        String messageBody = StreamUtils.copyToString(
+                request.getInputStream(),
+                StandardCharsets.UTF_8);
 
         PasswordAuthentication usernamePassword =
                 objectMapper.readValue(messageBody, PasswordAuthentication.class);
@@ -77,6 +78,7 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
         log.debug("input email: {}", email);
         UsernamePasswordAuthenticationToken authRequest =
                 new UsernamePasswordAuthenticationToken(email, password);
+
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

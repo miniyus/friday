@@ -77,11 +77,11 @@ spring:
             enabled: true
 logging:
     file:
-        path: logs
-        name: friday-api.log
+        path: ${LOG_PATH:log}
+        name: ${LOG_PATH:log}/friday-api.log
     logback:
         rollingpolicy:
-            file-name-pattern: friday-api-%d{yyyy-MM-dd}.log
+            file-name-pattern: ${LOG_PATH:log}/friday-api-%d{yyyy-MM-dd}.%i
     level:
         root: warn
         tomcat: warn

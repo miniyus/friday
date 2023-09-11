@@ -53,15 +53,22 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).permitAll()
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**")).permitAll()
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/v1/auth/signup")).permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
+                .permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**"))
+                .permitAll()
+                .requestMatchers(AntPathRequestMatcher.antMatcher("/actuator/**"))
+                .permitAll()
+                .requestMatchers(
+                        AntPathRequestMatcher.antMatcher("/v1/auth/signup"))
+                .permitAll()
                 .anyRequest().authenticated());
         // anyRequest().permitAll());
         http.formLogin(form -> form.disable());
         http.httpBasic(basic -> basic.disable());
         http.sessionManagement(
-                session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                session -> session.sessionCreationPolicy(
+                        SessionCreationPolicy.STATELESS));
         http.csrf(csrf -> csrf.disable());
         http.oauth2Login(oauth2Login -> oauth2Login
                 .authorizationEndpoint(authorization -> authorization
