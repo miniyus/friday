@@ -38,6 +38,6 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
         response.getWriter().write(jsonBody);
 
-        log.debug("로그인에 실패했습니다. 메시지 : {}", exception.getMessage());
+        log.debug("Failure login. message: {}", exception.getMessage());
     }
 }

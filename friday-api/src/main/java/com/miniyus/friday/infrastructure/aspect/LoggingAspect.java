@@ -10,14 +10,8 @@ import org.aspectj.lang.reflect.MethodSignature;
  * @author seongminyoo
  * @date 2023/09/11
  */
-public abstract class AbstractAspect implements HexagonalAspect {
+public abstract class LoggingAspect {
     protected String tag;
-
-    public static String REQUEST = "Request";
-
-    public static String PERSISTENCE = "Persistence";
-
-    public static String APPLICATION = "Application";
 
     public static String DOMAIN = "Domain";
 
@@ -27,7 +21,7 @@ public abstract class AbstractAspect implements HexagonalAspect {
 
     protected final Logger log;
 
-    public AbstractAspect(String tag, Logger log) {
+    public LoggingAspect(String tag, Logger log) {
         this.tag = tag;
         this.log = log;
     }
@@ -90,10 +84,10 @@ public abstract class AbstractAspect implements HexagonalAspect {
     }
 
     void afterReturningLogging(String action, JoinPoint joinPoint, Object returnValue) {
-        loggingJoinPoint("after", action, joinPoint, returnValue);
+        loggingJoinPoint("after", action + RETUNING, joinPoint, returnValue);
     }
 
     void afterThrowingLogging(String action, JoinPoint joinPoint, Exception e) {
-        loggingJoinPoint("after", action, joinPoint, e);
+        loggingJoinPoint("after", action + THROWING, joinPoint, e);
     }
 }

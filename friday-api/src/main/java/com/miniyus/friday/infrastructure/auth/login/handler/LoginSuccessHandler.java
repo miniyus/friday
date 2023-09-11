@@ -40,9 +40,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         IssueToken tokens = jwtService.issueToken(userDetails.getId());
 
-        log.debug("로그인에 성공하였습니다. 이메일 : {}", userDetails.getUsername());
-        log.debug("로그인에 성공하였습니다. AccessToken : {}", tokens.getAccessToken());
-        log.debug("발급된 AccessToken 만료 기간 : {}", tokens.getExpiresIn());
+        log.debug("Success Login Email: {}", userDetails.getUsername());
+        log.debug("Success Login AccessToken : {}", tokens.getAccessToken());
+        log.debug("Issued AccessToken expires in: {}(seconds)", tokens.getExpiresIn());
 
         PasswordTokenResponse passwordTokenResponse = new PasswordTokenResponse(
                 userDetails.getId(),

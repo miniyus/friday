@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class UsersAspect extends AbstractAspect {
+public class UsersAspect extends LoggingAspect implements HexagonalAspect {
 
     public UsersAspect() {
         super("Users", LoggerFactory.getLogger(UsersAspect.class));
@@ -26,7 +26,7 @@ public class UsersAspect extends AbstractAspect {
     // Adapter layer
 
     // in/rest
-    @Pointcut("within(com.miniyus.friday.users.adapter.in.rest.*)")
+    @Pointcut("within(com.miniyus.friday.users.adapter.in.rest..*)")
     @Override
     public void controllerPoint() {}
 
@@ -39,17 +39,17 @@ public class UsersAspect extends AbstractAspect {
     @AfterReturning(pointcut = "controllerPoint()", returning = "returnValue")
     @Override
     public void afterRequestReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging(REQUEST + RETUNING, joinPoint, returnValue);
+        afterReturningLogging(REQUEST, joinPoint, returnValue);
     }
 
     @AfterThrowing(pointcut = "controllerPoint()", throwing = "e")
     @Override
     public void afterRequestThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging(REQUEST + THROWING, joinPoint, e);
+        afterThrowingLogging(REQUEST, joinPoint, e);
     }
 
     // out/persistence
-    @Pointcut("within(com.miniyus.friday.users.adapter.out.persistence.*)")
+    @Pointcut("within(com.miniyus.friday.users.adapter.out.persistence..*)")
     @Override
     public void persistencePoint() {}
 
@@ -62,19 +62,19 @@ public class UsersAspect extends AbstractAspect {
     @AfterReturning(pointcut = "persistencePoint()", returning = "returnValue")
     @Override
     public void afterPersistenceReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging(PERSISTENCE + RETUNING, joinPoint, returnValue);
+        afterReturningLogging(PERSISTENCE, joinPoint, returnValue);
     }
 
     @AfterThrowing(pointcut = "controllerPoint()", throwing = "e")
     @Override
     public void afterPersistenceThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging(PERSISTENCE + THROWING, joinPoint, e);
+        afterThrowingLogging(PERSISTENCE, joinPoint, e);
     }
 
 
     // Application layer
 
-    @Pointcut("within(com.miniyus.friday.users.application.service.*)")
+    @Pointcut("within(com.miniyus.friday.users.application..*)")
     @Override
     public void applicationPoint() {}
 
@@ -87,19 +87,19 @@ public class UsersAspect extends AbstractAspect {
     @AfterReturning(pointcut = "applicationPoint()", returning = "returnValue")
     @Override
     public void afterServiceReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging(APPLICATION + RETUNING, joinPoint, returnValue);
+        afterReturningLogging(APPLICATION, joinPoint, returnValue);
     }
 
     @AfterThrowing(pointcut = "applicationPoint()", throwing = "e")
     @Override
     public void afterServiceThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging(APPLICATION + THROWING, joinPoint, e);
+        afterThrowingLogging(APPLICATION, joinPoint, e);
     }
 
 
     // Domain layer
 
-    @Pointcut("within(com.miniyus.friday.users.domain.*)")
+    @Pointcut("within(com.miniyus.friday.users.domain..*)")
     @Override
     public void domainPoint() {}
 

@@ -115,7 +115,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             log.debug("error: {}", ex.getMessage());
         }
 
-        log.debug("next filter");
+        log.debug("Next filter");
 
         filterChain.doFilter(request, response);
     }
