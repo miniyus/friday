@@ -1,6 +1,5 @@
 package com.miniyus.friday.integration.infrastructure.security.auth;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import org.junit.jupiter.api.Test;
@@ -52,9 +51,6 @@ import java.util.ArrayList;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @AutoConfigureRestDocs(
-    uriScheme = "http",
-    uriHost = "localhost",
-    uriPort = 8080,
     outputDir = "build/generated-snippets")
 public class AuthControllerTest {
     @Autowired
