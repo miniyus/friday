@@ -38,7 +38,7 @@ public class JwtService {
      * @return an object containing the generated token, its expiration time, and the refresh token
      */
     public IssueToken issueToken(Long userId) {
-        UserEntity userEntity = userRepository.findById(userId).get();
+        UserEntity userEntity = userRepository.findById(userId).orElse(null);
 
         if (userEntity == null) {
             throw new AccessDeniedException("Cannot find user");

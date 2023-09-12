@@ -87,8 +87,8 @@ public class JwtServiceTest {
         when(userRepository.findByEmail("miniyus@gmail.com")).thenReturn(Optional.of(testUser));
         
         var tokens = jwtService.issueToken("miniyus@gmail.com");
-        var accessToken = tokens.getAccessToken();
-        var refreshToken = tokens.getRefreshToken();
+        var accessToken = tokens.accessToken();
+        var refreshToken = tokens.refreshToken();
 
         // just null check
         assertNotNull(tokens);
@@ -101,7 +101,7 @@ public class JwtServiceTest {
          * Verify that the expiration date of the access token. 
          * * check injected into the JWT Provider matches the expiration date of the issued access token
          */
-        assertTrue(tokens.getExpiresIn() == 3600L);
+        assertTrue(tokens.expiresIn() == 3600L);
 
         var email = jwtProvider.extractEmail(accessToken).get();
         

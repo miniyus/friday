@@ -11,11 +11,9 @@ import lombok.Value;
  * @author seongminyoo
  * @date 2023/09/04
  */
-@AllArgsConstructor
-@Value
-public class PasswordTokenResponse {
-    private Long id;
-    private String email;
-    private String name;
-    private IssueToken tokens;
+public record PasswordTokenResponse(
+    Long id,
+    String email,
+    String name,
+    IssueToken tokens) {
 }

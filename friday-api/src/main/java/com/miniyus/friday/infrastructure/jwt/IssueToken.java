@@ -9,12 +9,8 @@ import lombok.Value;
  * @author seongminyoo
  * @date 2023/08/31
  */
-@Value
-@AllArgsConstructor
-public class IssueToken {
-    private String accessToken;
-
-    private Long expiresIn;
-
-    private String refreshToken;
+public record IssueToken(
+    String accessToken,
+    Long expiresIn,
+    String refreshToken) {
 }

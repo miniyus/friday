@@ -41,8 +41,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         IssueToken tokens = jwtService.issueToken(userDetails.getId());
 
         log.debug("Success Login Email: {}", userDetails.getUsername());
-        log.debug("Success Login AccessToken : {}", tokens.getAccessToken());
-        log.debug("Issued AccessToken expires in: {}(seconds)", tokens.getExpiresIn());
+        log.debug("Success Login AccessToken : {}", tokens.accessToken());
+        log.debug("Issued AccessToken expires in: {}(seconds)", tokens.expiresIn());
 
         PasswordTokenResponse passwordTokenResponse = new PasswordTokenResponse(
                 userDetails.getId(),

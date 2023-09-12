@@ -2,6 +2,7 @@ package com.miniyus.friday.infrastructure.security;
 
 import java.util.Collection;
 import java.util.Map;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -20,33 +21,33 @@ import lombok.Value;
 @Builder
 @Value
 public class PrincipalUserInfo implements UserDetails, OAuth2User {
-    private Long id;
+    Long id;
 
-    private String snsId;
+    String snsId;
 
-    private OAuth2Provider provider;
+    OAuth2Provider provider;
 
-    private String username;
+    String username;
 
-    private String name;
+    String name;
 
     @Nullable
     @JsonIgnore
-    private String password;
+    String password;
 
-    private String role;
+    String role;
 
-    private boolean enabled;
+    boolean enabled;
 
-    private boolean accountNonExpired;
+    boolean accountNonExpired;
 
-    private boolean credentialsNonExpired;
+    boolean credentialsNonExpired;
 
-    private boolean accountNonLocked;
+    boolean accountNonLocked;
 
-    private Map<String, Object> attributes;
+    Map<String, Object> attributes;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Map<String, Object> getAttributes() {
