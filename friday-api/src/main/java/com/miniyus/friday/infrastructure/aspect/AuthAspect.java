@@ -19,10 +19,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class AuthAspect extends LoggingAspect {
 
+    // auth api aspect
     public AuthAspect() {
         super("Auth", LoggerFactory.getLogger(AuthAspect.class));
     }
 
+    // signup controller point
     @Pointcut("within(com.miniyus.friday.infrastructure.auth.login.SignupController)")
     public void signupPoint() {}
 
@@ -41,6 +43,7 @@ public class AuthAspect extends LoggingAspect {
         afterThrowingLogging("Signup", joinPoint, e);
     }
 
+    // oauth2 api point
     @Pointcut("within(com.miniyus.friday.infrastructure.auth.oauth2.*)")
     public void oAuth2Point() {}
 
@@ -59,6 +62,7 @@ public class AuthAspect extends LoggingAspect {
         afterThrowingLogging("OAuth2", joinPoint, e);
     }
 
+    // services point
     @Pointcut("within(com.miniyus.friday.infrastructure.auth.*)")
     public void applicationPoint() {}
 

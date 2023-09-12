@@ -9,5 +9,7 @@ import com.miniyus.friday.users.domain.User;
  * @date 2023/09/02
  */
 public interface CreateUserPort {
-    User createUser(User command);
+    User createUser(User user);
+
+    boolean isUniqueUser(User user);
 }

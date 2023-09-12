@@ -3,6 +3,8 @@ package com.miniyus.friday.users.application.service;
 import java.util.Collection;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserCommand;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
@@ -53,6 +55,10 @@ public class UserService
                 null,
                 null);
 
+        if (createUserPort.isUniqueUser(user)) {
+            throw new RestErrorException(ErrorCode.CONFLICT, "error.userExists");
+        }
+
         return createUserPort.createUser(user);
     }
 
@@ -92,7 +98,15 @@ public class UserService
 
     @Override
     public User findById(Long id) {
-        return readUserPort.findById(id);
+        var user = readUserPort.findById(id);
+
+        if (user == null) {
+            throw new RestErrorException(
+                    ErrorCode.NOT_FOUND,
+                    "error.userNotFound");
+        }
+
+        return user;
     }
 
     @Override

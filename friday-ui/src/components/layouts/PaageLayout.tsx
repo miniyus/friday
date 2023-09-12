@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Box, Grid, Paper } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 const PageLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
     return (

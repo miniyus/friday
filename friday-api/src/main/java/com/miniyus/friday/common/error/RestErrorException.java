@@ -1,5 +1,8 @@
 package com.miniyus.friday.common.error;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * RestErrorException
  * 
@@ -12,6 +15,8 @@ public class RestErrorException extends RuntimeException {
 
     private final ErrorCode errorCode;
 
+    protected List<Object> args;
+
     public RestErrorException(String message, ErrorCode errorCode) {
         super(message);
         this.errorCode = errorCode;
@@ -22,6 +27,12 @@ public class RestErrorException extends RuntimeException {
         this.errorCode = errorCode;
     }
 
+    public RestErrorException(ErrorCode errorCode, String message, Object... args) {
+        super(message);
+        this.errorCode = errorCode;
+        this.args = Arrays.asList(args);
+    }
+
     /**
      * Retrieves the error code associated with this object.
      *
@@ -29,5 +40,9 @@ public class RestErrorException extends RuntimeException {
      */
     public ErrorCode getErrorCode() {
         return this.errorCode;
+    }
+
+    public List<Object> getArgs() {
+        return this.args;
     }
 }
