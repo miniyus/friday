@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 164,
+      "lineno": 161,
       "method_id": "deleteUser",
       "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
-        "object_id": 1836160393,
-        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@6d719589"
+        "object_id": 1732107784,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@673dde08"
       },
       "static": false,
       "thread_id": 1
@@ -19,7 +19,7 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 2,
-      "lineno": 104,
+      "lineno": 158,
       "method_id": "deleteById",
       "parameters": [
         {
@@ -33,14 +33,14 @@
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 1167145039,
-        "value": "com.miniyus.friday.users.application.service.UserService@4591384f"
+        "object_id": 808836822,
+        "value": "com.miniyus.friday.users.application.service.UserService@3035ded6"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000123,
+      "elapsed": 0.0000188,
       "event": "return",
       "id": 3,
       "parent_id": 2,
@@ -50,7 +50,7 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 4,
-      "lineno": 92,
+      "lineno": 124,
       "method_id": "findById",
       "parameters": [
         {
@@ -64,21 +64,30 @@
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 1167145039,
-        "value": "com.miniyus.friday.users.application.service.UserService@4591384f"
+        "object_id": 808836822,
+        "value": "com.miniyus.friday.users.application.service.UserService@3035ded6"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000053,
+      "elapsed": 0.0014763,
       "event": "return",
+      "exceptions": [
+        {
+          "class": "com.miniyus.friday.common.error.RestErrorException",
+          "lineno": 127,
+          "message": "error.userNotFound",
+          "object_id": 3489014,
+          "path": "UserService.java"
+        }
+      ],
       "id": 5,
       "parent_id": 4,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000404,
+      "elapsed": 0.0017882,
       "event": "return",
       "id": 6,
       "parent_id": 1,
@@ -106,7 +115,7 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "method_id": "deleteUser"
     },
-    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164",
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:161",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -126,16 +135,16 @@
                             {
                               "children": [
                                 {
-                                  "name": "deleteById",
-                                  "type": "function",
-                                  "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:104"
-                                },
-                                {
                                   "name": "findById",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:92"
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:124"
+                                },
+                                {
+                                  "name": "deleteById",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:158"
                                 }
                               ],
                               "name": "UserService",
@@ -167,7 +176,7 @@
                                       "name": "deleteUser",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164"
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:161"
                                     }
                                   ],
                                   "name": "UserServiceTest",

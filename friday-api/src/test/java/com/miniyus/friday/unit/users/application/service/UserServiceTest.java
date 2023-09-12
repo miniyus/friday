@@ -13,7 +13,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import com.github.javafaker.Faker;
+import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand;
 import com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand;
 import com.miniyus.friday.users.application.port.out.CreateUserPort;
@@ -46,11 +48,9 @@ public class UserServiceTest {
     @InjectMocks
     private UserService userService;
 
-    private CreateUserCommand createUserCommand;
-
     private List<User> testDomains;
 
-    private Faker faker = new Faker();
+    private final Faker faker = new Faker();
 
     @BeforeEach
     void setUp() {
@@ -75,12 +75,12 @@ public class UserServiceTest {
     void createUser() {
         var testDomain = testDomains.get(0);
 
-        createUserCommand = CreateUserCommand.builder()
-                .email(testDomain.getEmail())
-                .name(testDomain.getName())
-                .role("USER")
-                .password(testDomain.getPassword())
-                .build();
+        CreateUserCommand createUserCommand = CreateUserCommand.builder()
+            .email(testDomain.getEmail())
+            .name(testDomain.getName())
+            .role("USER")
+            .password(testDomain.getPassword())
+            .build();
 
         when(createUserPort.createUser(any())).thenReturn(testDomain);
 
@@ -139,7 +139,7 @@ public class UserServiceTest {
                 testOrigin.getUpdatedAt(),
                 testOrigin.getDeletedAt());
 
-        testUpdate.updateName("testUpdate");
+        testUpdate.patch("testUpdate", null);
 
         when(updateUserPort.updateUser(any(User.class))).thenReturn(testUpdate);
         var command = UpdateUserCommand.builder()
@@ -148,7 +148,7 @@ public class UserServiceTest {
                 .role("USER")
                 .build();
 
-        User updated = userService.updateUser(command);
+        User updated = userService.patchUser(command);
 
         assertThat(updated)
                 .hasFieldOrPropertyWithValue("id", command.getId())
@@ -161,8 +161,14 @@ public class UserServiceTest {
         when(retrieveUserPort.findById(1L)).thenReturn(null);
 
         userService.deleteById(1L);
-
-        User deleted = userService.findById(1L);
+        
+        User deleted = null;
+        try {
+            deleted = userService.findById(1L);
+        } catch (RestErrorException exception){
+            assertThat(exception).isInstanceOf(RestErrorException.class);
+            assertThat(exception.getErrorCode().getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+        }
 
         assertThat(deleted).isNull();
     }

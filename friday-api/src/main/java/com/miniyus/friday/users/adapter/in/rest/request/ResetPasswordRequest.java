@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResetPasswordRequest {
-    @NotBlank
-    @Size(min = 8, max = 50)
+    @NotBlank(message = "validation.user.password.notBlank")
+    @Size(min = 8, max = 50, message = "validation.user.password.size")
     private String password;
 }

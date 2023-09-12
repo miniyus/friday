@@ -4,152 +4,152 @@
       "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 61,
+      "lineno": 60,
       "method_id": "createOAuth2User",
       "path": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
-        "object_id": 1950830528,
-        "value": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest@74474fc0"
+        "object_id": 971141478,
+        "value": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest@39e27166"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo",
       "event": "call",
       "id": 2,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "builder",
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "static": true,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0010236,
+      "elapsed": 0.0015744,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=null, email=null, name=null, attributes=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
       "event": "call",
       "id": 4,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "snsId",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "snsId",
-          "object_id": 1053901932,
+          "object_id": 93855894,
           "value": "test1234"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=null, name=null, attributes=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000269,
+      "elapsed": 0.0000338,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=null, name=null, attributes=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
       "event": "call",
       "id": 6,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "email",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 1655145542,
+          "object_id": 668460433,
           "value": "miniyu97@gmail.com"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=null, attributes=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000045,
+      "elapsed": 0.0000033,
       "event": "return",
       "id": 7,
       "parent_id": 6,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=null, attributes=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
       "event": "call",
       "id": 8,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "name",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 1542294417,
+          "object_id": 1013314273,
           "value": "smyoo"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=smyoo, attributes=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000097,
+      "elapsed": 0.0000029,
       "event": "return",
       "id": 9,
       "parent_id": 8,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=smyoo, attributes=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
       "event": "call",
       "id": 10,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "attributes",
       "parameters": [
         {
@@ -159,74 +159,74 @@
           "object_id": 0
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=smyoo, attributes=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000048,
+      "elapsed": 0.0000026,
       "event": "return",
       "id": 11,
       "parent_id": 10,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=smyoo, attributes=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
       "event": "call",
       "id": 12,
-      "lineno": 17,
+      "lineno": 15,
       "method_id": "build",
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
-        "object_id": 320173600,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo$GoogleUserInfoBuilder",
+        "object_id": 1803718523,
         "value": "GoogleUserInfo.GoogleUserInfoBuilder(snsId=test1234, email=miniyu97@gmail.com, name=smyoo, attributes=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000051,
+      "elapsed": 0.0000304,
       "event": "return",
       "id": 13,
       "parent_id": 12,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo",
-        "object_id": 1519489617,
-        "value": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo@5a919251"
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo",
+        "object_id": 785596033,
+        "value": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo@2ed33e81"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserService",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserService",
       "event": "call",
       "id": 14,
       "lineno": 72,
       "method_id": "create",
       "parameters": [
         {
-          "class": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo",
+          "class": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo",
           "kind": "req",
           "name": "userInfo",
-          "object_id": 1519489617,
-          "value": "com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo@5a919251"
+          "object_id": 785596033,
+          "value": "com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo@2ed33e81"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserService.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserService.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserService",
-        "object_id": 866170967,
-        "value": "com.miniyus.friday.infrastructure.auth.PrincipalUserService@33a0b857"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserService",
+        "object_id": 1214519292,
+        "value": "com.miniyus.friday.infrastructure.security.PrincipalUserService@486417fc"
       },
       "static": false,
       "thread_id": 1
@@ -235,20 +235,20 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
       "event": "call",
       "id": 15,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "builder",
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "static": true,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000051,
+      "elapsed": 0.0000046,
       "event": "return",
       "id": 16,
       "parent_id": 15,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=null, provider=null, email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -257,34 +257,34 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 17,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "snsId",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "snsId",
-          "object_id": 1053901932,
+          "object_id": 93855894,
           "value": "test1234"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=null, email=null, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0001619,
+      "elapsed": 0.0000052,
       "event": "return",
       "id": 18,
       "parent_id": 17,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=null, email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -293,34 +293,34 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 19,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "provider",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "provider",
-          "object_id": 1410669831,
+          "object_id": 1589066091,
           "value": "google"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=null, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000042,
+      "elapsed": 0.0000037,
       "event": "return",
       "id": 20,
       "parent_id": 19,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -329,34 +329,34 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 21,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "email",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 1655145542,
+          "object_id": 668460433,
           "value": "miniyu97@gmail.com"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000043,
+      "elapsed": 0.0000031,
       "event": "return",
       "id": 22,
       "parent_id": 21,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -365,7 +365,7 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 23,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "password",
       "parameters": [
         {
@@ -378,20 +378,20 @@
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000004,
+      "elapsed": 0.0000039,
       "event": "return",
       "id": 24,
       "parent_id": 23,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -400,34 +400,34 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 25,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "name",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 1542294417,
+          "object_id": 1013314273,
           "value": "smyoo"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=smyoo, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000041,
+      "elapsed": 0.0000031,
       "event": "return",
       "id": 26,
       "parent_id": 25,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=smyoo, role=null)"
       },
       "thread_id": 1
@@ -436,34 +436,34 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 27,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "role",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1938483077,
+          "object_id": 126819625,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000046,
+      "elapsed": 0.0000026,
       "event": "return",
       "id": 28,
       "parent_id": 27,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=smyoo, role=USER)"
       },
       "thread_id": 1
@@ -472,84 +472,84 @@
       "defined_class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
       "event": "call",
       "id": 29,
-      "lineno": 67,
+      "lineno": 61,
       "method_id": "build",
       "path": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java",
       "receiver": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity$UserEntityBuilder",
-        "object_id": 188513397,
+        "object_id": 809030285,
         "value": "UserEntity.UserEntityBuilder(snsId=test1234, provider=google, email=miniyu97@gmail.com, password=null, name=smyoo, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000042,
+      "elapsed": 0.000039,
       "event": "return",
       "id": 30,
       "parent_id": 29,
       "return_value": {
         "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
-        "object_id": 1775322614,
-        "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@69d145f6"
+        "object_id": 1329494694,
+        "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@4f3e7aa6"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.oauth2.OAuth2Provider",
+      "defined_class": "com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider",
       "event": "call",
       "id": 31,
-      "lineno": 25,
+      "lineno": 23,
       "method_id": "of",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "registrationId",
-          "object_id": 1410669831,
+          "object_id": 1589066091,
           "value": "google"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/oauth2/OAuth2Provider.java",
+      "path": "com/miniyus/friday/infrastructure/security/oauth2/OAuth2Provider.java",
       "static": true,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000055,
+      "elapsed": 0.0000063,
       "event": "return",
       "id": 32,
       "parent_id": 31,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.oauth2.OAuth2Provider",
-        "object_id": 1247678383,
+        "class": "com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider",
+        "object_id": 2024698614,
         "value": "GOOGLE"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo",
       "event": "call",
       "id": 33,
       "lineno": 20,
       "method_id": "builder",
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "static": true,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000037,
+      "elapsed": 0.0000028,
       "event": "return",
       "id": 34,
       "parent_id": 33,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=null, provider=null, username=null, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 35,
       "lineno": 20,
@@ -562,29 +562,29 @@
           "object_id": 0
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=null, provider=null, username=null, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000006,
+      "elapsed": 0.0000041,
       "event": "return",
       "id": 36,
       "parent_id": 35,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=null, provider=null, username=null, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 37,
       "lineno": 20,
@@ -594,33 +594,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "snsId",
-          "object_id": 1053901932,
+          "object_id": 93855894,
           "value": "test1234"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=null, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000049,
+      "elapsed": 0.0000027,
       "event": "return",
       "id": 38,
       "parent_id": 37,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=null, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 39,
       "lineno": 20,
@@ -630,33 +630,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "username",
-          "object_id": 781975304,
+          "object_id": 1962155986,
           "value": "miniyus@gmail.com"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000046,
+      "elapsed": 0.0000026,
       "event": "return",
       "id": 40,
       "parent_id": 39,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=null, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 41,
       "lineno": 20,
@@ -666,33 +666,33 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 1542294417,
+          "object_id": 1013314273,
           "value": "smyoo"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000049,
+      "elapsed": 0.0000026,
       "event": "return",
       "id": 42,
       "parent_id": 41,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 43,
       "lineno": 20,
@@ -705,29 +705,29 @@
           "object_id": 0
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000049,
+      "elapsed": 0.0000024,
       "event": "return",
       "id": 44,
       "parent_id": 43,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=false, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 45,
       "lineno": 20,
@@ -737,33 +737,33 @@
           "class": "java.lang.Boolean",
           "kind": "req",
           "name": "enabled",
-          "object_id": 1676763984,
+          "object_id": 1678161997,
           "value": "true"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000048,
+      "elapsed": 0.0000025,
       "event": "return",
       "id": 46,
       "parent_id": 45,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=false, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 47,
       "lineno": 20,
@@ -773,33 +773,33 @@
           "class": "java.lang.Boolean",
           "kind": "req",
           "name": "accountNonExpired",
-          "object_id": 1676763984,
+          "object_id": 1678161997,
           "value": "true"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000045,
+      "elapsed": 0.0000024,
       "event": "return",
       "id": 48,
       "parent_id": 47,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=false, accountNonLocked=false, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 49,
       "lineno": 20,
@@ -809,33 +809,33 @@
           "class": "java.lang.Boolean",
           "kind": "req",
           "name": "accountNonLocked",
-          "object_id": 1676763984,
+          "object_id": 1678161997,
           "value": "true"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=false, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000059,
+      "elapsed": 0.0000025,
       "event": "return",
       "id": 50,
       "parent_id": 49,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=false, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 51,
       "lineno": 20,
@@ -845,33 +845,33 @@
           "class": "java.lang.Boolean",
           "kind": "req",
           "name": "credentialsNonExpired",
-          "object_id": 1676763984,
+          "object_id": 1678161997,
           "value": "true"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000068,
+      "elapsed": 0.0000025,
       "event": "return",
       "id": 52,
       "parent_id": 51,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 53,
       "lineno": 20,
@@ -884,65 +884,65 @@
           "object_id": 0
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000043,
+      "elapsed": 0.0000024,
       "event": "return",
       "id": 54,
       "parent_id": 53,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=null, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 55,
       "lineno": 20,
       "method_id": "provider",
       "parameters": [
         {
-          "class": "com.miniyus.friday.infrastructure.auth.oauth2.OAuth2Provider",
+          "class": "com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider",
           "kind": "req",
           "name": "provider",
-          "object_id": 1247678383,
+          "object_id": 2024698614,
           "value": "GOOGLE"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000043,
+      "elapsed": 0.0000025,
       "event": "return",
       "id": 56,
       "parent_id": 55,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
         "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=null)"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 57,
       "lineno": 20,
@@ -952,33 +952,33 @@
           "class": "java.util.ArrayList",
           "kind": "req",
           "name": "authorities",
-          "object_id": 1679939676,
-          "value": "[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000]"
+          "object_id": 1511061752,
+          "value": "[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e]"
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
-        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
+        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000066,
+      "elapsed": 0.0000094,
       "event": "return",
       "id": 58,
       "parent_id": 57,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
-        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
+        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 59,
       "lineno": 20,
@@ -991,68 +991,68 @@
           "object_id": 0
         }
       ],
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
-        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
+        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000052,
+      "elapsed": 0.0000041,
       "event": "return",
       "id": 60,
       "parent_id": 59,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
-        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
+        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "thread_id": 1
     },
     {
-      "defined_class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
+      "defined_class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
       "event": "call",
       "id": 61,
       "lineno": 20,
       "method_id": "build",
-      "path": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java",
+      "path": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java",
       "receiver": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo$PrincipalUserInfoBuilder",
-        "object_id": 1745094828,
-        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo$PrincipalUserInfoBuilder",
+        "object_id": 278745576,
+        "value": "PrincipalUserInfo.PrincipalUserInfoBuilder(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000047,
+      "elapsed": 0.0000034,
       "event": "return",
       "id": 62,
       "parent_id": 61,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo",
-        "object_id": 380744211,
-        "value": "PrincipalUserInfo(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo",
+        "object_id": 726270291,
+        "value": "PrincipalUserInfo(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0004955,
+      "elapsed": 0.0003045,
       "event": "return",
       "id": 63,
       "parent_id": 14,
       "return_value": {
-        "class": "com.miniyus.friday.infrastructure.auth.PrincipalUserInfo",
-        "object_id": 380744211,
-        "value": "PrincipalUserInfo(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.auth.PrincipalUserService$1@5eb89000])"
+        "class": "com.miniyus.friday.infrastructure.security.PrincipalUserInfo",
+        "object_id": 726270291,
+        "value": "PrincipalUserInfo(id=null, snsId=test1234, provider=GOOGLE, username=miniyus@gmail.com, name=smyoo, password=null, role=null, enabled=true, accountNonExpired=true, credentialsNonExpired=true, accountNonLocked=true, attributes=null, authorities=[com.miniyus.friday.infrastructure.security.PrincipalUserService$1@5122088e])"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0025186,
+      "elapsed": 0.0027346,
       "event": "return",
       "id": 64,
       "parent_id": 1,
@@ -1080,7 +1080,7 @@
       "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
       "method_id": "createOAuth2User"
     },
-    "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61",
+    "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:60",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -1098,38 +1098,128 @@
                         {
                           "children": [
                             {
+                              "name": "password",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "enabled",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "attributes",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "name",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "provider",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "role",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "username",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "snsId",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "authorities",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "accountNonExpired",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "credentialsNonExpired",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "build",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "id",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            },
+                            {
+                              "name": "accountNonLocked",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                            }
+                          ],
+                          "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
                               "children": [
                                 {
                                   "children": [
                                     {
-                                      "name": "build",
-                                      "type": "function",
-                                      "static": false,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                    },
-                                    {
-                                      "name": "email",
-                                      "type": "function",
-                                      "static": false,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                    },
-                                    {
-                                      "name": "name",
-                                      "type": "function",
-                                      "static": false,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                    },
-                                    {
                                       "name": "snsId",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                     },
                                     {
                                       "name": "attributes",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                    },
+                                    {
+                                      "name": "email",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                    },
+                                    {
+                                      "name": "build",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                    },
+                                    {
+                                      "name": "name",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                     }
                                   ],
                                   "name": "GoogleUserInfo$GoogleUserInfoBuilder",
@@ -1141,7 +1231,7 @@
                                       "name": "builder",
                                       "type": "function",
                                       "static": true,
-                                      "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                      "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                     }
                                   ],
                                   "name": "GoogleUserInfo",
@@ -1157,7 +1247,7 @@
                                   "name": "of",
                                   "type": "function",
                                   "static": true,
-                                  "location": "com/miniyus/friday/infrastructure/auth/oauth2/OAuth2Provider.java:25"
+                                  "location": "com/miniyus/friday/infrastructure/security/oauth2/OAuth2Provider.java:23"
                                 }
                               ],
                               "name": "OAuth2Provider",
@@ -1170,91 +1260,13 @@
                         {
                           "children": [
                             {
-                              "name": "snsId",
+                              "name": "builder",
                               "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "credentialsNonExpired",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "accountNonExpired",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "authorities",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "id",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "username",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "attributes",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "provider",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "role",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "accountNonLocked",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "name",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "password",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "enabled",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            },
-                            {
-                              "name": "build",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                              "static": true,
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
                             }
                           ],
-                          "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
+                          "name": "PrincipalUserInfo",
                           "type": "class"
                         },
                         {
@@ -1263,26 +1275,14 @@
                               "name": "create",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserService.java:72"
+                              "location": "com/miniyus/friday/infrastructure/security/PrincipalUserService.java:72"
                             }
                           ],
                           "name": "PrincipalUserService",
                           "type": "class"
-                        },
-                        {
-                          "children": [
-                            {
-                              "name": "builder",
-                              "type": "function",
-                              "static": true,
-                              "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                            }
-                          ],
-                          "name": "PrincipalUserInfo",
-                          "type": "class"
                         }
                       ],
-                      "name": "auth",
+                      "name": "security",
                       "type": "package"
                     },
                     {
@@ -1292,61 +1292,61 @@
                             {
                               "children": [
                                 {
-                                  "name": "builder",
-                                  "type": "function",
-                                  "static": true,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                                }
-                              ],
-                              "name": "UserEntity",
-                              "type": "class"
-                            },
-                            {
-                              "children": [
-                                {
-                                  "name": "provider",
+                                  "name": "build",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 },
                                 {
                                   "name": "password",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 },
                                 {
                                   "name": "email",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                                },
-                                {
-                                  "name": "build",
-                                  "type": "function",
-                                  "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 },
                                 {
                                   "name": "role",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 },
                                 {
                                   "name": "snsId",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
+                                },
+                                {
+                                  "name": "provider",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 },
                                 {
                                   "name": "name",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                                 }
                               ],
                               "name": "UserEntity$UserEntityBuilder",
+                              "type": "class"
+                            },
+                            {
+                              "children": [
+                                {
+                                  "name": "builder",
+                                  "type": "function",
+                                  "static": true,
+                                  "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
+                                }
+                              ],
+                              "name": "UserEntity",
                               "type": "class"
                             }
                           ],
@@ -1373,7 +1373,7 @@
                                   "name": "createOAuth2User",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61"
+                                  "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:60"
                                 }
                               ],
                               "name": "PrincipalUserServiceTest",

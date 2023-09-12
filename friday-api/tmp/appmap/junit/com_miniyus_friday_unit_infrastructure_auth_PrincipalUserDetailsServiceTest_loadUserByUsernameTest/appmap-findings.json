@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserDetailsServiceTest",
         "method_id": "loadUserByUsernameTest"
       },
-      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest.java:83",
+      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest.java:82",
       "framework": {},
       "test_status": "succeeded"
     }

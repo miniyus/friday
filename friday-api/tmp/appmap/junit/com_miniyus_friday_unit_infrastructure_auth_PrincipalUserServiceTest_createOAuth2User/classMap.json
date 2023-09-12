@@ -12,38 +12,128 @@
                       {
                         "children": [
                           {
+                            "name": "password",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "enabled",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "attributes",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "name",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "provider",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "role",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "username",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "snsId",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "authorities",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "accountNonExpired",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "credentialsNonExpired",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "build",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "id",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          },
+                          {
+                            "name": "accountNonLocked",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
+                          }
+                        ],
+                        "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
+                        "type": "class"
+                      },
+                      {
+                        "children": [
+                          {
                             "children": [
                               {
                                 "children": [
                                   {
-                                    "name": "build",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                  },
-                                  {
-                                    "name": "email",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                  },
-                                  {
-                                    "name": "name",
-                                    "type": "function",
-                                    "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
-                                  },
-                                  {
                                     "name": "snsId",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                   },
                                   {
                                     "name": "attributes",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                  },
+                                  {
+                                    "name": "email",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                  },
+                                  {
+                                    "name": "build",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
+                                  },
+                                  {
+                                    "name": "name",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                   }
                                 ],
                                 "name": "GoogleUserInfo$GoogleUserInfoBuilder",
@@ -55,7 +145,7 @@
                                     "name": "builder",
                                     "type": "function",
                                     "static": true,
-                                    "location": "com/miniyus/friday/infrastructure/auth/oauth2/userinfo/GoogleUserInfo.java:17"
+                                    "location": "com/miniyus/friday/infrastructure/security/oauth2/userinfo/GoogleUserInfo.java:15"
                                   }
                                 ],
                                 "name": "GoogleUserInfo",
@@ -71,7 +161,7 @@
                                 "name": "of",
                                 "type": "function",
                                 "static": true,
-                                "location": "com/miniyus/friday/infrastructure/auth/oauth2/OAuth2Provider.java:25"
+                                "location": "com/miniyus/friday/infrastructure/security/oauth2/OAuth2Provider.java:23"
                               }
                             ],
                             "name": "OAuth2Provider",
@@ -84,91 +174,13 @@
                       {
                         "children": [
                           {
-                            "name": "snsId",
+                            "name": "builder",
                             "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "credentialsNonExpired",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "accountNonExpired",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "authorities",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "id",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "username",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "attributes",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "provider",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "role",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "accountNonLocked",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "name",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "password",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "enabled",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          },
-                          {
-                            "name": "build",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
+                            "static": true,
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserInfo.java:20"
                           }
                         ],
-                        "name": "PrincipalUserInfo$PrincipalUserInfoBuilder",
+                        "name": "PrincipalUserInfo",
                         "type": "class"
                       },
                       {
@@ -177,26 +189,14 @@
                             "name": "create",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserService.java:72"
+                            "location": "com/miniyus/friday/infrastructure/security/PrincipalUserService.java:72"
                           }
                         ],
                         "name": "PrincipalUserService",
                         "type": "class"
-                      },
-                      {
-                        "children": [
-                          {
-                            "name": "builder",
-                            "type": "function",
-                            "static": true,
-                            "location": "com/miniyus/friday/infrastructure/auth/PrincipalUserInfo.java:20"
-                          }
-                        ],
-                        "name": "PrincipalUserInfo",
-                        "type": "class"
                       }
                     ],
-                    "name": "auth",
+                    "name": "security",
                     "type": "package"
                   },
                   {
@@ -206,61 +206,61 @@
                           {
                             "children": [
                               {
-                                "name": "builder",
-                                "type": "function",
-                                "static": true,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              }
-                            ],
-                            "name": "UserEntity",
-                            "type": "class"
-                          },
-                          {
-                            "children": [
-                              {
-                                "name": "provider",
+                                "name": "build",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               },
                               {
                                 "name": "password",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               },
                               {
                                 "name": "email",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
-                              },
-                              {
-                                "name": "build",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               },
                               {
                                 "name": "role",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               },
                               {
                                 "name": "snsId",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
+                              },
+                              {
+                                "name": "provider",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               },
                               {
                                 "name": "name",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:67"
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
                               }
                             ],
                             "name": "UserEntity$UserEntityBuilder",
+                            "type": "class"
+                          },
+                          {
+                            "children": [
+                              {
+                                "name": "builder",
+                                "type": "function",
+                                "static": true,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:61"
+                              }
+                            ],
+                            "name": "UserEntity",
                             "type": "class"
                           }
                         ],
@@ -287,7 +287,7 @@
                                 "name": "createOAuth2User",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61"
+                                "location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:60"
                               }
                             ],
                             "name": "PrincipalUserServiceTest",

@@ -1,0 +1,1137 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 136,
+      "method_id": "deleteUser",
+      "path": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+        "object_id": 1275164668,
+        "value": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest@4c0177fc"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 2,
+      "lineno": 59,
+      "method_id": "beforePersistence",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 3,
+      "lineno": 83,
+      "method_id": "beforeLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 4,
+      "lineno": 57,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1273270490,
+          "value": "before"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.00002,
+      "event": "return",
+      "id": 5,
+      "parent_id": 4,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000293,
+      "event": "return",
+      "id": 6,
+      "parent_id": 3,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000437,
+      "event": "return",
+      "id": 7,
+      "parent_id": 2,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 8,
+      "lineno": 62,
+      "method_id": "findById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 1731078251,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@672e286b"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 9,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 227131959,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@d89c237"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000025,
+      "event": "return",
+      "id": 10,
+      "parent_id": 9,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1188838168,
+        "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000319,
+      "event": "return",
+      "id": 11,
+      "parent_id": 8,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1188838168,
+        "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 12,
+      "lineno": 65,
+      "method_id": "afterPersistenceReturning",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "com.miniyus.friday.users.domain.User",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1188838168,
+          "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 13,
+      "lineno": 87,
+      "method_id": "afterReturningLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "com.miniyus.friday.users.domain.User",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1188838168,
+          "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 14,
+      "lineno": 64,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1097397209,
+          "value": "after"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 386548111,
+          "value": "PersistenceReturning"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1010353040,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "com.miniyus.friday.users.domain.User",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1188838168,
+          "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000104,
+      "event": "return",
+      "id": 15,
+      "parent_id": 14,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000016,
+      "event": "return",
+      "id": 16,
+      "parent_id": 13,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000019,
+      "event": "return",
+      "id": 17,
+      "parent_id": 12,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.domain.User",
+      "event": "call",
+      "id": 18,
+      "lineno": 93,
+      "method_id": "delete",
+      "path": "com/miniyus/friday/users/domain/User.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1188838168,
+        "value": "com.miniyus.friday.users.domain.User@46dc3b18"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000014,
+      "event": "return",
+      "id": 19,
+      "parent_id": 18,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 20,
+      "lineno": 59,
+      "method_id": "beforePersistence",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 21,
+      "lineno": 83,
+      "method_id": "beforeLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 22,
+      "lineno": 57,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1273270490,
+          "value": "before"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000063,
+      "event": "return",
+      "id": 23,
+      "parent_id": 22,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000118,
+      "event": "return",
+      "id": 24,
+      "parent_id": 21,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000136,
+      "event": "return",
+      "id": 25,
+      "parent_id": 20,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 26,
+      "lineno": 87,
+      "method_id": "deleteById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 1731078251,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@672e286b"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000937,
+      "event": "return",
+      "id": 27,
+      "parent_id": 26,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 28,
+      "lineno": 65,
+      "method_id": "afterPersistenceReturning",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 29,
+      "lineno": 87,
+      "method_id": "afterReturningLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 30,
+      "lineno": 64,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1097397209,
+          "value": "after"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 153888344,
+          "value": "PersistenceReturning"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1414639907,
+          "value": "execution(void com.miniyus.friday.users.adapter.out.persistence.UserAdapter.deleteById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000178,
+      "event": "return",
+      "id": 31,
+      "parent_id": 30,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000255,
+      "event": "return",
+      "id": 32,
+      "parent_id": 29,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000278,
+      "event": "return",
+      "id": 33,
+      "parent_id": 28,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 34,
+      "lineno": 59,
+      "method_id": "beforePersistence",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 35,
+      "lineno": 83,
+      "method_id": "beforeLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 36,
+      "lineno": 57,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1273270490,
+          "value": "before"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000068,
+      "event": "return",
+      "id": 37,
+      "parent_id": 36,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000114,
+      "event": "return",
+      "id": 38,
+      "parent_id": 35,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000013,
+      "event": "return",
+      "id": 39,
+      "parent_id": 34,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 40,
+      "lineno": 62,
+      "method_id": "findById",
+      "parameters": [
+        {
+          "class": "java.lang.Long",
+          "kind": "req",
+          "name": "id",
+          "object_id": 1270150353,
+          "value": "61"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 1731078251,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@672e286b"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000196,
+      "event": "return",
+      "id": 41,
+      "parent_id": 40,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 42,
+      "lineno": 65,
+      "method_id": "afterPersistenceReturning",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 43,
+      "lineno": 87,
+      "method_id": "afterReturningLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 44,
+      "lineno": 64,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1097397209,
+          "value": "after"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 367947996,
+          "value": "PersistenceReturning"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1290737867,
+          "value": "execution(User com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findById(Long))"
+        },
+        {
+          "class": "java.lang.Object",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 0
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000067,
+      "event": "return",
+      "id": 45,
+      "parent_id": 44,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000122,
+      "event": "return",
+      "id": 46,
+      "parent_id": 43,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000014,
+      "event": "return",
+      "id": 47,
+      "parent_id": 42,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0003146,
+      "event": "return",
+      "id": 48,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "User adapter delete user",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+      "method_id": "deleteUser"
+    },
+    "source_location": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java:136",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "name": "deleteUser",
+                                          "type": "function",
+                                          "static": false,
+                                          "location": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java:136"
+                                        }
+                                      ],
+                                      "name": "UserAdapterTest",
+                                      "type": "class"
+                                    }
+                                  ],
+                                  "name": "persistence",
+                                  "type": "package"
+                                }
+                              ],
+                              "name": "out",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "adapter",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "users",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "integration",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "beforePersistence",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java:59"
+                            },
+                            {
+                              "name": "afterPersistenceReturning",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java:65"
+                            }
+                          ],
+                          "name": "UsersAspect",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "afterReturningLogging",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:87"
+                            },
+                            {
+                              "name": "beforeLogging",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:83"
+                            },
+                            {
+                              "name": "loggingJoinPoint",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:64"
+                            },
+                            {
+                              "name": "loggingJoinPoint",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:57"
+                            }
+                          ],
+                          "name": "LoggingAspect",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "aspect",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "name": "deleteById",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:87"
+                                    },
+                                    {
+                                      "name": "findById",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:62"
+                                    }
+                                  ],
+                                  "name": "UserAdapter",
+                                  "type": "class"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "name": "toDomain",
+                                      "type": "function",
+                                      "static": true,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java:30"
+                                    }
+                                  ],
+                                  "name": "UserMapper",
+                                  "type": "class"
+                                }
+                              ],
+                              "name": "persistence",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "out",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "adapter",
+                      "type": "package"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "delete",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/users/domain/User.java:93"
+                            }
+                          ],
+                          "name": "User",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "domain",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "users",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    }
+  ]
+}

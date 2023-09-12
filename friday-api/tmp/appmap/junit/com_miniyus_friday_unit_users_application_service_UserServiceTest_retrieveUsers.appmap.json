@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 117,
+      "lineno": 114,
       "method_id": "retrieveUsers",
       "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
-        "object_id": 887939142,
-        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@34ece046"
+        "object_id": 974080382,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@3a0f497e"
       },
       "static": false,
       "thread_id": 1
@@ -19,31 +19,31 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 2,
-      "lineno": 67,
+      "lineno": 86,
       "method_id": "findAll",
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 361067113,
-        "value": "com.miniyus.friday.users.application.service.UserService@15857269"
+        "object_id": 65400425,
+        "value": "com.miniyus.friday.users.application.service.UserService@3e5ee69"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000138,
+      "elapsed": 0.0000242,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "java.util.ArrayList",
-        "object_id": 1528566850,
-        "value": "[com.miniyus.friday.users.domain.User@4dc5675, com.miniyus.friday.users.domain.User@757f8a85, com.miniyus.friday.users.domain.User@148e735, com.miniyus.friday.users.domain.User@10b3df77, com.miniyus.friday.users.domain.User@763a4cea, com.miniyus.friday.users.domain.User@7f98db0a, com.miniyus.friday.users.domain.User@39afea83, com.miniyus.friday.users.domain.User@3769c2a6, com.miniyus.friday.users.domain.User@131095bd, com.miniyus.friday.users.domain.User@2ae94c5e]"
+        "object_id": 246782098,
+        "value": "[com.miniyus.friday.users.domain.User@65035a5a, com.miniyus.friday.users.domain.User@3d8141b4, com.miniyus.friday.users.domain.User@488e27f3, com.miniyus.friday.users.domain.User@510a5fe1, com.miniyus.friday.users.domain.User@2ea41e10, com.miniyus.friday.users.domain.User@199f6691, com.miniyus.friday.users.domain.User@20976bee, com.miniyus.friday.users.domain.User@23e1dd4a, com.miniyus.friday.users.domain.User@2d3b13b8, com.miniyus.friday.users.domain.User@4f724360]"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0003959,
+      "elapsed": 0.0002711,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -71,7 +71,7 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "method_id": "retrieveUsers"
     },
-    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:117",
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:114",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -94,7 +94,7 @@
                                   "name": "findAll",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:67"
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:86"
                                 }
                               ],
                               "name": "UserService",
@@ -126,7 +126,7 @@
                                       "name": "retrieveUsers",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:117"
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:114"
                                     }
                                   ],
                                   "name": "UserServiceTest",

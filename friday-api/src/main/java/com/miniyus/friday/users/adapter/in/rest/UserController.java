@@ -23,7 +23,7 @@ import com.miniyus.friday.common.response.SimplePage;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.PatchUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.response.CreateUserResponse;
 import com.miniyus.friday.users.adapter.in.rest.response.RetrieveUserResponse;
 import com.miniyus.friday.users.adapter.in.rest.response.UpdateUserResponse;
@@ -143,11 +143,11 @@ public class UserController {
      */
     @PatchMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
-    public ResponseEntity<UpdateUserResponse> updateUser(
+    public ResponseEntity<UpdateUserResponse> patchUser(
             @PathVariable Long id,
-            @Valid @RequestBody UpdateUserRequest request) {
+            @Valid @RequestBody PatchUserRequest request) {
 
-        User update = updateUserUsecase.updateUser(request.toCommand(id));
+        User update = updateUserUsecase.patchUser(request.toCommand(id));
 
         UpdateUserResponse response = UpdateUserResponse.fromDomain(update);
 

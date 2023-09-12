@@ -1,0 +1,997 @@
+{
+  "events": [
+    {
+      "defined_class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+      "event": "call",
+      "id": 1,
+      "lineno": 81,
+      "method_id": "retrieveUsers",
+      "path": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java",
+      "receiver": {
+        "class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+        "object_id": 646237583,
+        "value": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest@2684cd8f"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 2,
+      "lineno": 59,
+      "method_id": "beforePersistence",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 3,
+      "lineno": 83,
+      "method_id": "beforeLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 4,
+      "lineno": 57,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1273270490,
+          "value": "before"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000164,
+      "event": "return",
+      "id": 5,
+      "parent_id": 4,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000241,
+      "event": "return",
+      "id": 6,
+      "parent_id": 3,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000326,
+      "event": "return",
+      "id": 7,
+      "parent_id": 2,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+      "event": "call",
+      "id": 8,
+      "lineno": 37,
+      "method_id": "findAll",
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java",
+      "receiver": {
+        "class": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter",
+        "object_id": 1731078251,
+        "value": "com.miniyus.friday.users.adapter.out.persistence.UserAdapter@672e286b"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 9,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000072,
+      "event": "return",
+      "id": 10,
+      "parent_id": 9,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 11,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000087,
+      "event": "return",
+      "id": 12,
+      "parent_id": 11,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 13,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000164,
+      "event": "return",
+      "id": 14,
+      "parent_id": 13,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 15,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000011,
+      "event": "return",
+      "id": 16,
+      "parent_id": 15,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 17,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000061,
+      "event": "return",
+      "id": 18,
+      "parent_id": 17,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 19,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000058,
+      "event": "return",
+      "id": 20,
+      "parent_id": 19,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 21,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000165,
+      "event": "return",
+      "id": 22,
+      "parent_id": 21,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 23,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000063,
+      "event": "return",
+      "id": 24,
+      "parent_id": 23,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 25,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000056,
+      "event": "return",
+      "id": 26,
+      "parent_id": 25,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 27,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000107,
+      "event": "return",
+      "id": 28,
+      "parent_id": 27,
+      "thread_id": 1
+    },
+    {
+      "event": "call",
+      "id": 29,
+      "sql_query": {
+        "database_type": "PostgreSQL",
+        "sql": "select u1_0.id,u1_0.created_at,u1_0.deleted_at,u1_0.email,u1_0.name,u1_0.password,u1_0.provider,u1_0.role,u1_0.sns_id,u1_0.updated_at from auth_user u1_0 where (u1_0.deleted_at IS NULL)"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000174,
+      "event": "return",
+      "id": 30,
+      "parent_id": 29,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 31,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 671218607,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@2801fbaf"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.00003,
+      "event": "return",
+      "id": 32,
+      "parent_id": 31,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 2022631526,
+        "value": "com.miniyus.friday.users.domain.User@788ee866"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 33,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 790955860,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@2f250754"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000023,
+      "event": "return",
+      "id": 34,
+      "parent_id": 33,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 2096335733,
+        "value": "com.miniyus.friday.users.domain.User@7cf38b75"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 35,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 872904785,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@34077851"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000013,
+      "event": "return",
+      "id": 36,
+      "parent_id": 35,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 580823265,
+        "value": "com.miniyus.friday.users.domain.User@229ea8e1"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 37,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 739009432,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@2c0c6398"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000011,
+      "event": "return",
+      "id": 38,
+      "parent_id": 37,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1014937031,
+        "value": "com.miniyus.friday.users.domain.User@3c7eb5c7"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 39,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 502944223,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@1dfa51df"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000011,
+      "event": "return",
+      "id": 40,
+      "parent_id": 39,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 859613174,
+        "value": "com.miniyus.friday.users.domain.User@333ca7f6"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 41,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 83130610,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@4f478f2"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000001,
+      "event": "return",
+      "id": 42,
+      "parent_id": 41,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1408514759,
+        "value": "com.miniyus.friday.users.domain.User@53f43ac7"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 43,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 148195685,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@8d54965"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 9e-7,
+      "event": "return",
+      "id": 44,
+      "parent_id": 43,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 75127288,
+        "value": "com.miniyus.friday.users.domain.User@47a59f8"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 45,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 1116137715,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@4286e8f3"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000001,
+      "event": "return",
+      "id": 46,
+      "parent_id": 45,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1298338877,
+        "value": "com.miniyus.friday.users.domain.User@4d63143d"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 47,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 1525537248,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@5aedd9e0"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000001,
+      "event": "return",
+      "id": 48,
+      "parent_id": 47,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 456526192,
+        "value": "com.miniyus.friday.users.domain.User@1b360970"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.users.adapter.out.persistence.UserMapper",
+      "event": "call",
+      "id": 49,
+      "lineno": 30,
+      "method_id": "toDomain",
+      "parameters": [
+        {
+          "class": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity",
+          "kind": "req",
+          "name": "entity",
+          "object_id": 1202083804,
+          "value": "com.miniyus.friday.infrastructure.jpa.entities.UserEntity@47a657dc"
+        }
+      ],
+      "path": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java",
+      "static": true,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.000001,
+      "event": "return",
+      "id": 50,
+      "parent_id": 49,
+      "return_value": {
+        "class": "com.miniyus.friday.users.domain.User",
+        "object_id": 1768303315,
+        "value": "com.miniyus.friday.users.domain.User@69662ad3"
+      },
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.002982,
+      "event": "return",
+      "id": 51,
+      "parent_id": 8,
+      "return_value": {
+        "class": "java.util.ImmutableCollections$ListN",
+        "object_id": 1065683870,
+        "value": "[com.miniyus.friday.users.domain.User@788ee866, com.miniyus.friday.users.domain.User@7cf38b75, com.miniyus.friday.users.domain.User@229ea8e1, com.miniyus.friday.users.domain.User@3c7eb5c7, com.miniyus.friday.users.domain.User@333ca7f6, com.miniyus.friday.users.domain.User@53f43ac7, com.miniyus.friday.users.domain.User@47a59f8, com.miniyus.friday.users.domain.User@4d63143d, com.miniyus.friday.users.domain.User@1b360970, com.miniyus.friday.users.domain.User@69662ad3]"
+      },
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+      "event": "call",
+      "id": 52,
+      "lineno": 65,
+      "method_id": "afterPersistenceReturning",
+      "parameters": [
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        },
+        {
+          "class": "java.util.ImmutableCollections$ListN",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1065683870,
+          "value": "[com.miniyus.friday.users.domain.User@788ee866, com.miniyus.friday.users.domain.User@7cf38b75, com.miniyus.friday.users.domain.User@229ea8e1, com.miniyus.friday.users.domain.User@3c7eb5c7, com.miniyus.friday.users.domain.User@333ca7f6, com.miniyus.friday.users.domain.User@53f43ac7, com.miniyus.friday.users.domain.User@47a59f8, com.miniyus.friday.users.domain.User@4d63143d, com.miniyus.friday.users.domain.User@1b360970, com.miniyus.friday.users.domain.User@69662ad3]"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 53,
+      "lineno": 87,
+      "method_id": "afterReturningLogging",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1457509768,
+          "value": "Persistence"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        },
+        {
+          "class": "java.util.ImmutableCollections$ListN",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1065683870,
+          "value": "[com.miniyus.friday.users.domain.User@788ee866, com.miniyus.friday.users.domain.User@7cf38b75, com.miniyus.friday.users.domain.User@229ea8e1, com.miniyus.friday.users.domain.User@3c7eb5c7, com.miniyus.friday.users.domain.User@333ca7f6, com.miniyus.friday.users.domain.User@53f43ac7, com.miniyus.friday.users.domain.User@47a59f8, com.miniyus.friday.users.domain.User@4d63143d, com.miniyus.friday.users.domain.User@1b360970, com.miniyus.friday.users.domain.User@69662ad3]"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "defined_class": "com.miniyus.friday.infrastructure.aspect.LoggingAspect",
+      "event": "call",
+      "id": 54,
+      "lineno": 64,
+      "method_id": "loggingJoinPoint",
+      "parameters": [
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "when",
+          "object_id": 1097397209,
+          "value": "after"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "action",
+          "object_id": 1779577519,
+          "value": "PersistenceReturning"
+        },
+        {
+          "class": "org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint",
+          "kind": "req",
+          "name": "joinPoint",
+          "object_id": 1940960273,
+          "value": "execution(Collection com.miniyus.friday.users.adapter.out.persistence.UserAdapter.findAll())"
+        },
+        {
+          "class": "java.util.ImmutableCollections$ListN",
+          "kind": "req",
+          "name": "returnValue",
+          "object_id": 1065683870,
+          "value": "[com.miniyus.friday.users.domain.User@788ee866, com.miniyus.friday.users.domain.User@7cf38b75, com.miniyus.friday.users.domain.User@229ea8e1, com.miniyus.friday.users.domain.User@3c7eb5c7, com.miniyus.friday.users.domain.User@333ca7f6, com.miniyus.friday.users.domain.User@53f43ac7, com.miniyus.friday.users.domain.User@47a59f8, com.miniyus.friday.users.domain.User@4d63143d, com.miniyus.friday.users.domain.User@1b360970, com.miniyus.friday.users.domain.User@69662ad3]"
+        }
+      ],
+      "path": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java",
+      "receiver": {
+        "class": "com.miniyus.friday.infrastructure.aspect.UsersAspect",
+        "object_id": 625716215,
+        "value": "com.miniyus.friday.infrastructure.aspect.UsersAspect@254babf7"
+      },
+      "static": false,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000287,
+      "event": "return",
+      "id": 55,
+      "parent_id": 54,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000368,
+      "event": "return",
+      "id": 56,
+      "parent_id": 53,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0000401,
+      "event": "return",
+      "id": 57,
+      "parent_id": 52,
+      "thread_id": 1
+    },
+    {
+      "elapsed": 0.0036679,
+      "event": "return",
+      "id": 58,
+      "parent_id": 1,
+      "thread_id": 1
+    }
+  ],
+  "version": "1.2",
+  "metadata": {
+    "name": "User adapter retrieve users",
+    "app": "friday-api",
+    "language": {
+      "name": "java",
+      "version": "17.0.8+7-LTS",
+      "engine": "OpenJDK 64-Bit Server VM"
+    },
+    "client": {
+      "name": "appmap-java",
+      "url": "https://github.com/appland/appmap-java"
+    },
+    "recorder": {
+      "name": "junit",
+      "type": "tests"
+    },
+    "recording": {
+      "defined_class": "com.miniyus.friday.integration.users.adapter.out.persistence.UserAdapterTest",
+      "method_id": "retrieveUsers"
+    },
+    "source_location": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java:81",
+    "framework": {},
+    "test_status": "succeeded"
+  },
+  "classMap": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "children": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "name": "beforePersistence",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java:59"
+                            },
+                            {
+                              "name": "afterPersistenceReturning",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/UsersAspect.java:65"
+                            }
+                          ],
+                          "name": "UsersAspect",
+                          "type": "class"
+                        },
+                        {
+                          "children": [
+                            {
+                              "name": "afterReturningLogging",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:87"
+                            },
+                            {
+                              "name": "beforeLogging",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:83"
+                            },
+                            {
+                              "name": "loggingJoinPoint",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:64"
+                            },
+                            {
+                              "name": "loggingJoinPoint",
+                              "type": "function",
+                              "static": false,
+                              "location": "com/miniyus/friday/infrastructure/aspect/LoggingAspect.java:57"
+                            }
+                          ],
+                          "name": "LoggingAspect",
+                          "type": "class"
+                        }
+                      ],
+                      "name": "aspect",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "infrastructure",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "children": [
+                                        {
+                                          "name": "retrieveUsers",
+                                          "type": "function",
+                                          "static": false,
+                                          "location": "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest.java:81"
+                                        }
+                                      ],
+                                      "name": "UserAdapterTest",
+                                      "type": "class"
+                                    }
+                                  ],
+                                  "name": "persistence",
+                                  "type": "package"
+                                }
+                              ],
+                              "name": "out",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "adapter",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "users",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "integration",
+                  "type": "package"
+                },
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "children": [
+                                    {
+                                      "name": "findAll",
+                                      "type": "function",
+                                      "static": false,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserAdapter.java:37"
+                                    }
+                                  ],
+                                  "name": "UserAdapter",
+                                  "type": "class"
+                                },
+                                {
+                                  "children": [
+                                    {
+                                      "name": "toDomain",
+                                      "type": "function",
+                                      "static": true,
+                                      "location": "com/miniyus/friday/users/adapter/out/persistence/UserMapper.java:30"
+                                    }
+                                  ],
+                                  "name": "UserMapper",
+                                  "type": "class"
+                                }
+                              ],
+                              "name": "persistence",
+                              "type": "package"
+                            }
+                          ],
+                          "name": "out",
+                          "type": "package"
+                        }
+                      ],
+                      "name": "adapter",
+                      "type": "package"
+                    }
+                  ],
+                  "name": "users",
+                  "type": "package"
+                }
+              ],
+              "name": "friday",
+              "type": "package"
+            }
+          ],
+          "name": "miniyus",
+          "type": "package"
+        }
+      ],
+      "name": "com",
+      "type": "package"
+    },
+    {
+      "type": "database",
+      "name": "Database",
+      "children": [
+        {
+          "type": "query",
+          "name": "insert into auth_user (created_at,deleted_at,email,name,password,provider,role,sns_id,updated_at,id) values (?,?,?,?,?,?,?,?,?,?)"
+        },
+        {
+          "type": "query",
+          "name": "select u1_0.id,u1_0.created_at,u1_0.deleted_at,u1_0.email,u1_0.name,u1_0.password,u1_0.provider,u1_0.role,u1_0.sns_id,u1_0.updated_at from auth_user u1_0 where (u1_0.deleted_at IS NULL)"
+        }
+      ]
+    }
+  ]
+}

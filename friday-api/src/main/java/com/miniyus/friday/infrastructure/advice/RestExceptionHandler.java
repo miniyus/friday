@@ -22,7 +22,7 @@ import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.AuthErrorException;
 import com.miniyus.friday.common.error.ErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
-import com.miniyus.friday.infrastructure.auth.oauth2.exception.NotSupportProviderException;
+import com.miniyus.friday.infrastructure.security.oauth2.exception.NotSupportProviderException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

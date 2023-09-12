@@ -50,7 +50,7 @@
         "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",
         "method_id": "createOAuth2User"
       },
-      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:61",
+      "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserServiceTest.java:60",
       "framework": {},
       "test_status": "succeeded"
     }

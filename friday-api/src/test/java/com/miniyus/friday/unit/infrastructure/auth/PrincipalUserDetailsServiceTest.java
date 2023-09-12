@@ -14,12 +14,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserDetailsService;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.auth.login.userinfo.PasswordUserInfo;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
-
+import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import jakarta.validation.Validator;
 
 /**

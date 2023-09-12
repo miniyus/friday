@@ -1,6 +1,0 @@
-[
-  "com/miniyus/friday/unit/users/application/service/CreateUserServiceTest",
-  "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand",
-  "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand$CreateUserCommandBuilder",
-  "com/miniyus/friday/users/application/service/CreateUserService"
-]

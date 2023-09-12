@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.infrastructure.jwt.JwtServiceTest",
     "method_id": "issueTokenTest"
   },
-  "source_location": "com/miniyus/friday/unit/infrastructure/jwt/JwtServiceTest.java:79",
+  "source_location": "com/miniyus/friday/unit/infrastructure/jwt/JwtServiceTest.java:87",
   "framework": {},
   "test_status": "succeeded"
 }

@@ -48,4 +48,12 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             @Param("updatedAtStart") LocalDateTime updatedAtStart,
             @Param("updatedAtEnd") LocalDateTime updatedAtEnd,
             Pageable pageable);
+
+    /**
+     * Checks if an email exists.
+     * 
+     * @param email the email to check
+     * @return true if the email exists, false otherwise
+     */
+    public boolean existsByEmail(String email);
 }

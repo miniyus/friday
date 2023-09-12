@@ -34,3 +34,4 @@
 
 -   [common](./src/main/java/com/miniyus/friday/common/README.md)
 -   [infrastructure](./src/main/java/com/miniyus/friday/infrastructure/README.md)
+-   [domain](./src/main/java/com/miniyus/friday/README.md)

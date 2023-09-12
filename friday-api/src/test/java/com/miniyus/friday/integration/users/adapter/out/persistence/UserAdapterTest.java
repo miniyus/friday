@@ -122,12 +122,12 @@ public class UserAdapterTest {
     public void updateUser() {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User origin = userAdapter.findById(latestUser.getId());
-        origin.updateName("updateUser");
+        origin.patch("updateName", null);
         User updated = userAdapter.updateUser(origin);
 
         assertThat(updated).isNotNull()
                 .hasFieldOrPropertyWithValue("id", origin.getId())
-                .hasFieldOrPropertyWithValue("name", "updateUser");
+                .hasFieldOrPropertyWithValue("name", "updateName");
     }
 
     @Test

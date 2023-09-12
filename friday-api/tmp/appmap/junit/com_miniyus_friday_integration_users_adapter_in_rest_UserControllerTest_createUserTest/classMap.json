@@ -1,0 +1,288 @@
+[
+  {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "password",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "email",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      },
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      }
+                                    ],
+                                    "name": "CreateUserCommand$CreateUserCommandBuilder",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java:12"
+                                      }
+                                    ],
+                                    "name": "CreateUserCommand",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "usecase",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "in",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "port",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "application",
+                    "type": "package"
+                  },
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "password",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      },
+                                      {
+                                        "name": "role",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      },
+                                      {
+                                        "name": "name",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      },
+                                      {
+                                        "name": "email",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      },
+                                      {
+                                        "name": "build",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      }
+                                    ],
+                                    "name": "CreateUserRequest$CreateUserRequestBuilder",
+                                    "type": "class"
+                                  },
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "toCommand",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:49"
+                                      },
+                                      {
+                                        "name": "builder",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/request/CreateUserRequest.java:23"
+                                      }
+                                    ],
+                                    "name": "CreateUserRequest",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "request",
+                                "type": "package"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "fromDomain",
+                                        "type": "function",
+                                        "static": true,
+                                        "location": "com/miniyus/friday/users/adapter/in/rest/response/CreateUserResponse.java:29"
+                                      }
+                                    ],
+                                    "name": "CreateUserResponse",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "response",
+                                "type": "package"
+                              },
+                              {
+                                "children": [
+                                  {
+                                    "name": "createUser",
+                                    "type": "function",
+                                    "static": false,
+                                    "location": "com/miniyus/friday/users/adapter/in/rest/UserController.java:71"
+                                  }
+                                ],
+                                "name": "UserController",
+                                "type": "class"
+                              }
+                            ],
+                            "name": "rest",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "in",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "adapter",
+                    "type": "package"
+                  }
+                ],
+                "name": "users",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
+                                "children": [
+                                  {
+                                    "children": [
+                                      {
+                                        "name": "createUserTest",
+                                        "type": "function",
+                                        "static": false,
+                                        "location": "com/miniyus/friday/integration/users/adapter/in/rest/UserControllerTest.java:87"
+                                      }
+                                    ],
+                                    "name": "UserControllerTest",
+                                    "type": "class"
+                                  }
+                                ],
+                                "name": "rest",
+                                "type": "package"
+                              }
+                            ],
+                            "name": "in",
+                            "type": "package"
+                          }
+                        ],
+                        "name": "adapter",
+                        "type": "package"
+                      }
+                    ],
+                    "name": "users",
+                    "type": "package"
+                  }
+                ],
+                "name": "integration",
+                "type": "package"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "children": [
+                          {
+                            "name": "isValid",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:18"
+                          },
+                          {
+                            "name": "isValid",
+                            "type": "function",
+                            "static": false,
+                            "location": "com/miniyus/friday/common/validation/EnumValidator.java:1"
+                          }
+                        ],
+                        "name": "EnumValidator",
+                        "type": "class"
+                      }
+                    ],
+                    "name": "validation",
+                    "type": "package"
+                  }
+                ],
+                "name": "common",
+                "type": "package"
+              }
+            ],
+            "name": "friday",
+            "type": "package"
+          }
+        ],
+        "name": "miniyus",
+        "type": "package"
+      }
+    ],
+    "name": "com",
+    "type": "package"
+  },
+  {
+    "type": "http",
+    "name": "HTTP server requests",
+    "children": [
+      {
+        "type": "route",
+        "name": "POST /v1/users"
+      }
+    ]
+  }
+]

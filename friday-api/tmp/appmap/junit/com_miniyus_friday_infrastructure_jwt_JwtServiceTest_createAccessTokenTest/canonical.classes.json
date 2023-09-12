@@ -1,4 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/jwt/JwtService",
-  "com/miniyus/friday/infrastructure/jwt/JwtServiceTest"
-]

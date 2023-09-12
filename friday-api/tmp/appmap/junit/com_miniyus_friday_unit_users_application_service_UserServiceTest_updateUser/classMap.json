@@ -14,6 +14,24 @@
                           {
                             "children": [
                               {
+                                "name": "patchUser",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/users/application/service/UserService.java:73"
+                              }
+                            ],
+                            "name": "UserService",
+                            "type": "class"
+                          }
+                        ],
+                        "name": "service",
+                        "type": "package"
+                      },
+                      {
+                        "children": [
+                          {
+                            "children": [
+                              {
                                 "children": [
                                   {
                                     "children": [
@@ -68,24 +86,6 @@
                         ],
                         "name": "port",
                         "type": "package"
-                      },
-                      {
-                        "children": [
-                          {
-                            "children": [
-                              {
-                                "name": "updateUser",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/users/application/service/UserService.java:58"
-                              }
-                            ],
-                            "name": "UserService",
-                            "type": "class"
-                          }
-                        ],
-                        "name": "service",
-                        "type": "package"
                       }
                     ],
                     "name": "application",
@@ -96,16 +96,10 @@
                       {
                         "children": [
                           {
-                            "name": "updateRole",
+                            "name": "patch",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/users/domain/User.java:42"
-                          },
-                          {
-                            "name": "updateName",
-                            "type": "function",
-                            "static": false,
-                            "location": "com/miniyus/friday/users/domain/User.java:38"
+                            "location": "com/miniyus/friday/users/domain/User.java:74"
                           }
                         ],
                         "name": "User",
@@ -133,7 +127,7 @@
                                     "name": "updateUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:128"
+                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:125"
                                   }
                                 ],
                                 "name": "UserServiceTest",

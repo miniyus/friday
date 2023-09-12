@@ -4,19 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.auth.PrincipalUserService;
-import com.miniyus.friday.infrastructure.auth.oauth2.userinfo.GoogleUserInfo;
-import com.miniyus.friday.infrastructure.auth.oauth2.userinfo.OAuth2UserInfo;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.PrincipalUserService;
+import com.miniyus.friday.infrastructure.security.oauth2.userinfo.GoogleUserInfo;
+import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2UserInfo;
 
 /**
  * [description]

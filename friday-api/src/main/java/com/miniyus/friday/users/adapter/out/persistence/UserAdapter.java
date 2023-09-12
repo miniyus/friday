@@ -47,12 +47,12 @@ public class UserAdapter
     @Override
     public Page<User> findAll(SearchUser searchUser, Pageable pageable) {
         Page<UserEntity> userEntities = userRepository.findAll(
-                searchUser.getEmail(),
-                searchUser.getName(),
-                searchUser.getCreatedAtStart(),
-                searchUser.getCreatedAtEnd(),
-                searchUser.getUpdatedAtStart(),
-                searchUser.getUpdatedAtEnd(),
+                searchUser.email(),
+                searchUser.name(),
+                searchUser.createdAtStart(),
+                searchUser.createdAtEnd(),
+                searchUser.updatedAtStart(),
+                searchUser.updatedAtEnd(),
                 pageable);
         return userEntities.map(UserMapper::toDomain);
     }
@@ -60,11 +60,11 @@ public class UserAdapter
     @Override
     public User findById(Long id) {
         UserEntity entity = userRepository.findById(id).orElse(null);
-        
+
         if (entity == null) {
             return null;
         }
-    
+
         return UserMapper.toDomain(entity);
     }
 
@@ -85,6 +85,11 @@ public class UserAdapter
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean isUniqueEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 }

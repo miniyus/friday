@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
     "method_id": "deleteUser"
   },
-  "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164",
+  "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:161",
   "framework": {},
   "test_status": "succeeded"
 }

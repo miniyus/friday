@@ -12,7 +12,7 @@ import lombok.Value;
 @Value
 @Builder
 public class UpdateUserCommand {
-    private Long id;
-    private String name;
-    private String role;
+    Long id;
+    String name;
+    String role;
 }

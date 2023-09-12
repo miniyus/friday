@@ -51,7 +51,7 @@
                             "name": "issueToken",
                             "type": "function",
                             "static": false,
-                            "location": "com/miniyus/friday/infrastructure/jwt/JwtService.java:63"
+                            "location": "com/miniyus/friday/infrastructure/jwt/JwtService.java:62"
                           }
                         ],
                         "name": "JwtService",
@@ -150,21 +150,15 @@
                                 "type": "function",
                                 "static": true,
                                 "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:58"
+                              },
+                              {
+                                "name": "setUser",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/infrastructure/jpa/entities/AccessTokenEntity.java:95"
                               }
                             ],
                             "name": "AccessTokenEntity",
-                            "type": "class"
-                          },
-                          {
-                            "children": [
-                              {
-                                "name": "addAccessToken",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/infrastructure/jpa/entities/UserEntity.java:83"
-                              }
-                            ],
-                            "name": "UserEntity",
                             "type": "class"
                           }
                         ],
@@ -191,7 +185,7 @@
                                 "name": "issueTokenTest",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/unit/infrastructure/jwt/JwtServiceTest.java:79"
+                                "location": "com/miniyus/friday/unit/infrastructure/jwt/JwtServiceTest.java:87"
                               }
                             ],
                             "name": "JwtServiceTest",

@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 79,
+      "lineno": 76,
       "method_id": "createUser",
       "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
-        "object_id": 636548193,
-        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@25f0f461"
+        "object_id": 1926515683,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@72d44be3"
       },
       "static": false,
       "thread_id": 1
@@ -26,13 +26,13 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000191,
+      "elapsed": 0.0015998,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
+        "object_id": 1794085350,
         "value": "CreateUserCommand.CreateUserCommandBuilder(email=null, password=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -48,28 +48,28 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "email",
-          "object_id": 1060686637,
-          "value": "alfonzo.bergnaum@example.com"
+          "object_id": 1915163610,
+          "value": "alesia.schneider@example.com"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=null, role=null)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000054,
+      "elapsed": 0.000024,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=null, role=null)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=null, role=null)"
       },
       "thread_id": 1
     },
@@ -84,28 +84,28 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 1628306973,
-          "value": "Deandre Leannon"
+          "object_id": 447059758,
+          "value": "Emerson Hegmann"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=Deandre Leannon, role=null)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=Emerson Hegmann, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000022,
+      "elapsed": 0.0000043,
       "event": "return",
       "id": 7,
       "parent_id": 6,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=Deandre Leannon, role=null)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=Emerson Hegmann, role=null)"
       },
       "thread_id": 1
     },
@@ -120,28 +120,28 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1938483077,
+          "object_id": 126819625,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=Deandre Leannon, role=USER)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=Emerson Hegmann, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000017,
+      "elapsed": 0.0000036,
       "event": "return",
       "id": 9,
       "parent_id": 8,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=null, name=Deandre Leannon, role=USER)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=null, name=Emerson Hegmann, role=USER)"
       },
       "thread_id": 1
     },
@@ -156,28 +156,28 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "password",
-          "object_id": 713422961,
-          "value": "hkcd7359d"
+          "object_id": 311004791,
+          "value": "di2b7922xv51v67"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=hkcd7359d, name=Deandre Leannon, role=USER)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=di2b7922xv51v67, name=Emerson Hegmann, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000026,
+      "elapsed": 0.000005,
       "event": "return",
       "id": 11,
       "parent_id": 10,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=hkcd7359d, name=Deandre Leannon, role=USER)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=di2b7922xv51v67, name=Emerson Hegmann, role=USER)"
       },
       "thread_id": 1
     },
@@ -190,21 +190,21 @@
       "path": "com/miniyus/friday/users/application/port/in/usecase/CreateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand$CreateUserCommandBuilder",
-        "object_id": 1591831149,
-        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alfonzo.bergnaum@example.com, password=hkcd7359d, name=Deandre Leannon, role=USER)"
+        "object_id": 1794085350,
+        "value": "CreateUserCommand.CreateUserCommandBuilder(email=alesia.schneider@example.com, password=di2b7922xv51v67, name=Emerson Hegmann, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000017,
+      "elapsed": 0.0000043,
       "event": "return",
       "id": 13,
       "parent_id": 12,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand",
-        "object_id": 2137152846,
-        "value": "CreateUserCommand(email=alfonzo.bergnaum@example.com, password=hkcd7359d, name=Deandre Leannon, role=USER)"
+        "object_id": 75451745,
+        "value": "CreateUserCommand(email=alesia.schneider@example.com, password=di2b7922xv51v67, name=Emerson Hegmann, role=USER)"
       },
       "thread_id": 1
     },
@@ -212,40 +212,40 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 14,
-      "lineno": 41,
+      "lineno": 46,
       "method_id": "createUser",
       "parameters": [
         {
           "class": "com.miniyus.friday.users.application.port.in.usecase.CreateUserCommand",
           "kind": "req",
           "name": "command",
-          "object_id": 2137152846,
-          "value": "CreateUserCommand(email=alfonzo.bergnaum@example.com, password=hkcd7359d, name=Deandre Leannon, role=USER)"
+          "object_id": 75451745,
+          "value": "CreateUserCommand(email=alesia.schneider@example.com, password=di2b7922xv51v67, name=Emerson Hegmann, role=USER)"
         }
       ],
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 117080108,
-        "value": "com.miniyus.friday.users.application.service.UserService@6fa802c"
+        "object_id": 1491620702,
+        "value": "com.miniyus.friday.users.application.service.UserService@58e8535e"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000069,
+      "elapsed": 0.0001068,
       "event": "return",
       "id": 15,
       "parent_id": 14,
       "return_value": {
         "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 143223800,
-        "value": "com.miniyus.friday.users.domain.User@8896bf8"
+        "object_id": 2012509227,
+        "value": "com.miniyus.friday.users.domain.User@77f4742b"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.000096,
+      "elapsed": 0.0024378,
       "event": "return",
       "id": 16,
       "parent_id": 1,
@@ -273,7 +273,7 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "method_id": "createUser"
     },
-    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:79",
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:76",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -362,7 +362,7 @@
                                   "name": "createUser",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:41"
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:46"
                                 }
                               ],
                               "name": "UserService",
@@ -394,7 +394,7 @@
                                       "name": "createUser",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:79"
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:76"
                                     }
                                   ],
                                   "name": "UserServiceTest",

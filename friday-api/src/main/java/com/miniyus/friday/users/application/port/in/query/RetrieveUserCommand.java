@@ -14,11 +14,11 @@ import lombok.Value;
 @Value
 @Builder
 public class RetrieveUserCommand {
-    private String email;
-    private String name;
-    private LocalDateTime createdAtStart;
-    private LocalDateTime createdAtEnd;
-    private LocalDateTime updatedAtStart;
-    private LocalDateTime updatedAtEnd;
-    private Pageable pageable;
+    String email;
+    String name;
+    LocalDateTime createdAtStart;
+    LocalDateTime createdAtEnd;
+    LocalDateTime updatedAtStart;
+    LocalDateTime updatedAtEnd;
+    Pageable pageable;
 }

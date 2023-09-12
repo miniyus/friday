@@ -18,7 +18,7 @@
     "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserDetailsServiceTest",
     "method_id": "createPasswordUserInfoTest"
   },
-  "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest.java:64",
+  "source_location": "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest.java:63",
   "framework": {},
   "test_status": "succeeded"
 }

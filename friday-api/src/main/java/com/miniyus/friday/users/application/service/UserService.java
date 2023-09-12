@@ -22,7 +22,7 @@ import com.miniyus.friday.users.domain.User.SearchUser;
 import lombok.RequiredArgsConstructor;
 
 /**
- * [description]
+ * User service
  *
  * @author miniyus
  * @date 2023/09/09
@@ -55,27 +55,44 @@ public class UserService
                 null,
                 null);
 
-        if (createUserPort.isUniqueUser(user)) {
+        if (createUserPort.isUniqueEmail(user.getEmail())) {
             throw new RestErrorException(ErrorCode.CONFLICT, "error.userExists");
         }
 
         return createUserPort.createUser(user);
     }
 
+    /**
+     * Updates a user with the given command.
+     *
+     * @param command the command containing the user ID, new name, and new role
+     * @return the updated user
+     */
     @Override
-    public User updateUser(UpdateUserCommand command) {
+    public User patchUser(UpdateUserCommand command) {
         User domain = updateUserPort.findById(command.getId());
-        domain.updateName(command.getName());
-        domain.updateRole(command.getRole());
+        domain.patch(command.getName(), command.getRole());
 
         return updateUserPort.updateUser(domain);
     }
 
+    /**
+     * Retrieves all users.
+     *
+     * @return a collection of User objects representing all the users
+     */
     @Override
     public Collection<User> findAll() {
         return readUserPort.findAll();
     }
 
+    /**
+     * Retrieves a page of users based on the specified conditions in the given RetrieveUserCommand.
+     *
+     * @param command the RetrieveUserCommand object containing the search criteria such as email,
+     *        name, created at dates, and updated at dates
+     * @return a Page object containing the list of users that match the search criteria
+     */
     @Override
     public Page<User> findAll(RetrieveUserCommand command) {
         // find by conditions
@@ -96,6 +113,12 @@ public class UserService
         return readUserPort.findAll(search, command.getPageable());
     }
 
+    /**
+     * Finds a user by their ID.
+     *
+     * @param id the ID of the user to find
+     * @return the user with the specified ID
+     */
     @Override
     public User findById(Long id) {
         var user = readUserPort.findById(id);
@@ -109,6 +132,13 @@ public class UserService
         return user;
     }
 
+    /**
+     * Resets the password for a user.
+     *
+     * @param id the ID of the user
+     * @param password the new password
+     * @return the updated user after resetting the password
+     */
     @Override
     public User resetPassword(Long id, String password) {
         User user = readUserPort.findById(id);
@@ -118,6 +148,11 @@ public class UserService
         return updateUserPort.resetPassword(user);
     }
 
+    /**
+     * Deletes an entity by ID.
+     *
+     * @param id the ID of the entity to delete
+     */
     @Override
     public void deleteById(Long id) {
         deleteUserPort.deleteById(id);

@@ -83,7 +83,7 @@
                                 "name": "createUser",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/users/application/service/UserService.java:41"
+                                "location": "com/miniyus/friday/users/application/service/UserService.java:46"
                               }
                             ],
                             "name": "UserService",
@@ -115,7 +115,7 @@
                                     "name": "createUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:79"
+                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:76"
                                   }
                                 ],
                                 "name": "UserServiceTest",

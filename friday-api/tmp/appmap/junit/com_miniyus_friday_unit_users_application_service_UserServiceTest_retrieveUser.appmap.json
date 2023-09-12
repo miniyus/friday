@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 101,
+      "lineno": 98,
       "method_id": "retrieveUser",
       "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
-        "object_id": 293394374,
-        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@117cd7c6"
+        "object_id": 1654684673,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@62a07c01"
       },
       "static": false,
       "thread_id": 1
@@ -19,7 +19,7 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 2,
-      "lineno": 92,
+      "lineno": 124,
       "method_id": "findById",
       "parameters": [
         {
@@ -33,26 +33,26 @@
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 1765168837,
-        "value": "com.miniyus.friday.users.application.service.UserService@693656c5"
+        "object_id": 2107843792,
+        "value": "com.miniyus.friday.users.application.service.UserService@7da324d0"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000376,
+      "elapsed": 0.0000212,
       "event": "return",
       "id": 3,
       "parent_id": 2,
       "return_value": {
         "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 1411206783,
-        "value": "com.miniyus.friday.users.domain.User@541d4e7f"
+        "object_id": 2053177866,
+        "value": "com.miniyus.friday.users.domain.User@7a61020a"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000772,
+      "elapsed": 0.0000709,
       "event": "return",
       "id": 4,
       "parent_id": 1,
@@ -80,7 +80,7 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "method_id": "retrieveUser"
     },
-    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:101",
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:98",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -105,7 +105,7 @@
                                       "name": "retrieveUser",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:101"
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:98"
                                     }
                                   ],
                                   "name": "UserServiceTest",
@@ -139,7 +139,7 @@
                                   "name": "findById",
                                   "type": "function",
                                   "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:92"
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:124"
                                 }
                               ],
                               "name": "UserService",

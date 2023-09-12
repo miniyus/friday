@@ -4,13 +4,13 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "event": "call",
       "id": 1,
-      "lineno": 128,
+      "lineno": 125,
       "method_id": "updateUser",
       "path": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java",
       "receiver": {
         "class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
-        "object_id": 54609068,
-        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@34144ac"
+        "object_id": 1065186275,
+        "value": "com.miniyus.friday.unit.users.application.service.UserServiceTest@3f7d73e3"
       },
       "static": false,
       "thread_id": 1
@@ -19,28 +19,34 @@
       "defined_class": "com.miniyus.friday.users.domain.User",
       "event": "call",
       "id": 2,
-      "lineno": 38,
-      "method_id": "updateName",
+      "lineno": 74,
+      "method_id": "patch",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 699107836,
+          "object_id": 1360921683,
           "value": "testUpdate"
+        },
+        {
+          "class": "java.lang.String",
+          "kind": "req",
+          "name": "role",
+          "object_id": 0
         }
       ],
       "path": "com/miniyus/friday/users/domain/User.java",
       "receiver": {
         "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 2093216762,
-        "value": "com.miniyus.friday.users.domain.User@7cc3f3fa"
+        "object_id": 1626238838,
+        "value": "com.miniyus.friday.users.domain.User@60ee6f76"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000115,
+      "elapsed": 0.0000164,
       "event": "return",
       "id": 3,
       "parent_id": 2,
@@ -57,13 +63,13 @@
       "thread_id": 1
     },
     {
-      "elapsed": 0.0008134,
+      "elapsed": 0.0008946,
       "event": "return",
       "id": 5,
       "parent_id": 4,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=null, name=null, role=null)"
       },
       "thread_id": 1
@@ -86,20 +92,20 @@
       "path": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=null, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000183,
+      "elapsed": 0.0000244,
       "event": "return",
       "id": 7,
       "parent_id": 6,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=null, role=null)"
       },
       "thread_id": 1
@@ -115,27 +121,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 699107836,
+          "object_id": 1360921683,
           "value": "testUpdate"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=testUpdate, role=null)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000028,
+      "elapsed": 0.0000049,
       "event": "return",
       "id": 9,
       "parent_id": 8,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=testUpdate, role=null)"
       },
       "thread_id": 1
@@ -151,27 +157,27 @@
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1938483077,
+          "object_id": 126819625,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=testUpdate, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000018,
+      "elapsed": 0.0000098,
       "event": "return",
       "id": 11,
       "parent_id": 10,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=testUpdate, role=USER)"
       },
       "thread_id": 1
@@ -185,20 +191,20 @@
       "path": "com/miniyus/friday/users/application/port/in/usecase/UpdateUserCommand.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand$UpdateUserCommandBuilder",
-        "object_id": 1696780942,
+        "object_id": 1586714022,
         "value": "UpdateUserCommand.UpdateUserCommandBuilder(id=1, name=testUpdate, role=USER)"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000003,
+      "elapsed": 0.0000055,
       "event": "return",
       "id": 13,
       "parent_id": 12,
       "return_value": {
         "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand",
-        "object_id": 861988314,
+        "object_id": 1777556785,
         "value": "UpdateUserCommand(id=1, name=testUpdate, role=USER)"
       },
       "thread_id": 1
@@ -207,22 +213,22 @@
       "defined_class": "com.miniyus.friday.users.application.service.UserService",
       "event": "call",
       "id": 14,
-      "lineno": 58,
-      "method_id": "updateUser",
+      "lineno": 73,
+      "method_id": "patchUser",
       "parameters": [
         {
           "class": "com.miniyus.friday.users.application.port.in.usecase.UpdateUserCommand",
           "kind": "req",
           "name": "command",
-          "object_id": 861988314,
+          "object_id": 1777556785,
           "value": "UpdateUserCommand(id=1, name=testUpdate, role=USER)"
         }
       ],
       "path": "com/miniyus/friday/users/application/service/UserService.java",
       "receiver": {
         "class": "com.miniyus.friday.users.application.service.UserService",
-        "object_id": 537370704,
-        "value": "com.miniyus.friday.users.application.service.UserService@2007a050"
+        "object_id": 1757533511,
+        "value": "com.miniyus.friday.users.application.service.UserService@68c1d547"
       },
       "static": false,
       "thread_id": 1
@@ -231,80 +237,56 @@
       "defined_class": "com.miniyus.friday.users.domain.User",
       "event": "call",
       "id": 15,
-      "lineno": 38,
-      "method_id": "updateName",
+      "lineno": 74,
+      "method_id": "patch",
       "parameters": [
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "name",
-          "object_id": 699107836,
+          "object_id": 1360921683,
           "value": "testUpdate"
-        }
-      ],
-      "path": "com/miniyus/friday/users/domain/User.java",
-      "receiver": {
-        "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 300067201,
-        "value": "com.miniyus.friday.users.domain.User@11e2a981"
-      },
-      "static": false,
-      "thread_id": 1
-    },
-    {
-      "elapsed": 0.0000034,
-      "event": "return",
-      "id": 16,
-      "parent_id": 15,
-      "thread_id": 1
-    },
-    {
-      "defined_class": "com.miniyus.friday.users.domain.User",
-      "event": "call",
-      "id": 17,
-      "lineno": 42,
-      "method_id": "updateRole",
-      "parameters": [
+        },
         {
           "class": "java.lang.String",
           "kind": "req",
           "name": "role",
-          "object_id": 1938483077,
+          "object_id": 126819625,
           "value": "USER"
         }
       ],
       "path": "com/miniyus/friday/users/domain/User.java",
       "receiver": {
         "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 300067201,
-        "value": "com.miniyus.friday.users.domain.User@11e2a981"
+        "object_id": 880314240,
+        "value": "com.miniyus.friday.users.domain.User@34788780"
       },
       "static": false,
       "thread_id": 1
     },
     {
-      "elapsed": 0.0000018,
+      "elapsed": 0.0000072,
       "event": "return",
-      "id": 18,
-      "parent_id": 17,
+      "id": 16,
+      "parent_id": 15,
       "thread_id": 1
     },
     {
-      "elapsed": 0.000032,
+      "elapsed": 0.0000416,
       "event": "return",
-      "id": 19,
+      "id": 17,
       "parent_id": 14,
       "return_value": {
         "class": "com.miniyus.friday.users.domain.User",
-        "object_id": 2093216762,
-        "value": "com.miniyus.friday.users.domain.User@7cc3f3fa"
+        "object_id": 1626238838,
+        "value": "com.miniyus.friday.users.domain.User@60ee6f76"
       },
       "thread_id": 1
     },
     {
-      "elapsed": 0.0011167,
+      "elapsed": 0.0072296,
       "event": "return",
-      "id": 20,
+      "id": 18,
       "parent_id": 1,
       "thread_id": 1
     }
@@ -330,7 +312,7 @@
       "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",
       "method_id": "updateUser"
     },
-    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:128",
+    "source_location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:125",
     "framework": {},
     "test_status": "succeeded"
   },
@@ -345,6 +327,24 @@
                   "children": [
                     {
                       "children": [
+                        {
+                          "children": [
+                            {
+                              "children": [
+                                {
+                                  "name": "patchUser",
+                                  "type": "function",
+                                  "static": false,
+                                  "location": "com/miniyus/friday/users/application/service/UserService.java:73"
+                                }
+                              ],
+                              "name": "UserService",
+                              "type": "class"
+                            }
+                          ],
+                          "name": "service",
+                          "type": "package"
+                        },
                         {
                           "children": [
                             {
@@ -404,24 +404,6 @@
                           ],
                           "name": "port",
                           "type": "package"
-                        },
-                        {
-                          "children": [
-                            {
-                              "children": [
-                                {
-                                  "name": "updateUser",
-                                  "type": "function",
-                                  "static": false,
-                                  "location": "com/miniyus/friday/users/application/service/UserService.java:58"
-                                }
-                              ],
-                              "name": "UserService",
-                              "type": "class"
-                            }
-                          ],
-                          "name": "service",
-                          "type": "package"
                         }
                       ],
                       "name": "application",
@@ -432,16 +414,10 @@
                         {
                           "children": [
                             {
-                              "name": "updateRole",
+                              "name": "patch",
                               "type": "function",
                               "static": false,
-                              "location": "com/miniyus/friday/users/domain/User.java:42"
-                            },
-                            {
-                              "name": "updateName",
-                              "type": "function",
-                              "static": false,
-                              "location": "com/miniyus/friday/users/domain/User.java:38"
+                              "location": "com/miniyus/friday/users/domain/User.java:74"
                             }
                           ],
                           "name": "User",
@@ -469,7 +445,7 @@
                                       "name": "updateUser",
                                       "type": "function",
                                       "static": false,
-                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:128"
+                                      "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:125"
                                     }
                                   ],
                                   "name": "UserServiceTest",

@@ -12,8 +12,8 @@ import lombok.Value;
 @Builder
 @Value
 public class CreateUserCommand {
-    private String email;
-    private String password;
-    private String name;
-    private String role;
+    String email;
+    String password;
+    String name;
+    String role;
 }

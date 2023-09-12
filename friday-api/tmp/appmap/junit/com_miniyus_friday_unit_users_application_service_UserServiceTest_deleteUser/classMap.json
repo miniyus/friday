@@ -14,16 +14,16 @@
                           {
                             "children": [
                               {
-                                "name": "deleteById",
-                                "type": "function",
-                                "static": false,
-                                "location": "com/miniyus/friday/users/application/service/UserService.java:104"
-                              },
-                              {
                                 "name": "findById",
                                 "type": "function",
                                 "static": false,
-                                "location": "com/miniyus/friday/users/application/service/UserService.java:92"
+                                "location": "com/miniyus/friday/users/application/service/UserService.java:124"
+                              },
+                              {
+                                "name": "deleteById",
+                                "type": "function",
+                                "static": false,
+                                "location": "com/miniyus/friday/users/application/service/UserService.java:158"
                               }
                             ],
                             "name": "UserService",
@@ -55,7 +55,7 @@
                                     "name": "deleteUser",
                                     "type": "function",
                                     "static": false,
-                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:164"
+                                    "location": "com/miniyus/friday/unit/users/application/service/UserServiceTest.java:161"
                                   }
                                 ],
                                 "name": "UserServiceTest",

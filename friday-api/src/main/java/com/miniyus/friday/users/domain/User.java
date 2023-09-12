@@ -1,13 +1,13 @@
 package com.miniyus.friday.users.domain;
 
 import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 /**
- * [description]
+ * User Business Domain
  *
  * @author miniyus
  * @date 2023/09/02
@@ -26,41 +26,82 @@ public class User {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
+    /**
+     * Gets the role of the user.
+     *
+     * @return the role of the user as a string.
+     */
+    public String getRole() {
+        return role.toUpperCase();
+    }
+
+    /**
+     * Determines if the object has been deleted.
+     *
+     * @return true if the object has been deleted, false otherwise
+     */
     public boolean isDeleted() {
         return deletedAt != null;
     }
 
+    /**
+     * Determines if the user is an SNS user.
+     *
+     * @return true if the user is an SNS user, false otherwise
+     */
     public boolean isSnsUser() {
         return snsId != null && provider != null;
     }
 
-    public void updateName(String name) {
+    /**
+     * when call put method
+     * 
+     * @param name user's name
+     * @param role user's role
+     */
+    public void update(String name, String role) {
         this.name = name;
-    }
-
-    public void updateRole(String role) {
         this.role = role;
     }
 
+    /**
+     * when call patch method
+     * 
+     * @param name user's name
+     * @param role user's role
+     */
+    public void patch(String name, String role) {
+        if (name != null)
+            this.name = name;
+        if (role != null)
+            this.role = role;
+    }
+
+    /**
+     * Resets the password for the user.
+     *
+     * @param passwordString the new password to be set
+     */
     public void resetPassword(String passwordString) {
         this.password = passwordString;
     }
 
+    /**
+     * Deletes the current object by setting the "deletedAt" field to the current date and time.
+     */
     public void delete() {
         this.deletedAt = LocalDateTime.now();
     }
 
-    @RequiredArgsConstructor
-    @Getter
     @Builder
-    public static class SearchUser {
-        private final String email;
-        private final String name;
-        private final LocalDateTime createdAtStart;
-        private final LocalDateTime createdAtEnd;
-        private final LocalDateTime updatedAtStart;
-        private final LocalDateTime updatedAtEnd;
-
+    public record SearchUser(String email, String name, LocalDateTime createdAtStart,
+            LocalDateTime createdAtEnd, LocalDateTime updatedAtStart,
+            LocalDateTime updatedAtEnd) {
+        /**
+         * Checks if all the fields in the object are null.
+         *
+         * @return true if all fields are null, false otherwise
+         */
         public boolean isEmpty() {
             return email == null && name == null && createdAtStart == null && createdAtEnd == null
                     && updatedAtStart == null && updatedAtEnd == null;
