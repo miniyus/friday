@@ -167,7 +167,7 @@ public class UserServiceTest {
             deleted = userService.findById(1L);
         } catch (RestErrorException exception){
             assertThat(exception).isInstanceOf(RestErrorException.class);
-            assertThat(exception.getRestErrorCode().getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
+            assertThat(exception.getErrorCode().getHttpStatus()).isEqualTo(HttpStatus.NOT_FOUND);
         }
 
         assertThat(deleted).isNull();

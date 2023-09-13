@@ -1,6 +1,8 @@
 package com.miniyus.friday.integration.infrastructure.security.auth;
 
 import com.github.javafaker.Faker;
+import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * auth controller test
@@ -150,7 +153,8 @@ public class AuthControllerTest {
         var faker = new Faker();
         var signinInfo = new PasswordAuthentication(
             faker.internet().emailAddress(),
-            faker.internet().password());
+            faker.internet().password()
+        );
 
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -209,5 +213,62 @@ public class AuthControllerTest {
                     fieldWithPath("tokens.accessToken").description("refreshToken")
                 )));
 
+    }
+
+    @Test
+    @WithMockCustomUser
+    public void refreshTest() throws Exception {
+        var faker = new Faker();
+        var fakeAccessToken = faker.internet().uuid();
+        var fakeRefreshToken = faker.internet().uuid();
+        var tokens = new IssueToken(
+            fakeAccessToken,
+            3600L,
+            fakeRefreshToken
+        );
+
+        when(jwtService.issueToken(any(Long.class))).thenReturn(
+            tokens
+        );
+
+        var user = new UserEntity(
+            1L,
+            null,
+            null,
+            faker.internet().emailAddress(),
+            faker.internet().password(),
+            faker.name().fullName(),
+            "USER",
+            null
+        );
+
+        when(jwtService.getUserByRefreshToken(any())).thenReturn(
+            Optional.of(user)
+        );
+
+        var result = this.mockMvc.perform(
+            post("/v1/auth/refresh")
+                .with(csrf())
+                .content("{\"refreshToken\":\"" + fakeRefreshToken + "\"}")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+
+        result.andExpect(status().isCreated())
+            .andExpect(jsonPath("$.accessToken").isNotEmpty())
+            .andExpect(jsonPath("$.expiresIn").value(3600L))
+            .andExpect(jsonPath("$.refreshToken").isNotEmpty())
+            .andDo(MockMvcRestDocumentation.document(
+                "auth-signup",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                requestFields(
+                    fieldWithPath("refreshToken").description("refreshToken")
+                ),
+                responseFields(
+                    fieldWithPath("accessToken").description("accessToken"),
+                    fieldWithPath("expiresIn").description("expiresIn"),
+                    fieldWithPath("refreshToken").description("refreshToken")
+                )));
     }
 }

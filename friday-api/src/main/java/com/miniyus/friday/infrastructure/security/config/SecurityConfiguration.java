@@ -9,6 +9,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,6 +46,7 @@ public class SecurityConfiguration {
     public static final String LOGIN_URL = "/v1/auth/signin";
     public static final String LOGOUT_URL = "/v1/auth/logout";
     public static final String SIGNUP_URL = "/v1/auth/signup";
+    public static final String REFRESH_URL = "/v1/auth/refresh";
     public static final String OAUTH2_LOGIN_URL = "/oauth2/authorization";
     public static final String OAUTH2_CALLBACK_URL = "/oauth2/callback";
 
@@ -68,55 +70,55 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // 인증 요청 filter
         http.authorizeHttpRequests(auth -> auth
-                // h2콘솔 화면 권한 설정
-                // 로컬 환경에서만 작동하기 때문에 permitAll() 설정도 문제 없다.
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**"))
-                .permitAll()
-                // REST DOC으로 생성된 문서 접근 권한 설정
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/docs/**"))
-                .permitAll()
-                // actuator 모니터링 권한 설정
-                // 로컬 및 개발 환경에서만 작동하기 때문에 permitAll() 설정도 문제 없다.
-                .requestMatchers(AntPathRequestMatcher.antMatcher("/actuator/**"))
-                .permitAll()
-                // 로그인 요청 권한, 로그인 요청은 인증 없이 요청이 가능해야 하기 때문에 permitAll()
-                .requestMatchers(
-                        AntPathRequestMatcher.antMatcher(LOGIN_URL),
-                        AntPathRequestMatcher.antMatcher(SIGNUP_URL))
-                .permitAll()
-                // 그 외, 모든 요청은 인증이 필요하다.
-                .anyRequest().authenticated());
+            // 1. h2콘솔 화면 권한 설정
+            //   - 로컬 환경에서만 작동하기 때문에 permitAll() 설정도 문제 없다.
+            // 2. REST DOC으로 생성된 문서 접근 권한 설정
+            // 3. actuator 모니터링 권한 설정
+            //   - 로컬 및 개발 환경에서만 작동하기 때문에 permitAll() 설정도 문제 없다.
+            // 4. 로그인 요청 권한, 로그인 요청은 인증 없이 요청이 가능해야 하기 때문에
+            // 5. 회원 가입
+            // 6. 토큰 새로고침 요청
+            .requestMatchers(
+                AntPathRequestMatcher.antMatcher("/h2-console/**"),
+                AntPathRequestMatcher.antMatcher("/docs/**"),
+                AntPathRequestMatcher.antMatcher("/actuator/**"),
+                AntPathRequestMatcher.antMatcher(LOGIN_URL),
+                AntPathRequestMatcher.antMatcher(SIGNUP_URL),
+                AntPathRequestMatcher.antMatcher(REFRESH_URL))
+            .permitAll()
+            // 그 외, 모든 요청은 인증이 필요하다.
+            .anyRequest().authenticated());
 
         // spring security의 기본 FormLogin 기능 비활성화
         // REST API로 인증 처리를 진행하기 때문에 불필요하다.
-        http.formLogin(form -> form.disable());
+        http.formLogin(AbstractHttpConfigurer::disable);
 
         // HTTP BasicAuth 비활성화
-        http.httpBasic(basic -> basic.disable());
+        http.httpBasic(AbstractHttpConfigurer::disable);
         // session 비활성화
         // jwt 토큰을 활용할 예정이므로 불필요하다.
         http.sessionManagement(
-                session -> session.sessionCreationPolicy(
-                        SessionCreationPolicy.STATELESS));
+            session -> session.sessionCreationPolicy(
+                SessionCreationPolicy.STATELESS));
         // csrf 비활성화
         // JWT 토큰을 이용하여, accessToken, refreshToken을 생성하여 csrf 보안 문제를 어느정도 해결 가능
         http.csrf(csrf -> csrf.disable());
         // oauth2 로그인 활성화 및 설정
         http.oauth2Login(oauth2Login -> oauth2Login
-                // oauth2 로그인 url 설정
-                .authorizationEndpoint(authorization -> authorization
-                        .baseUri(OAUTH2_LOGIN_URL))
-                // 회원 정보 서비스 설정
-                // oauth2 로그인을 위한 별도의 서비스이다.
-                .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-                        .userService(userService))
-                // redirect uri 설정
-                .redirectionEndpoint(redirect -> redirect
-                        .baseUri(OAUTH2_CALLBACK_URL))
-                // 인증 성공 핸들러
-                .successHandler(successHandler)
-                // 인증 실패 핸들러
-                .failureHandler(failureHandler));
+            // oauth2 로그인 url 설정
+            .authorizationEndpoint(authorization -> authorization
+                .baseUri(OAUTH2_LOGIN_URL))
+            // 회원 정보 서비스 설정
+            // oauth2 로그인을 위한 별도의 서비스이다.
+            .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+                .userService(userService))
+            // redirect uri 설정
+            .redirectionEndpoint(redirect -> redirect
+                .baseUri(OAUTH2_CALLBACK_URL))
+            // 인증 성공 핸들러
+            .successHandler(successHandler)
+            // 인증 실패 핸들러
+            .failureHandler(failureHandler));
 
         // user detail service 설정
         // 자체 로그인을 위한 servicedlek.
@@ -124,10 +126,10 @@ public class SecurityConfiguration {
 
         // 인증 관련 예외 처리 핸들링
         http.exceptionHandling(exceptHandling -> exceptHandling
-                // 인증 실패 처리 핸들러
-                .authenticationEntryPoint(authenticationEntryPoint)
-                // 권한 제한 예외에 대한 핸들러
-                .accessDeniedHandler(accessDeniedHandler));
+            // 인증 실패 처리 핸들러
+            .authenticationEntryPoint(authenticationEntryPoint)
+            // 권한 제한 예외에 대한 핸들러
+            .accessDeniedHandler(accessDeniedHandler));
 
         http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
         http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
@@ -138,12 +140,12 @@ public class SecurityConfiguration {
     @Bean
     public Filter passwordAuthenticationFilter() {
         AntPathRequestMatcher loginPathRequestMatcher = new AntPathRequestMatcher(
-                LOGIN_URL,
-                HttpMethod.POST.name());
+            LOGIN_URL,
+            HttpMethod.POST.name());
 
         PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
-                loginPathRequestMatcher,
-                objectMapper);
+            loginPathRequestMatcher,
+            objectMapper);
 
         loginFilter.setAuthenticationManager(authenticationManager());
         loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
@@ -175,7 +177,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService,new AuthResponseHandler(objectMapper));
+        return new LoginSuccessHandler(jwtService, new AuthResponseHandler(objectMapper));
     }
 
     /**
@@ -192,9 +194,9 @@ public class SecurityConfiguration {
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(
-                jwtService,
-                userDetailsService,
-                objectMapper,
-                LOGIN_URL);
+            jwtService,
+            userDetailsService,
+            objectMapper,
+            LOGIN_URL);
     }
 }

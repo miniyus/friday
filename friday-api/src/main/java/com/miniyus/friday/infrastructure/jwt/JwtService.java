@@ -41,7 +41,7 @@ public class JwtService {
         UserEntity userEntity = userRepository.findById(userId).orElse(null);
 
         if (userEntity == null) {
-            throw new AccessDeniedException("Cannot find user");
+            throw new AccessDeniedException("error.accessDenied");
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);
@@ -62,7 +62,7 @@ public class JwtService {
         UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
 
         if (userEntity == null) {
-            throw new AccessDeniedException("Cannot find user");
+            throw new AccessDeniedException("error.accessDenied");
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);

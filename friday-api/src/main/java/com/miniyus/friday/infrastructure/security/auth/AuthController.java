@@ -3,6 +3,7 @@ package com.miniyus.friday.infrastructure.security.auth;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import org.springframework.http.ResponseEntity;
@@ -76,13 +77,17 @@ public class AuthController {
     @PostMapping("/auth/refresh")
     public ResponseEntity<IssueToken> refresh(@RequestBody String refreshToken) {
         UserEntity user = jwtService.getUserByRefreshToken(refreshToken).orElse(null);
-
         if(user == null) {
-            throw new AccessDeniedException("error.accessDenied");
+            throw new RestErrorException(
+                "error.userNotFound",
+                AuthErrorCode.ACCESS_DENIED
+            );
         }
+
+        var tokens = jwtService.issueToken(user.getId());
 
         return ResponseEntity
                 .created(null)
-                .body(jwtService.issueToken(user.getId()));
+                .body(tokens);
     }
 }
