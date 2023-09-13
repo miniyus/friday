@@ -13,20 +13,16 @@ import lombok.RequiredArgsConstructor;
  * @date 2023/08/31
  */
 @Builder
-@Getter
-@RequiredArgsConstructor
-public class NaverUserInfo implements OAuth2UserInfo {
-
-    private final String snsId;
-
-    private final String email;
-
-    private final String name;
-
-    private final Map<String, Object> attributes;
+public record NaverUserInfo(
+    String snsId,
+    String email,
+    String name,
+    Map<String, Object> attributes
+) implements OAuth2UserInfo {
 
     @Override
     public OAuth2Provider getProvider() {
         return OAuth2Provider.NAVER;
     }
+
 }

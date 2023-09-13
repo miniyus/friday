@@ -59,7 +59,7 @@ public class JwtService {
      *         refresh token
      */
     public IssueToken issueToken(String email) {
-        UserEntity userEntity = userRepository.findByEmail(email).get();
+        UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
 
         if (userEntity == null) {
             throw new AccessDeniedException("Cannot find user");
@@ -114,13 +114,20 @@ public class JwtService {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
 
-        RefreshTokenEntity refreshTokenEntity = RefreshTokenEntity.builder()
+        return RefreshTokenEntity.builder()
                 .type("Bearer")
                 .token(refreshToken)
                 .expiresAt(exp)
                 .build();
+    }
 
-        return refreshTokenEntity;
+    public Optional<UserEntity> getUserByAccessToken(String accessToken) {
+        AccessTokenEntity accessTokenEntity = accessTokenRepository.findByToken(accessToken).orElse(null);
+        if (accessTokenEntity == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(accessTokenEntity.getUser());
     }
 
     /**
@@ -129,15 +136,18 @@ public class JwtService {
      * @param refreshToken the refresh token used to retrieve the user entity
      * @return the user entity associated with the refresh token
      */
-    public UserEntity getUserByRefreshToken(String refreshToken) {
-        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository.findByToken(refreshToken);
+    public Optional<UserEntity> getUserByRefreshToken(String refreshToken) {
+        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository
+            .findByToken(refreshToken)
+            .orElse(null);
+
         if (refreshTokenEntity == null) {
-            throw new AccessDeniedException("Invalid refresh token");
+            return Optional.empty();
         }
 
-        return refreshTokenEntity
+        return Optional.of(refreshTokenEntity
                 .getAccessToken()
-                .getUser();
+                .getUser());
     }
 
     /**

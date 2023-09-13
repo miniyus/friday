@@ -1,7 +1,10 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
 import java.net.URI;
+
+import com.miniyus.friday.common.request.annotation.QueryParam;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
@@ -19,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import com.miniyus.friday.common.hexagon.annotation.WebAdapter;
-import com.miniyus.friday.common.response.SimplePage;
+import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
@@ -100,26 +103,24 @@ public class UserController {
      * Retrieves a page of users based on the provided request.
      *
      * @param request the request object containing the parameters for retrieving users
-     * @param pageable the pageable object specifying the page number, size, and sort order
      * @return a ResponseEntity containing a SimplePage of RetrieveUserResponse objects
      */
     @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SimplePage<RetrieveUserResponse>> retrieveUsers(
-            @RequestParam(required = false) @Valid RetrieveUserRequest request,
-            @PageableDefault(
-                    page = 1,
-                    size = 10,
-                    sort = "createdAt",
-                    direction = Direction.DESC) Pageable pageable) {
+            @QueryParam @Valid RetrieveUserRequest request
+    ) {
 
         RetrieveUserCommand cmd;
         if (request == null) {
+            log.debug("req is null" );
             cmd = RetrieveUserCommand.builder()
-                    .pageable(pageable)
+                    .pageable(PageRequest.of(0,20,Direction.DESC, "createdAt"))
                     .build();
         } else {
-            cmd = request.toCommand(pageable);
+            log.debug("page? {}", request.getPage());
+            log.debug("size? {}", request.getSize());
+            cmd = request.toCommand();
         }
 
         Page<User> users = readUserQuery.findAll(cmd);

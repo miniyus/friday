@@ -70,16 +70,16 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
-                .snsId(userInfo.getSnsId())
+                .snsId(userInfo.snsId())
                 .provider(userInfo.getProvider().getId())
-                .email(userInfo.getEmail())
+                .email(userInfo.email())
                 .password(null)
-                .name(userInfo.getName())
+                .name(userInfo.name())
                 .role(UserRole.USER.getValue())
                 .build();
         entity = userRepository.save(entity);
 
-        return buildPrincipalUserInfo(entity, userInfo.getAttributes());
+        return buildPrincipalUserInfo(entity, userInfo.attributes());
     }
 
     /**
@@ -107,7 +107,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 
         OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
         UserEntity userREntity = userRepository
-                .findBySnsIdAndProvider(userInfo.getSnsId(), userInfo.getProvider().getId())
+                .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getId())
                 .get();
 
         PrincipalUserInfo user =

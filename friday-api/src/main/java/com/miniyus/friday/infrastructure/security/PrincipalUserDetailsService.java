@@ -2,7 +2,7 @@ package com.miniyus.friday.infrastructure.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,8 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private final UserRepository userRepository;
 
-    private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
-            Map<String, Object> attributes) {
+    private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity) {
         return PrincipalUserInfo.builder()
                 .id(entity.getId())
                 .snsId(entity.getSnsId())
@@ -37,7 +36,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .accountNonExpired(entity.getDeletedAt() == null)
                 .accountNonLocked(entity.getDeletedAt() == null)
                 .credentialsNonExpired(entity.getDeletedAt() == null)
-                .attributes(attributes)
+                .attributes(null)
                 .provider(null)
                 .authorities(getAuthorities(entity))
                 .role(entity.getRole())
@@ -69,12 +68,15 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .build();
         entity = userRepository.save(entity);
 
-        return buildPrincipalUserInfo(entity, null);
+        return buildPrincipalUserInfo(entity);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity entity = userRepository.findByEmail(username).get();
-        return buildPrincipalUserInfo(entity, null);
+        UserEntity entity = userRepository.findByEmail(username).orElse(null);
+        if(entity == null) {
+            throw new UsernameNotFoundException("");
+        }
+        return buildPrincipalUserInfo(entity);
     }
 }

@@ -9,7 +9,7 @@ import com.miniyus.friday.users.domain.User;
  * @date 2023/09/09
  */
 public interface UpdateUserUsecase {
-    public User patchUser(UpdateUserCommand command);
+    User patchUser(UpdateUserCommand command);
 
-    public User resetPassword(Long id, String password);
+    User resetPassword(Long id, String password);
 }

@@ -13,7 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.ActiveProfiles;
-import com.miniyus.friday.common.response.SimplePage;
+import com.miniyus.friday.common.pagination.SimplePage;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

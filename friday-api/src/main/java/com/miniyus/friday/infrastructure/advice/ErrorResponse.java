@@ -6,7 +6,9 @@ import java.util.List;
 
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 
+import com.miniyus.friday.common.error.RestErrorException;
 import io.micrometer.common.lang.Nullable;
 import lombok.Getter;
 
@@ -23,13 +25,13 @@ import lombok.Getter;
  */
 @Getter
 public class ErrorResponse {
-    private LocalDateTime timestamp;
-    private int code;
-    private String error;
-    private String message;
+    private final LocalDateTime timestamp;
+    private final int code;
+    private final String error;
+    private final String message;
 
     @Nullable
-    private HashMap<String, List<String>> details;
+    private final HashMap<String, List<String>> details;
 
     public ErrorResponse(ErrorCode errorCode, String message) {
         this.timestamp = LocalDateTime.now();
@@ -40,22 +42,6 @@ public class ErrorResponse {
     }
 
     public ErrorResponse(ErrorCode errorCode, String message, HashMap<String, List<String>> details) {
-        this.timestamp = LocalDateTime.now();
-        this.code = errorCode.getErrorCode();
-        this.error = errorCode.name();
-        this.message = message;
-        this.details = details;
-    }
-
-    public ErrorResponse(AuthErrorCode errorCode, String message) {
-        this.timestamp = LocalDateTime.now();
-        this.code = errorCode.getErrorCode();
-        this.error = errorCode.name();
-        this.message = message;
-        this.details = null;
-    }
-
-    public ErrorResponse(AuthErrorCode errorCode, String message, HashMap<String, List<String>> details) {
         this.timestamp = LocalDateTime.now();
         this.code = errorCode.getErrorCode();
         this.error = errorCode.name();

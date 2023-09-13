@@ -65,6 +65,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
     }
 
     @Override
+    @Nullable
     public String getPassword() {
         return password;
     }
@@ -94,7 +95,13 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
         return enabled;
     }
 
+    @Nullable
     public Long getId() {
         return id;
+    }
+
+    public boolean isSnsUser() {
+        return (snsId != null && snsId.trim().isEmpty())
+            && provider != null;
     }
 }

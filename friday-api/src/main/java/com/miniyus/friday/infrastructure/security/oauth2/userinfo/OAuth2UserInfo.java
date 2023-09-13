@@ -10,13 +10,13 @@ import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
  * @date 2023/08/31
  */
 public interface OAuth2UserInfo {
-    String getSnsId();
+    String snsId();
 
     OAuth2Provider getProvider();
 
-    String getEmail();
+    String email();
 
-    String getName();
+    String name();
 
-    Map<String, Object> getAttributes();
+    Map<String, Object> attributes();
 }

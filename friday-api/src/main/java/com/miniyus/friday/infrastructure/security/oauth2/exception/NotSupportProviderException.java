@@ -1,13 +1,19 @@
 package com.miniyus.friday.infrastructure.security.oauth2.exception;
 
+import lombok.Getter;
+
 /**
  * [description]
  *
  * @author miniyus
  * @date 2023/08/31
  */
+@Getter
 public class NotSupportProviderException extends RuntimeException {
-    public NotSupportProviderException(String message) {
+    private final String provider;
+
+    public NotSupportProviderException(String message, String provider) {
         super(message);
+        this.provider = provider;
     }
 }

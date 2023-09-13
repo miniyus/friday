@@ -1,6 +1,8 @@
 package com.miniyus.friday.infrastructure.security.oauth2.handler;
 
 import java.io.IOException;
+
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
-    private final ObjectMapper objectMapper;
+    private final AuthResponseHandler responseHandler;
     private final MessageSource messageSource;
 
     @Override
@@ -33,19 +35,18 @@ public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
             AccessDeniedException exception) throws IOException, ServletException {
         log.debug("Access Denied: {}", exception.getMessage());
 
-        AuthErrorCode code = AuthErrorCode.ACCESS_DENIED;
-        ErrorResponse errorResponse = new ErrorResponse(
-                code,
-                messageSource.getMessage(
-                        "exception.accessDenied",
-                        null,
-                        exception.getLocalizedMessage(),
-                        LocaleContextHolder.getLocale()));
-        String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
+        var code = AuthErrorCode.ACCESS_DENIED;
+        var message = messageSource.getMessage(
+            "error.accessDenied",
+            null,
+            exception.getLocalizedMessage(),
+            LocaleContextHolder.getLocale());
 
-        response.setHeader("Content-Type", "application/json;utf-8");
-        response.setStatus(code.getStatusCode());
-        response.getWriter().write(errorJsonBody);
+        responseHandler.handleErrorResponse(
+            response,
+            code,
+            message
+        );
     }
 
 }

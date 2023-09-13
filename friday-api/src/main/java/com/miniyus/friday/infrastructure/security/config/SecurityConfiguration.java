@@ -1,5 +1,6 @@
 package com.miniyus.friday.infrastructure.security.config;
 
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -174,7 +175,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, objectMapper);
+        return new LoginSuccessHandler(jwtService,new AuthResponseHandler(objectMapper));
     }
 
     /**
@@ -182,7 +183,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public LoginFailureHandler loginFailureHandler() {
-        return new LoginFailureHandler(objectMapper);
+        return new LoginFailureHandler(new AuthResponseHandler(objectMapper));
     }
 
     /**

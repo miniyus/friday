@@ -11,7 +11,7 @@ import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.ActiveProfiles;
-import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.infrastructure.advice.ErrorResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,7 +37,7 @@ public class ErrorResponseTest {
         details.put("field1", field1List);
 
         ErrorResponse tsetResponse = new ErrorResponse(
-                ErrorCode.INTERNAL_SERVER_ERROR,
+                RestErrorCode.INTERNAL_SERVER_ERROR,
                 "testMessage",
                 details);
         assertThat(json.write(tsetResponse))

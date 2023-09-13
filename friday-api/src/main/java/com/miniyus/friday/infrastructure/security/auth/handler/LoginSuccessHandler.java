@@ -1,6 +1,8 @@
 package com.miniyus.friday.infrastructure.security.auth.handler;
 
 import java.io.IOException;
+
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -28,7 +30,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private String accessTokenExpiration;
 
     private final JwtService jwtService;
-    private final ObjectMapper objectMapper;
+    private final AuthResponseHandler responseHandler;
 
     @Override
     public void onAuthenticationSuccess(
@@ -44,16 +46,10 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         log.debug("Success Login AccessToken : {}", tokens.accessToken());
         log.debug("Issued AccessToken expires in: {}(seconds)", tokens.expiresIn());
 
-        PasswordTokenResponse passwordTokenResponse = new PasswordTokenResponse(
-                userDetails.getId(),
-                userDetails.getUsername(),
-                userDetails.getName(),
-                tokens);
-
-        String jsonBody = objectMapper.writeValueAsString(passwordTokenResponse);
-        response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.CREATED.value());
-        response.getWriter().write(jsonBody);
-
+        responseHandler.handlePasswordIssueTokenResponse(
+            response,
+            userDetails,
+            tokens
+        );
     }
 }

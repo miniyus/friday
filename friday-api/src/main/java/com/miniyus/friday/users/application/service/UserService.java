@@ -2,8 +2,12 @@ package com.miniyus.friday.users.application.service;
 
 import java.util.Collection;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.support.PageableUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserCommand;
@@ -56,7 +60,7 @@ public class UserService
                 null);
 
         if (createUserPort.isUniqueEmail(user.getEmail())) {
-            throw new RestErrorException(ErrorCode.CONFLICT, "error.userExists");
+            throw new RestErrorException(RestErrorCode.CONFLICT, "error.userExists");
         }
 
         return createUserPort.createUser(user);
@@ -125,7 +129,7 @@ public class UserService
 
         if (user == null) {
             throw new RestErrorException(
-                    ErrorCode.NOT_FOUND,
+                    RestErrorCode.NOT_FOUND,
                     "error.userNotFound");
         }
 

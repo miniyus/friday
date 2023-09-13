@@ -1,4 +1,4 @@
-package com.miniyus.friday.common.response;
+package com.miniyus.friday.common.pagination;
 
 import java.util.List;
 import java.util.function.Function;
@@ -6,8 +6,9 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * SimplePageBuilder
- * 
+ * <p>
  * [Generic Builder] - R: Resource Type - T: Element Type
+ * </p>
  *
  * @author miniyus
  * @date 2023/09/09

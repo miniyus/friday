@@ -1,5 +1,7 @@
 package com.miniyus.friday.common.error;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,32 +11,20 @@ import java.util.List;
  * @author seongminyoo
  * @date 2023/08/28
  */
-public class AuthErrorException extends RuntimeException {
-    protected final AuthErrorCode errorCode;
-
+@Getter
+public class AuthErrorException extends RestErrorException {
     protected List<Object> args;
 
     public AuthErrorException(String message, AuthErrorCode errorCode) {
-        super(message);
-        this.errorCode = errorCode;
+        super(message, errorCode);
     }
 
     public AuthErrorException(AuthErrorCode errorCode) {
-        super(errorCode.name());
-        this.errorCode = errorCode;
+        super(errorCode);
     }
 
     public AuthErrorException(AuthErrorCode errorCode, String message, Object... args) {
-        super(message);
-        this.errorCode = errorCode;
-        this.args = Arrays.asList(args);
+        super(errorCode, message, args);
     }
 
-    public AuthErrorCode getErrorCode() {
-        return errorCode;
-    }
-
-    public List<Object> getArgs() {
-        return this.args;
-    }
 }

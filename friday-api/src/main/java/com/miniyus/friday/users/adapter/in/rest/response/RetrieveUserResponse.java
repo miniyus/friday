@@ -8,14 +8,14 @@ import lombok.Value;
 @Value
 @Builder
 public class RetrieveUserResponse {
-    private Long id;
-    private String email;
-    private String name;
-    private String role;
-    private String snsId;
-    private String provider;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    Long id;
+    String email;
+    String name;
+    String role;
+    String snsId;
+    String provider;
+    LocalDateTime createdAt;
+    LocalDateTime updatedAt;
 
     public static RetrieveUserResponse fromDomain(User user) {
         return new RetrieveUserResponse(

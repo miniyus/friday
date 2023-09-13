@@ -1,10 +1,12 @@
 package com.miniyus.friday.infrastructure.security.auth.handler;
 
 import java.io.IOException;
+
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.infrastructure.advice.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
-    private final ObjectMapper objectMapper;
+    private final AuthResponseHandler responseHandler;
 
     @Override
     public void onAuthenticationFailure(
@@ -26,18 +28,16 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
             HttpServletResponse response,
             AuthenticationException exception) throws IOException {
 
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-
-        ErrorResponse errorResponse = new ErrorResponse(
-                ErrorCode.BAD_REQUEST,
-                exception.getMessage());
-
-        String jsonBody = objectMapper.writeValueAsString(errorResponse);
-
-        response.getWriter().write(jsonBody);
-
         log.debug("Failure login. message: {}", exception.getMessage());
+
+        var message = exception.getMessage();
+
+        responseHandler.handleErrorResponse(
+            response,
+            RestErrorCode.BAD_REQUEST,
+            message
+        );
+
+
     }
 }

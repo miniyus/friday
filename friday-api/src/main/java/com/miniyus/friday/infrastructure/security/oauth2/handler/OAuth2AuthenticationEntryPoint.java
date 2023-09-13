@@ -1,6 +1,8 @@
 package com.miniyus.friday.infrastructure.security.oauth2.handler;
 
 import java.io.IOException;
+
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.AuthenticationException;
@@ -21,31 +23,28 @@ import lombok.extern.slf4j.Slf4j;
  * @author miniyus
  * @date 2023/09/01
  */
-@Component
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint {
-    private final ObjectMapper objectMapper;
-
     private final MessageSource messageSource;
+    private final AuthResponseHandler responseHandler;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException exception) throws IOException, ServletException {
         log.debug("Authentication Exception: {}", exception.getMessage());
 
-        AuthErrorCode code = AuthErrorCode.ACCESS_DENIED;
-        ErrorResponse errorResponse = new ErrorResponse(
-                code,
-                messageSource.getMessage("exception.accessDenied",
-                        null,
-                        exception.getLocalizedMessage(),
-                        LocaleContextHolder.getLocale()));
-        String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
+        var code = AuthErrorCode.ACCESS_DENIED;
+        var message = messageSource.getMessage("error.accessDenied",
+            null,
+            exception.getLocalizedMessage(),
+            LocaleContextHolder.getLocale());
 
-        response.setHeader("Content-Type", "application/json;utf-8");
-        response.setStatus(code.getStatusCode());
-        response.getWriter().write(errorJsonBody);
+        responseHandler.handleErrorResponse(
+            response,
+            code,
+            message);
     }
 
 }

@@ -1,6 +1,8 @@
 package com.miniyus.friday.infrastructure.security.oauth2.handler;
 
 import java.io.IOException;
+
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import com.miniyus.friday.common.error.AuthErrorCode;
@@ -23,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class OAuth2FailureHandler implements AuthenticationFailureHandler {
-    private final ObjectMapper objectMapper;
+    private final AuthResponseHandler responseHandler;
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
@@ -32,14 +34,13 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
         log.debug("Failure oauth login: {}", exception.getMessage());
 
         AuthErrorCode code = AuthErrorCode.INVALID_CLIENT;
-        ErrorResponse errorResponse = new ErrorResponse(
-                code,
-                exception.getMessage());
-        String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
-
-        response.setHeader("Content-Type", "application/json");
-        response.setStatus(code.getStatusCode());
-        response.getWriter().write(errorJsonBody);
+        var message = exception.getMessage();
+        
+        responseHandler.handleErrorResponse(
+            response,
+            code,
+            message
+        );
 
     }
 }

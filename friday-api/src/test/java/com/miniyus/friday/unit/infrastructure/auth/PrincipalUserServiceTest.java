@@ -68,8 +68,8 @@ public class PrincipalUserServiceTest {
 
         PrincipalUserInfo principal = principalUserService.create(userInfo);
         assertNotNull(principal, "failed to create principal");
-        assertNotEquals(testUser.getProvider(), userInfo.getSnsId(), "not equal snsId");
-        assertNotEquals(testUser.getEmail(), userInfo.getEmail(), "not equal email");
+        assertNotEquals(testUser.getProvider(), userInfo.snsId(), "not equal snsId");
+        assertNotEquals(testUser.getEmail(), userInfo.email(), "not equal email");
         assertNotEquals(testUser.getProvider(), userInfo.getProvider(), "not equal provider");
     }
 }

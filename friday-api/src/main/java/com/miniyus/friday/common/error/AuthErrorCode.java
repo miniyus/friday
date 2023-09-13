@@ -1,14 +1,16 @@
 package com.miniyus.friday.common.error;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 /**
- * [description]
+ * auth error codes
  *
  * @author seongminyoo
  * @date 2023/08/28
  */
-public enum AuthErrorCode {
+@Getter
+public enum AuthErrorCode implements ErrorCode {
     ACCESS_DENIED(1, 401), // access denied
     INSUFFICIENT_SCOPE(2, 403), // insufficient scope
     INVALID_CLIENT(3, 400), // invalid client
@@ -24,26 +26,20 @@ public enum AuthErrorCode {
     UNSUPPORTED_RESPONSE_TYPE(13, 400), // unsupported response type
     UNSUPPORTED_TOKEN_TYPE(14, 400); // unsupported token type
 
+    /**
+     * -- GETTER --
+     *
+     */
     private final int errorCode;
+    /**
+     * -- GETTER --
+     *
+     */
     private final int statusCode;
 
     AuthErrorCode(int errorCode, int statusCode) {
         this.errorCode = errorCode;
         this.statusCode = statusCode;
-    }
-
-    /**
-     * @return the errorCode
-     */
-    public int getErrorCode() {
-        return errorCode;
-    }
-
-    /**
-     * @return the statusCode
-     */
-    public int getStatusCode() {
-        return statusCode;
     }
 
     public HttpStatus getHttpStatus() {

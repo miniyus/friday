@@ -2,7 +2,11 @@ package com.miniyus.friday.infrastructure.security.auth;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,8 +49,12 @@ public class AuthController {
     public ResponseEntity<PrincipalUserInfo> signup(
             @Valid @RequestBody PasswordUserInfo authentication) {
         authentication.encodePassword(passwordEncoder);
-        var user = userDetailsService.create(authentication);
-        return ResponseEntity.created(null).body(user);
+        try {
+            var user = userDetailsService.create(authentication);
+            return ResponseEntity.created(null).body(user);
+        } catch(Throwable throwable) {
+            throw new RestErrorException("error.userExists", RestErrorCode.CONFLICT);
+        }
     }
 
     /**
@@ -67,7 +75,12 @@ public class AuthController {
 
     @PostMapping("/auth/refresh")
     public ResponseEntity<IssueToken> refresh(@RequestBody String refreshToken) {
-        UserEntity user = jwtService.getUserByRefreshToken(refreshToken);
+        UserEntity user = jwtService.getUserByRefreshToken(refreshToken).orElse(null);
+
+        if(user == null) {
+            throw new AccessDeniedException("error.accessDenied");
+        }
+
         return ResponseEntity
                 .created(null)
                 .body(jwtService.issueToken(user.getId()));

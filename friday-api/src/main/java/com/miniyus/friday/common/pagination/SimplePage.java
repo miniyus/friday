@@ -1,4 +1,4 @@
-package com.miniyus.friday.common.response;
+package com.miniyus.friday.common.pagination;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         "content"
 })
 public class SimplePage<T> extends PageImpl<T> {
-    private Map<String, List<T>> resource;
+    private final Map<String, List<T>> resource;
 
     @JsonCreator
     public SimplePage(
@@ -41,11 +41,11 @@ public class SimplePage<T> extends PageImpl<T> {
             @JsonProperty("page") final int page,
             @JsonProperty("size") final int size,
             @JsonProperty("sort") final List<String> sort) {
-        super(content, PageRequest.of(page, size, Sort.by(sort.stream()
+        super(content, PageRequest.of(page+1, size, Sort.by(sort.stream()
                 .map(el -> el.split(","))
                 .map(ar -> new Sort.Order(Sort.Direction.fromString(ar[1]), ar[0]))
                 .collect(Collectors.toList()))), totalElements);
-        this.resource = new HashMap<String, List<T>>();
+        this.resource = new HashMap<>();
         this.resource.put("resources", content);
     }
 
@@ -54,8 +54,8 @@ public class SimplePage<T> extends PageImpl<T> {
             final long totalElements,
             final Pageable pageable,
             final String resourceFieldName) {
-        super(content, pageable, totalElements);
-        this.resource = new HashMap<String, List<T>>();
+        super(content, pageable,totalElements);
+        this.resource = new HashMap<>();
         this.resource.put(resourceFieldName, content);
     }
 
@@ -64,12 +64,12 @@ public class SimplePage<T> extends PageImpl<T> {
             final long totalElements,
             final Pageable pageable) {
         super(content, pageable, totalElements);
-        this.resource = new HashMap<String, List<T>>();
+        this.resource = new HashMap<>();
         this.resource.put("resources", content);
     }
 
     public int getPage() {
-        return getNumber();
+        return getNumber() + 1;
     }
 
     @JsonProperty("sort")

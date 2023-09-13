@@ -2,6 +2,7 @@ package com.miniyus.friday.infrastructure.security.oauth2.handler;
 
 import java.io.IOException;
 
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -27,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private final JwtService jwtService;
-    private final ObjectMapper objectMapper;
+    private final AuthResponseHandler responseHandler;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -51,15 +52,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private void issueToken(HttpServletResponse response, PrincipalUserInfo oAuth2User)
             throws IOException {
         IssueToken issueToken = jwtService.issueToken(oAuth2User.getId());
-        OAuth2TokenResponse oAuth2TokenResponse = new OAuth2TokenResponse(
-                oAuth2User.getId(),
-                oAuth2User.getSnsId(),
-                oAuth2User.getProvider().getId(),
-                issueToken);
 
-        String jsonBody = objectMapper.writeValueAsString(oAuth2TokenResponse);
-        response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.CREATED.value());
-        response.getWriter().write(jsonBody);
+        responseHandler.handleOAuth2IssueTokenResponse(
+            response,
+            oAuth2User,
+            issueToken
+        );
     }
 }

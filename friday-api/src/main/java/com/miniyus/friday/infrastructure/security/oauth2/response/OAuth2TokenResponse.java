@@ -10,14 +10,9 @@ import lombok.Value;
  * @author seongminyoo
  * @date 2023/09/04
  */
-@AllArgsConstructor
-@Value
-public class OAuth2TokenResponse {
-    private Long id;
-
-    private String snsId;
-
-    private String provider;
-
-    private IssueToken tokens;
+public record OAuth2TokenResponse(
+    Long id,
+    String snsId,
+    String provider,
+    IssueToken tokens) {
 }

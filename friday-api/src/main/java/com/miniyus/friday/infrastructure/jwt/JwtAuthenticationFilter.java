@@ -106,7 +106,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response,
             String refreshToken)
             throws IOException {
-        UserEntity user = jwtService.getUserByRefreshToken(refreshToken);
+        UserEntity user = jwtService.getUserByRefreshToken(refreshToken).orElse(null);
+
         if (user == null) {
             return;
         }
@@ -128,16 +129,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public void checkAccessTokenAndAuthentication(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain filterChain) throws ServletException, IOException {
+
         log.debug("checkAccessTokenAndAuthentication() 호출");
         log.debug("access token: {}", jwtService.extractAccessToken(request));
 
         try {
             jwtService.extractAccessToken(request)
-                    .filter(jwtService::isTokenValid)
-                    .ifPresent(accessToken -> jwtService.extractEmail(accessToken)
-                            .ifPresent(email -> Optional
-                                    .of(userDetailsService.loadUserByUsername(email))
-                                    .ifPresent(this::saveAuthentication)));
+                .filter(jwtService::isTokenValid)
+                .flatMap(jwtService::getUserByAccessToken)
+                .ifPresent(this::saveAuthentication);
         } catch (NoSuchElementException ex) {
             log.debug("error: {}", ex.getMessage());
         }
@@ -149,30 +149,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     /**
      * [인증 허가 메소드] 파라미터의 유저 : 우리가 만든 회원 객체 / 빌더의 유저 : UserDetails의 User 객체
-     *
      * new UsernamePasswordAuthenticationToken()로 인증 객체인 Authentication 객체 생성
      * UsernamePasswordAuthenticationToken의 파라미터 1. 위에서 만든 UserDetailsUser 객체 (유저 정보) 2.
      * credential(보통 비밀번호로, 인증 시에는 보통 null로 제거) 3. Collection < ? extends GrantedAuthority>로,
      * UserDetails의 User 객체 안에 Set<GrantedAuthority> authorities이 있어서 getter로 호출한 후에, new
      * NullAuthoritiesMapper()로 GrantedAuthoritiesMapper 객체를 생성하고 mapAuthorities()에 담기
-     *
      * SecurityContextHolder.getContext()로 SecurityContext를 꺼낸 후, setAuthentication()을 이용하여 위에서 만든
      * Authentication 객체에 대한 인증 허가 처리
      */
-    public void saveAuthentication(UserDetails user) {
-        PrincipalUserInfo principal = (PrincipalUserInfo) user;
-        log.debug("save auth: {}", user.getUsername());
+    public void saveAuthentication(UserEntity user) {
+        log.debug("save auth: {}", user.getEmail());
 
-        String password = principal.getPassword();
-        if (password == null) {
+        var principal = (PrincipalUserInfo) userDetailsService.loadUserByUsername(user.getEmail());
+        
+        var password = user.getPassword();
+        if (principal.isSnsUser() && (password == null || password.trim().isEmpty())) {
             // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
             long now = Instant.now().getEpochSecond();
-            password = String.format("%s-%s", principal.getSnsId(), now);
+            password = String.format("%s-%s", user.getSnsId(), now);
         }
 
         Authentication authentication =
-                new UsernamePasswordAuthenticationToken(principal, null,
-                        user.getAuthorities());
+                new UsernamePasswordAuthenticationToken(principal, password,
+                        principal.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

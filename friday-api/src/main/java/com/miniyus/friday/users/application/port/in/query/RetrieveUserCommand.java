@@ -1,6 +1,8 @@
 package com.miniyus.friday.users.application.port.in.query;
 
 import java.time.LocalDateTime;
+
+import com.miniyus.friday.common.pagination.PageRequest;
 import org.springframework.data.domain.Pageable;
 import lombok.Builder;
 import lombok.Value;

@@ -20,7 +20,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.AuthErrorException;
-import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.infrastructure.security.oauth2.exception.NotSupportProviderException;
 import jakarta.persistence.EntityNotFoundException;
@@ -49,7 +49,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param args the arguments to be included in the translated message
      * @return the translated message or the message code if the translation is not found
      */
-    private final String translateMessage(
+    private String translateMessage(
             String messageCode,
             String defaultMessage,
             Object... args) {
@@ -66,7 +66,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param messageCode the code of the message to be translated
      * @return the translated message
      */
-    private final String translateMessage(String messageCode, String defaultMessage) {
+    private String translateMessage(String messageCode, String defaultMessage) {
         return messageSource.getMessage(
                 messageCode,
                 null,
@@ -80,7 +80,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param messageCode the code of the message to be translated
      * @return the translated message
      */
-    private final String translateMessage(String messageCode) {
+    private String translateMessage(String messageCode) {
         return messageSource.getMessage(
                 messageCode,
                 null,
@@ -88,6 +88,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                 LocaleContextHolder.getLocale());
     }
 
+
+    private ErrorResponse newErrorResponse(RestErrorException ex) {
+        var errorCode = ex.getErrorCode();
+
+        log.error(ex.toString());
+
+        var message = translateMessage(
+            ex.getMessage(),
+            ex.getLocalizedMessage(),
+            ex.getArgs());
+
+        return new ErrorResponse(
+            errorCode,
+            message);
+    }
 
     /**
      * Handles the NoHandlerFoundException and returns a ResponseEntity containing error details.
@@ -102,12 +117,12 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleNoHandlerFoundException(
             NoHandlerFoundException ex, HttpHeaders headers, HttpStatusCode status,
             WebRequest request) {
-        var errorCode = ErrorCode.NOT_FOUND;
+        var errorCode = RestErrorCode.NOT_FOUND;
         log.debug(ex.toString());
 
         ErrorResponse errorDetails = new ErrorResponse(
                 errorCode,
-                translateMessage("exception.notFound", ex.getDetailMessageCode()));
+                translateMessage("error.notFound", ex.getDetailMessageCode()));
         return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
     }
 
@@ -142,8 +157,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         ErrorResponse errorDetails = new ErrorResponse(
-                ErrorCode.BAD_REQUEST,
-                translateMessage("exception.validationFail"),
+                RestErrorCode.BAD_REQUEST,
+                translateMessage("error.validationFail"),
                 details);
         return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
     }
@@ -151,14 +166,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handles the exception of type Exception and returns a ResponseEntity
      * 
-     * @param ex
-     * @param request
-     * @return
+     * @param ex exception
+     * @param request request
+     * @return response entity
      */
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<ErrorResponse> handleFallbackException(Exception ex,
             WebRequest request) {
-        var errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        var errorCode = RestErrorCode.INTERNAL_SERVER_ERROR;
 
         log.error(ex.getMessage());
         log.debug(ex.toString());
@@ -181,40 +196,18 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected final ResponseEntity<ErrorResponse> handleApiException(
             RestErrorException ex,
             WebRequest request) {
-        var errorCode = ex.getErrorCode();
+        var errorDetails = newErrorResponse(ex);
 
-        log.error(ex.toString());
-
-        var message = translateMessage(
-                ex.getMessage(),
-                ex.getLocalizedMessage(),
-                ex.getArgs());
-
-        ErrorResponse errorDetails = new ErrorResponse(
-                errorCode,
-                message);
-
-        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+        return new ResponseEntity<ErrorResponse>(errorDetails, ex.getErrorCode().getHttpStatus());
     }
 
     @ExceptionHandler(AuthErrorException.class)
     protected final ResponseEntity<ErrorResponse> handleAuthException(
             AuthErrorException ex,
             WebRequest request) {
-        var errorCode = ex.getErrorCode();
+        var errorDetails = newErrorResponse(ex);
 
-        log.error(ex.toString());
-
-        var message = translateMessage(
-                ex.getMessage(),
-                ex.getLocalizedMessage(),
-                ex.getArgs());
-
-        ErrorResponse errorDetails = new ErrorResponse(
-                errorCode,
-                message);
-
-        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+        return new ResponseEntity<ErrorResponse>(errorDetails, ex.getErrorCode().getHttpStatus());
     }
 
     /**
@@ -234,7 +227,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorResponse errorDetails = new ErrorResponse(
                 errorCode,
-                translateMessage("exception.notSupportProvider", ex.getLocalizedMessage()));
+                translateMessage("error.notSupportProvider", ex.getLocalizedMessage()));
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
@@ -246,7 +239,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         ErrorResponse errorDetails = new ErrorResponse(
                 errorCode,
-                translateMessage("exception.accessDenied"));
+                translateMessage("error.accessDenied"));
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
@@ -257,10 +250,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers,
             HttpStatusCode status,
             WebRequest request) {
-        var errorCode = ErrorCode.METHOD_NOT_ALLOWED;
+        var errorCode = RestErrorCode.METHOD_NOT_ALLOWED;
         ErrorResponse errorDetails = new ErrorResponse(
                 errorCode,
-                translateMessage("exception.methodNotAllowed", ex.getLocalizedMessage()));
+                translateMessage("error.methodNotAllowed", ex.getLocalizedMessage()));
 
         return new ResponseEntity<Object>(errorDetails, errorCode.getHttpStatus());
     }
@@ -269,10 +262,10 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<ErrorResponse> handleEntityNotFound(
             EntityNotFoundException ex,
             WebRequest request) {
-        var errorCode = ErrorCode.NOT_FOUND;
+        var errorCode = RestErrorCode.NOT_FOUND;
         ErrorResponse errorDetails = new ErrorResponse(
                 errorCode,
-                translateMessage("exception.notFound", ex.getLocalizedMessage()));
+                translateMessage("error.notFound", ex.getLocalizedMessage()));
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }

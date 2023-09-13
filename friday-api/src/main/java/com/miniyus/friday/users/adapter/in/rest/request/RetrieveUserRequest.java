@@ -1,6 +1,8 @@
 package com.miniyus.friday.users.adapter.in.rest.request;
 
 import java.time.LocalDateTime;
+
+import com.miniyus.friday.common.pagination.PageRequest;
 import org.springframework.data.domain.Pageable;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserCommand;
 import jakarta.annotation.Nullable;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Sort;
 
 /**
  * [description]
@@ -19,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RetrieveUserRequest {
+public class RetrieveUserRequest extends PageRequest{
     @Nullable
     private String email;
 
@@ -38,7 +41,7 @@ public class RetrieveUserRequest {
     @Nullable
     private LocalDateTime updatedAtEnd;
 
-    public RetrieveUserCommand toCommand(Pageable pageable) {
+    public RetrieveUserCommand toCommand() {
         return RetrieveUserCommand.builder()
                 .email(email)
                 .name(name)
@@ -46,7 +49,7 @@ public class RetrieveUserRequest {
                 .createdAtEnd(createdAtEnd)
                 .updatedAtStart(updatedAtStart)
                 .updatedAtEnd(updatedAtEnd)
-                .pageable(pageable)
+                .pageable(toPageable())
                 .build();
     }
 }
