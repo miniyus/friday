@@ -9,10 +9,10 @@ import lombok.Value;
  * @author miniyus
  * @date 2023/09/09
  */
-@Value
 @Builder
-public class UpdateUserCommand {
-    Long id;
-    String name;
-    String role;
+public record UpdateUserCommand(
+    Long id,
+    String name,
+    String role
+) {
 }

@@ -3,6 +3,8 @@ package com.miniyus.friday.infrastructure.jwt;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.io.Serializable;
+
 /**
  * [description]
  *
@@ -12,5 +14,5 @@ import lombok.Value;
 public record IssueToken(
     String accessToken,
     Long expiresIn,
-    String refreshToken) {
+    String refreshToken) implements Serializable {
 }

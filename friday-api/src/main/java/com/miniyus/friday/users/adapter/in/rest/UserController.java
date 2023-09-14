@@ -2,12 +2,11 @@ package com.miniyus.friday.users.adapter.in.rest;
 
 import java.net.URI;
 
+import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,11 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.miniyus.friday.common.hexagon.annotation.WebAdapter;
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
@@ -47,10 +43,8 @@ import org.springframework.http.HttpStatus;
  * @author miniyus
  * @date 2023/09/02
  */
-@WebAdapter
-@RestController
+@RestAdapter(path="v1/users")
 @RequiredArgsConstructor
-@RequestMapping("/v1/users")
 @Slf4j
 public class UserController {
     private final CreateUserUsecase createUserUsecase;
@@ -107,7 +101,7 @@ public class UserController {
      */
     @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<SimplePage<RetrieveUserResponse>> retrieveUsers(
+    public ResponseEntity<Page<RetrieveUserResponse>> retrieveUsers(
             @QueryParam @Valid RetrieveUserRequest request
     ) {
 
@@ -126,12 +120,8 @@ public class UserController {
         Page<User> users = readUserQuery.findAll(cmd);
 
         log.debug("users count: " + users.getContent().size());
-        SimplePage<RetrieveUserResponse> response = SimplePage.<User, RetrieveUserResponse>builder()
-                .content(users.getContent())
-                .map(RetrieveUserResponse::fromDomain)
-                .pageable(users.getPageable())
-                .totalElements(users.getTotalElements())
-                .build();
+
+        var response = users.map(RetrieveUserResponse::fromDomain);
 
         return ResponseEntity.ok().body(response);
     }
@@ -168,7 +158,7 @@ public class UserController {
             @PathVariable Long id,
             @RequestBody @Valid ResetPasswordRequest password) {
 
-        User update = updateUserUsecase.resetPassword(id, password.getPassword());
+        User update = updateUserUsecase.resetPassword(id, password.password());
 
         return ResponseEntity.ok().body(UpdateUserResponse.fromDomain(update));
     }

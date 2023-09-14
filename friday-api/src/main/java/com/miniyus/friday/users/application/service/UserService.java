@@ -1,6 +1,11 @@
 package com.miniyus.friday.users.application.service;
 
 import java.util.Collection;
+
+import com.miniyus.friday.common.pagination.SimplePage;
+import com.miniyus.friday.users.adapter.in.rest.response.RetrieveUserResponse;
+import com.miniyus.friday.users.application.exception.UserExistsException;
+import com.miniyus.friday.users.application.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +39,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Usecase
 public class UserService
-        implements CreateUserUsecase, RetrieveUserQuery, UpdateUserUsecase, DeleteUserUsecase {
+    implements CreateUserUsecase, RetrieveUserQuery, UpdateUserUsecase, DeleteUserUsecase {
     private final CreateUserPort createUserPort;
 
     private final RetrieveUserPort readUserPort;
@@ -47,20 +52,14 @@ public class UserService
 
     @Override
     public User createUser(CreateUserCommand command) {
-        User user = new User(
-                null,
-                command.getEmail(),
-                command.getPassword(),
-                command.getName(),
-                command.getRole(),
-                null,
-                null,
-                null,
-                null,
-                null);
-
+        User user = User.builder()
+            .email(command.email())
+            .password(passwordEncoder.encode(command.password()))
+            .name(command.name())
+            .role(command.role())
+            .build();
         if (createUserPort.isUniqueEmail(user.getEmail())) {
-            throw new RestErrorException(RestErrorCode.CONFLICT, "error.userExists");
+            throw new UserExistsException();
         }
 
         return createUserPort.createUser(user);
@@ -74,8 +73,8 @@ public class UserService
      */
     @Override
     public User patchUser(UpdateUserCommand command) {
-        User domain = updateUserPort.findById(command.getId());
-        domain.patch(command.getName(), command.getRole());
+        User domain = updateUserPort.findById(command.id());
+        domain.patch(command.name(), command.role());
 
         return updateUserPort.updateUser(domain);
     }
@@ -91,30 +90,40 @@ public class UserService
     }
 
     /**
-     * Retrieves a page of users based on the specified conditions in the given RetrieveUserCommand.
+     * Retrieves a page of users based on the specified conditions in the given
+     * RetrieveUserCommand.
      *
      * @param command the RetrieveUserCommand object containing the search criteria such as email,
-     *        name, created at dates, and updated at dates
+     *                name, created at dates, and updated at dates
      * @return a Page object containing the list of users that match the search criteria
      */
     @Override
     public Page<User> findAll(RetrieveUserCommand command) {
         // find by conditions
         SearchUser search = SearchUser.builder()
-                .email(command.getEmail())
-                .name(command.getName())
-                .createdAtStart(command.getCreatedAtStart())
-                .createdAtEnd(command.getCreatedAtEnd())
-                .updatedAtStart(command.getUpdatedAtStart())
-                .updatedAtEnd(command.getUpdatedAtEnd())
-                .build();
+            .email(command.email())
+            .name(command.name())
+            .createdAtStart(command.createdAtStart())
+            .createdAtEnd(command.createdAtEnd())
+            .updatedAtStart(command.updatedAtStart())
+            .updatedAtEnd(command.updatedAtEnd())
+            .build();
+
+        Page<User> result;
 
         // only paginate
         if (search.isEmpty()) {
-            return readUserPort.findAll(command.getPageable());
+            result = readUserPort.findAll(command.pageable());
+        } else {
+            result = readUserPort.findAll(search, command.pageable());
         }
 
-        return readUserPort.findAll(search, command.getPageable());
+        return new SimplePage<>(
+            result.getContent(),
+            result.getTotalElements(),
+            result.getPageable(),
+            "users"
+        );
     }
 
     /**
@@ -128,9 +137,7 @@ public class UserService
         var user = readUserPort.findById(id);
 
         if (user == null) {
-            throw new RestErrorException(
-                    RestErrorCode.NOT_FOUND,
-                    "error.userNotFound");
+            throw new UserNotFoundException();
         }
 
         return user;
@@ -139,7 +146,7 @@ public class UserService
     /**
      * Resets the password for a user.
      *
-     * @param id the ID of the user
+     * @param id       the ID of the user
      * @param password the new password
      * @return the updated user after resetting the password
      */

@@ -1,5 +1,6 @@
 package com.miniyus.friday.infrastructure.security;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ import lombok.Value;
  */
 @Builder
 @Value
-public class PrincipalUserInfo implements UserDetails, OAuth2User {
+public class PrincipalUserInfo implements UserDetails, OAuth2User, Serializable {
     Long id;
 
     String snsId;

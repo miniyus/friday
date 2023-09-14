@@ -85,7 +85,7 @@ public class AuthControllerTest {
             .role("USER")
             .build();
 
-        when(passwordEncoder.encode(request.getPassword())).thenReturn("password@1234");
+        when(passwordEncoder.encode(request.password())).thenReturn("password@1234");
 
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -93,9 +93,9 @@ public class AuthControllerTest {
             PrincipalUserInfo.builder()
                 .id(1L)
                 .snsId(null)
-                .username(request.getEmail())
-                .name(request.getName())
-                .password(request.getPassword())
+                .username(request.email())
+                .name(request.name())
+                .password(request.password())
                 .enabled(true)
                 .accountNonExpired(true)
                 .accountNonLocked(true)
@@ -103,7 +103,7 @@ public class AuthControllerTest {
                 .attributes(null)
                 .provider(null)
                 .authorities(testAuthority)
-                .role(request.getRole())
+                .role(request.role())
                 .build());
         var tokens = new IssueToken("access", 3600L, "refresh");
         when(jwtService.issueToken(1L)).thenReturn(tokens);
@@ -117,9 +117,9 @@ public class AuthControllerTest {
 
         result.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.username").value(request.getEmail()))
-            .andExpect(jsonPath("$.name").value(request.getName()))
-            .andExpect(jsonPath("$.role").value(request.getRole()))
+            .andExpect(jsonPath("$.username").value(request.email()))
+            .andExpect(jsonPath("$.name").value(request.name()))
+            .andExpect(jsonPath("$.role").value(request.role()))
             .andDo(MockMvcRestDocumentation.document(
                 "auth-signup",
                 getDocumentRequest(),

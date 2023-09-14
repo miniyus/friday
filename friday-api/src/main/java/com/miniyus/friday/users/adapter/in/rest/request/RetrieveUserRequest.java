@@ -1,5 +1,6 @@
 package com.miniyus.friday.users.adapter.in.rest.request;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.miniyus.friday.common.pagination.PageRequest;
@@ -22,7 +23,7 @@ import org.springframework.data.domain.Sort;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RetrieveUserRequest extends PageRequest{
+public class RetrieveUserRequest extends PageRequest implements Serializable {
     @Nullable
     private String email;
 

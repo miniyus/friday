@@ -10,24 +10,24 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * [description]
  *
  * @author miniyus
  * @date 2023/09/02
  */
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class PatchUserRequest {
+public record PatchUserRequest(
     @NullOrNotBlank(message = "validation.user.name.notBlank")
     @Size(min = 2, max = 50, message = "validation.user.name.size")
-    private String name;
+    String name,
 
     @NullOrNotBlank(message = "validation.user.role.notBlank")
     @Enum(enumClass = UserRole.class, message = "validation.user.role.enum", ignoreCase = true)
-    private String role;
+    String role
+) implements Serializable {
 
     public UpdateUserCommand toCommand(Long id) {
         return UpdateUserCommand.builder()

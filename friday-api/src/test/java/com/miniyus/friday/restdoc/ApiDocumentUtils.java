@@ -7,7 +7,7 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 
 /**
- * ap documentation utils
+ * api documentation utils
  *
  * @author seongminyoo
  * @date 2023/09/08

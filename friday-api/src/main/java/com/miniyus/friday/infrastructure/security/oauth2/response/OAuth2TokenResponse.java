@@ -4,6 +4,8 @@ import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import lombok.AllArgsConstructor;
 import lombok.Value;
 
+import java.io.Serializable;
+
 /**
  * [description]
  *
@@ -14,5 +16,5 @@ public record OAuth2TokenResponse(
     Long id,
     String snsId,
     String provider,
-    IssueToken tokens) {
+    IssueToken tokens) implements Serializable {
 }

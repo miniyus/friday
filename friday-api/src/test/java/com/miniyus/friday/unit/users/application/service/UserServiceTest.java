@@ -87,10 +87,10 @@ public class UserServiceTest {
         User created = userService.createUser(createUserCommand);
 
         assertThat(created)
-                .hasFieldOrPropertyWithValue("email", createUserCommand.getEmail())
-                .hasFieldOrPropertyWithValue("name", createUserCommand.getName())
-                .hasFieldOrPropertyWithValue("role", createUserCommand.getRole())
-                .hasFieldOrPropertyWithValue("password", createUserCommand.getPassword());
+                .hasFieldOrPropertyWithValue("email", createUserCommand.email())
+                .hasFieldOrPropertyWithValue("name", createUserCommand.name())
+                .hasFieldOrPropertyWithValue("role", createUserCommand.role())
+                .hasFieldOrPropertyWithValue("password", createUserCommand.password());
     }
 
     @Test
@@ -151,9 +151,9 @@ public class UserServiceTest {
         User updated = userService.patchUser(command);
 
         assertThat(updated)
-                .hasFieldOrPropertyWithValue("id", command.getId())
-                .hasFieldOrPropertyWithValue("name", command.getName())
-                .hasFieldOrPropertyWithValue("role", command.getRole());
+                .hasFieldOrPropertyWithValue("id", command.id())
+                .hasFieldOrPropertyWithValue("name", command.name())
+                .hasFieldOrPropertyWithValue("role", command.role());
     }
 
     @Test

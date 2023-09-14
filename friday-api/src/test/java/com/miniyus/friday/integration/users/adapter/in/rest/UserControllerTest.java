@@ -112,12 +112,12 @@ public class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(response.getId()))
-                .andExpect(jsonPath("$.email").value(response.getEmail()))
-                .andExpect(jsonPath("$.name").value(response.getName()))
-                .andExpect(jsonPath("$.role").value(response.getRole()))
-                .andExpect(jsonPath("$.snsId").value(response.getSnsId()))
-                .andExpect(jsonPath("$.provider").value(response.getProvider()))
+                .andExpect(jsonPath("$.id").value(response.id()))
+                .andExpect(jsonPath("$.email").value(response.email()))
+                .andExpect(jsonPath("$.name").value(response.name()))
+                .andExpect(jsonPath("$.role").value(response.role()))
+                .andExpect(jsonPath("$.snsId").value(response.id()))
+                .andExpect(jsonPath("$.provider").value(response.provider()))
                 .andExpect(jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(jsonPath("$.updatedAt").isNotEmpty())
                 .andDo(MockMvcRestDocumentation.document(

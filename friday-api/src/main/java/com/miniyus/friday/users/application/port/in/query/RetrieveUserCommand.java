@@ -13,14 +13,14 @@ import lombok.Value;
  * @author miniyus
  * @date 2023/09/06
  */
-@Value
 @Builder
-public class RetrieveUserCommand {
-    String email;
-    String name;
-    LocalDateTime createdAtStart;
-    LocalDateTime createdAtEnd;
-    LocalDateTime updatedAtStart;
-    LocalDateTime updatedAtEnd;
-    Pageable pageable;
+public record RetrieveUserCommand(
+    String email,
+    String name,
+    LocalDateTime createdAtStart,
+    LocalDateTime createdAtEnd,
+    LocalDateTime updatedAtStart,
+    LocalDateTime updatedAtEnd,
+    Pageable pageable
+) {
 }

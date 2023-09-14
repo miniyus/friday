@@ -1,6 +1,7 @@
 package com.miniyus.friday.users.domain;
 
 import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,28 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+
+    @Builder
+    public static User create(
+        String email,
+        String password,
+        String name,
+        String role,
+        String snsId,
+        String provider
+    ) {
+        return new User(
+            null,
+            email,
+            password,
+            name,
+            role,
+            snsId,
+            provider,
+            null,
+            null,
+            null);
+    }
 
     /**
      * Gets the role of the user.
@@ -54,7 +77,7 @@ public class User {
 
     /**
      * when call put method
-     * 
+     *
      * @param name user's name
      * @param role user's role
      */
@@ -65,7 +88,7 @@ public class User {
 
     /**
      * when call patch method
-     * 
+     *
      * @param name user's name
      * @param role user's role
      */
@@ -94,8 +117,8 @@ public class User {
 
     @Builder
     public record SearchUser(String email, String name, LocalDateTime createdAtStart,
-            LocalDateTime createdAtEnd, LocalDateTime updatedAtStart,
-            LocalDateTime updatedAtEnd) {
+                             LocalDateTime createdAtEnd, LocalDateTime updatedAtStart,
+                             LocalDateTime updatedAtEnd) {
         /**
          * Checks if all the fields in the object are null.
          *
@@ -103,7 +126,7 @@ public class User {
          */
         public boolean isEmpty() {
             return email == null && name == null && createdAtStart == null && createdAtEnd == null
-                    && updatedAtStart == null && updatedAtEnd == null;
+                && updatedAtStart == null && updatedAtEnd == null;
         }
     }
 }

@@ -11,34 +11,34 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Create user request
  *
  * @author miniyus
  * @date 2023/09/02
  */
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class CreateUserRequest {
+public record CreateUserRequest(
     @NotBlank(message = "validation.user.email.notBlank")
     @Email(message = "validation.user.email.email")
-    private String email;
+    String email,
 
     @NotBlank(message = "validation.user.password.notBlank")
     @Size(min = 8, max = 50, message = "validation.user.password.size")
-    private String password;
+    String password,
 
     @NotBlank(message = "validation.user.name.notBlank")
     @Size(min = 2, max = 20, message = "validation.user.name.size")
-    private String name;
+    String name,
 
     @NotBlank(message = "validation.user.role.notBlank")
     @Enum(enumClass = UserRole.class,
-            message = "validation.user.role.enum",
-            ignoreCase = true)
-    private String role;
+        message = "validation.user.role.enum",
+        ignoreCase = true)
+    String role
+) implements Serializable {
 
     /**
      * Converts the current object to a CreateUserCommand object.
@@ -47,10 +47,10 @@ public class CreateUserRequest {
      */
     public CreateUserCommand toCommand() {
         return CreateUserCommand.builder()
-                .email(email)
-                .password(password)
-                .name(name)
-                .role(role)
-                .build();
+            .email(email)
+            .password(password)
+            .name(name)
+            .role(role)
+            .build();
     }
 }

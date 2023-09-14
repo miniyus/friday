@@ -7,6 +7,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * [description]
@@ -17,9 +19,13 @@ import org.springframework.stereotype.Component;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Component
-public @interface WebAdapter {
+@RestController
+@RequestMapping
+public @interface RestAdapter {
 
-    @AliasFor(annotation = Component.class)
+    @AliasFor(annotation = RestController.class)
     String value() default "";
+
+    @AliasFor(annotation = RequestMapping.class, attribute = "path") // (2)
+    String path() default "";
 }

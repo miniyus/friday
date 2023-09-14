@@ -10,10 +10,11 @@ import lombok.Value;
  * @date 2023/09/02
  */
 @Builder
-@Value
-public class CreateUserCommand {
-    String email;
-    String password;
-    String name;
-    String role;
+public record CreateUserCommand(
+    String email,
+    String password,
+    String name,
+    String role
+) {
+
 }

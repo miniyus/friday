@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
@@ -25,13 +26,16 @@ import lombok.RequiredArgsConstructor;
 public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private final UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder;
+
+
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity) {
         return PrincipalUserInfo.builder()
                 .id(entity.getId())
                 .snsId(entity.getSnsId())
                 .username(entity.getEmail())
                 .name(entity.getName())
-                .password(entity.getPassword())
+                .password(passwordEncoder.encode(entity.getPassword()))
                 .enabled(entity.getDeletedAt() == null)
                 .accountNonExpired(entity.getDeletedAt() == null)
                 .accountNonLocked(entity.getDeletedAt() == null)
@@ -61,10 +65,10 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
         UserEntity entity = UserEntity.builder()
                 .snsId(null)
                 .provider(null)
-                .email(userInfo.getEmail())
-                .password(userInfo.getPassword())
-                .name(userInfo.getName())
-                .role(userInfo.getRole())
+                .email(userInfo.email())
+                .password(userInfo.password())
+                .name(userInfo.name())
+                .role(userInfo.role())
                 .build();
         entity = userRepository.save(entity);
 
@@ -78,5 +82,10 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
             throw new UsernameNotFoundException("");
         }
         return buildPrincipalUserInfo(entity);
+    }
+
+    public void setPasswordEncoder(
+        PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

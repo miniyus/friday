@@ -7,7 +7,6 @@ import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,9 +48,10 @@ public class AuthController {
     @PostMapping("/auth/signup")
     public ResponseEntity<PrincipalUserInfo> signup(
             @Valid @RequestBody PasswordUserInfo authentication) {
-        authentication.encodePassword(passwordEncoder);
         try {
+            userDetailsService.setPasswordEncoder(passwordEncoder);
             var user = userDetailsService.create(authentication);
+
             return ResponseEntity.created(null).body(user);
         } catch(Throwable throwable) {
             throw new RestErrorException("error.userExists", RestErrorCode.CONFLICT);
