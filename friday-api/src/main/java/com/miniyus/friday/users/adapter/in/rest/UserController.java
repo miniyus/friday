@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
@@ -43,7 +41,7 @@ import org.springframework.http.HttpStatus;
  * @author miniyus
  * @date 2023/09/02
  */
-@RestAdapter(path="v1/users")
+@RestAdapter(path = "v1/users")
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
@@ -102,14 +100,13 @@ public class UserController {
     @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Page<RetrieveUserResponse>> retrieveUsers(
-            @QueryParam @Valid RetrieveUserRequest request
-    ) {
+            @QueryParam @Valid RetrieveUserRequest request) {
 
         RetrieveUserCommand cmd;
         if (request == null) {
-            log.debug("req is null" );
+            log.debug("req is null");
             cmd = RetrieveUserCommand.builder()
-                    .pageable(PageRequest.of(0,20,Direction.DESC, "createdAt"))
+                    .pageable(PageRequest.of(0, 20, Direction.DESC, "createdAt"))
                     .build();
         } else {
             log.debug("page? {}", request.getPage());

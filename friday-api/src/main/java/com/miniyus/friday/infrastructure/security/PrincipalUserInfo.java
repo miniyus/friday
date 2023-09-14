@@ -1,9 +1,7 @@
 package com.miniyus.friday.infrastructure.security;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -21,7 +19,7 @@ import lombok.Value;
  */
 @Builder
 @Value
-public class PrincipalUserInfo implements UserDetails, OAuth2User, Serializable {
+public class PrincipalUserInfo implements UserDetails, OAuth2User {
     Long id;
 
     String snsId;
@@ -103,6 +101,6 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User, Serializable 
 
     public boolean isSnsUser() {
         return (snsId != null && snsId.trim().isEmpty())
-            && provider != null;
+                && provider != null;
     }
 }

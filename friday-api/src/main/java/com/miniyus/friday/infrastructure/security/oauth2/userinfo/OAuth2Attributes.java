@@ -1,6 +1,5 @@
 package com.miniyus.friday.infrastructure.security.oauth2.userinfo;
 
-import java.io.Serializable;
 import java.util.Map;
 import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
 import com.miniyus.friday.infrastructure.security.oauth2.exception.NotSupportProviderException;
@@ -88,24 +87,25 @@ public class OAuth2Attributes {
             OAuth2Provider provider = OAuth2Provider.of(this.provider);
             return switch (provider) {
                 case GOOGLE -> GoogleUserInfo.builder()
-                    .email(email)
-                    .snsId(id)
-                    .name(name)
-                    .attributes(attributes)
-                    .build();
+                        .email(email)
+                        .snsId(id)
+                        .name(name)
+                        .attributes(attributes)
+                        .build();
                 case KAKAO -> KakaoUserInfo.builder()
-                    .email(email)
-                    .snsId(id)
-                    .name(name)
-                    .attributes(attributes)
-                    .build();
+                        .email(email)
+                        .snsId(id)
+                        .name(name)
+                        .attributes(attributes)
+                        .build();
                 case NAVER -> NaverUserInfo.builder()
-                    .email(email)
-                    .snsId(id)
-                    .name(name)
-                    .attributes(attributes)
-                    .build();
-                default -> throw new NotSupportProviderException("error.notSupportProvider",this.provider);
+                        .email(email)
+                        .snsId(id)
+                        .name(name)
+                        .attributes(attributes)
+                        .build();
+                default -> throw new NotSupportProviderException("error.notSupportProvider",
+                        this.provider);
             };
         } catch (IllegalArgumentException e) {
             throw new NotSupportProviderException("error.notSupportProvider", this.provider);

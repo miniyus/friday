@@ -3,15 +3,12 @@ package com.miniyus.friday.infrastructure.security.oauth2.handler;
 import java.io.IOException;
 
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.security.oauth2.response.OAuth2TokenResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -54,9 +51,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         IssueToken issueToken = jwtService.issueToken(oAuth2User.getId());
 
         responseHandler.handleOAuth2IssueTokenResponse(
-            response,
-            oAuth2User,
-            issueToken
-        );
+                response,
+                oAuth2User,
+                issueToken);
     }
 }

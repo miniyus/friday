@@ -3,12 +3,10 @@ package com.miniyus.friday.infrastructure.jwt;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -135,9 +133,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             jwtService.extractAccessToken(request)
-                .filter(jwtService::isTokenValid)
-                .flatMap(jwtService::getUserByAccessToken)
-                .ifPresent(this::saveAuthentication);
+                    .filter(jwtService::isTokenValid)
+                    .flatMap(jwtService::getUserByAccessToken)
+                    .ifPresent(this::saveAuthentication);
         } catch (NoSuchElementException ex) {
             log.debug("error: {}", ex.getMessage());
         }
@@ -148,8 +146,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     /**
-     * [인증 허가 메소드] 파라미터의 유저 : 우리가 만든 회원 객체 / 빌더의 유저 : UserDetails의 User 객체
-     * new UsernamePasswordAuthenticationToken()로 인증 객체인 Authentication 객체 생성
+     * [인증 허가 메소드] 파라미터의 유저 : 우리가 만든 회원 객체 / 빌더의 유저 : UserDetails의 User 객체 new
+     * UsernamePasswordAuthenticationToken()로 인증 객체인 Authentication 객체 생성
      * UsernamePasswordAuthenticationToken의 파라미터 1. 위에서 만든 UserDetailsUser 객체 (유저 정보) 2.
      * credential(보통 비밀번호로, 인증 시에는 보통 null로 제거) 3. Collection < ? extends GrantedAuthority>로,
      * UserDetails의 User 객체 안에 Set<GrantedAuthority> authorities이 있어서 getter로 호출한 후에, new
@@ -161,7 +159,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         log.debug("save auth: {}", user.getEmail());
 
         var principal = (PrincipalUserInfo) userDetailsService.loadUserByUsername(user.getEmail());
-        
+
         var password = user.getPassword();
         if (principal.isSnsUser() && (password == null || password.trim().isEmpty())) {
             // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정

@@ -6,8 +6,6 @@ import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 import com.miniyus.friday.common.error.AuthErrorCode;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,12 +33,11 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
 
         AuthErrorCode code = AuthErrorCode.INVALID_CLIENT;
         var message = exception.getMessage();
-        
+
         responseHandler.handleErrorResponse(
-            response,
-            code,
-            message
-        );
+                response,
+                code,
+                message);
 
     }
 }

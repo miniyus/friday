@@ -9,8 +9,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 import com.miniyus.friday.common.error.AuthErrorCode;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -37,16 +35,15 @@ public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
 
         var code = AuthErrorCode.ACCESS_DENIED;
         var message = messageSource.getMessage(
-            "error.accessDenied",
-            null,
-            exception.getLocalizedMessage(),
-            LocaleContextHolder.getLocale());
+                "error.accessDenied",
+                null,
+                exception.getLocalizedMessage(),
+                LocaleContextHolder.getLocale());
 
         responseHandler.handleErrorResponse(
-            response,
-            code,
-            message
-        );
+                response,
+                code,
+                message);
     }
 
 }

@@ -3,22 +3,14 @@ package com.miniyus.friday.infrastructure.advice;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
-
-import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.ErrorCode;
-import com.miniyus.friday.common.error.RestErrorCode;
-
-import com.miniyus.friday.common.error.RestErrorException;
 import io.micrometer.common.lang.Nullable;
 import lombok.Getter;
 
 /**
  * 
- * Error Response for REST API
- * - timestamp: responsed at
- * - error: error summary
- * - message: error description
- * - details: error details
+ * Error Response for REST API - timestamp: responsed at - error: error summary - message: error
+ * description - details: error details
  * 
  * @author miniyus
  * @date 2023/08/30
@@ -41,7 +33,8 @@ public class ErrorResponse {
         this.details = null;
     }
 
-    public ErrorResponse(ErrorCode errorCode, String message, HashMap<String, List<String>> details) {
+    public ErrorResponse(ErrorCode errorCode, String message,
+            HashMap<String, List<String>> details) {
         this.timestamp = LocalDateTime.now();
         this.code = errorCode.getErrorCode();
         this.error = errorCode.name();

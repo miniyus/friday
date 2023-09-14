@@ -4,14 +4,11 @@ import java.io.IOException;
 
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -47,9 +44,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         log.debug("Issued AccessToken expires in: {}(seconds)", tokens.expiresIn());
 
         responseHandler.handlePasswordIssueTokenResponse(
-            response,
-            userDetails,
-            tokens
-        );
+                response,
+                userDetails,
+                tokens);
     }
 }

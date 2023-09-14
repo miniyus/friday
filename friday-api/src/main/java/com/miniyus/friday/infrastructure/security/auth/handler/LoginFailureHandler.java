@@ -5,9 +5,7 @@ import java.io.IOException;
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.common.error.RestErrorCode;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,10 +31,9 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         var message = exception.getMessage();
 
         responseHandler.handleErrorResponse(
-            response,
-            RestErrorCode.BAD_REQUEST,
-            message
-        );
+                response,
+                RestErrorCode.BAD_REQUEST,
+                message);
 
 
     }

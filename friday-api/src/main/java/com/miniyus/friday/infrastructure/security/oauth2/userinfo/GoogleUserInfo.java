@@ -3,9 +3,7 @@ package com.miniyus.friday.infrastructure.security.oauth2.userinfo;
 import java.util.Map;
 
 import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 
 /**
  * [description]
@@ -15,10 +13,10 @@ import lombok.Getter;
  */
 @Builder
 public record GoogleUserInfo(
-    String snsId,
-    String email,
-    String name,
-    Map<String, Object> attributes) implements OAuth2UserInfo {
+        String snsId,
+        String email,
+        String name,
+        Map<String, Object> attributes) implements OAuth2UserInfo {
 
     @Override
     public OAuth2Provider getProvider() {

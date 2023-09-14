@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -95,13 +96,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         log.error(ex.toString());
 
         var message = translateMessage(
-            ex.getMessage(),
-            ex.getLocalizedMessage(),
-            ex.getArgs());
+                ex.getMessage(),
+                ex.getLocalizedMessage(),
+                ex.getArgs());
 
         return new ErrorResponse(
-            errorCode,
-            message);
+                errorCode,
+                message);
     }
 
     /**
@@ -269,4 +270,16 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
     }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleUsernameNotFound(
+            UsernameNotFoundException ex,
+            WebRequest request) {
+        var errorCode = RestErrorCode.NOT_FOUND;
+        ErrorResponse errorDetails = new ErrorResponse(
+                errorCode,
+                translateMessage("error.auth.usernameNotFound", ex.getLocalizedMessage()));
+        return new ResponseEntity<ErrorResponse>(errorDetails, errorCode.getHttpStatus());
+    }
+
 }
