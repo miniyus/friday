@@ -11,6 +11,9 @@ spring:
         show-sql: true
         hibernate:
             ddl-auto: create
+    redis:
+        host: ${REDIS_HOST:localhost}
+        port: ${REDIS_PORT:6379}
     messages:
         basename: i18n/messages
         encoding: UTF-8

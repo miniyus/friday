@@ -18,6 +18,9 @@ spring:
                 jdbc:
                     lob:
                         non_contextual_creation: true
+    redis:
+        host: ${REDIS_HOST:localhost}
+        port: ${REDIS_PORT:6379}
     messages:
         basename: i18n/messages
         encoding: UTF-8
