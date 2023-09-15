@@ -12,8 +12,10 @@ import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,13 +45,13 @@ public class AuthController {
      */
     @PostMapping("/auth/signup")
     public ResponseEntity<PrincipalUserInfo> signup(
-            @Valid @RequestBody PasswordUserInfo authentication) {
+        @Valid @RequestBody PasswordUserInfo authentication) {
         try {
             userDetailsService.setPasswordEncoder(passwordEncoder);
             var user = userDetailsService.create(authentication);
 
             return ResponseEntity.created(null).body(user);
-        } catch(Throwable throwable) {
+        } catch (Throwable throwable) {
             throw new RestErrorException("error.userExists", RestErrorCode.CONFLICT);
         }
     }
@@ -58,10 +60,10 @@ public class AuthController {
      * Retrieves the JWT configuration details.
      *
      * @return A ResponseEntity containing a map with the access, and refresh values of the JWT
-     *         configuration.
+     * configuration.
      */
     @GetMapping("/auth/jwt-config")
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Map<String, Object>> jwtTest() {
         Map<String, Object> resMap = new HashMap<String, Object>();
         resMap.put("access", jwtConfiguration.getAccess());
@@ -73,7 +75,7 @@ public class AuthController {
     @PostMapping("/auth/refresh")
     public ResponseEntity<IssueToken> refresh(@RequestBody String refreshToken) {
         UserEntity user = jwtService.getUserByRefreshToken(refreshToken).orElse(null);
-        if(user == null) {
+        if (user == null) {
             throw new RestErrorException(
                 "error.userNotFound",
                 AuthErrorCode.ACCESS_DENIED
@@ -83,7 +85,18 @@ public class AuthController {
         var tokens = jwtService.issueToken(user.getId());
 
         return ResponseEntity
-                .created(null)
-                .body(tokens);
+            .created(null)
+            .body(tokens);
+    }
+
+    @GetMapping("/auth/me")
+    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<PrincipalUserInfo> userInfo() {
+        var userInfo = (PrincipalUserInfo) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
+
+        return ResponseEntity.ok(userInfo);
     }
 }

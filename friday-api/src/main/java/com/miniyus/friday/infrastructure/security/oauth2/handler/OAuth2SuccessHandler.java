@@ -29,7 +29,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-            Authentication authentication) throws IOException {
+        Authentication authentication) throws IOException {
         log.debug("OAuth2 Login 성공!");
 
         if (response.isCommitted()) {
@@ -46,13 +46,11 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         }
     }
 
-    private void issueToken(HttpServletResponse response, PrincipalUserInfo oAuth2User)
-            throws IOException {
+    private void issueToken(HttpServletResponse response, PrincipalUserInfo oAuth2User) {
         IssueToken issueToken = jwtService.issueToken(oAuth2User.getId());
 
-        responseHandler.handleOAuth2IssueTokenResponse(
-                response,
-                oAuth2User,
-                issueToken);
+        responseHandler.handleOAuth2IssueTokenHeader(
+            response,
+            issueToken);
     }
 }

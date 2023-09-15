@@ -5,8 +5,6 @@ import java.util.Optional;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -16,19 +14,8 @@ import lombok.extern.slf4j.Slf4j;
  * @date 2023/08/31
  */
 @Slf4j
-@Getter
-@RequiredArgsConstructor
-public class JwtProvider {
-    private final String secret;
-
-    private final Long accessTokenExpiration;
-
-    private final Long refreshTokenExpiration;
-
-    private final String accessTokenKey;
-
-    private final String refreshTokenKey;
-
+public record JwtProvider(String secret, Long accessTokenExpiration, Long refreshTokenExpiration,
+                          String accessTokenKey, String refreshTokenKey) {
     private static final String ACCESS_TOKEN_SUBJECT = "accessToken";
     private static final String REFRESH_TOKEN_SUBJECT = "refreshToken";
     private static final String EMAIL_CLAIM = "email";
@@ -37,14 +24,14 @@ public class JwtProvider {
     public String createAccessToken(String email) {
         Date now = new Date();
         return JWT.create().withSubject(ACCESS_TOKEN_SUBJECT)
-                .withExpiresAt(new Date(now.getTime() + (accessTokenExpiration * 1000))) // 토큰 만료 시간
-                                                                                         // 설정
-                // 클레임으로는 저희는 email 하나만 사용합니다.
-                // 추가적으로 식별자나, 이름 등의 정보를 더 추가하셔도 됩니다.
-                // 추가하실 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
-                .withClaim(EMAIL_CLAIM, email).sign(Algorithm.HMAC512(secret)); // HMAC512 알고리즘 사용,
-                                                                                // application-jwt.yml에서
-                                                                                // 지정한 secret 키로 암호화
+            .withExpiresAt(new Date(now.getTime() + (accessTokenExpiration * 1000))) // 토큰 만료 시간
+            // 설정
+            // 클레임으로는 저희는 email 하나만 사용합니다.
+            // 추가적으로 식별자나, 이름 등의 정보를 더 추가하셔도 됩니다.
+            // 추가하실 경우 .withClaim(클래임 이름, 클래임 값) 으로 설정해주시면 됩니다
+            .withClaim(EMAIL_CLAIM, email).sign(Algorithm.HMAC512(secret)); // HMAC512 알고리즘 사용,
+        // application-jwt.yml에서
+        // 지정한 secret 키로 암호화
     }
 
     /**
@@ -53,8 +40,8 @@ public class JwtProvider {
     public String createRefreshToken() {
         Date now = new Date();
         return JWT.create().withSubject(REFRESH_TOKEN_SUBJECT)
-                .withExpiresAt(new Date(now.getTime() + (refreshTokenExpiration * 1000)))
-                .sign(Algorithm.HMAC512(secret));
+            .withExpiresAt(new Date(now.getTime() + (refreshTokenExpiration * 1000)))
+            .sign(Algorithm.HMAC512(secret));
     }
 
     /**
@@ -63,8 +50,8 @@ public class JwtProvider {
      */
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(accessTokenKey))
-                .filter(refreshToken -> refreshToken.startsWith(BEARER))
-                .map(refreshToken -> refreshToken.replace(BEARER, ""));
+            .filter(refreshToken -> refreshToken.startsWith(BEARER))
+            .map(refreshToken -> refreshToken.replace(BEARER, ""));
     }
 
     /**
@@ -75,10 +62,10 @@ public class JwtProvider {
         try {
             // 토큰 유효성 검사하는 데에 사용할 알고리즘이 있는 JWT verifier builder 반환
             return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secret)).build() // 반환된 빌더로 JWT
-                                                                                      // verifier 생성
-                    .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
-                    .getClaim(EMAIL_CLAIM) // claim(Emial) 가져오기
-                    .asString());
+                // verifier 생성
+                .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
+                .getClaim(EMAIL_CLAIM) // claim(Emial) 가져오기
+                .asString());
         } catch (Exception e) {
             log.error("액세스 토큰이 유효하지 않습니다.");
             return Optional.empty();
@@ -89,9 +76,9 @@ public class JwtProvider {
         try {
             // 토큰 유효성 검사하는 데에 사용할 알고리즘이 있는 JWT verifier builder 반환
             return Optional.ofNullable(JWT.require(Algorithm.HMAC512(secret)).build() // 반환된 빌더로 JWT
-                                                                                      // verifier 생성
-                    .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
-                    .getExpiresAt());
+                // verifier 생성
+                .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
+                .getExpiresAt());
         } catch (Exception e) {
             log.error("액세스 토큰이 유효하지 않습니다.");
             return Optional.empty();

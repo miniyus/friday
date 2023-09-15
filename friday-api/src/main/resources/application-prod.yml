@@ -93,4 +93,4 @@ jwt:
         header: Authorization
     refresh:
         expiration: 36000
-        header: refresh_token
+        header: RefreshToken

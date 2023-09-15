@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
+
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 
 /**
  * JWT Service * issue token * refresh token
- * 
+ *
  * @author seongminyoo
  * @date 2023/08/31
  */
@@ -45,8 +46,14 @@ public class JwtService {
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);
-        return new IssueToken(accessToken.getToken(), jwtProvider.getAccessTokenExpiration(),
-                accessToken.getRefreshToken().getToken());
+
+        return new IssueToken(
+            jwtProvider.accessTokenKey(),
+            accessToken.getToken(),
+            jwtProvider.accessTokenExpiration(),
+            jwtProvider.refreshTokenKey(),
+            accessToken.getRefreshToken().getToken()
+        );
     }
 
     /**
@@ -54,7 +61,7 @@ public class JwtService {
      *
      * @param email the email of the user
      * @return an IssueToken object containing the access token, access token expiration, and
-     *         refresh token
+     * refresh token
      */
     public IssueToken issueToken(String email) {
         UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
@@ -64,8 +71,12 @@ public class JwtService {
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);
-        return new IssueToken(accessToken.getToken(), jwtProvider.getAccessTokenExpiration(),
-                accessToken.getRefreshToken().getToken());
+        return new IssueToken(
+            jwtProvider.accessTokenKey(),
+            accessToken.getToken(),
+            jwtProvider.accessTokenExpiration(),
+            jwtProvider.refreshTokenKey(),
+            accessToken.getRefreshToken().getToken());
     }
 
     /**
@@ -81,7 +92,7 @@ public class JwtService {
         LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         AccessTokenEntity tokenEntity =
-                AccessTokenEntity.builder().type("Bearer").token(token).expiresAt(exp).build();
+            AccessTokenEntity.builder().type("Bearer").token(token).expiresAt(exp).build();
 
         RefreshTokenEntity refreshToken = createRefreshToken(tokenEntity);
 
@@ -104,12 +115,12 @@ public class JwtService {
         LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         return RefreshTokenEntity.builder().type("Bearer").token(refreshToken).expiresAt(exp)
-                .build();
+            .build();
     }
 
     public Optional<UserEntity> getUserByAccessToken(String accessToken) {
         AccessTokenEntity accessTokenEntity =
-                accessTokenRepository.findByToken(accessToken).orElse(null);
+            accessTokenRepository.findByToken(accessToken).orElse(null);
         if (accessTokenEntity == null) {
             return Optional.empty();
         }
@@ -125,7 +136,7 @@ public class JwtService {
      */
     public Optional<UserEntity> getUserByRefreshToken(String refreshToken) {
         RefreshTokenEntity refreshTokenEntity =
-                refreshTokenRepository.findByToken(refreshToken).orElse(null);
+            refreshTokenRepository.findByToken(refreshToken).orElse(null);
 
         if (refreshTokenEntity == null) {
             return Optional.empty();
@@ -137,7 +148,8 @@ public class JwtService {
     /**
      * Extracts the access token from the provided HTTP servlet request.
      *
-     * @param request the HTTP servlet request object from which the access token is to be extracted
+     * @param request the HTTP servlet request object from which the access token is to be
+     *                extracted
      * @return an optional string containing the access token, or empty if it could not be extracted
      */
     public Optional<String> extractAccessToken(HttpServletRequest request) {

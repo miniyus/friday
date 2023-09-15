@@ -1,4 +1,4 @@
-package com.miniyus.friday.integration.users.adapter.in.rest;
+package com.miniyus.friday.integration.api.adapter.in.rest;
 
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentRequest;
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResponse;
@@ -38,6 +38,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -75,6 +77,9 @@ public class UserControllerTest {
 
     @MockBean
     private DeleteUserUsecase deleteUserUsecase;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @BeforeEach
     void setUp() {

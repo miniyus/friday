@@ -2,6 +2,9 @@ package com.miniyus.friday.integration.annotation;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
+import com.github.javafaker.Faker;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,9 +33,25 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(annotation.role().getValue()));
+        String password = new Faker().internet().password();
+        var principal = PrincipalUserInfo.builder()
+                .id(1L)
+                .snsId(null)
+                .username(annotation.username())
+                .name(annotation.name())
+                .password(password)
+                .enabled(true)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .attributes(null)
+                .provider(null)
+                .authorities(authorities)
+                .role(annotation.role().getValue())
+                .build();
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                annotation.username(),
+                principal,
                 "password",
                 authorities);
 

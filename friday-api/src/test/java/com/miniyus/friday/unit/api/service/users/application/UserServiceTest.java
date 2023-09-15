@@ -24,6 +24,7 @@ import com.miniyus.friday.api.users.application.port.out.RetrieveUserPort;
 import com.miniyus.friday.api.users.application.port.out.UpdateUserPort;
 import com.miniyus.friday.api.users.application.service.UserService;
 import com.miniyus.friday.api.users.domain.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * Create User Service
@@ -44,6 +45,9 @@ public class UserServiceTest {
 
     @Mock
     private DeleteUserPort deleteUserPort;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private UserService userService;

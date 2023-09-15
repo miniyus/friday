@@ -1,4 +1,4 @@
-package com.miniyus.friday.integration.users.adapter.out.persistence;
+package com.miniyus.friday.integration.api.adapter.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;
@@ -43,11 +43,11 @@ public class UserAdapterTest {
     @Autowired
     private UserRepository userRepository;
 
-    private Faker faker = new Faker();
+    private final Faker faker = new Faker();
 
     private List<UserEntity> testEntities = new ArrayList<UserEntity>();
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @BeforeEach
     public void setup() {
