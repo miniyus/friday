@@ -31,7 +31,7 @@ public class SimplePageTest {
     private JacksonTester<SimplePage<Map<String, String>>> json;
 
     @Test
-    public void simplaPageDefaultFieldTest() throws IOException {
+    public void simplePageDefaultFieldTest() throws IOException {
         Map<String, String> detail = new HashMap<>();
 
         detail.put("field1", "hello");
@@ -60,7 +60,7 @@ public class SimplePageTest {
     }
 
     @Test
-    public void simplaPageCustomFieldTest() throws IOException {
+    public void simplePageCustomFieldTest() throws IOException {
         Map<String, String> detail = new HashMap<>();
 
         detail.put("field1", "hello");

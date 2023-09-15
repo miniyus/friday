@@ -1,8 +1,8 @@
 package com.miniyus.friday.integration.infrastructure.security.auth;
 
 import com.github.javafaker.Faker;
+import com.miniyus.friday.auth.AuthController;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
-import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +25,8 @@ import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.jwt.config.JwtConfiguration;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.security.auth.AuthController;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
-
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentRequest;
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,7 +52,7 @@ import java.util.Optional;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @AutoConfigureRestDocs(
-    outputDir = "build/generated-snippets")
+        outputDir = "build/generated-snippets")
 public class AuthControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -78,83 +76,82 @@ public class AuthControllerTest {
     @WithMockCustomUser
     public void signupTest() throws Exception {
         PasswordUserInfo request = PasswordUserInfo
-            .builder()
-            .email("testser@gmail.com")
-            .name("tester")
-            .password("password@1234")
-            .role("USER")
-            .build();
+                .builder()
+                .email("testser@gmail.com")
+                .name("tester")
+                .password("password@1234")
+                .role("USER")
+                .build();
 
         when(passwordEncoder.encode(request.password())).thenReturn("password@1234");
 
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
         when(userDetailsService.create(any(PasswordUserInfo.class))).thenReturn(
-            PrincipalUserInfo.builder()
-                .id(1L)
-                .snsId(null)
-                .username(request.email())
-                .name(request.name())
-                .password(request.password())
-                .enabled(true)
-                .accountNonExpired(true)
-                .accountNonLocked(true)
-                .credentialsNonExpired(true)
-                .attributes(null)
-                .provider(null)
-                .authorities(testAuthority)
-                .role(request.role())
-                .build());
+                PrincipalUserInfo.builder()
+                        .id(1L)
+                        .snsId(null)
+                        .username(request.email())
+                        .name(request.name())
+                        .password(request.password())
+                        .enabled(true)
+                        .accountNonExpired(true)
+                        .accountNonLocked(true)
+                        .credentialsNonExpired(true)
+                        .attributes(null)
+                        .provider(null)
+                        .authorities(testAuthority)
+                        .role(request.role())
+                        .build());
         var tokens = new IssueToken("access", 3600L, "refresh");
         when(jwtService.issueToken(1L)).thenReturn(tokens);
 
         ResultActions result = this.mockMvc.perform(
-            post("/v1/auth/signup")
-                .with(csrf().asHeader())
-                .content(objectMapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                post("/v1/auth/signup")
+                        .with(csrf().asHeader())
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.username").value(request.email()))
-            .andExpect(jsonPath("$.name").value(request.name()))
-            .andExpect(jsonPath("$.role").value(request.role()))
-            .andDo(MockMvcRestDocumentation.document(
-                "auth-signup",
-                getDocumentRequest(),
-                getDocumentResponse(),
-                requestFields(
-                    fieldWithPath("email").description("email"),
-                    fieldWithPath("name").description("name"),
-                    fieldWithPath("password").description("password"),
-                    fieldWithPath("role").description("role")),
-                responseFields(
-                    fieldWithPath("id").description("id"),
-                    fieldWithPath("snsId").description("sns id"),
-                    fieldWithPath("username").description("email"),
-                    fieldWithPath("name").description("name"),
-                    fieldWithPath("role").description("role"),
-                    fieldWithPath("snsId").description("snsId"),
-                    fieldWithPath("provider").description("provider"),
-                    fieldWithPath("enabled").description("enabled"),
-                    fieldWithPath("accountNonExpired").description("accountNonExpired"),
-                    fieldWithPath("credentialsNonExpired")
-                        .description("credentialsNonExpired"),
-                    fieldWithPath("accountNonLocked").description("accountNonLocked"),
-                    fieldWithPath("attributes").description("attributes"),
-                    fieldWithPath("authorities").description("authorities"),
-                    fieldWithPath("authorities[].authority")
-                        .description("authority"))));
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.username").value(request.email()))
+                .andExpect(jsonPath("$.name").value(request.name()))
+                .andExpect(jsonPath("$.role").value(request.role()))
+                .andDo(MockMvcRestDocumentation.document(
+                        "auth-signup",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("email").description("email"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("password").description("password"),
+                                fieldWithPath("role").description("role")),
+                        responseFields(
+                                fieldWithPath("id").description("id"),
+                                fieldWithPath("snsId").description("sns id"),
+                                fieldWithPath("username").description("email"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("role").description("role"),
+                                fieldWithPath("snsId").description("snsId"),
+                                fieldWithPath("provider").description("provider"),
+                                fieldWithPath("enabled").description("enabled"),
+                                fieldWithPath("accountNonExpired").description("accountNonExpired"),
+                                fieldWithPath("credentialsNonExpired")
+                                        .description("credentialsNonExpired"),
+                                fieldWithPath("accountNonLocked").description("accountNonLocked"),
+                                fieldWithPath("attributes").description("attributes"),
+                                fieldWithPath("authorities").description("authorities"),
+                                fieldWithPath("authorities[].authority")
+                                        .description("authority"))));
     }
 
     @Test
     public void signinTest() throws Exception {
         var faker = new Faker();
         var signinInfo = new PasswordAuthentication(
-            faker.internet().emailAddress(),
-            faker.internet().password()
-        );
+                faker.internet().emailAddress(),
+                faker.internet().password());
 
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -162,56 +159,53 @@ public class AuthControllerTest {
         var fakeName = faker.name().fullName();
 
         var principal = PrincipalUserInfo.builder()
-            .id(1L)
-            .accountNonExpired(true)
-            .accountNonLocked(true)
-            .attributes(null)
-            .authorities(testAuthority)
-            .credentialsNonExpired(true)
-            .enabled(true)
-            .name(fakeName)
-            .role("USER")
-            .provider(null)
-            .snsId(null)
-            .username(signinInfo.getUsername())
-            .password(signinInfo.getPassword())
-            .build();
+                .id(1L)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .attributes(null)
+                .authorities(testAuthority)
+                .credentialsNonExpired(true)
+                .enabled(true)
+                .name(fakeName)
+                .role("USER")
+                .provider(null)
+                .snsId(null)
+                .username(signinInfo.username())
+                .password(signinInfo.password())
+                .build();
 
         when(userDetailsService.loadUserByUsername(any())).thenReturn(
-            principal
-        );
+                principal);
 
         ResultActions result = this.mockMvc.perform(
-            post("/v1/auth/signin")
-                .with(csrf().asHeader())
-                .content(objectMapper.writeValueAsString(signinInfo))
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON));
+                post("/v1/auth/signin")
+                        .with(csrf().asHeader())
+                        .content(objectMapper.writeValueAsString(signinInfo))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
         result.andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.email").value(signinInfo.getUsername()))
-            .andExpect(jsonPath("$.name").value(fakeName))
-            .andExpect(jsonPath("$.tokens").isNotEmpty())
-            .andExpect(jsonPath("$.tokens.accessToken").isNotEmpty())
-            .andExpect(jsonPath("$.tokens.expiresIn").value(3600L))
-            .andExpect(jsonPath("$.tokens.refreshToken").isNotEmpty())
-            .andDo(MockMvcRestDocumentation.document(
-                "auth-signup",
-                getDocumentRequest(),
-                getDocumentResponse(),
-                requestFields(
-                    fieldWithPath("username").description("name"),
-                    fieldWithPath("password").description("password")
-                ),
-                responseFields(
-                    fieldWithPath("id").description("id"),
-                    fieldWithPath("email").description("email"),
-                    fieldWithPath("name").description("name"),
-                    fieldWithPath("tokens").description("tokens"),
-                    fieldWithPath("tokens.accessToken").description("accessToken"),
-                    fieldWithPath("tokens.accessToken").description("expiresIn"),
-                    fieldWithPath("tokens.accessToken").description("refreshToken")
-                )));
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.email").value(signinInfo.username()))
+                .andExpect(jsonPath("$.name").value(fakeName))
+                .andExpect(jsonPath("$.tokens").isNotEmpty())
+                .andExpect(jsonPath("$.tokens.accessToken").isNotEmpty())
+                .andExpect(jsonPath("$.tokens.expiresIn").value(3600L))
+                .andExpect(jsonPath("$.tokens.refreshToken").isNotEmpty())
+                .andDo(MockMvcRestDocumentation.document(
+                        "auth-signup",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("username").description("name"),
+                                fieldWithPath("password").description("password")),
+                        responseFields(
+                                fieldWithPath("id").description("id"),
+                                fieldWithPath("email").description("email"),
+                                fieldWithPath("name").description("name"),
+                                fieldWithPath("tokens").description("tokens"),
+                                fieldWithPath("tokens.accessToken").description("accessToken"),
+                                fieldWithPath("tokens.accessToken").description("expiresIn"),
+                                fieldWithPath("tokens.accessToken").description("refreshToken"))));
 
     }
 
@@ -222,53 +216,46 @@ public class AuthControllerTest {
         var fakeAccessToken = faker.internet().uuid();
         var fakeRefreshToken = faker.internet().uuid();
         var tokens = new IssueToken(
-            fakeAccessToken,
-            3600L,
-            fakeRefreshToken
-        );
+                fakeAccessToken,
+                3600L,
+                fakeRefreshToken);
 
         when(jwtService.issueToken(any(Long.class))).thenReturn(
-            tokens
-        );
+                tokens);
 
         var user = new UserEntity(
-            1L,
-            null,
-            null,
-            faker.internet().emailAddress(),
-            faker.internet().password(),
-            faker.name().fullName(),
-            "USER",
-            null
-        );
+                1L,
+                null,
+                null,
+                faker.internet().emailAddress(),
+                faker.internet().password(),
+                faker.name().fullName(),
+                "USER",
+                null);
 
         when(jwtService.getUserByRefreshToken(any())).thenReturn(
-            Optional.of(user)
-        );
+                Optional.of(user));
 
         var result = this.mockMvc.perform(
-            post("/v1/auth/refresh")
-                .with(csrf())
-                .content("{\"refreshToken\":\"" + fakeRefreshToken + "\"}")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-        );
+                post("/v1/auth/refresh")
+                        .with(csrf())
+                        .content("{\"refreshToken\":\"" + fakeRefreshToken + "\"}")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isCreated())
-            .andExpect(jsonPath("$.accessToken").isNotEmpty())
-            .andExpect(jsonPath("$.expiresIn").value(3600L))
-            .andExpect(jsonPath("$.refreshToken").isNotEmpty())
-            .andDo(MockMvcRestDocumentation.document(
-                "auth-signup",
-                getDocumentRequest(),
-                getDocumentResponse(),
-                requestFields(
-                    fieldWithPath("refreshToken").description("refreshToken")
-                ),
-                responseFields(
-                    fieldWithPath("accessToken").description("accessToken"),
-                    fieldWithPath("expiresIn").description("expiresIn"),
-                    fieldWithPath("refreshToken").description("refreshToken")
-                )));
+                .andExpect(jsonPath("$.accessToken").isNotEmpty())
+                .andExpect(jsonPath("$.expiresIn").value(3600L))
+                .andExpect(jsonPath("$.refreshToken").isNotEmpty())
+                .andDo(MockMvcRestDocumentation.document(
+                        "auth-signup",
+                        getDocumentRequest(),
+                        getDocumentResponse(),
+                        requestFields(
+                                fieldWithPath("refreshToken").description("refreshToken")),
+                        responseFields(
+                                fieldWithPath("accessToken").description("accessToken"),
+                                fieldWithPath("expiresIn").description("expiresIn"),
+                                fieldWithPath("refreshToken").description("refreshToken"))));
     }
 }

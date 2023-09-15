@@ -1,8 +1,12 @@
 package com.miniyus.friday;
 
+import com.miniyus.friday.archunit.PackageParseUtil;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.miniyus.friday.archunit.HexagonalArchitecture;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import java.util.List;
+
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
 
 /**
@@ -12,9 +16,20 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @date 2023/09/10
  */
 public class DependencyRuleTests {
+    static List<String> packages;
+    static String HEXAGONAL_ROOT = "com.miniyus.friday.api";
+
+    @BeforeAll
+    public static void setPackages() {
+        packages = PackageParseUtil.setPackages(HEXAGONAL_ROOT);
+        System.out.println(packages);
+    }
+
+
     @Test
     public void validateRegistrationContextArchitecture() {
-        HexagonalArchitecture.boundedContext("com.miniyus.friday.users")
+        packages.forEach((pkg) ->
+            HexagonalArchitecture.boundedContext(pkg)
                 .withDomainLayer("domain")
                 .withAdaptersLayer("adapter")
                 .incoming("in.rest")
@@ -27,18 +42,21 @@ public class DependencyRuleTests {
                 .and()
                 .withConfiguration("configuration")
                 .check(new ClassFileImporter()
-                        .importPackages("com.miniyus.friday.users.."));
+                    .importPackages(pkg + ".."))
+        );
     }
 
     @Test
     public void testPackageDependencies() {
-        noClasses()
+        packages.forEach((pkg) ->
+            noClasses()
                 .that()
-                .resideInAPackage("com.miniyus.friday.users.domain..")
+                .resideInAPackage(pkg + ".domain..")
                 .should()
                 .dependOnClassesThat()
-                .resideInAnyPackage("com.miniyus.friday.users.application..")
+                .resideInAnyPackage(pkg + ".application..")
                 .check(new ClassFileImporter()
-                        .importPackages("com.miniyus.friday.users.."));
+                    .importPackages(pkg + ".."))
+        );
     }
 }

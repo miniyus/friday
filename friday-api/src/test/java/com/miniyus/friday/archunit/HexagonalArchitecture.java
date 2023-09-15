@@ -15,7 +15,7 @@ public class HexagonalArchitecture extends ArchitectureElement {
     private Adapters adapters;
     private ApplicationLayer applicationLayer;
     private String configurationPackage;
-    private List<String> domainPackages = new ArrayList<>();
+    private final List<String> domainPackages = new ArrayList<>();
 
     public static HexagonalArchitecture boundedContext(String basePackage) {
         return new HexagonalArchitecture(basePackage);
@@ -50,8 +50,7 @@ public class HexagonalArchitecture extends ArchitectureElement {
         denyAnyDependency(
                 this.domainPackages, Collections.singletonList(adapters.basePackage), classes);
         denyAnyDependency(
-                this.domainPackages, Collections.singletonList(applicationLayer.basePackage),
-                classes);
+                this.domainPackages, Collections.singletonList(applicationLayer.basePackage), classes);
     }
 
     public void check(JavaClasses classes) {

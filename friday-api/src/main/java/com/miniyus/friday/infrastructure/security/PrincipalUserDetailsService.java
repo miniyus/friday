@@ -35,7 +35,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .snsId(entity.getSnsId())
                 .username(entity.getEmail())
                 .name(entity.getName())
-                .password(passwordEncoder.encode(entity.getPassword()))
+                .password(entity.getPassword())
                 .enabled(entity.getDeletedAt() == null)
                 .accountNonExpired(entity.getDeletedAt() == null)
                 .accountNonLocked(entity.getDeletedAt() == null)
@@ -66,7 +66,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .snsId(null)
                 .provider(null)
                 .email(userInfo.email())
-                .password(userInfo.password())
+                .password(passwordEncoder.encode(userInfo.password()))
                 .name(userInfo.name())
                 .role(userInfo.role())
                 .build();
@@ -78,14 +78,14 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity entity = userRepository.findByEmail(username).orElse(null);
-        if(entity == null) {
+        if (entity == null) {
             throw new UsernameNotFoundException("");
         }
         return buildPrincipalUserInfo(entity);
     }
 
     public void setPasswordEncoder(
-        PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 }

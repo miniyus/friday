@@ -20,9 +20,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
-import com.miniyus.friday.users.adapter.out.persistence.UserAdapter;
-import com.miniyus.friday.users.adapter.out.persistence.UserMapper;
-import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.api.users.adapter.out.persistence.UserAdapter;
+import com.miniyus.friday.api.users.adapter.out.persistence.UserMapper;
+import com.miniyus.friday.api.users.domain.User;
 
 /**
  * [description]

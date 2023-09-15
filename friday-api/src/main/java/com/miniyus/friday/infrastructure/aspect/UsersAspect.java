@@ -26,7 +26,7 @@ public class UsersAspect extends LoggingAspect implements HexagonalAspect {
     // Adapter layer
 
     // in/rest
-    @Pointcut("within(com.miniyus.friday.users.adapter.in.rest..*)")
+    @Pointcut("within(com.miniyus.friday.api.users.adapter.in.rest..*)")
     @Override
     public void controllerPoint() {}
 
@@ -49,7 +49,7 @@ public class UsersAspect extends LoggingAspect implements HexagonalAspect {
     }
 
     // out/persistence
-    @Pointcut("within(com.miniyus.friday.users.adapter.out.persistence..*)")
+    @Pointcut("within(com.miniyus.friday.api.users.adapter.out.persistence..*)")
     @Override
     public void persistencePoint() {}
 
@@ -74,7 +74,7 @@ public class UsersAspect extends LoggingAspect implements HexagonalAspect {
 
     // Application layer
 
-    @Pointcut("within(com.miniyus.friday.users.application..*)")
+    @Pointcut("within(com.miniyus.friday.api.users.application..*)")
     @Override
     public void applicationPoint() {}
 
@@ -99,7 +99,7 @@ public class UsersAspect extends LoggingAspect implements HexagonalAspect {
 
     // Domain layer
 
-    @Pointcut("within(com.miniyus.friday.users.domain..*)")
+    @Pointcut("within(com.miniyus.friday.api.users.domain..*)")
     @Override
     public void domainPoint() {}
 

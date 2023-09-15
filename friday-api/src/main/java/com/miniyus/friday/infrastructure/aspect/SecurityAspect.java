@@ -19,32 +19,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityAspect extends LoggingAspect {
 
-    // auth api aspect
+    // security aspect
     public SecurityAspect() {
-        super("Auth", LoggerFactory.getLogger(SecurityAspect.class));
-    }
-
-    // Auth controller point
-    @Pointcut("within(com.miniyus.friday.infrastructure.security.auth.*)")
-    public void authPoint() {}
-
-    @Before("authPoint()")
-    public void beforeAuth(JoinPoint joinPoint) throws Throwable {
-        beforeLogging("Auth", joinPoint);
-    }
-
-    @AfterReturning(pointcut = "authPoint()", returning = "returnValue")
-    public void afterAuth(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Auth", joinPoint, returnValue);
-    }
-
-    @AfterThrowing(pointcut = "authPoint()", throwing = "e")
-    public void afterDomainThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging("Auth", joinPoint, e);
+        super("Security", LoggerFactory.getLogger(SecurityAspect.class));
     }
 
     // oauth2 api point
-    @Pointcut("within(com.miniyus.friday.infrastructure.security.auth.oauth2.*)")
+    @Pointcut("within(com.miniyus.friday.infrastructure.security.oauth2.*)")
     public void oAuth2Point() {}
 
     @Before("oAuth2Point()")

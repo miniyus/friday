@@ -45,9 +45,7 @@ public class JwtService {
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);
-        return new IssueToken(
-                accessToken.getToken(),
-                jwtProvider.getAccessTokenExpiration(),
+        return new IssueToken(accessToken.getToken(), jwtProvider.getAccessTokenExpiration(),
                 accessToken.getRefreshToken().getToken());
     }
 
@@ -66,9 +64,7 @@ public class JwtService {
         }
 
         AccessTokenEntity accessToken = createAccessToken(userEntity);
-        return new IssueToken(
-                accessToken.getToken(),
-                jwtProvider.getAccessTokenExpiration(),
+        return new IssueToken(accessToken.getToken(), jwtProvider.getAccessTokenExpiration(),
                 accessToken.getRefreshToken().getToken());
     }
 
@@ -82,15 +78,10 @@ public class JwtService {
         String token = jwtProvider.createAccessToken(userEntity.getEmail());
 
         Date expiresAt = jwtProvider.extractExpiresAt(token).get();
-        LocalDateTime exp = expiresAt.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        AccessTokenEntity tokenEntity = AccessTokenEntity.builder()
-                .type("Bearer")
-                .token(token)
-                .expiresAt(exp)
-                .build();
+        AccessTokenEntity tokenEntity =
+                AccessTokenEntity.builder().type("Bearer").token(token).expiresAt(exp).build();
 
         RefreshTokenEntity refreshToken = createRefreshToken(tokenEntity);
 
@@ -110,19 +101,15 @@ public class JwtService {
     private RefreshTokenEntity createRefreshToken(AccessTokenEntity tokenEntity) {
         String refreshToken = jwtProvider.createRefreshToken();
         Date expiresAt = jwtProvider.extractExpiresAt(refreshToken).get();
-        LocalDateTime exp = expiresAt.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+        LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        return RefreshTokenEntity.builder()
-                .type("Bearer")
-                .token(refreshToken)
-                .expiresAt(exp)
+        return RefreshTokenEntity.builder().type("Bearer").token(refreshToken).expiresAt(exp)
                 .build();
     }
 
     public Optional<UserEntity> getUserByAccessToken(String accessToken) {
-        AccessTokenEntity accessTokenEntity = accessTokenRepository.findByToken(accessToken).orElse(null);
+        AccessTokenEntity accessTokenEntity =
+                accessTokenRepository.findByToken(accessToken).orElse(null);
         if (accessTokenEntity == null) {
             return Optional.empty();
         }
@@ -137,17 +124,14 @@ public class JwtService {
      * @return the user entity associated with the refresh token
      */
     public Optional<UserEntity> getUserByRefreshToken(String refreshToken) {
-        RefreshTokenEntity refreshTokenEntity = refreshTokenRepository
-            .findByToken(refreshToken)
-            .orElse(null);
+        RefreshTokenEntity refreshTokenEntity =
+                refreshTokenRepository.findByToken(refreshToken).orElse(null);
 
         if (refreshTokenEntity == null) {
             return Optional.empty();
         }
 
-        return Optional.of(refreshTokenEntity
-                .getAccessToken()
-                .getUser());
+        return Optional.of(refreshTokenEntity.getAccessToken().getUser());
     }
 
     /**
@@ -168,17 +152,6 @@ public class JwtService {
      */
     public Optional<String> extractEmail(String accessToken) {
         return jwtProvider.extractEmail(accessToken);
-    }
-
-    /**
-     * Extracts the refresh token from the provided HttpServletRequest.
-     *
-     * @param request the HttpServletRequest object containing the request information
-     * @return an Optional<String> representing the extracted refresh token, or an empty Optional if
-     *         no refresh token is found
-     */
-    public Optional<String> extractRefreshToken(HttpServletRequest request) {
-        return jwtProvider.extractRefreshToken(request);
     }
 
     /**
