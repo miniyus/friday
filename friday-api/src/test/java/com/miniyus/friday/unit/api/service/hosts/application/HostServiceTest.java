@@ -1,9 +1,9 @@
 package com.miniyus.friday.unit.api.service.hosts.application;
 
 import com.github.javafaker.Faker;
-import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostCommand;
-import com.miniyus.friday.api.hosts.application.port.in.usecase.CreateHostCommand;
-import com.miniyus.friday.api.hosts.application.port.in.usecase.UpdateHostCommand;
+import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostRequest;
+import com.miniyus.friday.api.hosts.application.port.in.usecase.CreateHostRequest;
+import com.miniyus.friday.api.hosts.application.port.in.usecase.UpdateHostRequest;
 import com.miniyus.friday.api.hosts.application.port.out.CreateHostPort;
 import com.miniyus.friday.api.hosts.application.port.out.DeleteHostPort;
 import com.miniyus.friday.api.hosts.application.port.out.RetrieveHostPort;
@@ -63,7 +63,9 @@ public class HostServiceTest {
                 true,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                null);
+                null,
+                1L
+            );
             testDomains.add(testDomain);
         }
     }
@@ -71,7 +73,7 @@ public class HostServiceTest {
     @Test
     public void createHostTest() {
         var testDomain = testDomains.get(0);
-        CreateHostCommand createHostCommand = CreateHostCommand.builder()
+        CreateHostRequest createHostRequest = CreateHostRequest.builder()
             .host(testDomain.getHost())
             .summary(testDomain.getSummary())
             .description(testDomain.getDescription())
@@ -82,7 +84,7 @@ public class HostServiceTest {
         when(createHostPort.isUniqueHost(any())).thenReturn(true);
         when(createHostPort.create(any())).thenReturn(testDomain);
 
-        Host created = hostService.createHost(createHostCommand);
+        Host created = hostService.createHost(createHostRequest, 1L);
 
         Assertions.assertThat(created)
             .hasFieldOrPropertyWithValue("host", created.getHost())
@@ -100,8 +102,7 @@ public class HostServiceTest {
         var desc = faker.lorem().sentence();
         var path = faker.space().starCluster();
 
-        UpdateHostCommand updateHostCommand = UpdateHostCommand.builder()
-            .id(1L)
+        UpdateHostRequest updateHostRequest = UpdateHostRequest.builder()
             .host(host)
             .summary(summary)
             .description(desc)
@@ -117,13 +118,14 @@ public class HostServiceTest {
                 true,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
-                null
+                null,
+                1L
             )
         );
 
         when(updateHostPort.findById(any())).thenReturn(Optional.of(testDomain));
 
-        Host updated = hostService.updateHost(updateHostCommand);
+        Host updated = hostService.updateHost(1L,1L, updateHostRequest);
 
         Assertions.assertThat(updated)
             .hasFieldOrPropertyWithValue("id", 1L)
@@ -139,7 +141,7 @@ public class HostServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveHostPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        Host host = hostService.retrieveById(1L);
+        Host host = hostService.retrieveById(1L, 1L);
         Assertions.assertThat(host)
             .hasFieldOrPropertyWithValue("host", host.getHost())
             .hasFieldOrPropertyWithValue("summary", host.getSummary())
@@ -151,7 +153,7 @@ public class HostServiceTest {
     @Test
     public void retrieveHostsTest() {
         var pageable = PageRequest.of(1, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
-        var retrieveHostCommand = RetrieveHostCommand.builder()
+        var retrieveHostRequest = RetrieveHostRequest.RetrieveAll.builder()
             .pageable(pageable)
             .build();
 
@@ -161,7 +163,7 @@ public class HostServiceTest {
 
         when(retrieveHostPort.findAll(any(Pageable.class))).thenReturn(page);
 
-        var hosts = hostService.retrieveAll(retrieveHostCommand);
+        var hosts = hostService.retrieveAll(retrieveHostRequest, 1L);
         Assertions.assertThat(hosts)
             .hasSize(testDomains.size());
 

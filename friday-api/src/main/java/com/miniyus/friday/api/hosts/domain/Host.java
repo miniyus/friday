@@ -20,13 +20,16 @@ public class Host {
     LocalDateTime updatedAt;
     LocalDateTime deletedAt;
 
+    Long userId;
+
     @Builder
     public static Host create(
         String host,
         String summary,
         String description,
         String path,
-        boolean publish
+        boolean publish,
+        Long userId
     ) {
         return new Host(
             null,
@@ -37,7 +40,8 @@ public class Host {
             publish,
             null,
             null,
-            null
+            null,
+            userId
         );
     }
 
@@ -75,7 +79,8 @@ public class Host {
         LocalDateTime createdAtStart,
         LocalDateTime createdAtEnd,
         LocalDateTime updatedAtStart,
-        LocalDateTime updatedAtEnd
+        LocalDateTime updatedAtEnd,
+        Long userId
     ) {
         public boolean isEmpty() {
             return summary == null && path == null  && description == null
@@ -83,4 +88,16 @@ public class Host {
                 && createdAtEnd == null &&  updatedAtEnd == null;
         }
     }
+
+    @Builder
+    public record WherePublish(
+        boolean publish,
+        Long userId
+    ){}
+
+    @Builder
+    public record WhereHost(
+        String host,
+        Long userId
+    ){}
 }

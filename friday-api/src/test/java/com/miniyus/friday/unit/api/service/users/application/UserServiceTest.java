@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+import com.miniyus.friday.api.users.application.port.in.usecase.UpdateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,8 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.common.error.RestErrorException;
-import com.miniyus.friday.api.users.application.port.in.usecase.CreateUserCommand;
-import com.miniyus.friday.api.users.application.port.in.usecase.UpdateUserCommand;
+import com.miniyus.friday.api.users.application.port.in.usecase.CreateUserRequest;
 import com.miniyus.friday.api.users.application.port.out.CreateUserPort;
 import com.miniyus.friday.api.users.application.port.out.DeleteUserPort;
 import com.miniyus.friday.api.users.application.port.out.RetrieveUserPort;
@@ -79,7 +80,7 @@ public class UserServiceTest {
     void createUser() {
         var testDomain = testDomains.get(0);
 
-        CreateUserCommand createUserCommand = CreateUserCommand.builder()
+        CreateUserRequest createUserCommand = CreateUserRequest.builder()
             .email(testDomain.getEmail())
             .name(testDomain.getName())
             .role("USER")
@@ -100,7 +101,7 @@ public class UserServiceTest {
     @Test
     void retrieveUser() throws Exception {
         var testDomain = testDomains.get(0);
-        when(retrieveUserPort.findById(1L)).thenReturn(testDomain);
+        when(retrieveUserPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
         User retrieved = userService.findById(1L);
 
@@ -127,7 +128,7 @@ public class UserServiceTest {
     @Test
     void updateUser() throws Exception {
         var testDomain = testDomains.get(0);
-        when(updateUserPort.findById(any())).thenReturn(testDomain);
+        when(updateUserPort.findById(any())).thenReturn(Optional.of(testDomain));
 
         var testOrigin = testDomains.get(0);
 
@@ -146,23 +147,22 @@ public class UserServiceTest {
         testUpdate.patch("testUpdate", null);
 
         when(updateUserPort.updateUser(any(User.class))).thenReturn(testUpdate);
-        var command = UpdateUserCommand.builder()
-                .id(1L)
+        var request = UpdateUserRequest.builder()
                 .name("testUpdate")
                 .role("USER")
                 .build();
 
-        User updated = userService.patchUser(command);
+        User updated = userService.patchUser(testOrigin.getId(),request);
 
         assertThat(updated)
-                .hasFieldOrPropertyWithValue("id", command.id())
-                .hasFieldOrPropertyWithValue("name", command.name())
-                .hasFieldOrPropertyWithValue("role", command.role());
+                .hasFieldOrPropertyWithValue("id", testOrigin.getId())
+                .hasFieldOrPropertyWithValue("name", request.name())
+                .hasFieldOrPropertyWithValue("role", request.role());
     }
 
     @Test
     void deleteUser() throws Exception {
-        when(retrieveUserPort.findById(1L)).thenReturn(null);
+        when(retrieveUserPort.findById(any())).thenReturn(Optional.empty());
 
         userService.deleteById(1L);
         

@@ -12,13 +12,13 @@ import static org.springframework.restdocs.operation.preprocess.Preprocessors.pr
  * @author seongminyoo
  * @date 2023/09/08
  */
-public interface ApiDocumentUtils {
-    static OperationRequestPreprocessor getDocumentRequest() {
+public class ApiDocumentUtils {
+    public static OperationRequestPreprocessor getDocumentRequest() {
         return preprocessRequest(
                 prettyPrint());
     }
 
-    static OperationResponsePreprocessor getDocumentResponse() {
+    public static OperationResponsePreprocessor getDocumentResponse() {
         return preprocessResponse(
                 prettyPrint());
     }

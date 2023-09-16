@@ -2,6 +2,8 @@ package com.miniyus.friday.api.users.application.port.out;
 
 import com.miniyus.friday.api.users.domain.User;
 
+import java.util.Optional;
+
 /**
  * [description]
  *
@@ -11,7 +13,7 @@ import com.miniyus.friday.api.users.domain.User;
 public interface UpdateUserPort {
     User updateUser(User user);
 
-    User findById(Long id);
+    Optional<User> findById(Long id);
 
     User resetPassword(User user);
 }

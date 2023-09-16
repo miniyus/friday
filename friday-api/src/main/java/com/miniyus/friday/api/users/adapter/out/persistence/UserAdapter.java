@@ -1,11 +1,13 @@
 package com.miniyus.friday.api.users.adapter.out.persistence;
 
 import java.util.Collection;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
-import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
 import com.miniyus.friday.api.users.application.port.out.CreateUserPort;
 import com.miniyus.friday.api.users.application.port.out.DeleteUserPort;
 import com.miniyus.friday.api.users.application.port.out.RetrieveUserPort;
@@ -25,23 +27,24 @@ import lombok.RequiredArgsConstructor;
 public class UserAdapter
         implements CreateUserPort, RetrieveUserPort, UpdateUserPort, DeleteUserPort {
     private final UserRepository userRepository;
+    private final UserMapper mapper;
 
     @Override
     public User createUser(User domain) {
-        var entity = userRepository.save(UserMapper.toEntity(domain));
-        return UserMapper.toDomain(entity);
+        var entity = userRepository.save(mapper.toEntity(domain));
+        return mapper.toDomain(entity);
     }
 
     @Override
     public Collection<User> findAll() {
         Collection<UserEntity> userEntities = userRepository.findAll();
-        return userEntities.stream().map(UserMapper::toDomain).toList();
+        return userEntities.stream().map(mapper::toDomain).toList();
     }
 
     @Override
     public Page<User> findAll(Pageable pageable) {
         Page<UserEntity> userEntities = userRepository.findAll(pageable);
-        return userEntities.map(UserMapper::toDomain);
+        return userEntities.map(mapper::toDomain);
     }
 
     @Override
@@ -54,22 +57,17 @@ public class UserAdapter
                 searchUser.updatedAtStart(),
                 searchUser.updatedAtEnd(),
                 pageable);
-        return userEntities.map(UserMapper::toDomain);
+        return userEntities.map(mapper::toDomain);
     }
 
     @Override
-    public User findById(Long id) {
-        UserEntity entity = userRepository.findById(id).orElse(null);
-
-        if (entity == null) {
-            return null;
-        }
-
-        return UserMapper.toDomain(entity);
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id)
+            .map(mapper::toDomain);
     }
 
     private User save(User user) {
-        return UserMapper.toDomain(userRepository.save(UserMapper.toEntity(user)));
+        return mapper.toDomain(userRepository.save(mapper.toEntity(user)));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.jpa.entities;
+package com.miniyus.friday.infrastructure.persistence.entities;
 
 import jakarta.persistence.GeneratedValue;
 import lombok.AllArgsConstructor;
@@ -11,16 +11,16 @@ import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
 /**
- * Refresh Token Entity
+ * Access Token Entity
  *
  * @author miniyus
  * @date 2023/09/02
  */
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("refresh_token")
-public class RefreshTokenEntity {
+@AllArgsConstructor
+@RedisHash("access_token")
+public class AccessTokenEntity {
     @Id
     @GeneratedValue
     private String id;
@@ -31,23 +31,22 @@ public class RefreshTokenEntity {
     private String token;
 
     @Indexed
-    private String accessTokenId;
+    private String userId;
 
     @TimeToLive
     private Long expiration;
 
-
     /**
-     * @param type          type
-     * @param token         token
-     * @param expiration    expiration seconds
-     * @param accessTokenId access token id
+     * @param type       token type, ex: Bearer
+     * @param token      token
+     * @param expiration token expiration seconds
+     * @param userId     user id
      */
     @Builder
-    public RefreshTokenEntity(String type, String token, String accessTokenId, Long expiration) {
+    public AccessTokenEntity(String type, String token, Long userId, Long expiration) {
         this.type = type;
         this.token = token;
+        this.userId = userId.toString();
         this.expiration = expiration;
-        this.accessTokenId = accessTokenId;
     }
 }

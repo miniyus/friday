@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 public interface RetrieveUserQuery {
     Collection<User> findAll();
 
-    Page<User> findAll(RetrieveUserCommand command);
+    Page<User> findAll(RetrieveUserRequest request);
 
     User findById(Long id);
 }

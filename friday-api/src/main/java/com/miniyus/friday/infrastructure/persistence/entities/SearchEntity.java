@@ -1,9 +1,9 @@
-package com.miniyus.friday.infrastructure.jpa.entities;
+package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.Where;
-import com.miniyus.friday.infrastructure.jpa.BaseEntity;
+import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -116,8 +116,6 @@ public class SearchEntity extends BaseEntity {
      * Deletes the object by setting the deletedAt field to the current date and
      * time.
      *
-     * @param None.
-     * @return None.
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

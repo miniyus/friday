@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

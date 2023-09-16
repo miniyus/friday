@@ -1,6 +1,6 @@
-package com.miniyus.friday.infrastructure.jpa.repositories;
+package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.infrastructure.jpa.entities.AccessTokenEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 

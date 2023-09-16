@@ -1,4 +1,4 @@
-package com.miniyus.friday.api.hosts.adapter.in.rest.response;
+package com.miniyus.friday.api.hosts.adapter.in.rest;
 
 import com.miniyus.friday.api.hosts.domain.Host;
 import lombok.Builder;
@@ -10,12 +10,18 @@ import java.time.LocalDateTime;
  * DTO for {@link Host}
  */
 @Builder
-public record CreateHostResponse(Long id, String host, String summary, String description,
-                                 String path, boolean publish, LocalDateTime createdAt,
-                                 LocalDateTime updatedAt)
+public record HostResource(
+    Long id,
+    String host,
+    String summary,
+    String description,
+    String path,
+    boolean publish,
+    LocalDateTime createdAt,
+    LocalDateTime updatedAt)
     implements Serializable {
-    public static CreateHostResponse fromDomain(Host host) {
-        return CreateHostResponse.builder()
+    public static HostResource fromDomain(Host host) {
+        return HostResource.builder()
             .id(host.getId())
             .host(host.getHost())
             .summary(host.getSummary())

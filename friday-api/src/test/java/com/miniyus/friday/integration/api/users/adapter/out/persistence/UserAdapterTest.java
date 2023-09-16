@@ -18,8 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import com.github.javafaker.Faker;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
-import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
 import com.miniyus.friday.api.users.adapter.out.persistence.UserAdapter;
 import com.miniyus.friday.api.users.adapter.out.persistence.UserMapper;
 import com.miniyus.friday.api.users.domain.User;
@@ -49,6 +49,8 @@ public class UserAdapterTest {
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    private final UserMapper userMapper = new UserMapper();
+
     @BeforeEach
     public void setup() {
         for (int i = 0; i < 10; i++) {
@@ -63,7 +65,7 @@ public class UserAdapterTest {
                     LocalDateTime.now(),
                     LocalDateTime.now(),
                     null);
-            testEntities.add(UserMapper.toEntity(testDomain));
+            testEntities.add(userMapper.toEntity(testDomain));
         }
 
         testEntities = userRepository.saveAll(testEntities);
@@ -88,9 +90,9 @@ public class UserAdapterTest {
     @Order(200)
     public void retrieveUser() {
         var latestUser = testEntities.get(testEntities.size() - 1);
-        User user = userAdapter.findById(latestUser.getId());
+        User user = userAdapter.findById(latestUser.getId()).orElse(null);
 
-        var testUser = UserMapper.toDomain(latestUser);
+        var testUser = userMapper.toDomain(latestUser);
 
         assertThat(user).isNotNull()
                 .hasFieldOrPropertyWithValue("id", testUser.getId());
@@ -121,7 +123,10 @@ public class UserAdapterTest {
     @Order(400)
     public void updateUser() {
         var latestUser = testEntities.get(testEntities.size() - 1);
-        User origin = userAdapter.findById(latestUser.getId());
+        User origin = userAdapter.findById(latestUser.getId()).orElse(null);
+
+        assert origin != null;
+
         origin.patch("updateName", null);
         User updated = userAdapter.updateUser(origin);
 
@@ -134,10 +139,13 @@ public class UserAdapterTest {
     @Order(500)
     public void deleteUser() {
         var latestUser = testEntities.get(testEntities.size() - 1);
-        User origin = userAdapter.findById(latestUser.getId());
+        User origin = userAdapter.findById(latestUser.getId()).orElse(null);
+
+        assert origin != null;
+
         origin.delete();
         userAdapter.deleteById(latestUser.getId());
-        User deleted = userAdapter.findById(latestUser.getId());
+        User deleted = userAdapter.findById(latestUser.getId()).orElse(null);
 
         assertThat(deleted).isNull();
     }
@@ -146,7 +154,10 @@ public class UserAdapterTest {
     @Order(401)
     public void resetPassword() {
         var latestUser = testEntities.get(testEntities.size() - 1);
-        User user = userAdapter.findById(latestUser.getId());
+        User user = userAdapter.findById(latestUser.getId()).orElse(null);
+
+        assert user != null;
+
         user.resetPassword("resetPassword");
         User updated = userAdapter.resetPassword(user);
 

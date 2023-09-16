@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.jpa;
+package com.miniyus.friday.infrastructure.persistence;
 
 import java.time.LocalDateTime;
 

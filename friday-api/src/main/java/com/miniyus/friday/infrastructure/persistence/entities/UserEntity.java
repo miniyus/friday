@@ -1,9 +1,9 @@
-package com.miniyus.friday.infrastructure.jpa.entities;
+package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import com.miniyus.friday.infrastructure.jpa.BaseEntity;
+import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -85,8 +85,6 @@ public class UserEntity extends BaseEntity {
     /**
      * Deletes the object.
      *
-     * @param None This function does not take any parameters.
-     * @return This function does not return anything.
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

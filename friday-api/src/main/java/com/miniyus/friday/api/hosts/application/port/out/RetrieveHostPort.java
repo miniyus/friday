@@ -8,9 +8,9 @@ import java.util.Optional;
 public interface RetrieveHostPort {
     Optional<Host> findById(Long id);
 
-    Optional<Host> findByHost(String host);
+    Optional<Host> findByHost(Host.WhereHost whereHost);
 
-    Page<Host> findByPublish(boolean isPublish, Pageable pageable);
+    Page<Host> findByPublish(Host.WherePublish wherePublish, Pageable pageable);
 
     Page<Host> findAll(Pageable pageable);
 

@@ -9,5 +9,5 @@ import com.miniyus.friday.api.users.domain.User;
  * @date 2023/09/02
  */
 public interface CreateUserUsecase {
-    public User createUser(CreateUserCommand command);
+    public User createUser(CreateUserRequest request);
 }

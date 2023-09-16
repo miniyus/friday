@@ -1,6 +1,7 @@
 package com.miniyus.friday.api.users.application.port.out;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import com.miniyus.friday.api.users.domain.User;
 import org.springframework.data.domain.Page;
@@ -18,5 +19,5 @@ public interface RetrieveUserPort {
 
     Page<User> findAll(User.SearchUser searchUser, Pageable pageable);
 
-    User findById(Long id);
+    Optional<User> findById(Long id);
 }

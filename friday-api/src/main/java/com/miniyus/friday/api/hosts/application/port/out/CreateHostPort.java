@@ -5,5 +5,5 @@ import com.miniyus.friday.api.hosts.domain.Host;
 public interface CreateHostPort {
     Host create(Host host);
 
-    boolean isUniqueHost(String host);
+    boolean isUniqueHost(Host.WhereHost whereHost);
 }

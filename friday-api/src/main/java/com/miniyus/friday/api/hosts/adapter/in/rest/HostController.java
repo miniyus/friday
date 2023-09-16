@@ -1,17 +1,20 @@
 package com.miniyus.friday.api.hosts.adapter.in.rest;
 
-import com.miniyus.friday.api.hosts.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.api.hosts.adapter.in.rest.response.CreateHostResponse;
 import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostQuery;
-import com.miniyus.friday.api.hosts.application.port.in.usecase.CreateHostUsecase;
-import com.miniyus.friday.api.hosts.application.port.in.usecase.DeleteHostUsecase;
-import com.miniyus.friday.api.hosts.application.port.in.usecase.UpdateHostUsecase;
+import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostRequest;
+import com.miniyus.friday.api.hosts.application.port.in.usecase.*;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
+import com.miniyus.friday.common.request.annotation.QueryParam;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestAdapter(path = "/v1/hosts")
@@ -22,30 +25,74 @@ public class HostController {
     final DeleteHostUsecase deleteHostUsecase;
     final RetrieveHostQuery retrieveHostQuery;
 
+    private PrincipalUserInfo getUserInfo() {
+        return (PrincipalUserInfo) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal();
+    }
+
     @PostMapping("")
-    public ResponseEntity<CreateHostResponse> createUser(
-            @RequestBody CreateHostRequest request) {
-        var cmd = request.toCommand();
-        var host = createHostUsecase.createHost(cmd);
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<HostResource> createHost(
+        @RequestBody @Valid CreateHostRequest request) {
+
+        var host = createHostUsecase.createHost(request, getUserInfo().getId());
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(host.getId())
-                .toUri();
+            .path("/{id}")
+            .buildAndExpand(host.getId())
+            .toUri();
 
-        return ResponseEntity.created(location).body(CreateHostResponse.fromDomain(host));
+        return ResponseEntity.created(location).body(HostResource.fromDomain(host));
     }
 
-    public ResponseEntity<?> updateUser() {
-        return null;
+    @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<HostResource> updateHost(
+        @PathVariable Long id,
+        @RequestBody @Valid UpdateHostRequest request
+    ) {
+        var host = updateHostUsecase.updateHost(id, getUserInfo().getId(), request);
+
+        return ResponseEntity.ok(HostResource.fromDomain(host));
     }
 
-    public void deleteUser() {}
-
-    public ResponseEntity<Page<?>> retrieveUsers() {
-        return null;
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public void deleteHost(
+        @PathVariable Long id
+    ) {
+        deleteHostUsecase.deleteById(id, getUserInfo().getId());
     }
 
-    public ResponseEntity<?> retrieveUser() {
-        return null;
+    @GetMapping("")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<Page<HostResource>> retrieveHosts(
+        @QueryParam @Valid RetrieveHostRequest.RetrieveAll retrieveAll
+    ) {
+        RetrieveHostRequest.RetrieveAll req;
+        if (retrieveAll == null) {
+            req = RetrieveHostRequest.RetrieveAll.builder()
+                .pageable(PageRequest.of(0, 20, Sort.Direction.DESC, "createdAt"))
+                .build();
+        } else {
+            req = retrieveAll;
+        }
+
+        var hosts = retrieveHostQuery.retrieveAll(req, getUserInfo().getId());
+        var response = hosts.map(HostResource::fromDomain);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<HostResource> retrieveHost(
+        @PathVariable Long id
+    ) {
+        return ResponseEntity.ok(
+            HostResource.fromDomain(
+                retrieveHostQuery.retrieveById(id, getUserInfo().getId())
+            )
+        );
     }
 }

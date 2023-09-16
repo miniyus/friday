@@ -3,14 +3,14 @@ package com.miniyus.friday.infrastructure.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
-import com.miniyus.friday.infrastructure.jpa.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import lombok.RequiredArgsConstructor;
 

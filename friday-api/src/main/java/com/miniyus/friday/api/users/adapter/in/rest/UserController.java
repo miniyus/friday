@@ -2,6 +2,7 @@ package com.miniyus.friday.api.users.adapter.in.rest;
 
 import java.net.URI;
 
+import com.miniyus.friday.api.users.application.port.in.usecase.*;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
 import org.springframework.data.domain.Page;
@@ -17,18 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.miniyus.friday.api.users.adapter.in.rest.request.CreateUserRequest;
-import com.miniyus.friday.api.users.adapter.in.rest.request.ResetPasswordRequest;
-import com.miniyus.friday.api.users.adapter.in.rest.request.RetrieveUserRequest;
-import com.miniyus.friday.api.users.adapter.in.rest.request.PatchUserRequest;
-import com.miniyus.friday.api.users.adapter.in.rest.response.CreateUserResponse;
-import com.miniyus.friday.api.users.adapter.in.rest.response.RetrieveUserResponse;
-import com.miniyus.friday.api.users.adapter.in.rest.response.UpdateUserResponse;
-import com.miniyus.friday.api.users.application.port.in.query.RetrieveUserCommand;
+import com.miniyus.friday.api.users.application.port.in.usecase.ResetPasswordRequest;
+import com.miniyus.friday.api.users.application.port.in.query.RetrieveUserRequest;
 import com.miniyus.friday.api.users.application.port.in.query.RetrieveUserQuery;
-import com.miniyus.friday.api.users.application.port.in.usecase.CreateUserUsecase;
-import com.miniyus.friday.api.users.application.port.in.usecase.DeleteUserUsecase;
-import com.miniyus.friday.api.users.application.port.in.usecase.UpdateUserUsecase;
 import com.miniyus.friday.api.users.domain.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,23 +45,23 @@ public class UserController {
     /**
      * Creates a new user.
      *
-     * @param request the createUser request
+     * @param request              the createUser request
      * @param uriComponentsBuilder the uriComponentsBuilder for creating the location URI
      * @return the ResponseEntity containing the createUser response
      */
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<CreateUserResponse> createUser(
-            @Valid @RequestBody CreateUserRequest request,
-            UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<UserResource> createUser(
+        @Valid @RequestBody CreateUserRequest request,
+        UriComponentsBuilder uriComponentsBuilder) {
 
-        User create = createUserUsecase.createUser(request.toCommand());
+        User create = createUserUsecase.createUser(request);
 
-        CreateUserResponse response = CreateUserResponse.fromDomain(create);
+        UserResource response = UserResource.fromDomain(create);
 
         URI uri = uriComponentsBuilder.path("/v1/users/{id}")
-                .buildAndExpand(create.getId())
-                .toUri();
+            .buildAndExpand(create.getId())
+            .toUri();
 
         return ResponseEntity.created(uri).body(response);
     }
@@ -82,11 +74,11 @@ public class UserController {
      */
     @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
-    public ResponseEntity<RetrieveUserResponse> retrieveUser(
-            @PathVariable Long id) {
+    public ResponseEntity<UserResource> retrieveUser(
+        @PathVariable Long id) {
         User read = readUserQuery.findById(id);
 
-        RetrieveUserResponse response = RetrieveUserResponse.fromDomain(read);
+        UserResource response = UserResource.fromDomain(read);
 
         return ResponseEntity.ok().body(response);
     }
@@ -99,26 +91,24 @@ public class UserController {
      */
     @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Page<RetrieveUserResponse>> retrieveUsers(
-            @QueryParam @Valid RetrieveUserRequest request) {
+    public ResponseEntity<Page<UserResource>> retrieveUsers(
+        @QueryParam @Valid RetrieveUserRequest request) {
 
-        RetrieveUserCommand cmd;
+        RetrieveUserRequest req;
         if (request == null) {
             log.debug("req is null");
-            cmd = RetrieveUserCommand.builder()
-                    .pageable(PageRequest.of(0, 20, Direction.DESC, "createdAt"))
-                    .build();
+            req = RetrieveUserRequest.builder()
+                .pageable(PageRequest.of(0, 20, Direction.DESC, "createdAt"))
+                .build();
         } else {
-            log.debug("page? {}", request.getPage());
-            log.debug("size? {}", request.getSize());
-            cmd = request.toCommand();
+            req = request;
         }
 
-        Page<User> users = readUserQuery.findAll(cmd);
+        Page<User> users = readUserQuery.findAll(req);
 
         log.debug("users count: " + users.getContent().size());
 
-        var response = users.map(RetrieveUserResponse::fromDomain);
+        var response = users.map(UserResource::fromDomain);
 
         return ResponseEntity.ok().body(response);
     }
@@ -131,13 +121,13 @@ public class UserController {
      */
     @PatchMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
-    public ResponseEntity<UpdateUserResponse> patchUser(
-            @PathVariable Long id,
-            @Valid @RequestBody PatchUserRequest request) {
+    public ResponseEntity<UserResource> patchUser(
+        @PathVariable Long id,
+        @Valid @RequestBody UpdateUserRequest request) {
 
-        User update = updateUserUsecase.patchUser(request.toCommand(id));
+        User update = updateUserUsecase.patchUser(id, request);
 
-        UpdateUserResponse response = UpdateUserResponse.fromDomain(update);
+        UserResource response = UserResource.fromDomain(update);
 
         return ResponseEntity.ok().body(response);
     }
@@ -145,26 +135,25 @@ public class UserController {
     /**
      * Resets the password for a user.
      *
-     * @param id the ID of the user
+     * @param id       the ID of the user
      * @param password the new password
      * @return the response entity containing the updated user response
      */
     @PatchMapping("/{id}/reset-password")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
-    public ResponseEntity<UpdateUserResponse> resetPassword(
-            @PathVariable Long id,
-            @RequestBody @Valid ResetPasswordRequest password) {
+    public ResponseEntity<UserResource> resetPassword(
+        @PathVariable Long id,
+        @RequestBody @Valid ResetPasswordRequest password) {
 
         User update = updateUserUsecase.resetPassword(id, password.password());
 
-        return ResponseEntity.ok().body(UpdateUserResponse.fromDomain(update));
+        return ResponseEntity.ok().body(UserResource.fromDomain(update));
     }
 
     /**
      * Deletes a user by their ID.
      *
      * @param id the ID of the user to be deleted
-     * @return void
      */
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")

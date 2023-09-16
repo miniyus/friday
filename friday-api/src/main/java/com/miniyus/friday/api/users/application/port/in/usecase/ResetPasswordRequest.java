@@ -1,4 +1,4 @@
-package com.miniyus.friday.api.users.adapter.in.rest.request;
+package com.miniyus.friday.api.users.application.port.in.usecase;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

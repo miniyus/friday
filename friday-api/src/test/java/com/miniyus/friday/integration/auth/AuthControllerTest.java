@@ -3,7 +3,7 @@ package com.miniyus.friday.integration.auth;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.auth.AuthController;
 import com.miniyus.friday.auth.AuthService;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserService;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;

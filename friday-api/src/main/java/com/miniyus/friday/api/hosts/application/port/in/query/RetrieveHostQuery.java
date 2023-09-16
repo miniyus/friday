@@ -5,11 +5,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface RetrieveHostQuery {
-    Host retrieveById(Long id);
+    Host retrieveById(Long id, Long userId);
 
-    Host retrieveByHost(String host);
+    Host retrieveByHost(
+        RetrieveHostRequest.RetrieveHost retrieveHost,
+        Long userId
+    );
 
-    Page<Host> retrieveAll(RetrieveHostCommand filter);
+    Page<Host> retrieveAll(RetrieveHostRequest.RetrieveAll filter, Long userId);
 
-    Page<Host> retrieveByPublish(boolean isPublish, Pageable pageable);
+    Page<Host> retrieveByPublish(
+        RetrieveHostRequest.RetrievePublish retrievePublish,
+        Pageable pageable,
+        Long userId
+    );
 }

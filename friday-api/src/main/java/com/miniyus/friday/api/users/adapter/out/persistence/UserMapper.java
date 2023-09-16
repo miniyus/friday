@@ -1,8 +1,7 @@
 package com.miniyus.friday.api.users.adapter.out.persistence;
 
 import org.springframework.stereotype.Component;
-
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.api.users.domain.User;
 
 /**
@@ -14,7 +13,7 @@ import com.miniyus.friday.api.users.domain.User;
 @Component
 public class UserMapper {
 
-    public static UserEntity toEntity(User domain) {
+    public UserEntity toEntity(User domain) {
         return new UserEntity(
                 domain.getId(),
                 domain.getSnsId(),
@@ -26,7 +25,7 @@ public class UserMapper {
                 domain.getDeletedAt());
     }
 
-    public static User toDomain(UserEntity entity) {
+    public User toDomain(UserEntity entity) {
         return new User(
                 entity.getId(),
                 entity.getEmail(),
