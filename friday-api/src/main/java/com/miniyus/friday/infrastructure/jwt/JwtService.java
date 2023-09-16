@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
+import com.miniyus.friday.common.error.AuthErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,21 +42,7 @@ public class JwtService {
      */
     public IssueToken issueToken(Long userId) {
         UserEntity userEntity = userRepository.findById(userId).orElse(null);
-
-        if (userEntity == null) {
-            throw new AccessDeniedException("error.accessDenied");
-        }
-
-        AccessTokenEntity accessToken = createAccessToken(userEntity);
-        RefreshTokenEntity refreshToken = createRefreshToken(accessToken);
-
-        return new IssueToken(
-            jwtProvider.accessTokenKey(),
-            accessToken.getToken(),
-            jwtProvider.accessTokenExpiration(),
-            jwtProvider.refreshTokenKey(),
-            refreshToken.getToken()
-        );
+        return getIssueToken(userEntity);
     }
 
     /**
@@ -65,7 +54,11 @@ public class JwtService {
      */
     public IssueToken issueToken(String email) {
         UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
+        return getIssueToken(userEntity);
+    }
 
+    @NotNull
+    private IssueToken getIssueToken(UserEntity userEntity) {
         if (userEntity == null) {
             throw new AccessDeniedException("error.accessDenied");
         }
@@ -74,6 +67,7 @@ public class JwtService {
         RefreshTokenEntity refreshToken = createRefreshToken(accessToken);
 
         return new IssueToken(
+            JwtProvider.BEARER,
             jwtProvider.accessTokenKey(),
             accessToken.getToken(),
             jwtProvider.accessTokenExpiration(),
@@ -91,13 +85,9 @@ public class JwtService {
     private AccessTokenEntity createAccessToken(UserEntity userEntity) {
         String token = jwtProvider.createAccessToken(userEntity.getEmail());
 
-        Date expiresAt = jwtProvider.extractExpiresAt(token).orElse(new Date());
-        LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-
-        var accessToken= AccessTokenEntity.builder()
+        var accessToken = AccessTokenEntity.builder()
             .type(JwtProvider.BEARER)
             .token(token)
-            .expiresAt(exp)
             .expiration(jwtProvider.accessTokenExpiration())
             .userId(userEntity.getId())
             .build();
@@ -116,12 +106,11 @@ public class JwtService {
         Date expiresAt = jwtProvider.extractExpiresAt(token).orElse(new Date());
         LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
-        var refreshToken = RefreshTokenEntity
-            .builder()
+        var refreshToken = RefreshTokenEntity.builder()
             .type(JwtProvider.BEARER)
             .token(token)
-            .expiresAt(exp)
             .expiration(jwtProvider.refreshTokenExpiration())
+            .accessTokenId(tokenEntity.getId())
             .build();
 
         return refreshTokenRepository.save(refreshToken);
@@ -134,7 +123,9 @@ public class JwtService {
             return Optional.empty();
         }
 
-        return userRepository.findById(accessTokenEntity.getUserId());
+        var userId = Long.parseLong(accessTokenEntity.getUserId());
+
+        return userRepository.findById(userId);
     }
 
     /**
@@ -151,13 +142,15 @@ public class JwtService {
             return Optional.empty();
         }
 
-        Long accessTokenId = refreshTokenEntity.getAccessTokenId();
-        var accessTokenEntity = accessTokenRepository.findById(accessTokenId).orElse(null);
-        if(accessTokenEntity == null) {
+        var accessTokenEntity = accessTokenRepository
+            .findById(refreshTokenEntity.getAccessTokenId()).orElse(null);
+        if (accessTokenEntity == null) {
             return Optional.empty();
         }
 
-        return userRepository.findById(accessTokenEntity.getUserId());
+        var userId = Long.parseLong(accessTokenEntity.getUserId());
+
+        return userRepository.findById(userId);
     }
 
     /**
@@ -189,5 +182,22 @@ public class JwtService {
      */
     public boolean isTokenValid(String token) {
         return jwtProvider.isTokenValid(token);
+    }
+
+    public void revokeTokenByUserId(Long userId) {
+        var accessToken = accessTokenRepository.findByUserId(userId.toString())
+            .orElseThrow(() -> new RestErrorException(
+                "error.invalidToken",
+                AuthErrorCode.INVALID_TOKEN
+            )).getId();
+
+        var refreshToken = refreshTokenRepository.findByAccessTokenId(accessToken)
+            .orElseThrow(() -> new RestErrorException(
+                "error.invalidToken",
+                AuthErrorCode.INVALID_TOKEN
+            )).getId();
+
+        accessTokenRepository.deleteById(accessToken);
+        refreshTokenRepository.deleteById(refreshToken);
     }
 }

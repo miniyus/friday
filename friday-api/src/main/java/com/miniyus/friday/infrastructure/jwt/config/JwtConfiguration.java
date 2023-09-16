@@ -1,5 +1,6 @@
 package com.miniyus.friday.infrastructure.jwt.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import lombok.Data;
  */
 @Configuration
 @ConfigurationProperties(prefix = "jwt")
+@RequiredArgsConstructor
 @Data
 public class JwtConfiguration {
     private String secret;
@@ -25,10 +27,10 @@ public class JwtConfiguration {
     @Bean
     public JwtProvider jwtProvider() {
         return new JwtProvider(
-                secret,
-                access.getExpiration(),
-                refresh.getExpiration(),
-                access.getHeader(),
-                refresh.getHeader());
+            secret,
+            access.expiration(),
+            refresh.expiration(),
+            access.header(),
+            refresh.header());
     }
 }

@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.Date;
+
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,14 +25,8 @@ public class JwtProviderTest {
 
     private JwtProvider jwtProvider;
 
-    private String token;
+    private final Faker faker = new Faker();
 
-    /**
-     * Set up the JWT provider for testing.
-     *
-     * @BeforeEach
-     * @void
-     */
     @BeforeEach
     void setJwtProvider() {
         jwtProvider = new JwtProvider(
@@ -39,13 +35,12 @@ public class JwtProviderTest {
                 86400L,
                 "Authorization",
                 "RefreshToken");
-        token = jwtProvider.createAccessToken("miniyus@gmail.com");
     }
 
     @Test
     void createAccessTokenTest() {
-        String testEmail = "miniyus@gmail.com";
-        token = jwtProvider.createAccessToken(testEmail);
+        String testEmail = faker.internet().safeEmailAddress();
+        String token = jwtProvider.createAccessToken(testEmail);
 
         assertNotNull(token, "failed to create access token");
         assertTrue(jwtProvider.isTokenValid(token), "failed to validate access token");
@@ -58,7 +53,7 @@ public class JwtProviderTest {
      */
     @Test
     void createRefreshTokenTest() {
-        token = jwtProvider.createRefreshToken();
+        String token = jwtProvider.createRefreshToken();
         assertNotNull(token, "failed to create refresh token");
         assertTrue(jwtProvider.isTokenValid(token), "failed to validate refresh token");
     }
@@ -66,12 +61,10 @@ public class JwtProviderTest {
     /**
      * Test case for the `isTokenValid` function.
      *
-     * @param paramName description of parameter
-     * @return description of return value
      */
     @Test
     void isTokenValidTest() {
-        token = "I'm a Token";
+        String token = "I'm a Token";
         assertFalse(jwtProvider.isTokenValid(token), "failed to validate invalid token, this is not a token");
     }
 
@@ -82,12 +75,12 @@ public class JwtProviderTest {
      * extracts the expiration date from a JWT token and ensures that the
      * extracted date is not null and is in the future.
      *
-     * @param None
-     * @return None
      */
     @Test
     void extractTokenExpiresTest() {
-        Date expDate = jwtProvider.extractExpiresAt(token).get();
+        String email = faker.internet().safeEmailAddress();
+        String token = jwtProvider.createAccessToken(email);
+        Date expDate = jwtProvider.extractExpiresAt(token).orElse(null);
         assertNotNull(expDate);
         assertTrue(expDate.getTime() > new Date().getTime());
     }
@@ -100,8 +93,10 @@ public class JwtProviderTest {
      */
     @Test
     void extractEmailTest() {
-        String email = jwtProvider.extractEmail(token).get();
-        assertNotNull(email);
-        assertEquals("miniyus@gmail.com", email);
+        String email = faker.internet().safeEmailAddress();
+        String token = jwtProvider.createAccessToken(email);
+        String extractEmail = jwtProvider.extractEmail(token).orElse(null);
+        assertNotNull(extractEmail);
+        assertEquals(extractEmail, email);
     }
 }

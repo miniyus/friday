@@ -1,4 +1,4 @@
-package com.miniyus.friday.integration.api.adapter.out.persistence;
+package com.miniyus.friday.integration.api.users.adapter.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import java.time.LocalDateTime;

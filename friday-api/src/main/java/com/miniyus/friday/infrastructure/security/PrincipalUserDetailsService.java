@@ -50,12 +50,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return entity.getRole();
-            }
-        });
+        authorities.add((GrantedAuthority) entity::getRole);
 
         return authorities;
     };
@@ -70,9 +65,10 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .name(userInfo.name())
                 .role(userInfo.role())
                 .build();
-        entity = userRepository.save(entity);
 
-        return buildPrincipalUserInfo(entity);
+        return buildPrincipalUserInfo(
+            userRepository.save(entity)
+        );
     }
 
     @Override

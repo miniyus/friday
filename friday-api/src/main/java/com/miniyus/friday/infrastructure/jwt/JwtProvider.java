@@ -19,11 +19,12 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
     public static final String ACCESS_TOKEN_SUBJECT = "accessToken";
     public static final String REFRESH_TOKEN_SUBJECT = "refreshToken";
     public static final String EMAIL_CLAIM = "email";
-    public static final String BEARER = "Bearer ";
+    public static final String BEARER = "Bearer";
 
     public String createAccessToken(String email) {
         Date now = new Date();
-        return JWT.create().withSubject(ACCESS_TOKEN_SUBJECT)
+        return JWT.create()
+            .withSubject(ACCESS_TOKEN_SUBJECT)
             .withExpiresAt(new Date(now.getTime() + (accessTokenExpiration * 1000))) // 토큰 만료 시간
             // 설정
             // 클레임으로는 저희는 email 하나만 사용합니다.
@@ -39,7 +40,8 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
      */
     public String createRefreshToken() {
         Date now = new Date();
-        return JWT.create().withSubject(REFRESH_TOKEN_SUBJECT)
+        return JWT.create()
+            .withSubject(REFRESH_TOKEN_SUBJECT)
             .withExpiresAt(new Date(now.getTime() + (refreshTokenExpiration * 1000)))
             .sign(Algorithm.HMAC512(secret));
     }
@@ -51,7 +53,10 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         return Optional.ofNullable(request.getHeader(accessTokenKey))
             .filter(refreshToken -> refreshToken.startsWith(BEARER))
-            .map(refreshToken -> refreshToken.replace(BEARER, ""));
+            .map(refreshToken -> refreshToken
+                .replace(BEARER, "")
+                .trim()
+            );
     }
 
     /**

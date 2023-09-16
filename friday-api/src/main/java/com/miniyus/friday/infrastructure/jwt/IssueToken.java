@@ -15,6 +15,7 @@ import java.io.Serializable;
     "refreshTokenKey"
 })
 public record IssueToken(
+        String tokenType,
         String accessTokenKey,
         String accessToken,
         Long expiresIn,

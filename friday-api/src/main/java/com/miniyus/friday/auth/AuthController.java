@@ -1,26 +1,16 @@
 package com.miniyus.friday.auth;
 
-import com.miniyus.friday.common.error.AuthErrorCode;
-import com.miniyus.friday.common.error.RestErrorCode;
-import com.miniyus.friday.common.error.RestErrorException;
-import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
-import com.miniyus.friday.infrastructure.jwt.JwtService;
-import com.miniyus.friday.infrastructure.jwt.config.JwtConfiguration;
-import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.miniyus.friday.infrastructure.security.config.SecurityConfiguration;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * Signup Controller
@@ -30,12 +20,8 @@ import java.util.Map;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1")
 public class AuthController {
-    private final CustomUserDetailsService userDetailsService;
-    private final JwtService jwtService;
-    private final JwtConfiguration jwtConfiguration;
-    private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
 
     /**
      * Creates a new user account by signing up.
@@ -43,60 +29,37 @@ public class AuthController {
      * @param authentication the user authentication information
      * @return the principal user info of the newly created user
      */
-    @PostMapping("/auth/signup")
+    @PostMapping(SecurityConfiguration.SIGNUP_URL)
     public ResponseEntity<PrincipalUserInfo> signup(
         @Valid @RequestBody PasswordUserInfo authentication) {
-        try {
-            userDetailsService.setPasswordEncoder(passwordEncoder);
-            var user = userDetailsService.create(authentication);
+        var user = authService.signup(authentication);
 
-            return ResponseEntity.created(null).body(user);
-        } catch (Throwable throwable) {
-            throw new RestErrorException("error.userExists", RestErrorCode.CONFLICT);
-        }
+        ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
+        builder.path("/v1/auth/me");
+        var uri = builder.build().toUri();
+
+        return ResponseEntity.created(uri).body(user);
     }
 
-    /**
-     * Retrieves the JWT configuration details.
-     *
-     * @return A ResponseEntity containing a map with the access, and refresh values of the JWT
-     * configuration.
-     */
-    @GetMapping("/auth/jwt-config")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Map<String, Object>> jwtTest() {
-        Map<String, Object> resMap = new HashMap<String, Object>();
-        resMap.put("access", jwtConfiguration.getAccess());
-        resMap.put("refresh", jwtConfiguration.getRefresh());
-
-        return ResponseEntity.ok().body(resMap);
-    }
-
-    @PostMapping("/auth/refresh")
-    public ResponseEntity<IssueToken> refresh(@RequestBody String refreshToken) {
-        UserEntity user = jwtService.getUserByRefreshToken(refreshToken).orElse(null);
-        if (user == null) {
-            throw new RestErrorException(
-                "error.userNotFound",
-                AuthErrorCode.ACCESS_DENIED
-            );
-        }
-
-        var tokens = jwtService.issueToken(user.getId());
-
+    @PostMapping(SecurityConfiguration.REFRESH_URL)
+    public ResponseEntity<IssueToken> refresh(@RequestHeader(name = "RefreshToken") String refreshToken) {
+        var tokens = authService.refresh(refreshToken);
         return ResponseEntity
             .created(null)
             .body(tokens);
     }
 
-    @GetMapping("/auth/me")
+    @GetMapping(SecurityConfiguration.USERINFO_URL)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<PrincipalUserInfo> userInfo() {
-        var userInfo = (PrincipalUserInfo) SecurityContextHolder
-            .getContext()
-            .getAuthentication()
-            .getPrincipal();
-
+        var userInfo = authService.userInfo();
         return ResponseEntity.ok(userInfo);
+    }
+
+    @PostMapping(SecurityConfiguration.LOGOUT_URL)
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void revokeToken() {
+        authService.revokeToken();
     }
 }

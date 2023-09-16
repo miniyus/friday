@@ -1,8 +1,7 @@
 package com.miniyus.friday.infrastructure.jpa.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.miniyus.friday.infrastructure.jpa.entities.AccessTokenEntity;
-
+import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 /**
@@ -11,6 +10,8 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface AccessTokenRepository extends JpaRepository<AccessTokenEntity, Long> {
+public interface AccessTokenRepository extends CrudRepository<AccessTokenEntity, String> {
     Optional<AccessTokenEntity> findByToken(String token);
+
+    Optional<AccessTokenEntity> findByUserId(String userId);
 }

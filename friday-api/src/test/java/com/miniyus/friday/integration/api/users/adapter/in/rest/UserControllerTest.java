@@ -1,4 +1,4 @@
-package com.miniyus.friday.integration.api.adapter.in.rest;
+package com.miniyus.friday.integration.api.users.adapter.in.rest;
 
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentRequest;
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResponse;
@@ -78,7 +78,6 @@ public class UserControllerTest {
     @MockBean
     private DeleteUserUsecase deleteUserUsecase;
 
-    @MockBean
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @BeforeEach
@@ -92,7 +91,7 @@ public class UserControllerTest {
         User domain = new User(
                 1L,
                 "tester@gmail.com",
-                "password@1234",
+                passwordEncoder.encode("password@1234"),
                 "tester",
                 "USER",
                 null,
@@ -121,7 +120,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.email").value(response.email()))
                 .andExpect(jsonPath("$.name").value(response.name()))
                 .andExpect(jsonPath("$.role").value(response.role()))
-                .andExpect(jsonPath("$.snsId").value(response.id()))
+                .andExpect(jsonPath("$.snsId").value(response.snsId()))
                 .andExpect(jsonPath("$.provider").value(response.provider()))
                 .andExpect(jsonPath("$.createdAt").isNotEmpty())
                 .andExpect(jsonPath("$.updatedAt").isNotEmpty())

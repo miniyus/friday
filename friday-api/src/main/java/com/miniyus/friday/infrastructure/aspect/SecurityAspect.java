@@ -34,7 +34,7 @@ public class SecurityAspect extends LoggingAspect {
     }
 
     @AfterReturning(pointcut = "oAuth2Point()", returning = "returnValue")
-    public void afterOAuth2(JoinPoint joinPoint, Object returnValue) {
+    public void afterOAuth2Retuning(JoinPoint joinPoint, Object returnValue) {
         afterReturningLogging("OAuth2", joinPoint, returnValue);
     }
 

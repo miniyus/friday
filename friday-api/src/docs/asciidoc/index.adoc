@@ -73,6 +73,20 @@ include::{snippets}/auth-userInfo/response-fields.adoc[]
 ===== Http Response
 include::{snippets}/auth-userInfo/http-response.adoc[]
 
+=== logout
+
+==== Request
+// include::{snippets}/auth-userInfo/request-fields.adoc[]
+
+===== Http Request
+include::{snippets}/auth-logout/http-request.adoc[]
+
+==== Response
+// include::{snippets}/auth-logout/response-fields.adoc[]
+
+===== Http Response
+include::{snippets}/auth-logout/http-response.adoc[]
+
 
 [[users-API]]
 == Users API

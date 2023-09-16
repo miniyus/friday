@@ -2,6 +2,7 @@ package com.miniyus.friday.integration.auth;
 
 import com.github.javafaker.Faker;
 import com.miniyus.friday.auth.AuthController;
+import com.miniyus.friday.auth.AuthService;
 import com.miniyus.friday.infrastructure.jpa.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserService;
@@ -35,6 +36,7 @@ import com.miniyus.friday.infrastructure.jwt.config.JwtConfiguration;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
+
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentRequest;
 import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
@@ -95,6 +97,9 @@ public class AuthControllerTest {
     @MockBean
     private OAuth2AccessDeniedHandler oauth2AccessDeniedHandler;
 
+    @MockBean
+    private AuthService authService;
+
     @Test
     @WithMockCustomUser
     public void signupTest() throws Exception {
@@ -106,12 +111,12 @@ public class AuthControllerTest {
             .role("USER")
             .build();
 
-//        when(passwordEncoder.encode(request.password())).thenReturn("password@1234");
+        //        when(passwordEncoder.encode(request.password())).thenReturn("password@1234");
 
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
-        when(userDetailsService.create(any(PasswordUserInfo.class))).thenReturn(
-            PrincipalUserInfo.builder()
+
+        var returnUserInfo = PrincipalUserInfo.builder()
                 .id(1L)
                 .snsId(null)
                 .username(request.email())
@@ -125,14 +130,19 @@ public class AuthControllerTest {
                 .provider(null)
                 .authorities(testAuthority)
                 .role(request.role())
-                .build());
+                .build();
+
+        when(userDetailsService.create(any(PasswordUserInfo.class))).thenReturn(returnUserInfo);
         var tokens = new IssueToken(
+            "Bearer",
             "accessToken",
             "access",
             3600L,
             "refreshToken",
             "refresh");
         when(jwtService.issueToken(1L)).thenReturn(tokens);
+
+        when(authService.signup(any())).thenReturn(returnUserInfo);
 
         ResultActions result = this.mockMvc.perform(
             post("/v1/auth/signup")
@@ -206,6 +216,7 @@ public class AuthControllerTest {
         when(userDetailsService.loadUserByUsername(any())).thenReturn(
             principal);
         var tokens = new IssueToken(
+            "Bearer",
             "Authorization",
             "{accessToken}",
             3600L,
@@ -241,10 +252,9 @@ public class AuthControllerTest {
                     fieldWithPath("email").description("email"),
                     fieldWithPath("name").description("name"),
                     fieldWithPath("tokens").description("tokens"),
-                    fieldWithPath("tokens.accessTokenKey").description("accessTokenKey"),
+                    fieldWithPath("tokens.tokenType").description("tokenType"),
                     fieldWithPath("tokens.accessToken").description("accessToken"),
                     fieldWithPath("tokens.expiresIn").description("expiresIn"),
-                    fieldWithPath("tokens.refreshTokenKey").description("refreshTokenKey"),
                     fieldWithPath("tokens.refreshToken").description("refreshToken"))));
 
     }
@@ -256,6 +266,7 @@ public class AuthControllerTest {
         var fakeAccessToken = faker.internet().uuid();
         var fakeRefreshToken = faker.internet().uuid();
         var tokens = new IssueToken(
+            "Bearer",
             "accessToken",
             fakeAccessToken,
             3600L,
@@ -278,14 +289,17 @@ public class AuthControllerTest {
         when(jwtService.getUserByRefreshToken(any())).thenReturn(
             Optional.of(user));
 
+        when(authService.refresh(any())).thenReturn(tokens);
+
         var result = this.mockMvc.perform(
             post("/v1/auth/refresh")
                 .with(csrf())
-                .content("{\"refreshToken\":\"" + fakeRefreshToken + "\"}")
+                .header("RefreshToken",fakeRefreshToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
 
         result.andExpect(status().isCreated())
+            .andExpect(jsonPath("$.tokenType").value("Bearer"))
             .andExpect(jsonPath("$.accessToken").isNotEmpty())
             .andExpect(jsonPath("$.expiresIn").value(3600L))
             .andExpect(jsonPath("$.refreshToken").isNotEmpty())
@@ -293,19 +307,43 @@ public class AuthControllerTest {
                 "auth-refresh",
                 getDocumentRequest(),
                 getDocumentResponse(),
-                requestFields(
-                    fieldWithPath("refreshToken").description("refreshToken")),
                 responseFields(
-                    fieldWithPath("accessTokenKey").description("accessTokenKey"),
+                    fieldWithPath("tokenType").description("tokenType"),
                     fieldWithPath("accessToken").description("accessToken"),
                     fieldWithPath("expiresIn").description("expiresIn"),
-                    fieldWithPath("refreshTokenKey").description("refreshTokenKey"),
                     fieldWithPath("refreshToken").description("refreshToken"))));
     }
 
     @Test
     @WithMockCustomUser
     public void userInfoTest() throws Exception {
+        var faker = new Faker();
+        var signinInfo = new PasswordAuthentication(
+            faker.internet().emailAddress(),
+            faker.internet().password());
+
+        var testAuthority = new ArrayList<GrantedAuthority>();
+        testAuthority.add(new SimpleGrantedAuthority("USER"));
+
+        var fakeName = faker.name().fullName();
+
+        var principal = PrincipalUserInfo.builder()
+            .id(1L)
+            .accountNonExpired(true)
+            .accountNonLocked(true)
+            .attributes(null)
+            .authorities(testAuthority)
+            .credentialsNonExpired(true)
+            .enabled(true)
+            .name(fakeName)
+            .role("USER")
+            .provider(null)
+            .snsId(null)
+            .username(signinInfo.username())
+            .password(passwordEncoder.encode(signinInfo.password()))
+            .build();
+
+        when(authService.userInfo()).thenReturn(principal);
         var result = this.mockMvc.perform(
             get("/v1/auth/me")
                 .with(csrf())
@@ -340,6 +378,23 @@ public class AuthControllerTest {
                     fieldWithPath("authorities[].authority")
                         .description("authority")
                 )
+            ));
+    }
+
+    @Test
+    @WithMockCustomUser
+    public void logoutTest() throws Exception {
+        var result = this.mockMvc.perform(
+            post("/v1/auth/logout")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isNoContent())
+            .andDo(MockMvcRestDocumentation.document(
+                "auth-logout",
+                getDocumentRequest(),
+                getDocumentResponse()
             ));
     }
 }

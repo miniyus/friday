@@ -13,5 +13,5 @@
 ## Structure
 
 -   adapter: infrastructure layer -> application layer
--   applicatoin: control data flow in business domain
+-   application: control data flow in business domain
 -   domain: business logic and domain data

@@ -3,7 +3,6 @@ package com.miniyus.friday.unit.infrastructure.jwt;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import java.time.LocalDateTime;
 import java.util.Optional;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.jpa.entities.AccessTokenEntity;
@@ -47,13 +46,11 @@ public class JwtServiceTest {
 
     private UserEntity testUser;
 
-    private Faker faker = new Faker();
+    private final Faker faker = new Faker();
 
     /**
      * Set up the test environment before each test case.
      *
-     * @param paramName description of parameter
-     * @return description of return value
      */
     @BeforeEach
     void setUp() {
@@ -83,49 +80,52 @@ public class JwtServiceTest {
     /**
      * A test for the issueToken method.
      *
-     * @param paramName description of parameter
-     * @return description of return value
      */
     @Test
     void issueTokenTest() {
         // If user repository calls findByEmail, specify the return value as arbitrary test data
-        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(Optional.of(testUser));
+        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(Optional.of(new UserEntity(
+            1L,
+            null,
+            null,
+            testUser.getEmail(),
+            testUser.getPassword(),
+            testUser.getName(),
+            testUser.getRole(),
+            testUser.getDeletedAt()
+        )));
 
         var testAccessToken = AccessTokenEntity.builder()
-            .token(faker.internet().uuid())
+            .token(jwtProvider.createAccessToken(testUser.getEmail()))
             .expiration(3600L)
-            .expiresAt(LocalDateTime.of(2024, 1, 1, 0, 0))
             .type(JwtProvider.BEARER)
-            .userId(testUser.getId())
+            .userId(1L)
             .build();
 
         when(accessTokenRepository.save(any())).thenReturn(
             new AccessTokenEntity(
-                1L,
+                "1",
                 JwtProvider.BEARER,
                 testAccessToken.getToken(),
-                testAccessToken.getExpiresAt(),
-                testAccessToken.getExpiration(),
-                testAccessToken.getUserId()
+                testAccessToken.getUserId(),
+                testAccessToken.getExpiration()
             )
         );
 
         var testRefreshToken = RefreshTokenEntity.builder()
-            .token(faker.internet().uuid())
+            .token(jwtProvider.createRefreshToken())
             .expiration(3600L)
-            .expiresAt(LocalDateTime.of(2024, 1, 1, 0, 0))
             .type(JwtProvider.BEARER)
-            .accessTokenId(testAccessToken.getId())
+            .accessTokenId("1")
             .build();
 
         when(refreshTokenRepository.save(any())).thenReturn(
             new RefreshTokenEntity(
-                1L,
+                "1",
                 JwtProvider.BEARER,
                 testRefreshToken.getToken(),
-                testRefreshToken.getExpiresAt(),
-                testRefreshToken.getExpiration(),
-                testRefreshToken.getAccessTokenId()
+                testRefreshToken.getAccessTokenId(),
+                testRefreshToken.getExpiration()
             )
         );
 
@@ -136,21 +136,26 @@ public class JwtServiceTest {
         // just null check
         assertThat(tokens)
             .isNotNull()
+            .hasFieldOrProperty("tokenType")
             .hasFieldOrProperty("accessToken")
             .hasFieldOrProperty("expiresIn")
             .hasFieldOrProperty("refreshToken");
 
         // jwt token validations
-        //        assertTrue(jwtProvider.isTokenValid(accessToken), "failed to validate access token");
-        //        assertTrue(jwtProvider.isTokenValid(refreshToken), "failed to validate refresh token");
-        //        var extractEmail = jwtProvider.extractEmail(accessToken).orElse(null);
+        assertThat(jwtProvider.isTokenValid(accessToken)).isTrue();
+        assertThat(jwtProvider.isTokenValid(refreshToken)).isTrue();
+        var extractEmail = jwtProvider.extractEmail(accessToken).orElse(null);
         // check extracted email from access token
-        //        assertEquals(testUser.getEmail(), extractEmail);
+        assertThat(extractEmail)
+            .isNotNull()
+            .isEqualTo(testUser.getEmail());
 
         /**
          * Verify that the expiration date of the access token. 
          * * check injected into the JWT Provider matches the expiration date of the issued access token
          */
-//        assertEquals(3600L, (long) tokens.expiresIn());
+        assertThat(jwtProvider.extractExpiresAt(accessToken))
+            .isNotNull()
+            .isEqualTo(jwtProvider.extractExpiresAt(testAccessToken.getToken()));
     }
 }

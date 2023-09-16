@@ -44,6 +44,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     public static final String LOGIN_URL = "/v1/auth/signin";
+    public static final String USERINFO_URL = "/v1/auth/me";
     public static final String LOGOUT_URL = "/v1/auth/logout";
     public static final String SIGNUP_URL = "/v1/auth/signup";
     public static final String REFRESH_URL = "/v1/auth/refresh";

@@ -127,7 +127,7 @@ public class UserServiceTest {
     @Test
     void updateUser() throws Exception {
         var testDomain = testDomains.get(0);
-        when(updateUserPort.findById(1L)).thenReturn(testDomain);
+        when(updateUserPort.findById(any())).thenReturn(testDomain);
 
         var testOrigin = testDomains.get(0);
 

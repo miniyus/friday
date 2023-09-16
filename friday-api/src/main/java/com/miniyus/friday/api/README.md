@@ -2,4 +2,5 @@
 
 ## Domains
 
--   [Users](api/users/README.md/users/README.md)
+-   [Users](users/README.md)
+-   [Hosts](hosts//README.md)

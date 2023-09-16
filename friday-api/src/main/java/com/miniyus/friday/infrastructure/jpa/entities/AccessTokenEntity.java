@@ -1,12 +1,11 @@
 package com.miniyus.friday.infrastructure.jpa.entities;
 
-import java.time.LocalDateTime;
-import com.miniyus.friday.infrastructure.jpa.BaseEntity;
-import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
@@ -20,37 +19,34 @@ import org.springframework.data.redis.core.index.Indexed;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash("accessToken")
-public class AccessTokenEntity extends BaseEntity {
+@RedisHash("access_token")
+public class AccessTokenEntity {
     @Id
-    private Long id;
+    @GeneratedValue
+    private String id;
 
     private String type;
 
     @Indexed
     private String token;
 
-    private LocalDateTime expiresAt;
+    @Indexed
+    private String userId;
 
     @TimeToLive
     private Long expiration;
 
-    @Indexed
-    private Long userId;
-
     /**
-     *
-     * @param type token type, ex: Bearer
-     * @param token token
-     * @param expiration  token expiration seconds
-     * @param userId user id
+     * @param type       token type, ex: Bearer
+     * @param token      token
+     * @param expiration token expiration seconds
+     * @param userId     user id
      */
     @Builder
-    public AccessTokenEntity(String type, String token, LocalDateTime expiresAt,Long expiration, Long userId) {
+    public AccessTokenEntity(String type, String token, Long userId, Long expiration) {
         this.type = type;
         this.token = token;
-        this.expiresAt = expiresAt;
+        this.userId = userId.toString();
         this.expiration = expiration;
-        this.expiresAt = LocalDateTime.now();
     }
 }

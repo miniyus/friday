@@ -133,7 +133,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         var principal = (PrincipalUserInfo) userDetailsService.loadUserByUsername(user.getEmail());
 
         var password = user.getPassword();
-        if (principal.isSnsUser() && (password == null || password.trim().isEmpty())) {
+        if (principal.isSnsUser() && (password == null)) {
             // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
             long now = Instant.now().getEpochSecond();
             password = String.format("%s-%s", user.getSnsId(), now);

@@ -1,8 +1,7 @@
 package com.miniyus.friday.infrastructure.jpa.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.miniyus.friday.infrastructure.jpa.entities.RefreshTokenEntity;
-
+import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 /**
@@ -11,7 +10,7 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity, Long> {
+public interface RefreshTokenRepository extends CrudRepository<RefreshTokenEntity, String> {
     /**
      * Finds a RefreshTokenEntity object by its token value.
      *
@@ -19,4 +18,6 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshTokenEntity
      * @return the RefreshTokenEntity object found, or null if not found
      */
     Optional<RefreshTokenEntity> findByToken(String token);
+
+    Optional<RefreshTokenEntity> findByAccessTokenId(String accessTokenId);
 }

@@ -36,14 +36,14 @@ public class ErrorResponseTest {
 
         details.put("field1", field1List);
 
-        ErrorResponse tsetResponse = new ErrorResponse(
+        ErrorResponse testResponse = new ErrorResponse(
                 RestErrorCode.INTERNAL_SERVER_ERROR,
                 "testMessage",
                 details);
-        assertThat(json.write(tsetResponse))
-                .hasJsonPathStringValue("@.timestamp")
-                .hasJsonPathStringValue("@.error")
-                .hasJsonPathStringValue("@.message")
-                .hasJsonPathStringValue("@.details.field1[0]");
+        assertThat(json.write(testResponse))
+                .hasJsonPathStringValue("$.timestamp")
+                .hasJsonPathStringValue("$.error")
+                .hasJsonPathStringValue("$.message")
+                .hasJsonPathStringValue("$.details.field1[0]");
     }
 }

@@ -5,6 +5,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import com.miniyus.friday.archunit.HexagonalArchitecture;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
@@ -16,13 +19,14 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
  * @date 2023/09/10
  */
 public class DependencyRuleTests {
+    static Logger log = LoggerFactory.getLogger(DependencyRuleTests.class);
     static List<String> packages;
     static String HEXAGONAL_ROOT = "com.miniyus.friday.api";
 
     @BeforeAll
     public static void setPackages() {
         packages = PackageParseUtil.setPackages(HEXAGONAL_ROOT);
-        System.out.println(packages);
+        packages.forEach(log::debug);
     }
 
 
