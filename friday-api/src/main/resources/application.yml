@@ -24,8 +24,12 @@ spring:
             pageable:
                 one-indexed-parameters: true
     redis:
-        host: ${REDIS_HOST:localhost}
-        port: ${REDIS_PORT:6379}
+        pool:
+            min-idle: 0
+            max-idle: 8
+            max-active: 8
+        host: 127.0.0.1
+        port: 6379
     messages:
         basename: i18n/messages
         encoding: UTF-8

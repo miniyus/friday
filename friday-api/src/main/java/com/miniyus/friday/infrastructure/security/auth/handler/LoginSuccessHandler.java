@@ -23,9 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    @Value("${jwt.access.expiration}")
-    private String accessTokenExpiration;
-
     private final JwtService jwtService;
     private final AuthResponseHandler responseHandler;
 

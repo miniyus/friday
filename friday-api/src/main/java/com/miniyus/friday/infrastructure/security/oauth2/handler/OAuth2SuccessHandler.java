@@ -1,7 +1,5 @@
 package com.miniyus.friday.infrastructure.security.oauth2.handler;
 
-import java.io.IOException;
-
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -29,7 +27,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-        Authentication authentication) throws IOException {
+        Authentication authentication) {
         log.debug("OAuth2 Login 성공!");
 
         if (response.isCommitted()) {
@@ -37,13 +35,9 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
             return;
         }
 
-        try {
-            PrincipalUserInfo oAuth2User = (PrincipalUserInfo) authentication.getPrincipal();
+        PrincipalUserInfo oAuth2User = (PrincipalUserInfo) authentication.getPrincipal();
 
-            issueToken(response, oAuth2User);
-        } catch (Exception e) {
-            throw e;
-        }
+        issueToken(response, oAuth2User);
     }
 
     private void issueToken(HttpServletResponse response, PrincipalUserInfo oAuth2User) {

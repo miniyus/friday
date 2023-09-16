@@ -19,6 +19,10 @@ spring:
                     lob:
                         non_contextual_creation: true
     redis:
+        pool:
+            min-idle: 0
+            max-idle: 8
+            max-active: 8
         host: ${REDIS_HOST:localhost}
         port: ${REDIS_PORT:6379}
     messages:

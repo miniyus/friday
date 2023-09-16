@@ -14,6 +14,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
+import org.springframework.data.redis.core.index.Indexed;
 
 /**
  * Refresh Token Entity
@@ -21,48 +24,40 @@ import lombok.NoArgsConstructor;
  * @author miniyus
  * @date 2023/09/02
  */
-@Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Where(clause = "revoked = false")
-@Table(name = "refresh_token")
+@RedisHash("refreshToken")
 public class RefreshTokenEntity extends BaseEntity {
     @Id
-    @GeneratedValue
     private Long id;
 
     private String type;
 
+    @Indexed
     private String token;
 
     private LocalDateTime expiresAt;
 
-    private boolean revoked;
+    @TimeToLive
+    private Long expiration;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "access_token_id")
-    private AccessTokenEntity accessToken;
+    @Indexed
+    private Long accessTokenId;
 
     /**
-     * @param type
-     * @param token
-     * @param expiresAt
+     *
+     * @param type type
+     * @param token token
+     * @param expiration expiration seconds
+     * @param accessTokenId access token id
      */
     @Builder
-    public RefreshTokenEntity(String type, String token, LocalDateTime expiresAt) {
+    public RefreshTokenEntity(String type, String token,LocalDateTime expiresAt,Long expiration, Long accessTokenId) {
         this.type = type;
         this.token = token;
         this.expiresAt = expiresAt;
-    }
-
-    /**
-     * Revoke the access of the function.
-     *
-     * @param None
-     * @return None
-     */
-    public void revoke() {
-        this.revoked = true;
+        this.expiration = expiration;
+        this.accessTokenId = accessTokenId;
     }
 }

@@ -16,10 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public record JwtProvider(String secret, Long accessTokenExpiration, Long refreshTokenExpiration,
                           String accessTokenKey, String refreshTokenKey) {
-    private static final String ACCESS_TOKEN_SUBJECT = "accessToken";
-    private static final String REFRESH_TOKEN_SUBJECT = "refreshToken";
-    private static final String EMAIL_CLAIM = "email";
-    private static final String BEARER = "Bearer ";
+    public static final String ACCESS_TOKEN_SUBJECT = "accessToken";
+    public static final String REFRESH_TOKEN_SUBJECT = "refreshToken";
+    public static final String EMAIL_CLAIM = "email";
+    public static final String BEARER = "Bearer ";
 
     public String createAccessToken(String email) {
         Date now = new Date();
@@ -67,7 +67,7 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
                 .getClaim(EMAIL_CLAIM) // claim(Emial) 가져오기
                 .asString());
         } catch (Exception e) {
-            log.error("액세스 토큰이 유효하지 않습니다.");
+            log.error("Failed extract email, invalid JWT Token");
             return Optional.empty();
         }
     }
@@ -80,7 +80,7 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
                 .verify(accessToken) // accessToken을 검증하고 유효하지 않다면 예외 발생
                 .getExpiresAt());
         } catch (Exception e) {
-            log.error("액세스 토큰이 유효하지 않습니다.");
+            log.error("Failed extract expiresAt, invalid JWT Token");
             return Optional.empty();
         }
     }
@@ -90,7 +90,7 @@ public record JwtProvider(String secret, Long accessTokenExpiration, Long refres
             JWT.require(Algorithm.HMAC512(secret)).build().verify(token);
             return true;
         } catch (Exception e) {
-            log.error("not invalid token {}", e.getMessage());
+            log.error("invalid token: {}", e.getMessage());
             return false;
         }
     }
