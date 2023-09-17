@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
