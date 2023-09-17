@@ -49,7 +49,7 @@ public class AuthResponseHandler {
 
         String jsonBody = objectMapper.writeValueAsString(tokenResponse);
         response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.CREATED.value());
+        response.setStatus(HttpStatus.OK.value());
         response.getWriter().write(jsonBody);
     }
 
@@ -57,7 +57,7 @@ public class AuthResponseHandler {
         HttpServletResponse response,
         IssueToken token
     ) {
-        response.setStatus(HttpStatus.CREATED.value());
+        response.setStatus(HttpStatus.OK.value());
         response.setHeader(token.accessTokenKey(), "Bearer " + token.accessToken());
         response.setHeader(token.refreshTokenKey(), "Bearer " + token.refreshToken());
     }
@@ -74,7 +74,7 @@ public class AuthResponseHandler {
 
         String jsonBody = objectMapper.writeValueAsString(tokenResponse);
         response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.CREATED.value());
+        response.setStatus(HttpStatus.OK.value());
         response.getWriter().write(jsonBody);
     }
 }

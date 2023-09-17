@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
- * Signup Controller
+ * Auth Controller
  *
- * @author seongminyoo
+ * @author miniyus
  * @date 2023/09/04
  */
 @RestController
@@ -32,21 +32,31 @@ public class AuthController {
     @PostMapping(SecurityConfiguration.SIGNUP_URL)
     public ResponseEntity<PrincipalUserInfo> signup(
         @Valid @RequestBody PasswordUserInfo authentication) {
+        // Call the authService.signup() method to sign up the user and get the user information
         var user = authService.signup(authentication);
 
+        // Build the URI for the /v1/auth/me endpoint
         ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
         builder.path("/v1/auth/me");
         var uri = builder.build().toUri();
 
+        // Return a ResponseEntity with the created URI and the user information
         return ResponseEntity.created(uri).body(user);
     }
 
+    /**
+     * Refreshes the access token using the provided refresh token.
+     *
+     * @param refreshToken The refresh token.
+     * @return The response entity containing the issued access token.
+     */
     @PostMapping(SecurityConfiguration.REFRESH_URL)
-    public ResponseEntity<IssueToken> refresh(@RequestHeader(name = "RefreshToken") String refreshToken) {
+    public ResponseEntity<IssueToken> refresh(
+        @RequestHeader(name = "RefreshToken") String refreshToken) {
+        // Call the authService to refresh the token
         var tokens = authService.refresh(refreshToken);
-        return ResponseEntity
-            .created(null)
-            .body(tokens);
+        // Create a response entity with the issued access token
+        return ResponseEntity.ok(tokens);
     }
 
     @GetMapping(SecurityConfiguration.USERINFO_URL)

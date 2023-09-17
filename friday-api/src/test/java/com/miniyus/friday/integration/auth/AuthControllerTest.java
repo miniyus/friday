@@ -226,7 +226,7 @@ public class AuthControllerTest {
                 .content(objectMapper.writeValueAsString(signinInfo))
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
-        result.andExpect(status().isCreated())
+        result.andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1L))
             .andExpect(jsonPath("$.email").value(signinInfo.email()))
             .andExpect(jsonPath("$.name").value(fakeName))
@@ -292,7 +292,7 @@ public class AuthControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON));
 
-        result.andExpect(status().isCreated())
+        result.andExpect(status().isOk())
             .andExpect(jsonPath("$.tokenType").value("Bearer"))
             .andExpect(jsonPath("$.accessToken").isNotEmpty())
             .andExpect(jsonPath("$.expiresIn").value(3600L))
