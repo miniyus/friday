@@ -59,5 +59,7 @@ public class HostRepositoryImpl implements QHostRepository {
             query.where(
                 hostEntity.updatedAt.between(filter.updatedAtStart(), filter.updatedAtEnd()));
         }
+
+        return query;
     }
 }

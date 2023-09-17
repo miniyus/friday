@@ -1,4 +1,4 @@
-package com.miniyus.friday.unit.api.service.users.application;
+package com.miniyus.friday.unit.api.users.application.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -95,8 +95,7 @@ public class UserServiceTest {
         assertThat(created)
                 .hasFieldOrPropertyWithValue("email", createUserCommand.email())
                 .hasFieldOrPropertyWithValue("name", createUserCommand.name())
-                .hasFieldOrPropertyWithValue("role", createUserCommand.role())
-                .hasFieldOrPropertyWithValue("password", createUserCommand.password());
+                .hasFieldOrPropertyWithValue("role", createUserCommand.role());
     }
 
     @Test
@@ -111,8 +110,7 @@ public class UserServiceTest {
                 .hasFieldOrPropertyWithValue("id", 1L)
                 .hasFieldOrPropertyWithValue("email", testDomain.getEmail())
                 .hasFieldOrPropertyWithValue("name", testDomain.getName())
-                .hasFieldOrPropertyWithValue("role", testDomain.getRole())
-                .hasFieldOrPropertyWithValue("password", testDomain.getPassword());
+                .hasFieldOrPropertyWithValue("role", testDomain.getRole());
     }
 
     @Test
@@ -129,8 +127,6 @@ public class UserServiceTest {
     @Test
     void updateUser() throws Exception {
         var testDomain = testDomains.get(0);
-        when(updateUserPort.findById(any())).thenReturn(Optional.of(testDomain));
-
         var testOrigin = testDomains.get(0);
 
         var testUpdate = new User(
@@ -148,6 +144,8 @@ public class UserServiceTest {
         testUpdate.patch("testUpdate", null);
 
         when(updateUserPort.updateUser(any(User.class))).thenReturn(testUpdate);
+        when(updateUserPort.findById(any())).thenReturn(Optional.of(testDomain));
+
         var request = UpdateUserRequest.builder()
                 .name("testUpdate")
                 .role("USER")

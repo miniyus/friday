@@ -60,14 +60,7 @@ public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPo
     @Override
     public Page<Host> findAll(Host.HostFilter host, Pageable pageable) {
         return hostRepository.findAll(
-            host.summary(),
-            host.description(),
-            host.path(),
-            host.userId(),
-            host.createdAtStart(),
-            host.createdAtEnd(),
-            host.updatedAtStart(),
-            host.updatedAtEnd(),
+            host,
             pageable
         ).map(mapper::toDomain);
     }

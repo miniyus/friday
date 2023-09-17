@@ -1,4 +1,4 @@
-package com.miniyus.friday.unit.api.service.hosts.application;
+package com.miniyus.friday.unit.api.hosts.application.service;
 
 import com.github.javafaker.Faker;
 import com.miniyus.friday.api.hosts.application.port.in.HostResource;
@@ -25,7 +25,6 @@ import org.springframework.data.domain.Sort;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.IntStream;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
