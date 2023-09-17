@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long>, QUserRepository {
     /**
      * Finds a user entity by email.
      *
@@ -40,21 +40,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * @return true if the email exists, false otherwise
      */
     boolean existsByEmail(String email);
-
-    @Query(value = "select u from auth_user u "
-        + "WHERE (u.email = :email OR :email IS NULL) "
-        + "AND (u.name = :name OR :name IS NULL) "
-        + "AND (:createdAtStart IS NULL OR :createdAtEnd IS NULL "
-        + "OR u.createdAt BETWEEN :createdAtStart AND :createdAtEnd) "
-        + "AND (:updatedAtStart IS NULL OR :updatedAtEnd IS NULL "
-        + "OR u.updatedAt BETWEEN :updatedAtStart AND :updatedAtEnd)", nativeQuery = true)
-    Page<UserEntity> findAll(
-            @Param("email") String email,
-            @Param("name") String name,
-            @Param("createdAtStart") LocalDateTime createdAtStart,
-            @Param("createdAtEnd") LocalDateTime createdAtEnd,
-            @Param("updatedAtStart") LocalDateTime updatedAtStart,
-            @Param("updatedAtEnd") LocalDateTime updatedAtEnd,
-            Pageable pageable);
 
 }

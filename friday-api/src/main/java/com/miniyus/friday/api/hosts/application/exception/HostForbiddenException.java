@@ -5,7 +5,7 @@ import com.miniyus.friday.common.error.RestErrorException;
 
 public class HostForbiddenException extends RestErrorException {
     public HostForbiddenException() {
-        super("error.host.forbidden", RestErrorCode.FORBIDDEN);
+        super("error.forbidden", RestErrorCode.FORBIDDEN);
     }
 }
 

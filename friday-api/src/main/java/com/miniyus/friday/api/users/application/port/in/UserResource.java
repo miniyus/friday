@@ -1,4 +1,4 @@
-package com.miniyus.friday.api.users.adapter.in.rest;
+package com.miniyus.friday.api.users.application.port.in;
 
 import com.miniyus.friday.api.users.domain.User;
 import java.io.Serializable;

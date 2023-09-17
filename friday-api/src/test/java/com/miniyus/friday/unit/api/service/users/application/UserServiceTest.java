@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import com.miniyus.friday.api.users.application.port.in.UserResource;
 import com.miniyus.friday.api.users.application.port.in.usecase.UpdateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,7 +90,7 @@ public class UserServiceTest {
 
         when(createUserPort.createUser(any())).thenReturn(testDomain);
 
-        User created = userService.createUser(createUserCommand);
+        UserResource created = userService.createUser(createUserCommand);
 
         assertThat(created)
                 .hasFieldOrPropertyWithValue("email", createUserCommand.email())
@@ -103,7 +104,7 @@ public class UserServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveUserPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        User retrieved = userService.findById(1L);
+        UserResource retrieved = userService.findById(1L);
 
         assertThat(retrieved)
                 .isNotNull()
@@ -118,7 +119,7 @@ public class UserServiceTest {
     void retrieveUsers() throws Exception {
         when(retrieveUserPort.findAll()).thenReturn(testDomains);
 
-        Collection<User> retrieved = userService.findAll();
+        Collection<UserResource> retrieved = userService.findAll();
 
         assertThat(retrieved.size())
             .isNotEqualTo(0)
@@ -152,7 +153,7 @@ public class UserServiceTest {
                 .role("USER")
                 .build();
 
-        User updated = userService.patchUser(testOrigin.getId(),request);
+        UserResource updated = userService.patchUser(testOrigin.getId(),request);
 
         assertThat(updated)
                 .hasFieldOrPropertyWithValue("id", testOrigin.getId())
@@ -166,7 +167,7 @@ public class UserServiceTest {
 
         userService.deleteById(1L);
         
-        User deleted = null;
+        UserResource deleted = null;
         try {
             deleted = userService.findById(1L);
         } catch (RestErrorException exception){

@@ -1,10 +1,12 @@
 package com.miniyus.friday.integration.api.users.adapter.out.persistence;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,6 +14,9 @@ import org.junit.jupiter.api.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
@@ -55,16 +60,16 @@ public class UserAdapterTest {
     public void setup() {
         for (int i = 0; i < 10; i++) {
             var testDomain = new User(
-                    i + 1L,
-                    faker.internet().safeEmailAddress(),
-                    faker.internet().password(),
-                    faker.name().fullName(),
-                    "USER",
-                    null,
-                    null,
-                    LocalDateTime.now(),
-                    LocalDateTime.now(),
-                    null);
+                i + 1L,
+                faker.internet().safeEmailAddress(),
+                faker.internet().password(),
+                faker.name().fullName(),
+                "USER",
+                null,
+                null,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                null);
             testEntities.add(userMapper.toEntity(testDomain));
         }
 
@@ -79,7 +84,7 @@ public class UserAdapterTest {
 
     @Test
     @Order(100)
-    public void retrieveUsers() {
+    public void retrieveUsersTest() {
         Collection<User> users = userAdapter.findAll();
 
         assertThat(users).isNotNull();
@@ -88,40 +93,40 @@ public class UserAdapterTest {
 
     @Test
     @Order(200)
-    public void retrieveUser() {
+    public void retrieveUserTest() {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User user = userAdapter.findById(latestUser.getId()).orElse(null);
 
         var testUser = userMapper.toDomain(latestUser);
 
         assertThat(user).isNotNull()
-                .hasFieldOrPropertyWithValue("id", testUser.getId());
+            .hasFieldOrPropertyWithValue("id", testUser.getId());
     }
 
     @Test
     @Order(300)
-    public void createUser() {
+    public void createUserTest() {
         User created = userAdapter.createUser(
-                new User(
-                        null,
-                        faker.internet().safeEmailAddress(),
-                        faker.internet().password(),
-                        faker.name().fullName(),
-                        "USER",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null));
+            new User(
+                null,
+                faker.internet().safeEmailAddress(),
+                faker.internet().password(),
+                faker.name().fullName(),
+                "USER",
+                null,
+                null,
+                null,
+                null,
+                null));
 
         assertThat(created).isNotNull()
-                .hasFieldOrProperty("id");
+            .hasFieldOrProperty("id");
         assertThat(created.getId()).isNotNull();
     }
 
     @Test
     @Order(400)
-    public void updateUser() {
+    public void updateUserTest() {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User origin = userAdapter.findById(latestUser.getId()).orElse(null);
 
@@ -131,13 +136,13 @@ public class UserAdapterTest {
         User updated = userAdapter.updateUser(origin);
 
         assertThat(updated).isNotNull()
-                .hasFieldOrPropertyWithValue("id", origin.getId())
-                .hasFieldOrPropertyWithValue("name", "updateName");
+            .hasFieldOrPropertyWithValue("id", origin.getId())
+            .hasFieldOrPropertyWithValue("name", "updateName");
     }
 
     @Test
     @Order(500)
-    public void deleteUser() {
+    public void deleteUserTest() {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User origin = userAdapter.findById(latestUser.getId()).orElse(null);
 
@@ -152,7 +157,7 @@ public class UserAdapterTest {
 
     @Test
     @Order(401)
-    public void resetPassword() {
+    public void resetPasswordTest() {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User user = userAdapter.findById(latestUser.getId()).orElse(null);
 
@@ -168,6 +173,106 @@ public class UserAdapterTest {
         // Therefore, the password entered must be the same as the actual saved password.
         // why? Because the adapter is the infrastructure (database) layer.
         assertThat(updated.getPassword())
-                .isEqualTo(user.getPassword());
+            .isEqualTo(user.getPassword());
+    }
+
+    Pageable getPageable() {
+        return PageRequest.of(
+            0,
+            20,
+            Sort.by(Sort.Direction.DESC, "created_at")
+        );
+    }
+
+    @Test
+    void retrieveFilterByEmailTest() throws Exception {
+        var selectUser = testEntities.get(5);
+
+        var filter = User.SearchUser.builder()
+            .email(selectUser.getEmail())
+            .build();
+
+        var users = userAdapter.findAll(
+            filter,
+            getPageable()
+        );
+
+        assertThat(users).isNotNull()
+            .isNotEmpty()
+            .hasSize(1);
+    }
+
+    @Test
+    void retrieveFilterByNameTest() throws Exception {
+        var selectUser = testEntities.get(5);
+
+        var filter = User.SearchUser.builder()
+            .name(selectUser.getName())
+            .build();
+
+        var users = userAdapter.findAll(
+            filter,
+            getPageable()
+        );
+
+        assertThat(users).isNotNull()
+            .isNotEmpty()
+            .hasSize(1);
+    }
+
+    @Test
+    void retrieveFilterRangeCreatedAtTest() throws Exception {
+        var selectUser = testEntities.get(5);
+
+        var filter = User.SearchUser.builder()
+            .createdAtStart(selectUser.getCreatedAt())
+            .createdAtEnd(testEntities.get(testEntities.size() - 1).getCreatedAt())
+            .build();
+
+        var users = userAdapter.findAll(
+            filter,
+            getPageable()
+        );
+
+        assertThat(users).isNotNull()
+            .isNotEmpty();
+    }
+
+    @Test
+    void retrieveFilterRangeUpdatedAtTest() throws Exception {
+        var selectUser = testEntities.get(5);
+
+        var filter = User.SearchUser.builder()
+            .updatedAtStart(selectUser.getUpdatedAt())
+            .updatedAtEnd(testEntities.get(testEntities.size() - 1).getUpdatedAt())
+            .build();
+
+        var users = userAdapter.findAll(
+            filter,
+            getPageable()
+        );
+
+        assertThat(users).isNotNull()
+            .isNotEmpty();
+    }
+
+    @Test
+    void retrieveFilterMultipleTest() throws Exception {
+        var selectUser = testEntities.get(5);
+
+        var filter = User.SearchUser.builder()
+            .email(selectUser.getEmail())
+            .name(selectUser.getName())
+            .updatedAtStart(testEntities.get(0).getUpdatedAt())
+            .updatedAtEnd(testEntities.get(testEntities.size() - 1).getUpdatedAt())
+            .build();
+
+        var users = userAdapter.findAll(
+            filter,
+            getPageable()
+        );
+
+        assertThat(users).isNotNull()
+            .isNotEmpty();
     }
 }

@@ -1,7 +1,7 @@
 package com.miniyus.friday.api.hosts.application.port.in.usecase;
 
-import com.miniyus.friday.api.hosts.domain.Host;
+import com.miniyus.friday.api.hosts.application.port.in.HostResource;
 
 public interface UpdateHostUsecase {
-    Host updateHost(Long id, Long userId, UpdateHostRequest request);
+    HostResource updateHost(Long id, Long userId, UpdateHostRequest request);
 }

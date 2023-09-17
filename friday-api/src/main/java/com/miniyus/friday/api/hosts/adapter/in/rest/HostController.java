@@ -3,6 +3,7 @@ package com.miniyus.friday.api.hosts.adapter.in.rest;
 import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostQuery;
 import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostRequest;
 import com.miniyus.friday.api.hosts.application.port.in.usecase.*;
+import com.miniyus.friday.api.hosts.application.port.in.HostResource;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
@@ -39,10 +40,10 @@ public class HostController {
         var host = createHostUsecase.createHost(request, getUserInfo().getId());
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(host.getId())
+            .buildAndExpand(host.id())
             .toUri();
 
-        return ResponseEntity.created(location).body(HostResource.fromDomain(host));
+        return ResponseEntity.created(location).body(host);
     }
 
     @PatchMapping("/{id}")
@@ -52,8 +53,7 @@ public class HostController {
         @RequestBody @Valid UpdateHostRequest request
     ) {
         var host = updateHostUsecase.updateHost(id, getUserInfo().getId(), request);
-
-        return ResponseEntity.ok(HostResource.fromDomain(host));
+        return ResponseEntity.ok(host);
     }
 
     @DeleteMapping("/{id}")
@@ -78,10 +78,9 @@ public class HostController {
             req = retrieveAll;
         }
 
-        var hosts = retrieveHostQuery.retrieveAll(req, getUserInfo().getId());
-        var response = hosts.map(HostResource::fromDomain);
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(
+            retrieveHostQuery.retrieveAll(req, getUserInfo().getId())
+        );
     }
 
     @GetMapping("/{id}")
@@ -90,9 +89,7 @@ public class HostController {
         @PathVariable Long id
     ) {
         return ResponseEntity.ok(
-            HostResource.fromDomain(
-                retrieveHostQuery.retrieveById(id, getUserInfo().getId())
-            )
+            retrieveHostQuery.retrieveById(id, getUserInfo().getId())
         );
     }
 }

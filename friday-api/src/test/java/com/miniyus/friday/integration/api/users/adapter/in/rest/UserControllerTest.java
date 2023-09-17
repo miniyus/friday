@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.api.users.adapter.in.rest.UserResource;
+import com.miniyus.friday.api.users.application.port.in.UserResource;
 import com.miniyus.friday.api.users.application.port.in.usecase.*;
 import com.miniyus.friday.infrastructure.security.UserRole;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
@@ -74,7 +74,7 @@ public class UserControllerTest {
     @MockBean
     private DeleteUserUsecase deleteUserUsecase;
 
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @BeforeEach
     void setUp() {
@@ -96,7 +96,8 @@ public class UserControllerTest {
             LocalDateTime.now(),
             null);
 
-        when(createUserUsecase.createUser(any(CreateUserRequest.class))).thenReturn(domain);
+        when(createUserUsecase.createUser(any(CreateUserRequest.class))).thenReturn(
+            UserResource.fromDomain(domain));
 
         UserResource response = UserResource.fromDomain(domain);
 
@@ -170,7 +171,7 @@ public class UserControllerTest {
             LocalDateTime.now(),
             null);
 
-        when(retrieveUserQuery.findById(1L)).thenReturn(domain);
+        when(retrieveUserQuery.findById(1L)).thenReturn(UserResource.fromDomain(domain));
 
         var result = mockMvc.perform(
             get("/v1/users/1")
@@ -232,7 +233,8 @@ public class UserControllerTest {
 
         domain.patch("updateName", null);
 
-        when(updateUserUsecase.patchUser(any(), any(UpdateUserRequest.class))).thenReturn(domain);
+        when(updateUserUsecase.patchUser(any(), any(UpdateUserRequest.class))).thenReturn(
+            UserResource.fromDomain(domain));
 
         var request = UpdateUserRequest.builder()
             .name("updateName")
@@ -306,7 +308,10 @@ public class UserControllerTest {
 
         domain.resetPassword("resetPassword");
 
-        when(updateUserUsecase.resetPassword(1L, "resetPassword")).thenReturn(domain);
+        when(updateUserUsecase.resetPassword(1L, "resetPassword"))
+            .thenReturn(
+                UserResource.fromDomain(domain)
+            );
 
         var request = new ResetPasswordRequest("resetPassword");
 

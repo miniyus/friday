@@ -50,12 +50,7 @@ public class UserAdapter
     @Override
     public Page<User> findAll(SearchUser searchUser, Pageable pageable) {
         Page<UserEntity> userEntities = userRepository.findAll(
-                searchUser.email(),
-                searchUser.name(),
-                searchUser.createdAtStart(),
-                searchUser.createdAtEnd(),
-                searchUser.updatedAtStart(),
-                searchUser.updatedAtEnd(),
+                searchUser,
                 pageable);
         return userEntities.map(mapper::toDomain);
     }

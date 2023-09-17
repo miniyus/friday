@@ -1,5 +1,6 @@
 package com.miniyus.friday.api.users.application.port.in.usecase;
 
+import com.miniyus.friday.api.users.application.port.in.UserResource;
 import com.miniyus.friday.api.users.domain.User;
 
 /**
@@ -9,5 +10,5 @@ import com.miniyus.friday.api.users.domain.User;
  * @date 2023/09/02
  */
 public interface CreateUserUsecase {
-    public User createUser(CreateUserRequest request);
+    UserResource createUser(CreateUserRequest request);
 }

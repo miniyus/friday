@@ -1,4 +1,4 @@
-package com.miniyus.friday.api.hosts.adapter.in.rest;
+package com.miniyus.friday.api.hosts.application.port.in;
 
 import com.miniyus.friday.api.hosts.domain.Host;
 import lombok.Builder;

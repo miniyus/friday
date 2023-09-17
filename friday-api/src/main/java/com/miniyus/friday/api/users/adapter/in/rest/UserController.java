@@ -2,6 +2,7 @@ package com.miniyus.friday.api.users.adapter.in.rest;
 
 import java.net.URI;
 
+import com.miniyus.friday.api.users.application.port.in.UserResource;
 import com.miniyus.friday.api.users.application.port.in.usecase.*;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
@@ -55,15 +56,16 @@ public class UserController {
         @Valid @RequestBody CreateUserRequest request,
         UriComponentsBuilder uriComponentsBuilder) {
 
-        User create = createUserUsecase.createUser(request);
+        UserResource create = createUserUsecase.createUser(request);
 
-        UserResource response = UserResource.fromDomain(create);
-
-        URI uri = uriComponentsBuilder.path("/v1/users/{id}")
-            .buildAndExpand(create.getId())
+        URI uri = uriComponentsBuilder
+            .path("/v1/users/{id}")
+            .buildAndExpand(create.id())
             .toUri();
 
-        return ResponseEntity.created(uri).body(response);
+        return ResponseEntity
+            .created(uri)
+            .body(create);
     }
 
     /**
@@ -76,11 +78,9 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
     public ResponseEntity<UserResource> retrieveUser(
         @PathVariable Long id) {
-        User read = readUserQuery.findById(id);
-
-        UserResource response = UserResource.fromDomain(read);
-
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(
+            readUserQuery.findById(id)
+        );
     }
 
     /**
@@ -104,13 +104,11 @@ public class UserController {
             req = request;
         }
 
-        Page<User> users = readUserQuery.findAll(req);
+        Page<UserResource> users = readUserQuery.findAll(req);
 
         log.debug("users count: " + users.getContent().size());
 
-        var response = users.map(UserResource::fromDomain);
-
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(users);
     }
 
     /**
@@ -125,11 +123,9 @@ public class UserController {
         @PathVariable Long id,
         @Valid @RequestBody UpdateUserRequest request) {
 
-        User update = updateUserUsecase.patchUser(id, request);
-
-        UserResource response = UserResource.fromDomain(update);
-
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(
+            updateUserUsecase.patchUser(id, request)
+        );
     }
 
     /**
@@ -145,9 +141,9 @@ public class UserController {
         @PathVariable Long id,
         @RequestBody @Valid ResetPasswordRequest password) {
 
-        User update = updateUserUsecase.resetPassword(id, password.password());
-
-        return ResponseEntity.ok().body(UserResource.fromDomain(update));
+        return ResponseEntity.ok(
+            updateUserUsecase.resetPassword(id, password.password())
+        );
     }
 
     /**

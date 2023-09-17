@@ -103,8 +103,6 @@ public class JwtService {
      */
     private RefreshTokenEntity createRefreshToken(AccessTokenEntity tokenEntity) {
         String token = jwtProvider.createRefreshToken();
-        Date expiresAt = jwtProvider.extractExpiresAt(token).orElse(new Date());
-        LocalDateTime exp = expiresAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         var refreshToken = RefreshTokenEntity.builder()
             .type(JwtProvider.BEARER)

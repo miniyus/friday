@@ -1,6 +1,7 @@
 package com.miniyus.friday.unit.api.service.hosts.application;
 
 import com.github.javafaker.Faker;
+import com.miniyus.friday.api.hosts.application.port.in.HostResource;
 import com.miniyus.friday.api.hosts.application.port.in.query.RetrieveHostRequest;
 import com.miniyus.friday.api.hosts.application.port.in.usecase.CreateHostRequest;
 import com.miniyus.friday.api.hosts.application.port.in.usecase.UpdateHostRequest;
@@ -84,14 +85,14 @@ public class HostServiceTest {
         when(createHostPort.isUniqueHost(any())).thenReturn(true);
         when(createHostPort.create(any())).thenReturn(testDomain);
 
-        Host created = hostService.createHost(createHostRequest, 1L);
+        HostResource created = hostService.createHost(createHostRequest, 1L);
 
         Assertions.assertThat(created)
-            .hasFieldOrPropertyWithValue("host", created.getHost())
-            .hasFieldOrPropertyWithValue("summary", created.getSummary())
-            .hasFieldOrPropertyWithValue("description", created.getDescription())
-            .hasFieldOrPropertyWithValue("path", created.getPath())
-            .hasFieldOrPropertyWithValue("publish", created.isPublish());
+            .hasFieldOrPropertyWithValue("host", created.host())
+            .hasFieldOrPropertyWithValue("summary", created.summary())
+            .hasFieldOrPropertyWithValue("description", created.description())
+            .hasFieldOrPropertyWithValue("path", created.path())
+            .hasFieldOrPropertyWithValue("publish", created.publish());
     }
 
     @Test
@@ -125,7 +126,7 @@ public class HostServiceTest {
 
         when(updateHostPort.findById(any())).thenReturn(Optional.of(testDomain));
 
-        Host updated = hostService.updateHost(1L,1L, updateHostRequest);
+        HostResource updated = hostService.updateHost(1L,1L, updateHostRequest);
 
         Assertions.assertThat(updated)
             .hasFieldOrPropertyWithValue("id", 1L)
@@ -141,13 +142,13 @@ public class HostServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveHostPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        Host host = hostService.retrieveById(1L, 1L);
+        HostResource host = hostService.retrieveById(1L, 1L);
         Assertions.assertThat(host)
-            .hasFieldOrPropertyWithValue("host", host.getHost())
-            .hasFieldOrPropertyWithValue("summary", host.getSummary())
-            .hasFieldOrPropertyWithValue("description", host.getDescription())
-            .hasFieldOrPropertyWithValue("path", host.getPath())
-            .hasFieldOrPropertyWithValue("publish", host.isPublish());
+            .hasFieldOrPropertyWithValue("host", host.host())
+            .hasFieldOrPropertyWithValue("summary", host.summary())
+            .hasFieldOrPropertyWithValue("description", host.description())
+            .hasFieldOrPropertyWithValue("path", host.path())
+            .hasFieldOrPropertyWithValue("publish", host.publish());
     }
 
     @Test
@@ -179,7 +180,7 @@ public class HostServiceTest {
         var hostList = hosts.stream().toList();
         IntStream.range(0, hostList.size()).forEach(
             index -> Assertions.assertThat(hostList.get(index))
-                .hasFieldOrPropertyWithValue("id", hostList.get(index).getId())
+                .hasFieldOrPropertyWithValue("id", hostList.get(index).id())
         );
     }
 

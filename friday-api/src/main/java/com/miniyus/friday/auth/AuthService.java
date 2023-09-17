@@ -40,8 +40,8 @@ public class AuthService {
 
         if (!tokenType.equals(JwtProvider.BEARER)) {
             throw new RestErrorException(
-                "validation.auth.invalidTokenType",
-                AuthErrorCode.INVALID_TOKEN
+                "error.unsupportedTokenType",
+                AuthErrorCode.UNSUPPORTED_TOKEN_TYPE
             );
         }
 

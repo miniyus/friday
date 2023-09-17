@@ -3,6 +3,8 @@ package com.miniyus.friday.infrastructure.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+
+import com.miniyus.friday.common.error.AuthErrorCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -32,27 +34,27 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
     private final UserRepository userRepository;
 
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
-            Map<String, Object> attributes) {
+        Map<String, Object> attributes) {
         OAuth2Provider provider = null;
         if (entity.getProvider() != null) {
             provider = OAuth2Provider.of(entity.getProvider());
         }
 
         return PrincipalUserInfo.builder()
-                .id(entity.getId())
-                .snsId(entity.getSnsId())
-                .username(entity.getEmail())
-                .name(entity.getName())
-                .password(entity.getPassword())
-                .enabled(entity.getDeletedAt() == null)
-                .accountNonExpired(entity.getDeletedAt() == null)
-                .accountNonLocked(entity.getDeletedAt() == null)
-                .credentialsNonExpired(entity.getDeletedAt() == null)
-                .attributes(attributes)
-                .provider(provider)
-                .authorities(getAuthorities(entity))
-                .role(entity.getRole())
-                .build();
+            .id(entity.getId())
+            .snsId(entity.getSnsId())
+            .username(entity.getEmail())
+            .name(entity.getName())
+            .password(entity.getPassword())
+            .enabled(entity.getDeletedAt() == null)
+            .accountNonExpired(entity.getDeletedAt() == null)
+            .accountNonLocked(entity.getDeletedAt() == null)
+            .credentialsNonExpired(entity.getDeletedAt() == null)
+            .attributes(attributes)
+            .provider(provider)
+            .authorities(getAuthorities(entity))
+            .role(entity.getRole())
+            .build();
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
@@ -66,17 +68,19 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
         });
 
         return authorities;
-    };
+    }
+
+    ;
 
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
-                .snsId(userInfo.snsId())
-                .provider(userInfo.getProvider().getId())
-                .email(userInfo.email())
-                .password(null)
-                .name(userInfo.name())
-                .role(UserRole.USER.getValue())
-                .build();
+            .snsId(userInfo.snsId())
+            .provider(userInfo.getProvider().getId())
+            .email(userInfo.email())
+            .password(null)
+            .name(userInfo.name())
+            .role(UserRole.USER.getValue())
+            .build();
         entity = userRepository.save(entity);
 
         return buildPrincipalUserInfo(entity, userInfo.attributes());
@@ -95,23 +99,25 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
         String registrationId = userRequest.getClientRegistration()
-                .getRegistrationId();
+            .getRegistrationId();
         String userNameAttributeName = userRequest.getClientRegistration()
-                .getProviderDetails()
-                .getUserInfoEndpoint()
-                .getUserNameAttributeName();
+            .getProviderDetails()
+            .getUserInfoEndpoint()
+            .getUserNameAttributeName();
 
         OAuth2Attributes oAuthAttributes =
-                OAuth2Attributes.of(registrationId, userNameAttributeName,
-                        oAuth2User.getAttributes());
+            OAuth2Attributes.of(registrationId, userNameAttributeName,
+                oAuth2User.getAttributes());
 
         OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
         UserEntity userREntity = userRepository
-                .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getId())
-                .get();
+            .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getId())
+            .orElseThrow(() -> new OAuth2AuthenticationException(AuthErrorCode.INVALID_REQUEST.name()));
 
-        PrincipalUserInfo user =
-                buildPrincipalUserInfo(userREntity, oAuthAttributes.getAttributes());
+        PrincipalUserInfo user = buildPrincipalUserInfo(
+            userREntity,
+            oAuthAttributes.getAttributes()
+        );
         if (user == null) {
             user = create(userInfo);
         }
