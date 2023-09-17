@@ -1,15 +1,15 @@
 // src/App.tsx
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './components/layouts/NavBar';
-import Home from './pages/Home';
-import About from './pages/About';
-import SideMenu from './components/layouts/SideMenu'; // SideMenu import 추가
+import Navbar from '@app/components/layouts/NavBar';
+import Home from '@app/pages/Home';
+import About from '@app/pages/About';
+import SideMenu from '@app/components/layouts/SideMenu'; // SideMenu import 추가
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
-import Host from './pages/hosts';
+import Host from '@app/pages/hosts';
 import { useTranslation } from 'react-i18next';
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();

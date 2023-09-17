@@ -13,5 +13,6 @@ public record OAuth2TokenResponse(
         Long id,
         String snsId,
         String provider,
+        String email,
         IssueToken tokens) implements Serializable {
 }

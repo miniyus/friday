@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import PageLayout from '../../components/layouts/PaageLayout';
+import PageLayout from '@app/components/layouts/PaageLayout';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 120 },

@@ -49,7 +49,7 @@ public class AuthServiceTest {
     public void setup() {
         testUser = PrincipalUserInfo.builder()
             .id(1L)
-            .username(faker.internet().safeEmailAddress())
+            .email(faker.internet().safeEmailAddress())
             .password(faker.internet().password())
             .name(faker.name().username())
             .role(UserRole.USER.getValue())
@@ -94,8 +94,7 @@ public class AuthServiceTest {
         var passwordUserInfo = new PasswordUserInfo(
             testUser.getUsername(),
             testUser.getPassword(),
-            testUser.getName(),
-            testUser.getRole()
+            testUser.getName()
         );
 
         var userInfo = authService.signup(passwordUserInfo);

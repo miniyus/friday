@@ -12,5 +12,6 @@ public record PasswordTokenResponse(
         Long id,
         String email,
         String name,
-        IssueToken tokens) {
+        IssueToken tokens
+) {
 }

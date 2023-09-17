@@ -2,11 +2,11 @@ import ApiClient, {
     ErrorResInterface,
     ErrorResponse,
     Token,
-} from "./base/ApiClient";
-import BaseClient from "./base/BaseClient";
-import { makePath } from "./utils/str";
+} from "@app/api/base/ApiClient";
+import BaseClient from "@app/api/base/BaseClient";
+import { makePath } from "@app/api/utils/str";
 import { AxiosRequestHeaders } from "axios";
-import Config from "../config";
+import Config from "@app/config";
 
 const config = Config();
 

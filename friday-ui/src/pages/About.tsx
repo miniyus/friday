@@ -1,6 +1,6 @@
 // src/pages/About.tsx
 import React from 'react';
-import PageLayout from '../components/layouts/PaageLayout';
+import PageLayout from '@app/components/layouts/PaageLayout';
 import { Paper } from '@mui/material';
 
 const About: React.FC = () => {

@@ -9,7 +9,7 @@ package com.miniyus.friday.infrastructure.security.auth;
  * @date 2023/09/04
  */
 public record PasswordAuthentication(
-    String username,
+    String email,
     String password
 ) {
 }

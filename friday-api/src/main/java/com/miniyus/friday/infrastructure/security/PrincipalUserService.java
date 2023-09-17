@@ -43,7 +43,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
         return PrincipalUserInfo.builder()
             .id(entity.getId())
             .snsId(entity.getSnsId())
-            .username(entity.getEmail())
+            .email(entity.getEmail())
             .name(entity.getName())
             .password(entity.getPassword())
             .enabled(entity.getDeletedAt() == null)

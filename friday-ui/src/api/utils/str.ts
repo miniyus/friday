@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const limit = (value: string, limit: number, end = '...'): string => {
+export const limit = (value: string, limit: number, end = "..."): string => {
     let limitedStr = value;
 
     if (value) {
@@ -19,28 +19,28 @@ export const limit = (value: string, limit: number, end = '...'): string => {
 export const limitArray = (
     arr: string[],
     limit: number,
-    end = '...',
+    end = "..."
 ): string => {
     const reArr = arr.filter((str, i) => {
         return i < limit;
     });
 
-    return reArr.join(', ') + end;
+    return reArr.join(", ") + end;
 };
 
 export const makePath = (source: string, target: string): string => {
-    const path = source + '/' + target;
-    return path.replaceAll('//', '/');
+    const path = source + "/" + target;
+    return path.replaceAll("//", "/");
 };
 
 export const isString = (value: any) => {
-    return typeof value === 'string' || value instanceof String;
+    return typeof value === "string" || value instanceof String;
 };
 
 export const toBlob = async (blobUrl: string): Promise<Blob | null> => {
-    if (blobUrl.includes('blob:', 0)) {
+    if (blobUrl.includes("blob:", 0)) {
         const blobRes = await axios.get(blobUrl, {
-            responseType: 'blob',
+            responseType: "blob",
         });
 
         return blobRes.data;
@@ -50,15 +50,15 @@ export const toBlob = async (blobUrl: string): Promise<Blob | null> => {
 };
 
 export const parseAttachFileName = (str: string) => {
-    return str.split(';')[1].trim().split('=')[1].replaceAll('"', '');
+    return str.split(";")[1].trim().split("=")[1].replaceAll('"', "");
 };
 
 export const replaceAll = (
     str: string,
     replace: { [key: string]: string },
-    format: string[] = ['{{', '}}'],
+    format: string[] = ["{{", "}}"]
 ) => {
-    let reStr = '';
+    let reStr = "";
     for (const [k, v] of Object.entries(replace)) {
         reStr = str.replaceAll(format[0] + k + format[1], v);
     }

@@ -44,6 +44,7 @@ public class AuthResponseHandler {
             userInfo.getId(),
             userInfo.getSnsId(),
             userInfo.getProvider().getId(),
+            userInfo.getEmail(),
             token);
 
         String jsonBody = objectMapper.writeValueAsString(tokenResponse);

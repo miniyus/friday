@@ -33,7 +33,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
         return PrincipalUserInfo.builder()
                 .id(entity.getId())
                 .snsId(entity.getSnsId())
-                .username(entity.getEmail())
+                .email(entity.getEmail())
                 .name(entity.getName())
                 .password(entity.getPassword())
                 .enabled(entity.getDeletedAt() == null)
@@ -63,7 +63,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .email(userInfo.email())
                 .password(passwordEncoder.encode(userInfo.password()))
                 .name(userInfo.name())
-                .role(userInfo.role())
+                .role(UserRole.USER.getValue())
                 .build();
 
         return buildPrincipalUserInfo(

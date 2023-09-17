@@ -37,7 +37,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
         var principal = PrincipalUserInfo.builder()
                 .id(1L)
                 .snsId(null)
-                .username(annotation.username())
+                .email(annotation.username())
                 .name(annotation.name())
                 .password(password)
                 .enabled(true)

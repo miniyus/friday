@@ -73,7 +73,7 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
         PasswordAuthentication usernamePassword =
                 objectMapper.readValue(messageBody, PasswordAuthentication.class);
 
-        String email = usernamePassword.username();
+        String email = usernamePassword.email();
         String password = usernamePassword.password();
 
         log.debug("login email: {}", email);

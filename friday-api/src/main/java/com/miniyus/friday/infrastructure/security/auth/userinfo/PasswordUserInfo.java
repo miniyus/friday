@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.infrastructure.security.UserRole;
+
 import java.io.Serializable;
 
 /**
@@ -25,10 +26,6 @@ public record PasswordUserInfo(
 
     @NotBlank
     @Size(min = 2, max = 50)
-    String name,
-
-    @NotBlank
-    @Enum(enumClass = UserRole.class, ignoreCase = true)
-    String role
+    String name
 ) implements Serializable {
 }

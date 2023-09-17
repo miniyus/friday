@@ -6,6 +6,7 @@ import com.miniyus.friday.auth.AuthService;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserService;
+import com.miniyus.friday.infrastructure.security.UserRole;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.config.SecurityConfiguration;
 import com.miniyus.friday.infrastructure.security.oauth2.handler.OAuth2AccessDeniedHandler;
@@ -108,7 +109,6 @@ public class AuthControllerTest {
             .email("testser@gmail.com")
             .name("tester")
             .password("password@1234")
-            .role("USER")
             .build();
 
         //        when(passwordEncoder.encode(request.password())).thenReturn("password@1234");
@@ -119,7 +119,7 @@ public class AuthControllerTest {
         var returnUserInfo = PrincipalUserInfo.builder()
                 .id(1L)
                 .snsId(null)
-                .username(request.email())
+                .email(request.email())
                 .name(request.name())
                 .password(request.password())
                 .enabled(true)
@@ -129,7 +129,7 @@ public class AuthControllerTest {
                 .attributes(null)
                 .provider(null)
                 .authorities(testAuthority)
-                .role(request.role())
+                .role(UserRole.USER.getValue())
                 .build();
 
         when(userDetailsService.create(any(PasswordUserInfo.class))).thenReturn(returnUserInfo);
@@ -153,9 +153,9 @@ public class AuthControllerTest {
 
         result.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.username").value(request.email()))
+            .andExpect(jsonPath("$.email").value(request.email()))
             .andExpect(jsonPath("$.name").value(request.name()))
-            .andExpect(jsonPath("$.role").value(request.role()))
+            .andExpect(jsonPath("$.role").value(UserRole.USER.getValue()))
             .andDo(MockMvcRestDocumentation.document(
                 "auth-signup",
                 getDocumentRequest(),
@@ -163,22 +163,16 @@ public class AuthControllerTest {
                 requestFields(
                     fieldWithPath("email").description("email"),
                     fieldWithPath("name").description("name"),
-                    fieldWithPath("password").description("password"),
-                    fieldWithPath("role").description("role")),
+                    fieldWithPath("password").description("password")),
                 responseFields(
                     fieldWithPath("id").description("id"),
                     fieldWithPath("snsId").description("sns id"),
-                    fieldWithPath("username").description("email"),
+                    fieldWithPath("email").description("email"),
                     fieldWithPath("name").description("name"),
                     fieldWithPath("role").description("role"),
                     fieldWithPath("snsId").description("snsId"),
                     fieldWithPath("provider").description("provider"),
-                    fieldWithPath("enabled").description("enabled"),
                     fieldWithPath("snsUser").description("is sns user"),
-                    fieldWithPath("accountNonExpired").description("accountNonExpired"),
-                    fieldWithPath("credentialsNonExpired")
-                        .description("credentialsNonExpired"),
-                    fieldWithPath("accountNonLocked").description("accountNonLocked"),
                     fieldWithPath("attributes").description("attributes"),
                     fieldWithPath("authorities").description("authorities"),
                     fieldWithPath("authorities[].authority")
@@ -209,7 +203,7 @@ public class AuthControllerTest {
             .role("USER")
             .provider(null)
             .snsId(null)
-            .username(signinInfo.username())
+            .email(signinInfo.email())
             .password(passwordEncoder.encode(signinInfo.password()))
             .build();
 
@@ -234,7 +228,7 @@ public class AuthControllerTest {
                 .accept(MediaType.APPLICATION_JSON));
         result.andExpect(status().isCreated())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.email").value(signinInfo.username()))
+            .andExpect(jsonPath("$.email").value(signinInfo.email()))
             .andExpect(jsonPath("$.name").value(fakeName))
             .andExpect(jsonPath("$.tokens").isNotEmpty())
             .andExpect(jsonPath("$.tokens.accessToken").isNotEmpty())
@@ -245,7 +239,7 @@ public class AuthControllerTest {
                 getDocumentRequest(),
                 getDocumentResponse(),
                 requestFields(
-                    fieldWithPath("username").description("name"),
+                    fieldWithPath("email").description("email"),
                     fieldWithPath("password").description("password")),
                 responseFields(
                     fieldWithPath("id").description("id"),
@@ -339,7 +333,7 @@ public class AuthControllerTest {
             .role("USER")
             .provider(null)
             .snsId(null)
-            .username(signinInfo.username())
+            .email(signinInfo.email())
             .password(passwordEncoder.encode(signinInfo.password()))
             .build();
 
@@ -352,7 +346,7 @@ public class AuthControllerTest {
 
         result.andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.username").isNotEmpty())
+            .andExpect(jsonPath("$.email").isNotEmpty())
             .andExpect(jsonPath("$.name").isNotEmpty())
             .andExpect(jsonPath("$.role").isNotEmpty())
             .andDo(MockMvcRestDocumentation.document(
@@ -362,17 +356,12 @@ public class AuthControllerTest {
                 responseFields(
                     fieldWithPath("id").description("id"),
                     fieldWithPath("snsId").description("sns id"),
-                    fieldWithPath("username").description("email"),
+                    fieldWithPath("email").description("email"),
                     fieldWithPath("name").description("name"),
                     fieldWithPath("role").description("role"),
                     fieldWithPath("snsId").description("snsId"),
                     fieldWithPath("provider").description("provider"),
-                    fieldWithPath("enabled").description("enabled"),
                     fieldWithPath("snsUser").description("is sns user"),
-                    fieldWithPath("accountNonExpired").description("accountNonExpired"),
-                    fieldWithPath("credentialsNonExpired")
-                        .description("credentialsNonExpired"),
-                    fieldWithPath("accountNonLocked").description("accountNonLocked"),
                     fieldWithPath("attributes").description("attributes"),
                     fieldWithPath("authorities").description("authorities"),
                     fieldWithPath("authorities[].authority")

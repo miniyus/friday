@@ -26,7 +26,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     OAuth2Provider provider;
 
-    String username;
+    String email;
 
     String name;
 
@@ -36,12 +36,16 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     String role;
 
+    @JsonIgnore
     boolean enabled;
 
+    @JsonIgnore
     boolean accountNonExpired;
 
+    @JsonIgnore
     boolean credentialsNonExpired;
 
+    @JsonIgnore
     boolean accountNonLocked;
 
     Map<String, Object> attributes;
@@ -70,8 +74,9 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
     }
 
     @Override
+    @JsonIgnore
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
