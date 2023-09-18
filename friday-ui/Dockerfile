@@ -28,7 +28,6 @@ WORKDIR /var/www/react
 
 COPY --from=build /react/build ./build
 COPY nginx/nginx.conf /etc/nginx/nginx.conf
-COPY nginx/react.conf /etc/nginx/conf.d/default.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 3000

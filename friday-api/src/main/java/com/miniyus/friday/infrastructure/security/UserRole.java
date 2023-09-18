@@ -1,11 +1,14 @@
 package com.miniyus.friday.infrastructure.security;
 
+import lombok.Getter;
+
 /**
  * [description]
  *
  * @author miniyus
  * @date 2023/09/02
  */
+@Getter
 public enum UserRole {
     ADMIN("ADMIN"), MANAGER("MANAGER"), USER("USER");
 
@@ -15,7 +18,4 @@ public enum UserRole {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

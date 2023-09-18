@@ -47,7 +47,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
                 .attributes(null)
                 .provider(null)
                 .authorities(authorities)
-                .role(annotation.role().getValue())
+                .role(annotation.role())
                 .build();
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

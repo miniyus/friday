@@ -129,7 +129,7 @@ public class AuthControllerTest {
                 .attributes(null)
                 .provider(null)
                 .authorities(testAuthority)
-                .role(UserRole.USER.getValue())
+                .role(UserRole.USER)
                 .build();
 
         when(userDetailsService.create(any(PasswordUserInfo.class))).thenReturn(returnUserInfo);
@@ -200,7 +200,7 @@ public class AuthControllerTest {
             .credentialsNonExpired(true)
             .enabled(true)
             .name(fakeName)
-            .role("USER")
+            .role(UserRole.USER)
             .provider(null)
             .snsId(null)
             .email(signinInfo.email())
@@ -277,7 +277,7 @@ public class AuthControllerTest {
             faker.internet().emailAddress(),
             faker.internet().password(),
             faker.name().fullName(),
-            "USER",
+            UserRole.USER,
             null);
 
         when(jwtService.getUserByRefreshToken(any())).thenReturn(
@@ -330,7 +330,7 @@ public class AuthControllerTest {
             .credentialsNonExpired(true)
             .enabled(true)
             .name(fakeName)
-            .role("USER")
+            .role(UserRole.USER)
             .provider(null)
             .snsId(null)
             .email(signinInfo.email())

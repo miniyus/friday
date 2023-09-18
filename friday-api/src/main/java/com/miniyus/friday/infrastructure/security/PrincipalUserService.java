@@ -3,7 +3,6 @@ package com.miniyus.friday.infrastructure.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-
 import com.miniyus.friday.common.error.AuthErrorCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -60,12 +59,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return entity.getRole();
-            }
-        });
+        authorities.add((GrantedAuthority) () -> entity.getRole().getValue());
 
         return authorities;
     }
@@ -79,7 +73,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
             .email(userInfo.email())
             .password(null)
             .name(userInfo.name())
-            .role(UserRole.USER.getValue())
+            .role(UserRole.USER)
             .build();
         entity = userRepository.save(entity);
 

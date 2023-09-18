@@ -52,7 +52,7 @@ public class AuthServiceTest {
             .email(faker.internet().safeEmailAddress())
             .password(faker.internet().password())
             .name(faker.name().username())
-            .role(UserRole.USER.getValue())
+            .role(UserRole.USER)
             .build();
 
 

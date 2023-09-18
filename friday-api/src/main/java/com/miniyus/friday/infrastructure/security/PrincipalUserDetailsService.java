@@ -50,7 +50,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add((GrantedAuthority) entity::getRole);
+        authorities.add((GrantedAuthority) () -> entity.getRole().getValue());
 
         return authorities;
     };
@@ -63,7 +63,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
                 .email(userInfo.email())
                 .password(passwordEncoder.encode(userInfo.password()))
                 .name(userInfo.name())
-                .role(UserRole.USER.getValue())
+                .role(UserRole.USER)
                 .build();
 
         return buildPrincipalUserInfo(

@@ -36,7 +36,7 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath provider = createString("provider");
 
-    public final StringPath role = createString("role");
+    public final EnumPath<com.miniyus.friday.infrastructure.security.UserRole> role = createEnum("role", com.miniyus.friday.infrastructure.security.UserRole.class);
 
     public final StringPath snsId = createString("snsId");
 

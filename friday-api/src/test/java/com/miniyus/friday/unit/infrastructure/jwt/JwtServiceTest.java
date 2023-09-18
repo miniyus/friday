@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
+import com.miniyus.friday.infrastructure.security.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -73,7 +74,7 @@ public class JwtServiceTest {
             .name("miniyus")
             .password("test@password")
             .email("miniyus@gmail.com")
-            .role("USER")
+            .role(UserRole.USER)
             .build();
     }
 

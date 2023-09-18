@@ -1,14 +1,12 @@
 package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
+
+import com.miniyus.friday.infrastructure.security.UserRole;
+import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,35 +30,43 @@ public class UserEntity extends BaseEntity {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = true)
+    @Column
     private String snsId;
 
-    @Column(nullable = true)
+    @Column
     private String provider;
 
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String name;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
-    @Column(nullable = true)
+    @Column
     private LocalDateTime deletedAt;
 
     /**
-     * @param snsId
-     * @param provider
-     * @param email
-     * @param password
-     * @param name
-     * @param role
+     * @param snsId    sns id
+     * @param provider provider
+     * @param email    email
+     * @param password password
+     * @param name     name
+     * @param role     role
      */
     @Builder
-    public UserEntity(String snsId, String provider, String email, String password, String name,
-            String role) {
+    public UserEntity(
+        String snsId,
+        String provider,
+        String email,
+        String password,
+        String name,
+        UserRole role) {
         this.snsId = snsId;
         this.provider = provider;
         this.email = email;
@@ -73,10 +79,10 @@ public class UserEntity extends BaseEntity {
      * Updates the password, name, and role of the object.
      *
      * @param password the new password to be set
-     * @param name the new name to be set
-     * @param role the new role to be set
+     * @param name     the new name to be set
+     * @param role     the new role to be set
      */
-    public void update(String password, String name, String role) {
+    public void update(String password, String name, UserRole role) {
         this.password = password;
         this.name = name;
         this.role = role;
@@ -84,7 +90,6 @@ public class UserEntity extends BaseEntity {
 
     /**
      * Deletes the object.
-     *
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

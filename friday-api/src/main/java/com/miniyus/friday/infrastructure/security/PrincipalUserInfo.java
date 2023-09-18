@@ -42,7 +42,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
     @Nullable
     String password;
 
-    String role;
+    UserRole role;
 
     boolean enabled;
 
