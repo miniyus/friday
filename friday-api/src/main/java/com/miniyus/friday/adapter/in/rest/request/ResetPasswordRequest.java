@@ -1,5 +1,6 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
+import com.miniyus.friday.domain.users.ResetPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
@@ -16,4 +17,8 @@ public record ResetPasswordRequest(
         @NotBlank(message = "validation.user.password.notBlank") @Size(min = 8, max = 50,
                 message = "validation.user.password.size") String password)
         implements Serializable {
+
+    public ResetPassword toDomain(Long id) {
+        return new ResetPassword(id,password);
+    }
 }
