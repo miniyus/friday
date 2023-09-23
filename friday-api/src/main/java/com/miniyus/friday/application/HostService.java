@@ -1,12 +1,8 @@
 package com.miniyus.friday.application;
 
-import com.miniyus.friday.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.adapter.in.rest.request.UpdateHostRequest;
 import com.miniyus.friday.application.exception.HostExistsException;
 import com.miniyus.friday.application.exception.HostForbiddenException;
-import com.miniyus.friday.adapter.in.rest.resource.HostResource;
 import com.miniyus.friday.application.port.in.query.RetrieveHostQuery;
-import com.miniyus.friday.adapter.in.rest.request.RetrieveHostRequest;
 import com.miniyus.friday.application.port.in.usecase.*;
 import com.miniyus.friday.application.port.out.CreateHostPort;
 import com.miniyus.friday.application.port.out.DeleteHostPort;
@@ -14,7 +10,7 @@ import com.miniyus.friday.application.port.out.RetrieveHostPort;
 import com.miniyus.friday.application.port.out.UpdateHostPort;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.application.exception.HostNotFoundException;
-import com.miniyus.friday.domain.hosts.Host;
+import com.miniyus.friday.domain.hosts.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,161 +25,79 @@ public class HostService implements CreateHostUsecase, UpdateHostUsecase, Delete
     RetrieveHostPort retrieveHostPort;
     DeleteHostPort deleteHostPort;
 
-    /**
-     * Retrieves a host resource by ID for a specific user.
-     *
-     * @param id     the ID of the host resource
-     * @param userId the ID of the user
-     * @return the retrieved host resource
-     */
     @Override
-    public HostResource retrieveById(Long id, Long userId) {
-        var host = retrieveHostPort.findById(id).orElseThrow(
+    public Host retrieveById(FindHostById findHostById) {
+        var host = retrieveHostPort.findById(findHostById.id()).orElseThrow(
             HostNotFoundException::new
         );
 
-        if (!host.getUserId().equals(userId)) {
+        if (!host.getUserId().equals(findHostById.userId())) {
             throw new HostForbiddenException();
         }
 
-        return HostResource.fromDomain(host);
+        return host;
     }
 
-    /**
-     * Retrieves a HostResource by host and user ID.
-     *
-     * @param retrieveHost the RetrieveHost object containing the host information
-     * @param userId       the ID of the user
-     * @return the retrieved HostResource
-     */
-    @Override
-    public HostResource retrieveByHost(RetrieveHostRequest.RetrieveHost retrieveHost, Long userId) {
-        var whereHost = Host.WhereHost.builder()
-            .host(retrieveHost.host())
-            .userId(userId)
-            .build();
 
-        return HostResource.fromDomain(
-            retrieveHostPort.findByHost(whereHost).orElseThrow(
-                HostNotFoundException::new
-            )
+    @Override
+    public Host retrieveByHost(WhereHost whereHost) {
+        return retrieveHostPort.findByHost(whereHost).orElseThrow(
+            HostNotFoundException::new
         );
     }
 
-    /**
-     * Retrieves all host resources based on the given request parameters.
-     *
-     * @param req    the RetrieveAll request object containing the filter parameters for the host
-     *               resources
-     * @param userId the ID of the user performing the retrieval
-     * @return a Page object containing the retrieved HostResource objects
-     */
     @Override
-    public Page<HostResource> retrieveAll(RetrieveHostRequest.RetrieveAll req, Long userId) {
-        var filter = Host.HostFilter.builder()
-            .summary(req.getSummary())
-            .path(req.getHost())
-            .description(req.getDescription())
-            .createdAtStart(req.getCreatedAtStart())
-            .createdAtEnd(req.getCreatedAtEnd())
-            .updatedAtStart(req.getUpdatedAtStart())
-            .updatedAtEnd(req.getUpdatedAtEnd())
-            .userId(userId)
-            .build();
+    public Page<Host> retrieveAll(HostFilter filter) {
 
         if (filter.isEmpty()) {
-            return retrieveHostPort.findAll(req.getPageable())
-                .map(HostResource::fromDomain);
+            return retrieveHostPort.findAll(filter.pageable());
         }
 
-        return retrieveHostPort.findAll(filter, req.getPageable())
-            .map(HostResource::fromDomain);
+        return retrieveHostPort.findAll(filter, filter.pageable());
     }
 
-    /**
-     * Retrieves a page of HostResources based on the specified RetrievePublish, Pageable, and
-     * userId.
-     *
-     * @param retrievePublish the RetrievePublish object specifying the publish value
-     * @param pageable        the Pageable object specifying the page number and size
-     * @param userId          the ID of the user
-     * @return a Page of HostResources
-     */
     @Override
-    public Page<HostResource> retrieveByPublish(
-        RetrieveHostRequest.RetrievePublish retrievePublish,
-        Pageable pageable,
-        Long userId
+    public Page<Host> retrieveByPublish(
+        WherePublish wherePublish,
+        Pageable pageable
     ) {
-        var wherePublish = Host.WherePublish.builder()
-            .publish(retrievePublish.publish())
-            .userId(userId)
-            .build();
-
-        return retrieveHostPort.findByPublish(wherePublish, pageable)
-            .map(HostResource::fromDomain);
+        return retrieveHostPort.findByPublish(wherePublish, pageable);
     }
 
-    /**
-     * Creates a new host resource.
-     *
-     * @param request The request object containing the host details.
-     * @param userId  The ID of the user creating the host.
-     * @return The newly created host resource.
-     */
     @Override
-    public HostResource createHost(CreateHostRequest request, Long userId) {
-        var whereHost = Host.WhereHost.builder()
-            .host(request.host())
-            .userId(userId)
+    public Host createHost(Host host) {
+        WhereHost whereHost = WhereHost.builder()
+            .host(host.getHost())
+            .userId(host.getUserId())
             .build();
 
         if (!createHostPort.isUniqueHost(whereHost)) {
             throw new HostExistsException();
         }
 
-        var host = Host.builder()
-            .host(request.host())
-            .summary(request.summary())
-            .description(request.description())
-            .path(request.path())
-            .publish(request.publish())
-            .build();
-
-        return HostResource.fromDomain(createHostPort.create(host));
+        return createHostPort.create(host);
     }
 
-    /**
-     * Updates a host resource based on the provided ID, user ID, and update request.
-     *
-     * @param id      the ID of the host resource to update
-     * @param userId  the ID of the user performing the update
-     * @param request the update request containing the new host details
-     * @return the updated host resource
-     */
     @Override
-    public HostResource updateHost(
-        Long id,
-        Long userId,
-        UpdateHostRequest request) {
+    public Host updateHost(UpdateHost updateHost) {
 
-        var host = updateHostPort.findById(id).orElseThrow(
+        var exists = updateHostPort.findById(updateHost.id()).orElseThrow(
             HostNotFoundException::new
         );
 
-        if (!host.getUserId().equals(userId)) {
+        if (!exists.getUserId().equals(updateHost.userId())) {
             throw new HostForbiddenException();
         }
 
-        host.update(
-            request.host(),
-            request.summary(),
-            request.description(),
-            request.path(),
-            request.publish()
+        exists.update(
+            updateHost.host(),
+            updateHost.summary(),
+            updateHost.description(),
+            updateHost.path(),
+            updateHost.publish()
         );
 
-        return HostResource.fromDomain(updateHostPort.update(host));
+        return updateHostPort.update(exists);
     }
 
     /**

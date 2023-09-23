@@ -1,23 +1,18 @@
 package com.miniyus.friday.application.port.in.query;
 
-import com.miniyus.friday.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.adapter.in.rest.resource.HostResource;
+import com.miniyus.friday.domain.hosts.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface RetrieveHostQuery {
-    HostResource retrieveById(Long id, Long userId);
+    Host retrieveById(FindHostById findHostById);
 
-    HostResource retrieveByHost(
-        RetrieveHostRequest.RetrieveHost retrieveHost,
-        Long userId
-    );
+    Host retrieveByHost(WhereHost whereHost);
 
-    Page<HostResource> retrieveAll(RetrieveHostRequest.RetrieveAll filter, Long userId);
+    Page<Host> retrieveAll(HostFilter filter);
 
-    Page<HostResource> retrieveByPublish(
-        RetrieveHostRequest.RetrievePublish retrievePublish,
-        Pageable pageable,
-        Long userId
+    Page<Host> retrieveByPublish(
+        WherePublish wherePublish,
+        Pageable pageable
     );
 }

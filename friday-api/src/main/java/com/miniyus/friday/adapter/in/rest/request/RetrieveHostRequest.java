@@ -2,56 +2,79 @@ package com.miniyus.friday.adapter.in.rest.request;
 
 import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.common.pagination.PageRequest;
-import jakarta.annotation.Nullable;
+import com.miniyus.friday.domain.hosts.HostFilter;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 
 /**
  * DTO for {@link Host}
  */
-public class RetrieveHostRequest {
 
-    @Builder
-    @Getter
-    public static class RetrieveAll extends PageRequest {
-        @Nullable
-        String host;
-        @Nullable
-        String summary;
-        @Nullable
-        String description;
-        @Nullable
-        String path;
-        @Nullable
-        LocalDateTime createdAtStart;
-        @Nullable
-        LocalDateTime createdAtEnd;
-        @Nullable
-        LocalDateTime updatedAtStart;
-        @Nullable
-        LocalDateTime updatedAtEnd;
-        @Nullable
-        Pageable pageable;
+@Builder
+@Getter
+public class RetrieveHostRequest extends PageRequest {
+    @Nullable
+    String host;
+    @Nullable
+    String summary;
+    @Nullable
+    String description;
+    @Nullable
+    String path;
+    @Nullable
+    LocalDateTime createdAtStart;
+    @Nullable
+    LocalDateTime createdAtEnd;
+    @Nullable
+    LocalDateTime updatedAtStart;
+    @Nullable
+    LocalDateTime updatedAtEnd;
+    @Nullable
+    Pageable pageable;
 
-        public Pageable getPageable() {
-            return toPageable();
-        }
+    public Pageable getPageable() {
+        return toPageable();
     }
 
-
-    @Builder
-    public record RetrieveHost(
-        String host
-    ) {
+    public HostFilter toDomain(Long userId) {
+        return HostFilter.builder()
+            .userId(userId)
+            .summary(summary)
+            .description(description)
+            .path(path)
+            .createdAtStart(createdAtStart)
+            .createdAtEnd(createdAtEnd)
+            .updatedAtStart(updatedAtStart)
+            .updatedAtEnd(updatedAtEnd)
+            .build();
     }
 
+    public static RetrieveHostRequest create() {
+        return RetrieveHostRequest.builder()
+            .pageable(
+                org.springframework.data.domain.PageRequest.of(
+                    0,
+                    20,
+                    Sort.Direction.DESC,
+                    "createdAt")
+            ).build();
+    }
 
-    @Builder
-    public record RetrievePublish(
-        boolean publish
-    ) {
+    public static RetrieveHostRequest create(int pageNumber, int pageSize, String sortDirection,
+        String sortField) {
+        return RetrieveHostRequest.builder()
+            .pageable(
+                org.springframework.data.domain.PageRequest.of(
+                    pageNumber,
+                    pageSize,
+                    Sort.Direction.fromString(sortDirection),
+                    sortField)
+            ).build();
     }
 }
+

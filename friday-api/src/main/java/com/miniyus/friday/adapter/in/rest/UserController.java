@@ -4,15 +4,16 @@ import java.net.URI;
 
 import com.miniyus.friday.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
+import com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource;
+import com.miniyus.friday.adapter.in.rest.resource.UserResources;
+import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
 import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
+import com.miniyus.friday.domain.users.User;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,16 +60,16 @@ public class UserController {
         @Valid @RequestBody CreateUserRequest request,
         UriComponentsBuilder uriComponentsBuilder) {
 
-        UserResource create = createUserUsecase.createUser(request);
+        User create = createUserUsecase.createUser(request.toDomain());
 
         URI uri = uriComponentsBuilder
             .path("/v1/users/{id}")
-            .buildAndExpand(create.id())
+            .buildAndExpand(create.getId())
             .toUri();
 
         return ResponseEntity
             .created(uri)
-            .body(create);
+            .body(UserResource.fromDomain(create));
     }
 
     /**
@@ -82,7 +83,7 @@ public class UserController {
     public ResponseEntity<UserResource> retrieveUser(
         @PathVariable Long id) {
         return ResponseEntity.ok(
-            readUserQuery.findById(id)
+            UserResource.fromDomain(readUserQuery.findById(id))
         );
     }
 
@@ -100,18 +101,16 @@ public class UserController {
         RetrieveUserRequest req;
         if (request == null) {
             log.debug("req is null");
-            req = RetrieveUserRequest.builder()
-                .pageable(PageRequest.of(0, 20, Direction.DESC, "createdAt"))
-                .build();
+            req = RetrieveUserRequest.create();
         } else {
             req = request;
         }
 
-        Page<UserResource> users = readUserQuery.findAll(req);
+        Page<User> users = readUserQuery.findAll(req.toDomain());
 
         log.debug("users count: " + users.getContent().size());
 
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(UserResources.fromDomains(users));
     }
 
     /**
@@ -126,8 +125,10 @@ public class UserController {
         @PathVariable Long id,
         @Valid @RequestBody UpdateUserRequest request) {
 
+        var updated = updateUserUsecase.patchUser(request.toDomain(id));
+
         return ResponseEntity.ok(
-            updateUserUsecase.patchUser(id, request)
+            UserResource.fromDomain(updated)
         );
     }
 
@@ -140,12 +141,13 @@ public class UserController {
      */
     @PatchMapping("/{id}/reset-password")
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
-    public ResponseEntity<UserResource> resetPassword(
+    public ResponseEntity<ResetPasswordResource> resetPassword(
         @PathVariable Long id,
         @RequestBody @Valid ResetPasswordRequest password) {
 
+        var updated= updateUserUsecase.resetPassword(password.toDomain(id));
         return ResponseEntity.ok(
-            updateUserUsecase.resetPassword(id, password.password())
+           new ResetPasswordResource(updated)
         );
     }
 

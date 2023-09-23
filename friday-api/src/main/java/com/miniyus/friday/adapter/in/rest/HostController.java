@@ -2,18 +2,18 @@ package com.miniyus.friday.adapter.in.rest;
 
 import com.miniyus.friday.adapter.in.rest.request.CreateHostRequest;
 import com.miniyus.friday.adapter.in.rest.request.UpdateHostRequest;
+import com.miniyus.friday.adapter.in.rest.resource.HostResources;
 import com.miniyus.friday.application.port.in.query.RetrieveHostQuery;
 import com.miniyus.friday.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.adapter.in.rest.resource.HostResource;
+import com.miniyus.friday.adapter.in.rest.resource.HostResources.*;
 import com.miniyus.friday.application.port.in.usecase.*;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
+import com.miniyus.friday.domain.hosts.FindHostById;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,13 +39,13 @@ public class HostController {
     public ResponseEntity<HostResource> createHost(
         @RequestBody @Valid CreateHostRequest request) {
 
-        var host = createHostUsecase.createHost(request, getUserInfo().getId());
+        var host = createHostUsecase.createHost(request.toDomain(getUserInfo().getId()));
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
-            .buildAndExpand(host.id())
+            .buildAndExpand(host.getId())
             .toUri();
 
-        return ResponseEntity.created(location).body(host);
+        return ResponseEntity.created(location).body(HostResource.fromDomain(host));
     }
 
     @PatchMapping("/{id}")
@@ -54,8 +54,8 @@ public class HostController {
         @PathVariable Long id,
         @RequestBody @Valid UpdateHostRequest request
     ) {
-        var host = updateHostUsecase.updateHost(id, getUserInfo().getId(), request);
-        return ResponseEntity.ok(host);
+        var host = updateHostUsecase.updateHost(request.fromDomain(getUserInfo().getId()));
+        return ResponseEntity.ok(HostResource.fromDomain(host));
     }
 
     @DeleteMapping("/{id}")
@@ -69,19 +69,18 @@ public class HostController {
     @GetMapping("")
     @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<Page<HostResource>> retrieveHosts(
-        @QueryParam @Valid RetrieveHostRequest.RetrieveAll retrieveAll
+        @QueryParam @Valid RetrieveHostRequest retrieveAll
     ) {
-        RetrieveHostRequest.RetrieveAll req;
+        RetrieveHostRequest req;
         if (retrieveAll == null) {
-            req = RetrieveHostRequest.RetrieveAll.builder()
-                .pageable(PageRequest.of(0, 20, Sort.Direction.DESC, "createdAt"))
-                .build();
+            req = RetrieveHostRequest.create();
         } else {
             req = retrieveAll;
         }
 
+        var domains = retrieveHostQuery.retrieveAll(req.toDomain(getUserInfo().getId()));
         return ResponseEntity.ok(
-            retrieveHostQuery.retrieveAll(req, getUserInfo().getId())
+            HostResources.fromDomains(domains)
         );
     }
 
@@ -90,8 +89,9 @@ public class HostController {
     public ResponseEntity<HostResource> retrieveHost(
         @PathVariable Long id
     ) {
+        var host = retrieveHostQuery.retrieveById(new FindHostById(id, getUserInfo().getId()));
         return ResponseEntity.ok(
-            retrieveHostQuery.retrieveById(id, getUserInfo().getId())
+            HostResource.fromDomain(host)
         );
     }
 }

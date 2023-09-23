@@ -8,6 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
 @AllArgsConstructor
 public class Host {
     Long id;
@@ -19,10 +20,8 @@ public class Host {
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     LocalDateTime deletedAt;
-
     Long userId;
 
-    @Builder
     public static Host create(
         String host,
         String summary,
@@ -70,34 +69,4 @@ public class Host {
     public void delete() {
         this.deletedAt = LocalDateTime.now();
     }
-
-    @Builder
-    public record HostFilter(
-        String summary,
-        String path,
-        String description,
-        LocalDateTime createdAtStart,
-        LocalDateTime createdAtEnd,
-        LocalDateTime updatedAtStart,
-        LocalDateTime updatedAtEnd,
-        Long userId
-    ) {
-        public boolean isEmpty() {
-            return summary == null && path == null  && description == null
-                && createdAtStart == null && updatedAtStart == null
-                && createdAtEnd == null &&  updatedAtEnd == null;
-        }
-    }
-
-    @Builder
-    public record WherePublish(
-        boolean publish,
-        Long userId
-    ){}
-
-    @Builder
-    public record WhereHost(
-        String host,
-        Long userId
-    ){}
 }

@@ -1,9 +1,8 @@
 package com.miniyus.friday.application.port.in.query;
 
-import java.util.Collection;
-
-import com.miniyus.friday.adapter.in.rest.request.RetrieveUserRequest;
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
+import java.util.List;
+import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.domain.users.UserFilter;
 import org.springframework.data.domain.Page;
 
 /**
@@ -13,9 +12,9 @@ import org.springframework.data.domain.Page;
  * @date 2023/09/06
  */
 public interface RetrieveUserQuery {
-    Collection<UserResource> findAll();
+    List<User> findAll();
 
-    Page<UserResource> findAll(RetrieveUserRequest request);
+    Page<User> findAll(UserFilter request);
 
-    UserResource findById(Long id);
+    User findById(Long id);
 }

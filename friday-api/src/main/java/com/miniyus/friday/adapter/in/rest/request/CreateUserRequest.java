@@ -1,6 +1,7 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
 import com.miniyus.friday.common.validation.annotation.Enum;
+import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.infrastructure.security.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -29,4 +30,14 @@ public record CreateUserRequest(
     @NotBlank(message = "validation.user.role.notBlank") @Enum(enumClass = UserRole.class,
         message = "validation.user.role.enum",
         ignoreCase = true) String role) implements Serializable {
+    public User toDomain() {
+        return User.create(
+            email,
+            password,
+            name,
+            role,
+            null,
+            null
+        );
+    }
 }

@@ -12,8 +12,9 @@ import lombok.Getter;
  * @author miniyus
  * @date 2023/09/02
  */
-@AllArgsConstructor
 @Getter
+@Builder
+@AllArgsConstructor
 public class User {
     private Long id;
     private String email;
@@ -25,8 +26,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
-    @Builder
+    
     public static User create(
         String email,
         String password,
@@ -113,20 +113,5 @@ public class User {
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();
-    }
-
-    @Builder
-    public record SearchUser(String email, String name, LocalDateTime createdAtStart,
-                             LocalDateTime createdAtEnd, LocalDateTime updatedAtStart,
-                             LocalDateTime updatedAtEnd) {
-        /**
-         * Checks if all the fields in the object are null.
-         *
-         * @return true if all fields are null, false otherwise
-         */
-        public boolean isEmpty() {
-            return email == null && name == null && createdAtStart == null && createdAtEnd == null
-                && updatedAtStart == null && updatedAtEnd == null;
-        }
     }
 }

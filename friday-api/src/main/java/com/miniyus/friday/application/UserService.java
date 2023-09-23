@@ -1,21 +1,21 @@
 package com.miniyus.friday.application;
 
-import java.util.Collection;
+import java.util.List;
 
-import com.miniyus.friday.adapter.in.rest.request.CreateUserRequest;
-import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
+import com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
+import com.miniyus.friday.domain.users.ResetPassword;
+import com.miniyus.friday.domain.users.UpdateUser;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.application.exception.UserExistsException;
 import com.miniyus.friday.application.exception.UserNotFoundException;
+import com.miniyus.friday.domain.users.UserFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
-import com.miniyus.friday.adapter.in.rest.request.RetrieveUserRequest;
 import com.miniyus.friday.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.application.port.out.CreateUserPort;
 import com.miniyus.friday.application.port.out.DeleteUserPort;
@@ -43,43 +43,28 @@ public class UserService
 
     private final PasswordEncoder passwordEncoder;
 
-    /**
-     * Creates a new user based on the provided command.
-     *
-     * @param request the request containing the user details
-     * @return the created UserResource object
-     */
     @Override
-    public UserResource createUser(CreateUserRequest request) {
-        User user = User.builder()
-            .email(request.email())
-            .password(passwordEncoder.encode(request.password()))
-            .name(request.name())
-            .role(request.role())
-            .build();
-
+    public User createUser(User user) {
         if (createUserPort.isUniqueEmail(user.getEmail())) {
             throw new UserExistsException();
         }
 
-        return UserResource.fromDomain(createUserPort.createUser(user));
+        return createUserPort.createUser(user);
     }
 
     /**
-     * Updates a user with the given command.
      *
-     * @param id      user id
-     * @param request the request containing the user ID, new name, and new role
-     * @return the updated user
+     * @param request update user
+     * @return updated user
      */
     @Override
-    public UserResource patchUser(Long id, UpdateUserRequest request) {
-        User domain = updateUserPort.findById(id)
+    public User patchUser(UpdateUser request) {
+        User domain = updateUserPort.findById(request.id())
             .orElseThrow(UserNotFoundException::new);
 
         domain.patch(request.name(), request.role());
 
-        return UserResource.fromDomain(updateUserPort.updateUser(domain));
+        return updateUserPort.updateUser(domain);
     }
 
     /**
@@ -88,11 +73,8 @@ public class UserService
      * @return a collection of User objects representing all the users
      */
     @Override
-    public Collection<UserResource> findAll() {
-        return readUserPort.findAll()
-            .stream()
-            .map(UserResource::fromDomain)
-            .toList();
+    public List<User> findAll() {
+        return readUserPort.findAll();
     }
 
     /**
@@ -104,33 +86,22 @@ public class UserService
      * @return a Page object containing the list of users that match the search criteria
      */
     @Override
-    public Page<UserResource> findAll(RetrieveUserRequest request) {
-        // find by conditions
-        User.SearchUser search = User.SearchUser.builder()
-            .email(request.getEmail())
-            .name(request.getName())
-            .createdAtStart(request.getCreatedAtStart())
-            .createdAtEnd(request.getCreatedAtEnd())
-            .updatedAtStart(request.getUpdatedAtStart())
-            .updatedAtEnd(request.getUpdatedAtEnd())
-            .build();
-
+    public Page<User> findAll(UserFilter request) {
         Page<User> result;
 
         // only paginate
-        if (search.isEmpty()) {
-            result = readUserPort.findAll(request.getPageable());
+        if (request.isEmpty()) {
+            result = readUserPort.findAll(request.pageable());
         } else {
-            result = readUserPort.findAll(search, request.getPageable());
+            result = readUserPort.findAll(request, request.pageable());
         }
 
-        var res = new SimplePage<>(
+        return new SimplePage<>(
             result.getContent(),
             result.getTotalElements(),
             result.getPageable(),
-            "users");
-
-        return res.map(UserResource::fromDomain);
+            "users"
+        );
     }
 
     /**
@@ -140,30 +111,19 @@ public class UserService
      * @return the user with the specified ID
      */
     @Override
-    public UserResource findById(Long id) {
-        return UserResource.fromDomain(
-            readUserPort.findById(id)
-                .orElseThrow(UserNotFoundException::new)
-        );
+    public User findById(Long id) {
+        return readUserPort.findById(id)
+            .orElseThrow(UserNotFoundException::new);
     }
 
-    /**
-     * Resets the password for a user.
-     *
-     * @param id       the ID of the user
-     * @param password the new password
-     * @return the updated user after resetting the password
-     */
     @Override
-    public UserResource resetPassword(Long id, String password) {
-        User user = readUserPort.findById(id)
+    public boolean resetPassword(ResetPassword restPassword) {
+        User user = readUserPort.findById(restPassword.id())
             .orElseThrow(UserNotFoundException::new);
 
-        user.resetPassword(passwordEncoder.encode(password));
+        user.resetPassword(passwordEncoder.encode(restPassword.password()));
 
-        return UserResource.fromDomain(
-            updateUserPort.resetPassword(user)
-        );
+        return updateUserPort.resetPassword(user) != null;
     }
 
     /**

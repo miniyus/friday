@@ -1,7 +1,8 @@
 package com.miniyus.friday.application.port.in.usecase;
 
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
-import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
+import com.miniyus.friday.domain.users.ResetPassword;
+import com.miniyus.friday.domain.users.UpdateUser;
+import com.miniyus.friday.domain.users.User;
 
 /**
  * [description]
@@ -10,7 +11,7 @@ import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
  * @date 2023/09/09
  */
 public interface UpdateUserUsecase {
-    UserResource patchUser(Long id, UpdateUserRequest request);
+    User patchUser(UpdateUser user);
 
-    UserResource resetPassword(Long id, String password);
+    boolean resetPassword(ResetPassword resetPassword);
 }
