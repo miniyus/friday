@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -103,7 +104,7 @@ public class SecurityConfiguration {
                 SessionCreationPolicy.STATELESS));
         // csrf 비활성화
         // JWT 토큰을 이용하여, accessToken, refreshToken을 생성하여 csrf 보안 문제를 어느정도 해결 가능
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
         // oauth2 로그인 활성화 및 설정
         http.oauth2Login(oauth2Login -> oauth2Login
             // oauth2 로그인 url 설정
@@ -132,7 +133,7 @@ public class SecurityConfiguration {
             // 권한 제한 예외에 대한 핸들러
             .accessDeniedHandler(accessDeniedHandler));
 
-        http.headers(headers -> headers.frameOptions(opt -> opt.disable()));
+        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
         return http.build();

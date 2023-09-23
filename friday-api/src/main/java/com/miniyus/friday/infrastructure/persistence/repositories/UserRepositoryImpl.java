@@ -1,6 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.api.users.domain.User;
+import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

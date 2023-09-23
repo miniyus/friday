@@ -1,6 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.api.hosts.domain.Host;
+import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import static com.miniyus.friday.infrastructure.persistence.entities.QHostEntity.hostEntity;
 import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @AllArgsConstructor
