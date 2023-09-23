@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+import com.miniyus.friday.domain.users.UserFilter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -188,7 +188,7 @@ public class UserAdapterTest {
     void retrieveFilterByEmailTest() throws Exception {
         var selectUser = testEntities.get(5);
 
-        var filter = User.SearchUser.builder()
+        var filter = UserFilter.builder()
             .email(selectUser.getEmail())
             .build();
 
@@ -206,7 +206,7 @@ public class UserAdapterTest {
     void retrieveFilterByNameTest() throws Exception {
         var selectUser = testEntities.get(5);
 
-        var filter = User.SearchUser.builder()
+        var filter = UserFilter.builder()
             .name(selectUser.getName())
             .build();
 
@@ -224,7 +224,7 @@ public class UserAdapterTest {
     void retrieveFilterRangeCreatedAtTest() throws Exception {
         var selectUser = testEntities.get(5);
 
-        var filter = User.SearchUser.builder()
+        var filter = UserFilter.builder()
             .createdAtStart(selectUser.getCreatedAt())
             .createdAtEnd(testEntities.get(testEntities.size() - 1).getCreatedAt())
             .build();
@@ -242,7 +242,7 @@ public class UserAdapterTest {
     void retrieveFilterRangeUpdatedAtTest() throws Exception {
         var selectUser = testEntities.get(5);
 
-        var filter = User.SearchUser.builder()
+        var filter = UserFilter.builder()
             .updatedAtStart(selectUser.getUpdatedAt())
             .updatedAtEnd(testEntities.get(testEntities.size() - 1).getUpdatedAt())
             .build();
@@ -260,7 +260,7 @@ public class UserAdapterTest {
     void retrieveFilterMultipleTest() throws Exception {
         var selectUser = testEntities.get(5);
 
-        var filter = User.SearchUser.builder()
+        var filter = UserFilter.builder()
             .email(selectUser.getEmail())
             .name(selectUser.getName())
             .updatedAtStart(testEntities.get(0).getUpdatedAt())

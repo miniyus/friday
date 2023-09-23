@@ -54,7 +54,7 @@ public class HostController {
         @PathVariable Long id,
         @RequestBody @Valid UpdateHostRequest request
     ) {
-        var host = updateHostUsecase.updateHost(request.fromDomain(getUserInfo().getId()));
+        var host = updateHostUsecase.updateHost(request.toDomain(getUserInfo().getId()));
         return ResponseEntity.ok(HostResource.fromDomain(host));
     }
 

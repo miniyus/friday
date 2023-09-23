@@ -5,10 +5,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
 import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,7 +79,7 @@ public class UserServiceTest {
     void createUser() {
         var testDomain = testDomains.get(0);
 
-        CreateUserRequest createUserCommand = CreateUserRequest.builder()
+        CreateUserRequest createUser = CreateUserRequest.builder()
             .email(testDomain.getEmail())
             .name(testDomain.getName())
             .role("USER")
@@ -90,12 +88,12 @@ public class UserServiceTest {
 
         when(createUserPort.createUser(any())).thenReturn(testDomain);
 
-        UserResource created = userService.createUser(createUserCommand);
+        User created = userService.createUser(createUser.toDomain());
 
         assertThat(created)
-                .hasFieldOrPropertyWithValue("email", createUserCommand.email())
-                .hasFieldOrPropertyWithValue("name", createUserCommand.name())
-                .hasFieldOrPropertyWithValue("role", createUserCommand.role());
+                .hasFieldOrPropertyWithValue("email", createUser.email())
+                .hasFieldOrPropertyWithValue("name", createUser.name())
+                .hasFieldOrPropertyWithValue("role", createUser.role());
     }
 
     @Test
@@ -103,7 +101,7 @@ public class UserServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveUserPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        UserResource retrieved = userService.findById(1L);
+        User retrieved = userService.findById(1L);
 
         assertThat(retrieved)
                 .isNotNull()
@@ -117,7 +115,7 @@ public class UserServiceTest {
     void retrieveUsers() throws Exception {
         when(retrieveUserPort.findAll()).thenReturn(testDomains);
 
-        Collection<UserResource> retrieved = userService.findAll();
+        List<User> retrieved = userService.findAll();
 
         assertThat(retrieved.size())
             .isNotEqualTo(0)
@@ -151,7 +149,7 @@ public class UserServiceTest {
                 .role("USER")
                 .build();
 
-        UserResource updated = userService.patchUser(testOrigin.getId(),request);
+        User updated = userService.patchUser(request.toDomain(testOrigin.getId()));
 
         assertThat(updated)
                 .hasFieldOrPropertyWithValue("id", testOrigin.getId())
@@ -165,7 +163,7 @@ public class UserServiceTest {
 
         userService.deleteById(1L);
         
-        UserResource deleted = null;
+        User deleted = null;
         try {
             deleted = userService.findById(1L);
         } catch (RestErrorException exception){

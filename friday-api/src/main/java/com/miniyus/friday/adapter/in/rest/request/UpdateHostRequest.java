@@ -15,7 +15,7 @@ public record UpdateHostRequest(
     String description,
     String path,
     boolean publish) {
-    public UpdateHost fromDomain(Long userId) {
+    public UpdateHost toDomain(Long userId) {
         return UpdateHost.builder()
             .id(id)
             .host(host)

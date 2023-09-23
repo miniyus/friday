@@ -1,7 +1,6 @@
 package com.miniyus.friday.unit.application;
 
 import com.github.javafaker.Faker;
-import com.miniyus.friday.adapter.in.rest.resource.HostResource;
 import com.miniyus.friday.adapter.in.rest.request.RetrieveHostRequest;
 import com.miniyus.friday.adapter.in.rest.request.CreateHostRequest;
 import com.miniyus.friday.adapter.in.rest.request.UpdateHostRequest;
@@ -10,6 +9,7 @@ import com.miniyus.friday.application.port.out.DeleteHostPort;
 import com.miniyus.friday.application.port.out.RetrieveHostPort;
 import com.miniyus.friday.application.port.out.UpdateHostPort;
 import com.miniyus.friday.application.HostService;
+import com.miniyus.friday.domain.hosts.FindHostById;
 import com.miniyus.friday.domain.hosts.Host;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -84,14 +84,14 @@ public class HostServiceTest {
         when(createHostPort.isUniqueHost(any())).thenReturn(true);
         when(createHostPort.create(any())).thenReturn(testDomain);
 
-        HostResource created = hostService.createHost(createHostRequest, 1L);
+        Host created = hostService.createHost(createHostRequest.toDomain(1L));
 
         Assertions.assertThat(created)
-            .hasFieldOrPropertyWithValue("host", created.host())
-            .hasFieldOrPropertyWithValue("summary", created.summary())
-            .hasFieldOrPropertyWithValue("description", created.description())
-            .hasFieldOrPropertyWithValue("path", created.path())
-            .hasFieldOrPropertyWithValue("publish", created.publish());
+            .hasFieldOrPropertyWithValue("host", created.getHost())
+            .hasFieldOrPropertyWithValue("summary", created.getSummary())
+            .hasFieldOrPropertyWithValue("description", created.getDescription())
+            .hasFieldOrPropertyWithValue("path", created.getPath())
+            .hasFieldOrPropertyWithValue("publish", created.isPublish());
     }
 
     @Test
@@ -125,7 +125,7 @@ public class HostServiceTest {
 
         when(updateHostPort.findById(any())).thenReturn(Optional.of(testDomain));
 
-        HostResource updated = hostService.updateHost(1L,1L, updateHostRequest);
+        Host updated = hostService.updateHost(updateHostRequest.toDomain(1L));
 
         Assertions.assertThat(updated)
             .hasFieldOrPropertyWithValue("id", 1L)
@@ -141,19 +141,19 @@ public class HostServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveHostPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        HostResource host = hostService.retrieveById(1L, 1L);
+        Host host = hostService.retrieveById(new FindHostById(1L, 1L));
         Assertions.assertThat(host)
-            .hasFieldOrPropertyWithValue("host", host.host())
-            .hasFieldOrPropertyWithValue("summary", host.summary())
-            .hasFieldOrPropertyWithValue("description", host.description())
-            .hasFieldOrPropertyWithValue("path", host.path())
-            .hasFieldOrPropertyWithValue("publish", host.publish());
+            .hasFieldOrPropertyWithValue("host", host.getHost())
+            .hasFieldOrPropertyWithValue("summary", host.getSummary())
+            .hasFieldOrPropertyWithValue("description", host.getDescription())
+            .hasFieldOrPropertyWithValue("path", host.getPath())
+            .hasFieldOrPropertyWithValue("publish", host.isPublish());
     }
 
     @Test
     public void retrieveHostsTest() {
         var pageable = PageRequest.of(1, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
-        var retrieveHostRequest = RetrieveHostRequest.RetrieveAll.builder()
+        var retrieveHostRequest = RetrieveHostRequest.builder()
             .pageable(pageable)
             .build();
 
@@ -163,7 +163,7 @@ public class HostServiceTest {
 
         when(retrieveHostPort.findAll(any(Pageable.class))).thenReturn(page);
 
-        var hosts = hostService.retrieveAll(retrieveHostRequest, 1L);
+        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L));
         Assertions.assertThat(hosts)
             .hasSize(testDomains.size());
 
@@ -179,7 +179,7 @@ public class HostServiceTest {
         var hostList = hosts.stream().toList();
         IntStream.range(0, hostList.size()).forEach(
             index -> Assertions.assertThat(hostList.get(index))
-                .hasFieldOrPropertyWithValue("id", hostList.get(index).id())
+                .hasFieldOrPropertyWithValue("id", hostList.get(index).getId())
         );
     }
 
