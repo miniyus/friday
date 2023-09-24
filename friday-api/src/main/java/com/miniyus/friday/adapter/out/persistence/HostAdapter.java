@@ -7,6 +7,9 @@ import com.miniyus.friday.application.port.out.RetrieveHostPort;
 import com.miniyus.friday.application.port.out.UpdateHostPort;
 import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
+import com.miniyus.friday.domain.hosts.HostFilter;
+import com.miniyus.friday.domain.hosts.WhereHost;
+import com.miniyus.friday.domain.hosts.WherePublish;
 import com.miniyus.friday.infrastructure.persistence.repositories.HostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,7 +32,7 @@ public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPo
     }
 
     @Override
-    public boolean isUniqueHost(Host.WhereHost whereHost) {
+    public boolean isUniqueHost(WhereHost whereHost) {
         return hostRepository.existsByHostAndUserId(whereHost.host(), whereHost.userId());
     }
 
@@ -39,13 +42,13 @@ public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPo
     }
 
     @Override
-    public Optional<Host> findByHost(Host.WhereHost whereHost) {
+    public Optional<Host> findByHost(WhereHost whereHost) {
         return hostRepository.findByHostAndUserId(whereHost.host(), whereHost.userId())
             .map(mapper::toDomain);
     }
 
     @Override
-    public Page<Host> findByPublish(Host.WherePublish wherePublish, Pageable pageable) {
+    public Page<Host> findByPublish(WherePublish wherePublish, Pageable pageable) {
         return hostRepository.findByPublishAndUserId(
             wherePublish.publish(),
             wherePublish.userId(),
@@ -59,7 +62,7 @@ public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPo
     }
 
     @Override
-    public Page<Host> findAll(Host.HostFilter host, Pageable pageable) {
+    public Page<Host> findAll(HostFilter host, Pageable pageable) {
         return hostRepository.findAll(
             host,
             pageable

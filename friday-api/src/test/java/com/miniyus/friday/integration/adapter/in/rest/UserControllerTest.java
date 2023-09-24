@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
-import com.miniyus.friday.adapter.in.rest.resource.UserResource;
+import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
 import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
@@ -101,8 +101,7 @@ public class UserControllerTest {
             LocalDateTime.now(),
             null);
 
-        when(createUserUsecase.createUser(any(CreateUserRequest.class))).thenReturn(
-            UserResource.fromDomain(domain));
+        when(createUserUsecase.createUser(any())).thenReturn(domain);
 
         UserResource response = UserResource.fromDomain(domain);
 
@@ -176,7 +175,7 @@ public class UserControllerTest {
             LocalDateTime.now(),
             null);
 
-        when(retrieveUserQuery.findById(1L)).thenReturn(UserResource.fromDomain(domain));
+        when(retrieveUserQuery.findById(1L)).thenReturn(domain);
 
         var result = mockMvc.perform(
             get("/v1/users/1")
@@ -238,8 +237,8 @@ public class UserControllerTest {
 
         domain.patch("updateName", null);
 
-        when(updateUserUsecase.patchUser(any(), any(UpdateUserRequest.class))).thenReturn(
-            UserResource.fromDomain(domain));
+        when(updateUserUsecase.patchUser(any())).thenReturn(
+            domain);
 
         var request = UpdateUserRequest.builder()
             .name("updateName")
@@ -313,10 +312,7 @@ public class UserControllerTest {
 
         domain.resetPassword("resetPassword");
 
-        when(updateUserUsecase.resetPassword(1L, "resetPassword"))
-            .thenReturn(
-                UserResource.fromDomain(domain)
-            );
+        when(updateUserUsecase.resetPassword(any())).thenReturn(true);
 
         var request = new ResetPasswordRequest("resetPassword");
 
@@ -330,14 +326,7 @@ public class UserControllerTest {
                 .header("Authorization", "Bearer {access-token}"));
 
         result.andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(domain.getId()))
-            .andExpect(jsonPath("$.name").value(domain.getName()))
-            .andExpect(jsonPath("$.role").value(domain.getRole()))
-            .andExpect(jsonPath("$.updatedAt").isNotEmpty())
-            .andExpect(jsonPath("$.createdAt").isNotEmpty())
-            .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
-            .andExpect(jsonPath("$.provider").value(domain.getProvider()))
-            .andExpect(jsonPath("$.email").value(domain.getEmail()))
+            .andExpect(jsonPath("$.resetPassword").value(true))
             .andDo(MockMvcRestDocumentation.document(
                 "reset-password",
                 getDocumentRequest(),
@@ -349,22 +338,10 @@ public class UserControllerTest {
                     fieldWithPath("password")
                         .description("password")),
                 responseFields(
-                    fieldWithPath("id").description(
-                        "user identifier"),
-                    fieldWithPath("name").description(
-                        "name"),
-                    fieldWithPath("role").description(
-                        "role"),
-                    fieldWithPath("updatedAt")
-                        .description("updatedAt"),
-                    fieldWithPath("createdAt")
-                        .description("createdAt"),
-                    fieldWithPath("snsId").description(
-                        "snsId"),
-                    fieldWithPath("provider")
-                        .description("provider"),
-                    fieldWithPath("email").description(
-                        "email"))));
+                    fieldWithPath("resetPassword").description(
+                        "user identifier")
+                )
+            ));
     }
 
     @Test

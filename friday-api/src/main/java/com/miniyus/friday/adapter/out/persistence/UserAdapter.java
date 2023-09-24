@@ -1,9 +1,9 @@
 package com.miniyus.friday.adapter.out.persistence;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
-
 import com.miniyus.friday.adapter.out.persistence.mapper.UserMapper;
+import com.miniyus.friday.domain.users.UserFilter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
@@ -14,7 +14,6 @@ import com.miniyus.friday.application.port.out.DeleteUserPort;
 import com.miniyus.friday.application.port.out.RetrieveUserPort;
 import com.miniyus.friday.application.port.out.UpdateUserPort;
 import com.miniyus.friday.domain.users.User;
-import com.miniyus.friday.domain.users.User.SearchUser;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -37,8 +36,8 @@ public class UserAdapter
     }
 
     @Override
-    public Collection<User> findAll() {
-        Collection<UserEntity> userEntities = userRepository.findAll();
+    public List<User> findAll() {
+        List<UserEntity> userEntities = userRepository.findAll();
         return userEntities.stream().map(mapper::toDomain).toList();
     }
 
@@ -49,7 +48,7 @@ public class UserAdapter
     }
 
     @Override
-    public Page<User> findAll(SearchUser searchUser, Pageable pageable) {
+    public Page<User> findAll(UserFilter searchUser, Pageable pageable) {
         Page<UserEntity> userEntities = userRepository.findAll(
                 searchUser,
                 pageable);

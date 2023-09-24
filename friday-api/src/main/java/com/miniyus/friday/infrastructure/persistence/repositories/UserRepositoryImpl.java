@@ -1,6 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.domain.users.UserFilter;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -18,7 +18,7 @@ public class UserRepositoryImpl implements QUserRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<UserEntity> findAll(User.SearchUser searchUser,
+    public Page<UserEntity> findAll(UserFilter searchUser,
         Pageable pageable) {
 
         var content = whereSearchUser(
@@ -38,7 +38,7 @@ public class UserRepositoryImpl implements QUserRepository {
 
     private <T> JPAQuery<T> whereSearchUser(
         JPAQuery<T> query,
-        User.SearchUser searchUser
+        UserFilter searchUser
     ) {
         if (searchUser.email() != null && !searchUser.email().isEmpty()) {
             query.where(userEntity.email.contains(searchUser.email()));

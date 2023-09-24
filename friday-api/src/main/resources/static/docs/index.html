@@ -576,13 +576,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">password</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">role</p></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -593,15 +586,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /v1/auth/signup HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 107
-X-CSRF-TOKEN: wCA5t_2CL4bFEVMZH9kFqt8yr4rpS0W6GlT0MfS2EibShNH59BVfj57mS-Tod2EpevQxmuwGgujYLyGXKWzFBc3TJRHltOKb
+Content-Length: 88
+X-CSRF-TOKEN: sxm9bpz-dHE0PargBDjK3pMPjsL-czdV3d_9HA87F_gitgXGhyCFDaidFRUZDs_YNBX-vfc6o_ubQQJ4u-ibeTcPJZpB1zH1
 Host: localhost:8080
 
 {
   "email" : "testser@gmail.com",
   "password" : "password@1234",
-  "name" : "tester",
-  "role" : "USER"
+  "name" : "tester"
 }</code></pre>
 </div>
 </div>
@@ -640,7 +632,7 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock">sns id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
@@ -670,34 +662,10 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock">provider</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>snsUser</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">is sns user</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accountNonExpired</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accountNonExpired</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>credentialsNonExpired</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">credentialsNonExpired</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accountNonLocked</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accountNonLocked</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>attributes</code></p></td>
@@ -732,19 +700,15 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 345
+Content-Length: 229
 
 {
   "id" : 1,
   "snsId" : null,
   "provider" : null,
-  "username" : "testser@gmail.com",
+  "email" : "testser@gmail.com",
   "name" : "tester",
   "role" : "USER",
-  "enabled" : true,
-  "accountNonExpired" : true,
-  "credentialsNonExpired" : true,
-  "accountNonLocked" : true,
   "attributes" : null,
   "authorities" : [ {
     "authority" : "ROLE_USER"
@@ -781,11 +745,11 @@ Content-Length: 345
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">true</p></td>
 <td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
@@ -804,13 +768,13 @@ Content-Length: 345
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /v1/auth/signin HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 78
-X-CSRF-TOKEN: g6ko3xEJOUsiWlYyHiBikr6NoTYGKFeiZ9MNDGL_tMqds-fD5s0duyk9WnwPb2VRJw1W8Yy8jA40TmKPX-s9OFObgP6p0tf7
+Content-Length: 72
+X-CSRF-TOKEN: ree04XU09Dkf_LRnxgD_IV87EvdoF1uWiw2Y59el6tD1_ml0mYKG1EZWlgsyy4JXpy3LRGsJP5YMcm-7uW6o3uLA3rKXz1wX
 Host: localhost:8080
 
 {
-  "username" : "samatha.murphy@yahoo.com",
-  "password" : "h3t71ok1n374so"
+  "email" : "alphonse.dickens@gmail.com",
+  "password" : "xe2gjte1o"
 }</code></pre>
 </div>
 </div>
@@ -891,19 +855,19 @@ Host: localhost:8080
 <h5 id="_http_response_2"><a class="link" href="#_http_response_2">Http Response</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 233
+Content-Length: 231
 
 {
   "id" : 1,
-  "email" : "samatha.murphy@yahoo.com",
-  "name" : "Demarcus Gibson I",
+  "email" : "alphonse.dickens@gmail.com",
+  "name" : "Ezekiel Crona",
   "tokens" : {
     "tokenType" : "Bearer",
     "accessToken" : "{accessToken}",
@@ -926,7 +890,7 @@ Content-Length: 233
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /v1/auth/refresh HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-RefreshToken: 91a5505b-109f-4268-87c7-339a9bba6cfd
+RefreshToken: a012da44-255f-4bdb-988a-a09c99f20cfa
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -984,7 +948,7 @@ Host: localhost:8080</code></pre>
 <h5 id="_http_response_3"><a class="link" href="#_http_response_3">Http Response</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 0
@@ -995,9 +959,9 @@ Content-Length: 167
 
 {
   "tokenType" : "Bearer",
-  "accessToken" : "c47eb040-b291-4a8a-b7f5-a1d253387c1e",
+  "accessToken" : "0b6f6b11-3d54-43c5-b433-d5b76291a978",
   "expiresIn" : 3600,
-  "refreshToken" : "91a5505b-109f-4268-87c7-339a9bba6cfd"
+  "refreshToken" : "a012da44-255f-4bdb-988a-a09c99f20cfa"
 }</code></pre>
 </div>
 </div>
@@ -1012,7 +976,7 @@ Content-Length: 167
 <h5 id="_http_request_4"><a class="link" href="#_http_request_4">Http Request</a></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/auth/me?_csrf=YO18nUgD3vIqOZ-lMiuSvzcxENThVvzh4VCCv47FD4YmWqVoU48Y_ixh78cHDK6WVAam3QUCPe2EY8TM0zSz3r_8OLQeO5AN HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /v1/auth/me?_csrf=cHH3UIk-eMbiv9y-n2Onrztt5nQoej_8gmSJENXudY78B2AyRkaSabBbS__PiO2G_U6TzgIOyxURSlvRslHrIbaNQO3KMlMA HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -1053,7 +1017,7 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sns id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
@@ -1083,34 +1047,10 @@ Host: localhost:8080</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock">provider</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>enabled</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>snsUser</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">is sns user</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accountNonExpired</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accountNonExpired</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>credentialsNonExpired</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">credentialsNonExpired</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accountNonLocked</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">accountNonLocked</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>attributes</code></p></td>
@@ -1144,19 +1084,15 @@ X-XSS-Protection: 0
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 356
+Content-Length: 245
 
 {
   "id" : 1,
   "snsId" : null,
   "provider" : null,
-  "username" : "dalton.haley@gmail.com",
-  "name" : "Malik Kautzer DDS",
+  "email" : "jackson.ankunding@hotmail.com",
+  "name" : "Leonora Goyette",
   "role" : "USER",
-  "enabled" : true,
-  "accountNonExpired" : true,
-  "credentialsNonExpired" : true,
-  "accountNonLocked" : true,
   "attributes" : null,
   "authorities" : [ {
     "authority" : "USER"
@@ -1294,7 +1230,7 @@ Content-Type: application/json;charset=UTF-8
 Authorization: Bearer {access-token}
 Accept: application/json
 Content-Length: 108
-X-CSRF-TOKEN: ijUkYL1evTxRYjvfd8yutwqI5s107fRFRLMlfn7P8fqF56kYvFcVBttsiAR8VwnrFeGag2jqy_VN2pBod9YWTEyuw8Kw1J4g
+X-CSRF-TOKEN: 80_oOrIpStyxCjXxEQ1PBXKAcdAxGhlcj3LxEHEK8vqlIbXFx3nbDopKfe6cb1fIcCB7NULjXOgBeSpxu0TCdRM4ys6TF4Dw
 Host: localhost:8080
 
 {
@@ -1400,8 +1336,8 @@ Content-Length: 217
   "role" : "USER",
   "snsId" : null,
   "provider" : null,
-  "createdAt" : "2023-09-17T18:32:38.763366",
-  "updatedAt" : "2023-09-17T18:32:38.763379"
+  "createdAt" : "2023-09-24T10:24:10.657147",
+  "updatedAt" : "2023-09-24T10:24:10.657163"
 }</code></pre>
 </div>
 </div>
@@ -1444,7 +1380,7 @@ Content-Length: 217
 Content-Type: application/json;charset=UTF-8
 Authorization: Bearer {access-token}
 Accept: application/json
-X-CSRF-TOKEN: dX6GjGBsBdzMenKz5c717Lm93XeY3kb6bb6r8sgTJZGXhdNsRk3iulIIZO7hHBCAgePB3tje8E6q7XHXWIadwqkhFKX14-oI
+X-CSRF-TOKEN: y0zSurxtQaRd8U7-u2PvF3Z9NSKxNY1o0IWF7uDW48p1VTHB-nyzjt9ac5FwkCyd307bdUYZGECFUOxFtuCw1tmy0akTbAfw
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1542,8 +1478,8 @@ Content-Length: 217
   "role" : "USER",
   "snsId" : null,
   "provider" : null,
-  "createdAt" : "2023-09-17T18:32:38.807709",
-  "updatedAt" : "2023-09-17T18:32:38.807722"
+  "createdAt" : "2023-09-24T10:24:10.711313",
+  "updatedAt" : "2023-09-24T10:24:10.711328"
 }</code></pre>
 </div>
 </div>
@@ -1624,7 +1560,7 @@ Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Authorization: Bearer {access-token}
 Content-Length: 46
-X-CSRF-TOKEN: oMstJU7mpALnfKgqfYlxN79bD18LIcg4s0PKUo1w_WjzEoQhmfgeQHmEwjrKHs1OSqRFDolvImc-EP8V13SoZu5EmQ7HJLcZ
+X-CSRF-TOKEN: dkbnfHfXCxQvZztooZdHJ-9bOX9ddjfDWoqZKRvvPtnTZwrNFXDUGkHhbnICA1oLw7pzRtY5FB5rEFLuPLj4SyrdDu3lBWz8
 Host: localhost:8080
 
 {
@@ -1718,7 +1654,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 221
+Content-Length: 220
 
 {
   "id" : 1,
@@ -1727,8 +1663,8 @@ Content-Length: 221
   "role" : "USER",
   "snsId" : null,
   "provider" : null,
-  "createdAt" : "2023-09-17T18:32:38.636818",
-  "updatedAt" : "2023-09-17T18:32:38.636831"
+  "createdAt" : "2023-09-24T10:24:10.480696",
+  "updatedAt" : "2023-09-24T10:24:10.48071"
 }</code></pre>
 </div>
 </div>
@@ -1802,7 +1738,7 @@ Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Authorization: Bearer {access-token}
 Content-Length: 34
-X-CSRF-TOKEN: EIFzln-7kr5YO-pFFNTTnZhKNSsGC0eLwhJUdwdFzOV-7UuNKeBDoEiDoIZ1Doh2IPnnrvl8GElnOyOm8HNgFTBy-IEb1H65
+X-CSRF-TOKEN: UHzBUzsK9Gn6sk8u7WHv3EEIH7hQErkMwujL9hLgtPA12x4mZkT3Yl8zwg_Xii0f3kzbvXI5MoAycdwh8dmtl3SFgcgF6ipD
 Host: localhost:8080
 
 {
@@ -1833,52 +1769,10 @@ Host: localhost:8080
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resetPassword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user identifier</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">role</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>updatedAt</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">updatedAt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">createdAt</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snsId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">snsId</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>provider</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Null</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">provider</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">email</p></td>
 </tr>
 </tbody>
 </table>
@@ -1895,17 +1789,10 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
 X-Frame-Options: DENY
-Content-Length: 217
+Content-Length: 28
 
 {
-  "id" : 1,
-  "email" : "tester@gmail.com",
-  "name" : "tester",
-  "role" : "USER",
-  "snsId" : null,
-  "provider" : null,
-  "createdAt" : "2023-09-17T18:32:38.416785",
-  "updatedAt" : "2023-09-17T18:32:38.416798"
+  "resetPassword" : true
 }</code></pre>
 </div>
 </div>
@@ -1948,7 +1835,7 @@ Content-Length: 217
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Authorization: Bearer {access-token}
-X-CSRF-TOKEN: z8IE4Df_yu0z-XR7MhhuCrFMK9Ld4NC3Psslc4bRgGphXFi6rvVn1QLJ-90enUFCADVaa9V_BrPs2eOaD_1HFuewtAlUbznZ
+X-CSRF-TOKEN: l381XwLx4B87aiYLAH8a0wkiifrrvfZDfBuuI6qXzVnYqhEwphwCajGThC8WWhY5N1Iu5j4VpJvej85uTyLKG870_WzvzCAF
 Host: localhost:8080</code></pre>
 </div>
 </div>

@@ -1,6 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.domain.hosts.Host;
+import com.miniyus.friday.domain.hosts.HostFilter;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -9,10 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
 import static com.miniyus.friday.infrastructure.persistence.entities.QHostEntity.hostEntity;
 import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
-
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -22,7 +20,7 @@ public class HostRepositoryImpl implements QHostRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<HostEntity> findAll(Host.HostFilter hostFilter, Pageable pageable) {
+    public Page<HostEntity> findAll(HostFilter hostFilter, Pageable pageable) {
         var query = jpaQueryFactory.selectFrom(hostEntity);
         var hosts = whereHostFilter(query, hostFilter)
             .offset(pageable.getOffset())
@@ -36,7 +34,7 @@ public class HostRepositoryImpl implements QHostRepository {
         return new PageImpl<>(hosts, pageable, Objects.requireNonNullElse(count, 0L));
     }
 
-    private <T> JPAQuery<T> whereHostFilter(JPAQuery<T> query, Host.HostFilter filter) {
+    private <T> JPAQuery<T> whereHostFilter(JPAQuery<T> query, HostFilter filter) {
         if (filter.userId() != null && filter.userId().equals(0L)) {
             query.join(hostEntity.user, userEntity)
                 .where(userEntity.id.eq(filter.userId()));
