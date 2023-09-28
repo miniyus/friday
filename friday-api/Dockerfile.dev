@@ -1,11 +1,13 @@
-FROM gradle:8.3 AS build
+FROM openjdk:17-jdk-slim AS development
 
 LABEL maintainer="miniyus"
 
 WORKDIR /app
 
-COPY . /app
+COPY build.gradle /app/build.gradle
+COPY gradlew /app/gradlew
+COPY src /app/src
 
 EXPOSE 8080
 
-ENTRYPOINT [ "gradle", "bootRun", "-t"]
+ENTRYPOINT [ "./gradlew", "bootRun", "-t"]

@@ -2,16 +2,17 @@ FROM gradle:8.3 AS build
 
 LABEL maintainer="miniyus"
 
-COPY --chown=gradle:gradle . /home/gradle/src
+COPY --chown=gradle:gradle build.gradle /app/build.gradle
+COPY --chown=gradle:gradle src /app/src
 
-WORKDIR /home/gradle/src
+WORKDIR /app
 RUN gradle build
 
-FROM openjdk:21-ea-17-slim
+FROM openjdk:17-jdk-slim AS deployment
 
 ARG JAR_FILE
 
 EXPOSE 8080
-COPY --from=build /home/gradle/src/build/libs/$JAR_FILE /app/
-RUN bash -c 'touch /app/${JAR_FILE}.jar'
-ENTRYPOINT ["java", "-jar","/app/${JAR_FILE}.jar"]
+COPY --from=build /home/gradle/src/build/libs/$JAR_FILE /app.jar
+
+ENTRYPOINT ["java", "-jar","app.jar"]
