@@ -3,6 +3,7 @@ package com.miniyus.friday.infrastructure.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.miniyus.friday.common.UserRole;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,8 +22,8 @@ import lombok.RequiredArgsConstructor;
  * @date 2023/09/01
  */
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private final UserRepository userRepository;
 

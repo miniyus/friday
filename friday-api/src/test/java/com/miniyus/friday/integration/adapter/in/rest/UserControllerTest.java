@@ -21,7 +21,7 @@ import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
 import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.adapter.in.rest.UserController;
 import com.miniyus.friday.application.port.in.query.RetrieveUserQuery;

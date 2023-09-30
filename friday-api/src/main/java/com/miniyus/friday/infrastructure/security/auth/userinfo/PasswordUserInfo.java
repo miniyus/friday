@@ -4,8 +4,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
-import com.miniyus.friday.common.validation.annotation.Enum;
-import com.miniyus.friday.infrastructure.security.UserRole;
 
 import java.io.Serializable;
 

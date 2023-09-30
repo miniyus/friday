@@ -9,6 +9,8 @@ import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenRes
 import com.miniyus.friday.infrastructure.security.oauth2.response.OAuth2TokenResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 @Component
 public class AuthResponseHandler {
+    private final MessageSource messageSource;
     private final ObjectMapper objectMapper;
 
     public void handleErrorResponse(
@@ -24,9 +27,16 @@ public class AuthResponseHandler {
         ErrorCode errorCode,
         String message
     ) throws IOException {
+        String translateMessage = messageSource.getMessage(
+            message,
+            null,
+            message,
+            LocaleContextHolder.getLocale()
+        );
+
         var errorResponse = new ErrorResponse(
             errorCode,
-            message
+            translateMessage
         );
 
         String errorJsonBody = objectMapper.writeValueAsString(errorResponse);

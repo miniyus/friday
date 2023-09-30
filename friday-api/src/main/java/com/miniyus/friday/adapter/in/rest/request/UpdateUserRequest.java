@@ -3,7 +3,7 @@ package com.miniyus.friday.adapter.in.rest.request;
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.common.validation.annotation.NullOrNotBlank;
 import com.miniyus.friday.domain.users.UpdateUser;
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 

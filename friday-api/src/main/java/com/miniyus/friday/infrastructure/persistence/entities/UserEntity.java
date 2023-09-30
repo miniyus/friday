@@ -2,7 +2,7 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
 
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;

@@ -3,6 +3,7 @@ package com.miniyus.friday.adapter.out.persistence;
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
+import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Service
+@PersistenceAdapter
 @Transactional
 public class AuthAdapter {
     private final CustomUserDetailsService userDetailsService;

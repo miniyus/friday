@@ -1,6 +1,7 @@
 package com.miniyus.friday.adapter.in.rest;
 
 import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
@@ -19,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author miniyus
  * @date 2023/09/04
  */
-@RestController
+@RestAdapter
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthAdapter authService;

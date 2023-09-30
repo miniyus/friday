@@ -33,7 +33,6 @@ public class HostMapper {
     }
 
     public HostEntity toEntity(Host domain) throws RestErrorException {
-        var user = getUser(domain.getUserId());
         return new HostEntity(
             domain.getId(),
             domain.getHost(),
@@ -42,7 +41,7 @@ public class HostMapper {
             domain.getPath(),
             domain.isPublish(),
             domain.getDeletedAt(),
-            user
+            getUser(domain.getUserId())
         );
     }
 

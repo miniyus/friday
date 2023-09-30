@@ -7,7 +7,7 @@ import java.util.Optional;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

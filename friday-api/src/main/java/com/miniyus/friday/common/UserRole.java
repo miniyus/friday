@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.security;
+package com.miniyus.friday.common;
 
 import lombok.Getter;
 

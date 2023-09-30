@@ -1,6 +1,7 @@
 package com.miniyus.friday.infrastructure.security.config;
 
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,9 +13,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -52,12 +61,9 @@ public class SecurityConfiguration {
     public static final String OAUTH2_LOGIN_URL = "/oauth2/authorization";
     public static final String OAUTH2_CALLBACK_URL = "/oauth2/callback";
 
-    private final PrincipalUserService userService;
-    private final PrincipalUserDetailsService userDetailsService;
-    private final OAuth2SuccessHandler successHandler;
-    private final OAuth2FailureHandler failureHandler;
-    private final OAuth2AuthenticationEntryPoint authenticationEntryPoint;
-    private final OAuth2AccessDeniedHandler accessDeniedHandler;
+    private final OAuth2UserService<OAuth2UserRequest, OAuth2User> userService;
+    private final UserDetailsService userDetailsService;
+    private final MessageSource messageSource;
     private final ObjectMapper objectMapper;
     private final JwtService jwtService;
 
@@ -118,9 +124,9 @@ public class SecurityConfiguration {
             .redirectionEndpoint(redirect -> redirect
                 .baseUri(OAUTH2_CALLBACK_URL))
             // 인증 성공 핸들러
-            .successHandler(successHandler)
+            .successHandler(authenticationSuccessHandler())
             // 인증 실패 핸들러
-            .failureHandler(failureHandler));
+            .failureHandler(authenticationFailureHandler()));
 
         // user detail service 설정
         // 자체 로그인을 위한 servicedlek.
@@ -129,11 +135,12 @@ public class SecurityConfiguration {
         // 인증 관련 예외 처리 핸들링
         http.exceptionHandling(exceptHandling -> exceptHandling
             // 인증 실패 처리 핸들러
-            .authenticationEntryPoint(authenticationEntryPoint)
+            .authenticationEntryPoint(authenticationEntryPoint())
             // 권한 제한 예외에 대한 핸들러
-            .accessDeniedHandler(accessDeniedHandler));
+            .accessDeniedHandler(accessDeniedHandler()));
 
-        http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+        http.headers(
+            headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         http.addFilterAfter(passwordAuthenticationFilter(), LogoutFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), PasswordAuthenticationFilter.class);
         return http.build();
@@ -153,6 +160,38 @@ public class SecurityConfiguration {
         loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
         loginFilter.setAuthenticationFailureHandler(loginFailureHandler());
         return loginFilter;
+    }
+
+    public AuthResponseHandler authResponseHandler() {
+        return new AuthResponseHandler(
+            messageSource,
+            objectMapper
+        );
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new OAuth2AuthenticationEntryPoint(authResponseHandler());
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new OAuth2SuccessHandler(
+            jwtService,
+            authResponseHandler()
+        );
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new OAuth2FailureHandler(
+            authResponseHandler()
+        );
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new OAuth2AccessDeniedHandler(authResponseHandler());
     }
 
     /**
@@ -179,7 +218,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {
-        return new LoginSuccessHandler(jwtService, new AuthResponseHandler(objectMapper));
+        return new LoginSuccessHandler(jwtService, authResponseHandler());
     }
 
     /**
@@ -187,7 +226,7 @@ public class SecurityConfiguration {
      */
     @Bean
     public LoginFailureHandler loginFailureHandler() {
-        return new LoginFailureHandler(new AuthResponseHandler(objectMapper));
+        return new LoginFailureHandler(authResponseHandler());
     }
 
     /**

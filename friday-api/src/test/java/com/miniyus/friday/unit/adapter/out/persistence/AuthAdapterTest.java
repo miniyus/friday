@@ -8,7 +8,7 @@ import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

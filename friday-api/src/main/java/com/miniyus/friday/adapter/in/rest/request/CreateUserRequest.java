@@ -2,7 +2,7 @@ package com.miniyus.friday.adapter.in.rest.request;
 
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.domain.users.User;
-import com.miniyus.friday.infrastructure.security.UserRole;
+import com.miniyus.friday.common.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
