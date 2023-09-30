@@ -106,7 +106,7 @@ public class UserController {
             req = request;
         }
 
-        Page<User> users = readUserQuery.findAll(req.toDomain());
+        Page<User> users = readUserQuery.findAll(req.toDomain(), req.getPageable());
 
         log.debug("users count: " + users.getContent().size());
 

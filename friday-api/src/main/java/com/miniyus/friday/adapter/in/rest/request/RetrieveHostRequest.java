@@ -51,7 +51,6 @@ public class RetrieveHostRequest extends PageRequest {
             .createdAtEnd(createdAtEnd)
             .updatedAtStart(updatedAtStart)
             .updatedAtEnd(updatedAtEnd)
-            .pageable(pageable)
             .build();
     }
 

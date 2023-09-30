@@ -4,6 +4,7 @@ import java.util.List;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.domain.users.UserFilter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * [description]
@@ -14,7 +15,7 @@ import org.springframework.data.domain.Page;
 public interface RetrieveUserQuery {
     List<User> findAll();
 
-    Page<User> findAll(UserFilter request);
+    Page<User> findAll(UserFilter request, Pageable pageable);
 
     User findById(Long id);
 }

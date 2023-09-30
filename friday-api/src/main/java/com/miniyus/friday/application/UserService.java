@@ -14,6 +14,7 @@ import com.miniyus.friday.application.exception.UserExistsException;
 import com.miniyus.friday.application.exception.UserNotFoundException;
 import com.miniyus.friday.domain.users.UserFilter;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.application.port.in.query.RetrieveUserQuery;
@@ -86,14 +87,14 @@ public class UserService
      * @return a Page object containing the list of users that match the search criteria
      */
     @Override
-    public Page<User> findAll(UserFilter request) {
+    public Page<User> findAll(UserFilter request, Pageable pageable) {
         Page<User> result;
 
         // only paginate
         if (request.isEmpty()) {
-            result = readUserPort.findAll(request.pageable());
+            result = readUserPort.findAll(pageable);
         } else {
-            result = readUserPort.findAll(request, request.pageable());
+            result = readUserPort.findAll(request, pageable);
         }
 
         return new SimplePage<>(

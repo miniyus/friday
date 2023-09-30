@@ -47,13 +47,13 @@ public class HostService implements CreateHostUsecase, UpdateHostUsecase, Delete
     }
 
     @Override
-    public Page<Host> retrieveAll(HostFilter filter) {
+    public Page<Host> retrieveAll(HostFilter filter, Pageable pageable) {
 
         if (filter.isEmpty()) {
-            return retrieveHostPort.findAll(filter.pageable());
+            return retrieveHostPort.findAll(pageable);
         }
 
-        return retrieveHostPort.findAll(filter, filter.pageable());
+        return retrieveHostPort.findAll(filter, pageable);
     }
 
     @Override

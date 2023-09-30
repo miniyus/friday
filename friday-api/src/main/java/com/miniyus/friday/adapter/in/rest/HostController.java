@@ -78,7 +78,11 @@ public class HostController {
             req = retrieveAll;
         }
 
-        var domains = retrieveHostQuery.retrieveAll(req.toDomain(getUserInfo().getId()));
+        var domains = retrieveHostQuery.retrieveAll(
+            req.toDomain(getUserInfo().getId()),
+            req.getPageable()
+        );
+
         return ResponseEntity.ok(
             HostResources.fromDomains(domains)
         );

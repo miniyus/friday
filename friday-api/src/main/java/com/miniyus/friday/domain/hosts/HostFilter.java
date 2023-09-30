@@ -1,7 +1,6 @@
 package com.miniyus.friday.domain.hosts;
 
 import lombok.Builder;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +14,7 @@ public record HostFilter(
     LocalDateTime createdAtEnd,
     LocalDateTime updatedAtStart,
     LocalDateTime updatedAtEnd,
-    Long userId,
-    Pageable pageable
+    Long userId
 ) {
     public boolean isEmpty() {
         return host == null && summary == null && path == null && description == null

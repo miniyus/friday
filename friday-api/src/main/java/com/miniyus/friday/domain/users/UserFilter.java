@@ -1,7 +1,6 @@
 package com.miniyus.friday.domain.users;
 
 import lombok.Builder;
-import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 
@@ -13,8 +12,7 @@ public record UserFilter(
     LocalDateTime createdAtStart,
     LocalDateTime createdAtEnd,
     LocalDateTime updatedAtStart,
-    LocalDateTime updatedAtEnd,
-    Pageable pageable
+    LocalDateTime updatedAtEnd
 ) {
 
     /**
