@@ -113,7 +113,7 @@ jwt:
         expiration: 3600
         header: Authorization
     refresh:
-        expiration: 36000
+        expiration: 86400
         header: RefreshToken
 springdoc:
   swagger-ui:

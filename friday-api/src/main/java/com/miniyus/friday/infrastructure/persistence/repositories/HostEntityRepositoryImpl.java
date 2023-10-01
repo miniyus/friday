@@ -15,12 +15,12 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Repository
-public class HostRepositoryImpl implements QHostRepository {
+public class HostEntityRepositoryImpl implements QHostEntityRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<HostEntity> findAll(HostFilter hostFilter, Pageable pageable) {
+    public Page<HostEntity> findHosts(HostFilter hostFilter, Pageable pageable) {
         var query = jpaQueryFactory.selectFrom(hostEntity);
         var hosts = whereHostFilter(query, hostFilter)
             .offset(pageable.getOffset())

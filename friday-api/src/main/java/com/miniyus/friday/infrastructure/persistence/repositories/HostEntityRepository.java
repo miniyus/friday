@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface HostRepository extends JpaRepository<HostEntity, Long>, QHostRepository {
+public interface HostEntityRepository extends JpaRepository<HostEntity, Long>,
+    QHostEntityRepository {
     boolean existsByHostAndUserId(String host, Long userId);
 
     Optional<HostEntity> findByHostAndUserId(String host, Long userId);

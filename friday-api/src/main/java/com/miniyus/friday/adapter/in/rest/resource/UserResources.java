@@ -1,6 +1,7 @@
 package com.miniyus.friday.adapter.in.rest.resource;
 
 import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public record UserResources(
     List<UserResource> users
-) implements Serializable{
+) implements Serializable {
     public record UserResource(
         Long id,
         String email,
@@ -38,4 +39,23 @@ public record UserResources(
         return users.map(UserResource::fromDomain);
     }
 
+    public record AuthUserResource(
+        Long id,
+        String email,
+        String name,
+        String role,
+        String snsId,
+        String provider
+    ) {
+        public static AuthUserResource fromPrincipalUserInfo(PrincipalUserInfo user) {
+            return new AuthUserResource(
+                user.getId(),
+                user.getEmail(),
+                user.getName(),
+                user.getRole().getValue(),
+                user.getSnsId(),
+                user.getProvider() != null ? user.getProvider().getValue() : null
+            );
+        }
+    }
 }

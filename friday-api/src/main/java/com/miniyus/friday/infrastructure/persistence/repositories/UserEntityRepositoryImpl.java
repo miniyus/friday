@@ -14,11 +14,11 @@ import java.util.Objects;
 
 @Repository
 @RequiredArgsConstructor
-public class UserRepositoryImpl implements QUserRepository {
+public class UserEntityRepositoryImpl implements QUserEntityRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<UserEntity> findAll(UserFilter searchUser,
+    public Page<UserEntity> findUsers(UserFilter searchUser,
         Pageable pageable) {
 
         var content = whereSearchUser(

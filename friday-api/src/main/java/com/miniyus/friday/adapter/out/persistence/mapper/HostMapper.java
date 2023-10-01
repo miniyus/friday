@@ -5,14 +5,14 @@ import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
 public class HostMapper {
-    private final UserRepository userRepository;
+    private final UserEntityRepository userRepository;
 
     private UserEntity cacheUser;
 

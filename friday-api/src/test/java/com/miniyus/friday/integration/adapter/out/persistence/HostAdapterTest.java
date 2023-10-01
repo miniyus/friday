@@ -1,7 +1,7 @@
 package com.miniyus.friday.integration.adapter.out.persistence;
 
 import com.miniyus.friday.adapter.out.persistence.HostAdapter;
-import com.miniyus.friday.infrastructure.persistence.repositories.HostRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.HostEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,5 +19,5 @@ public class HostAdapterTest {
     private HostAdapter hostAdapter;
 
     @Autowired
-    private HostRepository hostRepository;
+    private HostEntityRepository hostRepository;
 }

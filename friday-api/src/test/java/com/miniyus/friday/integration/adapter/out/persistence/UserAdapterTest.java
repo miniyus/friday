@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import com.miniyus.friday.domain.users.UserFilter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.adapter.out.persistence.UserAdapter;
 import com.miniyus.friday.adapter.out.persistence.mapper.UserMapper;
 import com.miniyus.friday.domain.users.User;
@@ -46,11 +47,11 @@ public class UserAdapterTest {
     private UserAdapter userAdapter;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserEntityRepository userRepository;
 
     private final Faker faker = new Faker();
 
-    private List<UserEntity> testEntities = new ArrayList<UserEntity>();
+    private List<UserEntity> testEntities = new ArrayList<>();
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -185,7 +186,7 @@ public class UserAdapterTest {
     }
 
     @Test
-    void retrieveFilterByEmailTest() throws Exception {
+    void retrieveFilterByEmailTest() {
         var selectUser = testEntities.get(5);
 
         var filter = UserFilter.builder()
@@ -203,7 +204,7 @@ public class UserAdapterTest {
     }
 
     @Test
-    void retrieveFilterByNameTest() throws Exception {
+    void retrieveFilterByNameTest() {
         var selectUser = testEntities.get(5);
 
         var filter = UserFilter.builder()
@@ -221,7 +222,7 @@ public class UserAdapterTest {
     }
 
     @Test
-    void retrieveFilterRangeCreatedAtTest() throws Exception {
+    void retrieveFilterRangeCreatedAtTest() {
         var selectUser = testEntities.get(5);
 
         var filter = UserFilter.builder()
@@ -239,7 +240,7 @@ public class UserAdapterTest {
     }
 
     @Test
-    void retrieveFilterRangeUpdatedAtTest() throws Exception {
+    void retrieveFilterRangeUpdatedAtTest() {
         var selectUser = testEntities.get(5);
 
         var filter = UserFilter.builder()
@@ -257,7 +258,7 @@ public class UserAdapterTest {
     }
 
     @Test
-    void retrieveFilterMultipleTest() throws Exception {
+    void retrieveFilterMultipleTest() {
         var selectUser = testEntities.get(5);
 
         var filter = UserFilter.builder()

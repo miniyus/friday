@@ -18,13 +18,14 @@ import lombok.NoArgsConstructor;
  * @author miniyus
  * @date 2023/09/02
  */
-@Entity
+@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "auth_user")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")
-@Table(name = "auth_user")
-@Getter
 public class UserEntity extends BaseEntity {
     @Id
     @GeneratedValue

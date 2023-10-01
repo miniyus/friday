@@ -19,7 +19,7 @@ public @interface WithMockCustomUser {
      * 
      * @return username
      */
-    String username() default "username";
+    String username() default "username@example.com";
 
     /**
      * 

@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface RefreshTokenRepository extends CrudRepository<RefreshTokenEntity, String> {
+public interface RefreshTokenEntityRepository extends CrudRepository<RefreshTokenEntity, String> {
     /**
      * Finds a RefreshTokenEntity object by its token value.
      *

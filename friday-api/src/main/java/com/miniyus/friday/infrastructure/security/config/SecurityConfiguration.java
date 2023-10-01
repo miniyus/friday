@@ -55,7 +55,7 @@ public class SecurityConfiguration {
     public static final String USERINFO_URL = "/v1/auth/me";
     public static final String LOGOUT_URL = "/v1/auth/logout";
     public static final String SIGNUP_URL = "/v1/auth/signup";
-    public static final String REFRESH_URL = "/v1/auth/refresh";
+    public static final String REFRESH_URL = "/v1/auth/refresh-token";
     public static final String OAUTH2_LOGIN_URL = "/oauth2/authorization";
     public static final String OAUTH2_CALLBACK_URL = "/oauth2/callback";
 

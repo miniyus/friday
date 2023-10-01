@@ -1,9 +1,9 @@
 package com.miniyus.friday.adapter.in.rest;
 
+import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
 import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
-import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import com.miniyus.friday.infrastructure.security.config.SecurityConfiguration;
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class AuthController {
      * @return the principal user info of the newly created user
      */
     @PostMapping(SecurityConfiguration.SIGNUP_URL)
-    public ResponseEntity<PrincipalUserInfo> signup(
+    public ResponseEntity<AuthUserResource> signup(
         @Valid @RequestBody PasswordUserInfo authentication) {
         // Call the authService.signup() method to sign up the user and get the user information
         var user = authService.signup(authentication);
@@ -43,7 +43,7 @@ public class AuthController {
         var uri = builder.build().toUri();
 
         // Return a ResponseEntity with the created URI and the user information
-        return ResponseEntity.created(uri).body(user);
+        return ResponseEntity.created(uri).body(AuthUserResource.fromPrincipalUserInfo(user));
     }
 
     /**
@@ -63,9 +63,10 @@ public class AuthController {
 
     @GetMapping(SecurityConfiguration.USERINFO_URL)
     @PreAuthorize("hasAuthority('USER')")
-    public ResponseEntity<PrincipalUserInfo> userInfo() {
+    public ResponseEntity<AuthUserResource> userInfo() {
         var userInfo = authService.userInfo();
-        return ResponseEntity.ok(userInfo);
+
+        return ResponseEntity.ok(AuthUserResource.fromPrincipalUserInfo(userInfo));
     }
 
     @PostMapping(SecurityConfiguration.LOGOUT_URL)

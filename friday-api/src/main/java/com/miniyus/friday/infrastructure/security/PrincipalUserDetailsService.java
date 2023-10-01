@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.miniyus.friday.common.UserRole;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 @RequiredArgsConstructor
 public class PrincipalUserDetailsService implements CustomUserDetailsService {
-    private final UserRepository userRepository;
+    private final UserEntityRepository userRepository;
 
     private PasswordEncoder passwordEncoder;
 
@@ -54,7 +54,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
         authorities.add((GrantedAuthority) () -> entity.getRole().getValue());
 
         return authorities;
-    };
+    }
 
     @Override
     public PrincipalUserInfo create(PasswordUserInfo userInfo) {

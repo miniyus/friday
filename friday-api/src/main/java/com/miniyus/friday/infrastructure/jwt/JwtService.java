@@ -1,12 +1,9 @@
 package com.miniyus.friday.infrastructure.jwt;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Optional;
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -14,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenEntityRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
@@ -30,9 +27,9 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class JwtService {
     private final JwtProvider jwtProvider;
-    private final UserRepository userRepository;
-    private final AccessTokenRepository accessTokenRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserEntityRepository userRepository;
+    private final AccessTokenEntityRepository accessTokenRepository;
+    private final RefreshTokenEntityRepository refreshTokenRepository;
 
     /**
      * Generates a token for the given user ID.

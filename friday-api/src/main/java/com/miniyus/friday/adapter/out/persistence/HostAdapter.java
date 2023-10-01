@@ -10,7 +10,7 @@ import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.domain.hosts.HostFilter;
 import com.miniyus.friday.domain.hosts.WhereHost;
 import com.miniyus.friday.domain.hosts.WherePublish;
-import com.miniyus.friday.infrastructure.persistence.repositories.HostRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.HostEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @PersistenceAdapter
 public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPort,
     RetrieveHostPort {
-    private final HostRepository hostRepository;
+    private final HostEntityRepository hostRepository;
     private final HostMapper mapper;
 
     @Override
@@ -63,7 +63,7 @@ public class HostAdapter implements CreateHostPort, UpdateHostPort, DeleteHostPo
 
     @Override
     public Page<Host> findAll(HostFilter host, Pageable pageable) {
-        return hostRepository.findAll(
+        return hostRepository.findHosts(
             host,
             pageable
         ).map(mapper::toDomain);

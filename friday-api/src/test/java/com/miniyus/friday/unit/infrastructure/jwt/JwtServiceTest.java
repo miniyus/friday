@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import java.util.Optional;
-import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
 import com.miniyus.friday.common.UserRole;
@@ -15,9 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 
@@ -31,13 +30,13 @@ import com.miniyus.friday.infrastructure.jwt.JwtService;
 public class JwtServiceTest {
 
     @Mock
-    private UserRepository userRepository;
+    private UserEntityRepository userRepository;
 
     @Mock
-    private AccessTokenRepository accessTokenRepository;
+    private AccessTokenEntityRepository accessTokenRepository;
 
     @Mock
-    private RefreshTokenRepository refreshTokenRepository;
+    private RefreshTokenEntityRepository refreshTokenRepository;
 
     @Mock
     private JwtProvider jwtProvider;
@@ -46,8 +45,6 @@ public class JwtServiceTest {
     private JwtService jwtService;
 
     private UserEntity testUser;
-
-    private final Faker faker = new Faker();
 
     /**
      * Set up the test environment before each test case.
@@ -151,9 +148,9 @@ public class JwtServiceTest {
             .isNotNull()
             .isEqualTo(testUser.getEmail());
 
-        /**
-         * Verify that the expiration date of the access token. 
-         * * check injected into the JWT Provider matches the expiration date of the issued access token
+        /*
+          Verify that the expiration date of the access token.
+          * check injected into the JWT Provider matches the expiration date of the issued access token
          */
         assertThat(jwtProvider.extractExpiresAt(accessToken))
             .isNotNull()

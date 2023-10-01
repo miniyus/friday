@@ -1,12 +1,8 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import java.time.LocalDateTime;
+
 import java.util.Optional;
 
 /**
@@ -15,7 +11,8 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface UserRepository extends JpaRepository<UserEntity, Long>, QUserRepository {
+public interface UserEntityRepository extends JpaRepository<UserEntity, Long>,
+    QUserEntityRepository {
     /**
      * Finds a user entity by email.
      *

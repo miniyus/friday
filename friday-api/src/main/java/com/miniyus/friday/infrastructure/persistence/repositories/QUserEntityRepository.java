@@ -5,8 +5,8 @@ import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-public interface QUserRepository {
-    Page<UserEntity> findAll(
+public interface QUserEntityRepository {
+    Page<UserEntity> findUsers(
         UserFilter searchUser,
         Pageable pageable);
 }

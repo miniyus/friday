@@ -5,35 +5,31 @@ info:
   version: 0.0.1
 servers:
 - url: http://127.0.0.1:8080
-tags: []
+tags:
+- name: users
+  description: Users API
+- name: auth
+  description: Auth Api
 paths:
   /v1/users:
     post:
       tags:
-      - v1
-      summary: create user
-      description: create user
-      operationId: create-user
-      parameters:
-      - name: Authorization
-        in: header
-        description: 인증 토큰
-        required: true
-        schema:
-          type: string
-        example: "Bearer {access-token}"
+      - users
+      summary: user api
+      description: user api
+      operationId: create user
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/v1-users536576408'
+              $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.request.CreateUserRequest'
             examples:
-              create-user:
+              create user:
                 value: |-
                   {
-                    "email" : "miniyu97@gmail.com",
-                    "password" : "password@1234",
-                    "name" : "tester",
+                    "email" : "aiko.harris@example.com",
+                    "password" : "ribs4ev3tei7",
+                    "name" : "Jack Torp",
                     "role" : "USER"
                   }
       responses:
@@ -42,27 +38,177 @@ paths:
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/v1-users-id-2070375760'
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource'
               examples:
-                create-user:
+                create user:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "tester@gmail.com",
-                      "name" : "tester",
+                      "email" : "chante.kiehn@example.com",
+                      "name" : "Pasty Mante",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-01T17:43:52.03327",
-                      "updatedAt" : "2023-10-01T17:43:52.033282"
+                      "createdAt" : "2023-10-02T03:30:04.922092",
+                      "updatedAt" : "2023-10-02T03:30:04.922104"
+                    }
+      security:
+      - bearerAuthJWT: []
+  /v1/auth/logout:
+    post:
+      tags:
+      - auth
+      summary: auth api
+      description: auth api
+      operationId: auth logout
+      responses:
+        "204":
+          description: "204"
+      security:
+      - bearerAuthJWT: []
+  /v1/auth/me:
+    get:
+      tags:
+      - auth
+      summary: auth api
+      description: auth api
+      operationId: auth user info
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource'
+              examples:
+                auth user info:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "kevin.schimmel@gmail.com",
+                      "name" : "Joseph Heller",
+                      "role" : "USER",
+                      "snsId" : "d8e263cd-81b1-4f5e-8aea-e679bb35109e",
+                      "provider" : "google"
+                    }
+      security:
+      - bearerAuthJWT: []
+  /v1/auth/refresh-token:
+    post:
+      tags:
+      - auth
+      summary: auth api
+      description: auth api
+      operationId: auth refresh
+      parameters:
+      - name: RefreshToken
+        in: header
+        description: refresh-token
+        required: true
+        schema:
+          type: string
+        example: refresh
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/com.miniyus.friday.infrastructure.jwt.IssueToken'
+              examples:
+                auth refresh:
+                  value: |-
+                    {
+                      "tokenType" : "Bearer",
+                      "accessToken" : "access",
+                      "expiresIn" : 3600,
+                      "refreshToken" : "refresh"
+                    }
+  /v1/auth/signin:
+    post:
+      tags:
+      - auth
+      summary: auth api
+      description: auth api
+      operationId: auth signin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication'
+            examples:
+              auth signin:
+                value: |-
+                  {
+                    "email" : "ashlyn.ziemann@yahoo.com",
+                    "password" : "7egmdi16hk"
+                  }
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse'
+              examples:
+                auth signin:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "ashlyn.ziemann@yahoo.com",
+                      "name" : "Miss Jaymie Jaskolski",
+                      "tokens" : {
+                        "tokenType" : "Bearer",
+                        "accessToken" : "access",
+                        "expiresIn" : 3600,
+                        "refreshToken" : "refresh"
+                      }
+                    }
+  /v1/auth/signup:
+    post:
+      tags:
+      - auth
+      summary: auth api
+      description: auth api
+      operationId: auth signup
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo'
+            examples:
+              auth signup:
+                value: |-
+                  {
+                    "email" : "lanora.kunde@example.com",
+                    "password" : "mt8ag0tjjgwcr",
+                    "name" : "Adriane Rohan"
+                  }
+      responses:
+        "201":
+          description: "201"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource'
+              examples:
+                auth signup:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "lanora.kunde@example.com",
+                      "name" : "Adriane Rohan",
+                      "role" : "MANAGER",
+                      "snsId" : null,
+                      "provider" : null
                     }
   /v1/users/{id}:
     get:
       tags:
-      - v1
-      summary: retrieve user
-      description: retrieve user
-      operationId: retrieve-user
+      - users
+      summary: user api
+      description: user api
+      operationId: retrieve user
       parameters:
       - name: id
         in: path
@@ -76,26 +222,28 @@ paths:
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/v1-users-id-2070375760'
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource'
               examples:
-                retrieve-user:
+                retrieve user:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "tester@gmail.com",
-                      "name" : "tester",
+                      "email" : "agustin.schinner@example.com",
+                      "name" : "Ms. Fredric Lueilwitz",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-01T17:43:52.080913",
-                      "updatedAt" : "2023-10-01T17:43:52.080925"
+                      "createdAt" : "2023-10-02T03:30:04.979271",
+                      "updatedAt" : "2023-10-02T03:30:04.979283"
                     }
+      security:
+      - bearerAuthJWT: []
     delete:
       tags:
-      - v1
-      summary: delete user
-      description: delete user
-      operationId: delete-user
+      - users
+      summary: user api
+      description: user api
+      operationId: delete user
       parameters:
       - name: id
         in: path
@@ -103,22 +251,17 @@ paths:
         required: true
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: 인증 토큰
-        required: true
-        schema:
-          type: string
-        example: "Bearer {access-token}"
       responses:
         "204":
           description: "204"
+      security:
+      - bearerAuthJWT: []
     patch:
       tags:
-      - v1
-      summary: update user
-      description: update user
-      operationId: update-user
+      - users
+      summary: user api
+      description: user api
+      operationId: update user
       parameters:
       - name: id
         in: path
@@ -126,23 +269,16 @@ paths:
         required: true
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: 인증 토큰
-        required: true
-        schema:
-          type: string
-        example: "Bearer {access-token}"
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/v1-users-id-2116408159'
+              $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest'
             examples:
-              update-user:
+              update user:
                 value: |-
                   {
-                    "name" : "updateName",
+                    "name" : "Dr. Vincenzo Casper",
                     "role" : "USER"
                   }
       responses:
@@ -151,27 +287,29 @@ paths:
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/v1-users-id-2070375760'
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource'
               examples:
-                update-user:
+                update user:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "tester@gmail.com",
-                      "name" : "updateName",
+                      "email" : "tesha.luettgen@example.com",
+                      "name" : "Dr. Vincenzo Casper",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-01T17:43:51.889601",
-                      "updatedAt" : "2023-10-01T17:43:51.889618"
+                      "createdAt" : "2023-10-02T03:30:04.857556",
+                      "updatedAt" : "2023-10-02T03:30:04.857572"
                     }
+      security:
+      - bearerAuthJWT: []
   /v1/users/{id}/reset-password:
     patch:
       tags:
-      - v1
-      summary: reset password
-      description: reset password
-      operationId: reset-password
+      - users
+      summary: user api
+      description: user api
+      operationId: reset password
       parameters:
       - name: id
         in: path
@@ -179,23 +317,16 @@ paths:
         required: true
         schema:
           type: string
-      - name: Authorization
-        in: header
-        description: 인증 토큰
-        required: true
-        schema:
-          type: string
-        example: "Bearer {access-token}"
       requestBody:
         content:
           application/json;charset=UTF-8:
             schema:
-              $ref: '#/components/schemas/v1-users-id-reset-password534780144'
+              $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest'
             examples:
-              reset-password:
+              reset password:
                 value: |-
                   {
-                    "password" : "resetPassword"
+                    "password" : "23uqg67y6"
                   }
       responses:
         "200":
@@ -203,44 +334,85 @@ paths:
           content:
             application/json;charset=UTF-8:
               schema:
-                $ref: '#/components/schemas/v1-users-id-reset-password-1973861162'
+                $ref: '#/components/schemas/com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource'
               examples:
-                reset-password:
+                reset password:
                   value: |-
                     {
                       "resetPassword" : true
                     }
+      security:
+      - bearerAuthJWT: []
 components:
   schemas:
-    v1-users-id-reset-password534780144:
+    com.miniyus.friday.infrastructure.jwt.IssueToken:
+      title: com.miniyus.friday.infrastructure.jwt.IssueToken
       required:
-      - password
+      - accessToken
+      - expiresIn
+      - refreshToken
+      - tokenType
       type: object
       properties:
-        password:
+        expiresIn:
+          type: number
+          description: expiresIn
+        accessToken:
           type: string
-          description: password
-    v1-users536576408:
+          description: accessToken
+        tokenType:
+          type: string
+          description: tokenType
+        refreshToken:
+          type: string
+          description: refreshToken
+    com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest:
+      title: com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest
       required:
-      - email
       - name
-      - password
       - role
       type: object
       properties:
-        password:
-          type: string
-          description: 비밀번호
         role:
           type: string
-          description: 역할
+          description: role
         name:
           type: string
-          description: 이름
+          description: name
+    com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource:
+      title: com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource
+      required:
+      - resetPassword
+      type: object
+      properties:
+        resetPassword:
+          type: boolean
+          description: reset password
+    com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource:
+      title: com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource
+      required:
+      - email
+      - id
+      - name
+      - provider
+      - role
+      - snsId
+      type: object
+      properties:
+        role:
+          type: string
+          description: role
+        name:
+          type: string
+          description: name
+        id:
+          type: number
+          description: id
         email:
           type: string
-          description: 이메일
-    v1-users-id-2070375760:
+          description: email
+    com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource:
+      title: com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource
       required:
       - createdAt
       - email
@@ -270,23 +442,107 @@ components:
         updatedAt:
           type: string
           description: updatedAt
-    v1-users-id-2116408159:
+    com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo:
+      title: com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo
       required:
+      - email
       - name
+      - password
+      type: object
+      properties:
+        password:
+          type: string
+          description: password
+        name:
+          type: string
+          description: name
+        email:
+          type: string
+          description: email
+    com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest:
+      title: com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest
+      required:
+      - password
+      type: object
+      properties:
+        password:
+          type: string
+          description: password
+    com.miniyus.friday.adapter.in.rest.request.CreateUserRequest:
+      title: com.miniyus.friday.adapter.in.rest.request.CreateUserRequest
+      required:
+      - email
+      - name
+      - password
       - role
       type: object
       properties:
+        password:
+          type: string
+          description: password
         role:
           type: string
           description: role
         name:
           type: string
           description: name
-    v1-users-id-reset-password-1973861162:
+        email:
+          type: string
+          description: email
+    com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication:
+      title: com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication
       required:
-      - resetPassword
+      - email
+      - password
       type: object
       properties:
-        resetPassword:
-          type: boolean
-          description: user identifier
+        password:
+          type: string
+          description: password
+        email:
+          type: string
+          description: email
+    com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse:
+      title: com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse
+      required:
+      - email
+      - id
+      - name
+      - tokens
+      type: object
+      properties:
+        name:
+          type: string
+          description: name
+        tokens:
+          required:
+          - accessToken
+          - expiresIn
+          - refreshToken
+          - tokenType
+          type: object
+          properties:
+            expiresIn:
+              type: number
+              description: expiresIn
+            accessToken:
+              type: string
+              description: accessToken
+            tokenType:
+              type: string
+              description: tokenType
+            refreshToken:
+              type: string
+              description: refreshToken
+          description: tokens
+        id:
+          type: number
+          description: id
+        email:
+          type: string
+          description: email
+  securitySchemes:
+    bearerAuthJWT:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.application.port.out.CreateUserPort;
 import com.miniyus.friday.application.port.out.DeleteUserPort;
 import com.miniyus.friday.application.port.out.RetrieveUserPort;
@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @PersistenceAdapter
 public class UserAdapter
         implements CreateUserPort, RetrieveUserPort, UpdateUserPort, DeleteUserPort {
-    private final UserRepository userRepository;
+    private final UserEntityRepository userRepository;
     private final UserMapper mapper;
 
     @Override
@@ -49,7 +49,7 @@ public class UserAdapter
 
     @Override
     public Page<User> findAll(UserFilter searchUser, Pageable pageable) {
-        Page<UserEntity> userEntities = userRepository.findAll(
+        Page<UserEntity> userEntities = userRepository.findUsers(
                 searchUser,
                 pageable);
         return userEntities.map(mapper::toDomain);

@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface AccessTokenRepository extends CrudRepository<AccessTokenEntity, String> {
+public interface AccessTokenEntityRepository extends CrudRepository<AccessTokenEntity, String> {
     Optional<AccessTokenEntity> findByToken(String token);
 
     Optional<AccessTokenEntity> findByUserId(String userId);

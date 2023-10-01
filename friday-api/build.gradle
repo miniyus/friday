@@ -71,7 +71,7 @@ tasks.named("test") {
 	useJUnitPlatform()
 }
 
-tasks.withType(GenerateSwaggerUI) {
+tasks.withType(GenerateSwaggerUI).configureEach {
 	dependsOn "openapi3"
 
 	delete file("src/main/resources/static/docs")
@@ -96,6 +96,7 @@ openapi3 {
 	outputFileNamePrefix = "friday-api"
 	format = "yaml"
 	outputDirectory = "build/resources/main/static/docs"
+	tagDescriptionsPropertiesFile = "src/test/resources/tags.yaml"
 }
 
 postman {
@@ -119,7 +120,7 @@ compileJava {
     options.compilerArgs << "-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated"
 }
 
-tasks.withType(JavaCompile) {
+tasks.withType(JavaCompile).configureEach {
 	options.generatedSourceOutputDirectory = file(querydslSrcDir)
 }
 

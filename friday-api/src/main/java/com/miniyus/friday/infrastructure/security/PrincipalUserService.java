@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
 import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2Attributes;
 import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2UserInfo;
@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final UserRepository userRepository;
+    private final UserEntityRepository userRepository;
 
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
         Map<String, Object> attributes) {
@@ -66,12 +66,10 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
         return authorities;
     }
 
-    ;
-
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
             .snsId(userInfo.snsId())
-            .provider(userInfo.getProvider().getId())
+            .provider(userInfo.getProvider().getValue())
             .email(userInfo.email())
             .password(null)
             .name(userInfo.name())
@@ -107,13 +105,15 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 
         OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
         UserEntity userREntity = userRepository
-            .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getId())
-            .orElseThrow(() -> new OAuth2AuthenticationException(AuthErrorCode.INVALID_REQUEST.name()));
+            .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getValue())
+            .orElseThrow(
+                () -> new OAuth2AuthenticationException(AuthErrorCode.INVALID_REQUEST.name()));
 
         PrincipalUserInfo user = buildPrincipalUserInfo(
             userREntity,
             oAuthAttributes.getAttributes()
         );
+
         if (user == null) {
             user = create(userInfo);
         }

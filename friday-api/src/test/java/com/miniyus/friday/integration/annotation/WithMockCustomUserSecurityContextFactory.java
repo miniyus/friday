@@ -52,7 +52,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
 
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                 principal,
-                "password",
+                password,
                 authorities);
 
         ctx.setAuthentication(authentication);
