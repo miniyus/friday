@@ -19,13 +19,11 @@ import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.integration.RestAdapterTest;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
@@ -63,88 +61,88 @@ public class UserControllerTest extends RestAdapterTest {
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        @Test
-        @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
-        public void createUserTest() throws Exception {
-            User domain = new User(
-                1L,
-                "tester@gmail.com",
-                passwordEncoder.encode("password@1234"),
-                "tester",
-                "USER",
-                null,
-                null,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                null);
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void createUserTest() throws Exception {
+        User domain = new User(
+            1L,
+            "tester@gmail.com",
+            passwordEncoder.encode("password@1234"),
+            "tester",
+            "USER",
+            null,
+            null,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            null);
 
-            when(createUserUsecase.createUser(any())).thenReturn(domain);
+        when(createUserUsecase.createUser(any())).thenReturn(domain);
 
-            UserResource response = UserResource.fromDomain(domain);
+        UserResource response = UserResource.fromDomain(domain);
 
-            var request = CreateUserRequest.builder().email("miniyu97@gmail.com")
-                .name("tester").password("password@1234")
-                .role(UserRole.USER.getValue()).build();
+        var request = CreateUserRequest.builder().email("miniyu97@gmail.com")
+            .name("tester").password("password@1234")
+            .role(UserRole.USER.getValue()).build();
 
-            ResultActions result = this.mockMvc.perform(
-                post("/v1/users")
-                    .with(csrf().asHeader())
-                    .header("Authorization", "Bearer {access-token}")
-                    .content(objectMapper.writeValueAsString(request))
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-            );
+        ResultActions result = this.mockMvc.perform(
+            post("/v1/users")
+                .with(csrf().asHeader())
+                .header("Authorization", "Bearer {access-token}")
+                .content(objectMapper.writeValueAsString(request))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
 
-            result.andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id").value(response.id()))
-                .andExpect(jsonPath("$.email").value(response.email()))
-                .andExpect(jsonPath("$.name").value(response.name()))
-                .andExpect(jsonPath("$.role").value(response.role()))
-                .andExpect(jsonPath("$.snsId").value(response.snsId()))
-                .andExpect(jsonPath("$.provider").value(response.provider()))
-                .andExpect(jsonPath("$.createdAt").isNotEmpty())
-                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
-                .andDo(document(
-                    "create-user",
-                    getDocumentRequest(),
-                    getDocumentResponse(),
-                    resource(
-                        ResourceSnippetParameters.builder()
-                            .description("create user")
-                            .requestHeaders(
-                                headerWithName("Authorization")
-                                    .description("인증 토큰")
-                            )
-                            .requestFields(
-                                fieldWithPath("email")
-                                    .description("이메일"),
-                                fieldWithPath("name")
-                                    .description("이름"),
-                                fieldWithPath("password")
-                                    .description("비밀번호"),
-                                fieldWithPath("role").description(
-                                    "역할")
-                            ).responseFields(
-                                fieldWithPath("id").description(
-                                    "user identifier"),
-                                fieldWithPath("email").description(
-                                    "email"),
-                                fieldWithPath("name").description(
-                                    "name"),
-                                fieldWithPath("role").description(
-                                    "role"),
-                                fieldWithPath("snsId").description(
-                                    "snsId"),
-                                fieldWithPath("provider")
-                                    .description("provider"),
-                                fieldWithPath("createdAt")
-                                    .description("createdAt"),
-                                fieldWithPath("updatedAt")
-                                    .description("updatedAt")
-                            ).build()
-                    )
-                ));
-        }
+        result.andExpect(status().isCreated())
+            .andExpect(jsonPath("$.id").value(response.id()))
+            .andExpect(jsonPath("$.email").value(response.email()))
+            .andExpect(jsonPath("$.name").value(response.name()))
+            .andExpect(jsonPath("$.role").value(response.role()))
+            .andExpect(jsonPath("$.snsId").value(response.snsId()))
+            .andExpect(jsonPath("$.provider").value(response.provider()))
+            .andExpect(jsonPath("$.createdAt").isNotEmpty())
+            .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+            .andDo(document(
+                "create-user",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                resource(
+                    ResourceSnippetParameters.builder()
+                        .description("create user")
+                        .requestHeaders(
+                            headerWithName("Authorization")
+                                .description("인증 토큰")
+                        )
+                        .requestFields(
+                            fieldWithPath("email")
+                                .description("이메일"),
+                            fieldWithPath("name")
+                                .description("이름"),
+                            fieldWithPath("password")
+                                .description("비밀번호"),
+                            fieldWithPath("role").description(
+                                "역할")
+                        ).responseFields(
+                            fieldWithPath("id").description(
+                                "user identifier"),
+                            fieldWithPath("email").description(
+                                "email"),
+                            fieldWithPath("name").description(
+                                "name"),
+                            fieldWithPath("role").description(
+                                "role"),
+                            fieldWithPath("snsId").description(
+                                "snsId"),
+                            fieldWithPath("provider")
+                                .description("provider"),
+                            fieldWithPath("createdAt")
+                                .description("createdAt"),
+                            fieldWithPath("updatedAt")
+                                .description("updatedAt")
+                        ).build()
+                )
+            ));
+    }
 
     @Test
     @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
@@ -211,177 +209,177 @@ public class UserControllerTest extends RestAdapterTest {
             ));
     }
 
-        @Test
-        @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
-        public void updateUserTest() throws Exception {
-            User domain = new User(
-                1L,
-                "tester@gmail.com",
-                "password@1234",
-                "tester",
-                "USER",
-                null,
-                null,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                null);
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void updateUserTest() throws Exception {
+        User domain = new User(
+            1L,
+            "tester@gmail.com",
+            "password@1234",
+            "tester",
+            "USER",
+            null,
+            null,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            null);
 
-            domain.patch("updateName", null);
+        domain.patch("updateName", null);
 
-            when(updateUserUsecase.patchUser(any())).thenReturn(
-                domain);
+        when(updateUserUsecase.patchUser(any())).thenReturn(
+            domain);
 
-            var request = UpdateUserRequest.builder()
-                .name("updateName")
-                .role("USER")
-                .build();
+        var request = UpdateUserRequest.builder()
+            .name("updateName")
+            .role("USER")
+            .build();
 
-            var result = mockMvc.perform(
-                patch("/v1/users/{id}", 1)
-                    .content(objectMapper.writeValueAsString(request))
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .with(csrf().asHeader())
-                    .header("Authorization", "Bearer {access-token}"));
+        var result = mockMvc.perform(
+            patch("/v1/users/{id}", 1)
+                .content(objectMapper.writeValueAsString(request))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(csrf().asHeader())
+                .header("Authorization", "Bearer {access-token}"));
 
-            result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(domain.getId()))
-                .andExpect(jsonPath("$.name").value("updateName"))
-                .andExpect(jsonPath("$.role").value(domain.getRole()))
-                .andExpect(jsonPath("$.updatedAt").isNotEmpty())
-                .andExpect(jsonPath("$.createdAt").isNotEmpty())
-                .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
-                .andExpect(jsonPath("$.provider").value(domain.getProvider()))
-                .andExpect(jsonPath("$.email").value(domain.getEmail()))
-                .andDo(document(
-                    "update-user",
-                    getDocumentRequest(),
-                    getDocumentResponse(),
-                    resource(
-                        ResourceSnippetParameters.builder()
-                            .description("update user")
-                            .requestHeaders(
-                                headerWithName("Authorization")
-                                    .description("인증 토큰")
-                            )
-                            .pathParameters(
-                                parameterWithName("id")
-                                    .description("user identifier")
-                            )
-                            .requestFields(
-                                fieldWithPath("name").description(
-                                    "name"),
-                                fieldWithPath("role").description(
-                                    "role")
-                            )
-                            .responseFields(
-                                fieldWithPath("id").description(
-                                    "user identifier"),
-                                fieldWithPath("name").description(
-                                    "name"),
-                                fieldWithPath("role").description(
-                                    "role"),
-                                fieldWithPath("updatedAt")
-                                    .description("updatedAt"),
-                                fieldWithPath("createdAt")
-                                    .description("createdAt"),
-                                fieldWithPath("snsId").description(
-                                    "snsId"),
-                                fieldWithPath("provider")
-                                    .description("provider"),
-                                fieldWithPath("email").description(
-                                    "email")
-                            ).build()
-                    )));
-        }
+        result.andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(domain.getId()))
+            .andExpect(jsonPath("$.name").value("updateName"))
+            .andExpect(jsonPath("$.role").value(domain.getRole()))
+            .andExpect(jsonPath("$.updatedAt").isNotEmpty())
+            .andExpect(jsonPath("$.createdAt").isNotEmpty())
+            .andExpect(jsonPath("$.snsId").value(domain.getSnsId()))
+            .andExpect(jsonPath("$.provider").value(domain.getProvider()))
+            .andExpect(jsonPath("$.email").value(domain.getEmail()))
+            .andDo(document(
+                "update-user",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                resource(
+                    ResourceSnippetParameters.builder()
+                        .description("update user")
+                        .requestHeaders(
+                            headerWithName("Authorization")
+                                .description("인증 토큰")
+                        )
+                        .pathParameters(
+                            parameterWithName("id")
+                                .description("user identifier")
+                        )
+                        .requestFields(
+                            fieldWithPath("name").description(
+                                "name"),
+                            fieldWithPath("role").description(
+                                "role")
+                        )
+                        .responseFields(
+                            fieldWithPath("id").description(
+                                "user identifier"),
+                            fieldWithPath("name").description(
+                                "name"),
+                            fieldWithPath("role").description(
+                                "role"),
+                            fieldWithPath("updatedAt")
+                                .description("updatedAt"),
+                            fieldWithPath("createdAt")
+                                .description("createdAt"),
+                            fieldWithPath("snsId").description(
+                                "snsId"),
+                            fieldWithPath("provider")
+                                .description("provider"),
+                            fieldWithPath("email").description(
+                                "email")
+                        ).build()
+                )));
+    }
 
-        @Test
-        @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
-        public void restPasswordTest() throws Exception {
-            User domain = new User(
-                1L,
-                "tester@gmail.com",
-                "password@1234",
-                "tester",
-                "USER",
-                null,
-                null,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                null);
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void restPasswordTest() throws Exception {
+        User domain = new User(
+            1L,
+            "tester@gmail.com",
+            "password@1234",
+            "tester",
+            "USER",
+            null,
+            null,
+            LocalDateTime.now(),
+            LocalDateTime.now(),
+            null);
 
-            // when(retrieveUserQuery.findById(1L)).thenReturn(domain);
+        // when(retrieveUserQuery.findById(1L)).thenReturn(domain);
 
-            domain.resetPassword("resetPassword");
+        domain.resetPassword("resetPassword");
 
-            when(updateUserUsecase.resetPassword(any())).thenReturn(true);
+        when(updateUserUsecase.resetPassword(any())).thenReturn(true);
 
-            var request = new ResetPasswordRequest("resetPassword");
+        var request = new ResetPasswordRequest("resetPassword");
 
-            var result = mockMvc.perform(
-                patch("/v1/users/{id}/reset-password", 1)
-                    .content(objectMapper
-                        .writeValueAsString(request))
-                    .accept(MediaType.APPLICATION_JSON)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .with(csrf().asHeader())
-                    .header("Authorization", "Bearer {access-token}"));
+        var result = mockMvc.perform(
+            patch("/v1/users/{id}/reset-password", 1)
+                .content(objectMapper
+                    .writeValueAsString(request))
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(csrf().asHeader())
+                .header("Authorization", "Bearer {access-token}"));
 
-            result.andExpect(status().isOk())
-                .andExpect(jsonPath("$.resetPassword").value(true))
-                .andDo(document(
-                    "reset-password",
-                    getDocumentRequest(),
-                    getDocumentResponse(),
-                    resource(
-                        ResourceSnippetParameters.builder()
-                            .description("reset password")
-                            .requestHeaders(
-                                headerWithName("Authorization")
-                                    .description("인증 토큰")
-                            )
-                            .pathParameters(
-                                parameterWithName("id")
-                                    .description("user identifier")
-                            )
-                            .requestFields(
-                                fieldWithPath("password")
-                                    .description("password")
-                            )
-                            .responseFields(
-                                fieldWithPath("resetPassword").description(
-                                    "user identifier")
-                            ).build()
-                    )
-                ));
-        }
+        result.andExpect(status().isOk())
+            .andExpect(jsonPath("$.resetPassword").value(true))
+            .andDo(document(
+                "reset-password",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                resource(
+                    ResourceSnippetParameters.builder()
+                        .description("reset password")
+                        .requestHeaders(
+                            headerWithName("Authorization")
+                                .description("인증 토큰")
+                        )
+                        .pathParameters(
+                            parameterWithName("id")
+                                .description("user identifier")
+                        )
+                        .requestFields(
+                            fieldWithPath("password")
+                                .description("password")
+                        )
+                        .responseFields(
+                            fieldWithPath("resetPassword").description(
+                                "user identifier")
+                        ).build()
+                )
+            ));
+    }
 
-        @Test
-        @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
-        public void deleteUserTest() throws Exception {
-            var result = mockMvc.perform(
-                delete("/v1/users/{id}", 1)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .with(csrf().asHeader())
-                    .header("Authorization", "Bearer {access-token}"));
+    @Test
+    @WithMockCustomUser(username = "tester@gmail.com", role = UserRole.USER)
+    public void deleteUserTest() throws Exception {
+        var result = mockMvc.perform(
+            delete("/v1/users/{id}", 1)
+                .accept(MediaType.APPLICATION_JSON)
+                .with(csrf().asHeader())
+                .header("Authorization", "Bearer {access-token}"));
 
-            result.andExpect(status().isNoContent())
-                .andDo(document(
-                    "delete-user",
-                    getDocumentRequest(),
-                    getDocumentResponse(),
-                    resource(
-                        ResourceSnippetParameters.builder()
-                            .description("delete user")
-                            .requestHeaders(
-                                headerWithName("Authorization")
-                                    .description("인증 토큰")
-                            )
-                            .pathParameters(
-                                parameterWithName("id")
-                                    .description("user identifier")
-                            ).build()
-                    )
-                ));
-        }
+        result.andExpect(status().isNoContent())
+            .andDo(document(
+                "delete-user",
+                getDocumentRequest(),
+                getDocumentResponse(),
+                resource(
+                    ResourceSnippetParameters.builder()
+                        .description("delete user")
+                        .requestHeaders(
+                            headerWithName("Authorization")
+                                .description("인증 토큰")
+                        )
+                        .pathParameters(
+                            parameterWithName("id")
+                                .description("user identifier")
+                        ).build()
+                )
+            ));
+    }
 }

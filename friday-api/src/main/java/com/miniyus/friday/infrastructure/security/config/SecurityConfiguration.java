@@ -30,8 +30,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.infrastructure.jwt.JwtAuthenticationFilter;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
-import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
-import com.miniyus.friday.infrastructure.security.PrincipalUserService;
 import com.miniyus.friday.infrastructure.security.auth.filter.PasswordAuthenticationFilter;
 import com.miniyus.friday.infrastructure.security.auth.handler.LoginFailureHandler;
 import com.miniyus.friday.infrastructure.security.auth.handler.LoginSuccessHandler;
@@ -94,8 +92,8 @@ public class SecurityConfiguration {
                 AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
                 AntPathRequestMatcher.antMatcher(LOGIN_URL),
                 AntPathRequestMatcher.antMatcher(SIGNUP_URL),
-                AntPathRequestMatcher.antMatcher(REFRESH_URL))
-            .permitAll()
+                AntPathRequestMatcher.antMatcher(REFRESH_URL)
+            ).permitAll()
             // 그 외, 모든 요청은 인증이 필요하다.
             .anyRequest().authenticated());
 
