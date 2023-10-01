@@ -1,123 +1,108 @@
 package com.miniyus.friday.infrastructure.aspect;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-/**
- * [description]
- *
- * @author seongminyoo
- * @date 2023/09/11
- */
 @Aspect
 @Component
-public class UsersAspect extends LoggingAspect implements HexagonalAspect {
+public class HostAspect extends LoggingAspect implements HexagonalAspect {
 
-    public UsersAspect() {
-        super("Users", LoggerFactory.getLogger(UsersAspect.class));
+    public HostAspect() {
+        super("Host", LoggerFactory.getLogger(HostAspect.class));
     }
 
-    // Adapter layer
 
-    // in/rest
-    @Pointcut("within(com.miniyus.friday.adapter.in.rest.UserController)")
     @Override
-    public void controllerPoint() {}
+    @Pointcut("within(com.miniyus.friday.adapter.in.rest.HostController)")
+    public void controllerPoint() {
+    }
 
+    @Override
     @Before("controllerPoint()")
-    @Override
     public void beforeRequest(JoinPoint joinPoint) throws Throwable {
         beforeLogging(REQUEST, joinPoint);
     }
 
-    @AfterReturning(pointcut = "controllerPoint()", returning = "returnValue")
     @Override
+    @AfterReturning(pointcut = "controllerPoint()", returning = "returnValue")
     public void afterRequestReturning(JoinPoint joinPoint, Object returnValue) {
         afterReturningLogging(REQUEST, joinPoint, returnValue);
     }
 
-    @AfterThrowing(pointcut = "controllerPoint()", throwing = "e")
     @Override
+    @AfterThrowing(pointcut = "controllerPoint()", throwing = "e")
     public void afterRequestThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
         afterThrowingLogging(REQUEST, joinPoint, e);
     }
 
-    // out/persistence
-    @Pointcut("within(com.miniyus.friday.adapter.out.persistence.UserAdapter)")
     @Override
-    public void persistencePoint() {}
+    @Pointcut("within(com.miniyus.friday.adapter.out.persistence.HostAdapter)")
+    public void persistencePoint() {
+    }
 
-    @Before("persistencePoint()")
     @Override
+    @Before("persistencePoint()")
     public void beforePersistence(JoinPoint joinPoint) throws Throwable {
         beforeLogging(PERSISTENCE, joinPoint);
     }
 
-    @AfterReturning(pointcut = "persistencePoint()", returning = "returnValue")
     @Override
+    @AfterReturning(pointcut = "persistencePoint()", returning = "returnValue")
     public void afterPersistenceReturning(JoinPoint joinPoint, Object returnValue) {
         afterReturningLogging(PERSISTENCE, joinPoint, returnValue);
     }
 
-    @AfterThrowing(pointcut = "controllerPoint()", throwing = "e")
     @Override
+    @AfterThrowing(pointcut = "persistencePoint()", throwing = "e")
     public void afterPersistenceThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
         afterThrowingLogging(PERSISTENCE, joinPoint, e);
     }
 
-
-    // Application layer
-
-    @Pointcut("within(com.miniyus.friday.application.UserService)")
     @Override
-    public void applicationPoint() {}
+    @Pointcut("within(com.miniyus.friday.application.HostService)")
+    public void applicationPoint() {
+    }
 
+    @Override
     @Before("applicationPoint()")
-    @Override
     public void beforeService(JoinPoint joinPoint) throws Throwable {
         beforeLogging(APPLICATION, joinPoint);
     }
 
-    @AfterReturning(pointcut = "applicationPoint()", returning = "returnValue")
     @Override
+    @AfterReturning(pointcut = "applicationPoint()", returning = "returnValue")
     public void afterServiceReturning(JoinPoint joinPoint, Object returnValue) {
         afterReturningLogging(APPLICATION, joinPoint, returnValue);
     }
 
-    @AfterThrowing(pointcut = "applicationPoint()", throwing = "e")
     @Override
+    @AfterThrowing(pointcut = "applicationPoint()", throwing = "e")
     public void afterServiceThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
         afterThrowingLogging(APPLICATION, joinPoint, e);
     }
 
-
-    // Domain layer
-
-    @Pointcut("within(com.miniyus.friday.domain.users..*)")
     @Override
-    public void domainPoint() {}
+    @Pointcut("within(com.miniyus.friday.domain.hosts..*)")
+    public void domainPoint() {
+    }
 
+    @Override
     @Before("domainPoint()")
-    @Override
     public void beforeDomain(JoinPoint joinPoint) throws Throwable {
         beforeLogging(DOMAIN, joinPoint);
     }
 
-    @AfterReturning(pointcut = "domainPoint()", returning = "returnValue")
     @Override
+    @AfterReturning(pointcut = "domainPoint()", returning = "returnValue")
     public void afterDomainReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging(RETUNING, joinPoint, returnValue);
+        afterReturningLogging(DOMAIN, joinPoint, returnValue);
     }
 
-    @AfterThrowing(pointcut = "domainPoint()", throwing = "e")
     @Override
+    @AfterThrowing(pointcut = "domainPoint()", throwing = "e")
     public void afterDomainThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging(THROWING, joinPoint, e);
+        afterThrowingLogging(DOMAIN, joinPoint, e);
     }
 }

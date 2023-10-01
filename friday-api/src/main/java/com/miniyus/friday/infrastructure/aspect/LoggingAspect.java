@@ -13,8 +13,6 @@ import org.aspectj.lang.reflect.MethodSignature;
 public abstract class LoggingAspect {
     protected String tag;
 
-    public static String DOMAIN = "Domain";
-
     public static String RETUNING = "Returning";
 
     public static String THROWING = "Throwing";
@@ -53,15 +51,15 @@ public abstract class LoggingAspect {
         return logMessage.toString();
     }
 
-    protected void loggingJoinPoint(String when, String action, JoinPoint joinPoint) {
-        String format = String.format("[%s%s] {} {}", when, action);
+    protected void loggingJoinPoint(String action, JoinPoint joinPoint) {
+        String format = String.format("[%s%s] {} {}", "before", action);
 
         log.info(format, tag, parseSignature(joinPoint));
     }
 
-    protected void loggingJoinPoint(String when, String action, JoinPoint joinPoint,
+    protected void loggingJoinPoint(String action, JoinPoint joinPoint,
             Object returnValue) {
-        String format = String.format("[%s%s] {} {}", when, action);
+        String format = String.format("[%s%s] {} {}", "after", action);
 
         log.info(format, tag, parseSignature(joinPoint));
         if (returnValue == null) {
@@ -71,23 +69,23 @@ public abstract class LoggingAspect {
         log.info("\treturnValue: {}", returnValue);
     }
 
-    protected void loggingJoinPoint(String when, String action, JoinPoint joinPoint,
+    protected void loggingJoinPoint(String action, JoinPoint joinPoint,
             Exception e) {
-        String format = String.format("[%s%s] {} {}", when, action);
+        String format = String.format("[%s%s] {} {}", "after", action);
 
         log.error(format, tag, parseSignature(joinPoint));
         log.error("\tmessage: {}", e.getMessage());
     }
 
     void beforeLogging(String action, JoinPoint joinPoint) {
-        loggingJoinPoint("before", action, joinPoint);
+        loggingJoinPoint(action, joinPoint);
     }
 
     void afterReturningLogging(String action, JoinPoint joinPoint, Object returnValue) {
-        loggingJoinPoint("after", action + RETUNING, joinPoint, returnValue);
+        loggingJoinPoint(action + RETUNING, joinPoint, returnValue);
     }
 
     void afterThrowingLogging(String action, JoinPoint joinPoint, Exception e) {
-        loggingJoinPoint("after", action + THROWING, joinPoint, e);
+        loggingJoinPoint(action + THROWING, joinPoint, e);
     }
 }

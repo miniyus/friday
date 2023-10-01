@@ -2,7 +2,8 @@ plugins {
 	id "java"
 	id "org.springframework.boot" version "3.1.3"
 	id "io.spring.dependency-management" version "1.1.3"
-	id "org.asciidoctor.jvm.convert" version "3.3.2"
+	id "com.epages.restdocs-api-spec" version "0.18.4"
+	id "org.hidetake.swagger.generator" version "2.18.2"
 }
 
 group = "com.miniyus"
@@ -13,7 +14,6 @@ java {
 }
 
 configurations {
-	asciidoctorExtensions
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -21,10 +21,6 @@ configurations {
 
 repositories {
 	mavenCentral()
-}
-
-ext {
-	set("snippetsDir", file("build/generated-snippets"))
 }
 
 dependencies {
@@ -37,17 +33,18 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-security"
 	implementation "org.springframework.boot:spring-boot-starter-validation"
 	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-aop"
 	implementation "org.flywaydb:flyway-core"
 	implementation "org.springframework.data:spring-data-rest-hal-explorer"
 	implementation "com.auth0:java-jwt:4.4.0"
 	implementation "com.google.code.findbugs:jsr305:3.0.2"
-	implementation "org.springframework.boot:spring-boot-starter-aop"
-	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-	implementation 'com.querydsl:querydsl-apt'
+	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
+	implementation "com.querydsl:querydsl-jpa:5.0.0:jakarta"
+	implementation "com.querydsl:querydsl-apt"
 
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
-	annotationProcessor 'jakarta.persistence:jakarta.persistence-api'
-	annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 
 	testImplementation "org.projectlombok:lombok:1.18.28"
 
@@ -61,48 +58,55 @@ dependencies {
 	implementation "com.github.javafaker:javafaker:1.0.2"
 	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc"
+	testImplementation "com.epages:restdocs-api-spec-mockmvc:0.18.4"
 	testImplementation "org.springframework.security:spring-security-test"
 	testImplementation "org.testcontainers:testcontainers:1.19.0"
 	testImplementation "org.testcontainers:junit-jupiter"  // TC 의존성
 	testImplementation "org.testcontainers:postgresql"     // PostgreSQL 컨테이너 사용
 	testImplementation "org.testcontainers:jdbc"
 	testImplementation "com.tngtech.archunit:archunit:1.1.0"
-
-	asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
 }
 
 tasks.named("test") {
-	outputs.dir snippetsDir
 	useJUnitPlatform()
 }
 
-tasks.named("asciidoctor") {
-	configurations "asciidoctorExtensions"
-	inputs.dir snippetsDir
-	dependsOn test
-}
+tasks.withType(GenerateSwaggerUI) {
+	dependsOn "openapi3"
 
-tasks.register("copyDocument", Copy) {
-	dependsOn asciidoctor
-	from file("${asciidoctor.outputDir}")
-	into file("src/main/resources/static/docs")
-}
-
-build {
-	dependsOn copyDocument
+	delete file("src/main/resources/static/docs")
+	copy {
+		from "build/resources/main/static/docs"
+		into "src/main/resources/static/docs"
+	}
 }
 
 bootJar {
 	archivesBaseName = "friday"
 	archiveFileName = "friday.jar"
 
-	dependsOn copyDocument    // (10-1) bootJar 실행되기전 copyDocument task 실행
-	from ("${asciidoctor.outputDir}") {  // (10-2) bootJar에 asciidoctor task에서 생성된 html 파일 추가   
-		into "static/docs"     // (10-3) bootJar에 추가될 경로
-	}
+	dependsOn "openapi3"
 }
 
-def querydslSrcDir = 'src/main/generated'
+openapi3 {
+	server = "http://127.0.0.1:8080"
+	title = "Friday API"
+	description = "Friday REST API Docs with Swagger UI."
+	version = "0.0.1"
+	outputFileNamePrefix = "friday-api"
+	format = "yaml"
+	outputDirectory = "build/resources/main/static/docs"
+}
+
+postman {
+    title = "Friday API"
+    version = "0.0.1"
+    baseUrl = "http://127.0.0.1:8080"
+	outputFileNamePrefix = "friday-api"
+	outputDirectory = "build/resources/main/static/docs"
+}
+
+def querydslSrcDir = "src/main/generated"
 sourceSets {
   main {
     java {
@@ -112,7 +116,7 @@ sourceSets {
 }
 
 compileJava {
-    options.compilerArgs << '-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated'
+    options.compilerArgs << "-Aquerydsl.generatedAnnotationClass=javax.annotation.Generated"
 }
 
 tasks.withType(JavaCompile) {

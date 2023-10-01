@@ -28,8 +28,8 @@ spring:
             min-idle: 0
             max-idle: 8
             max-active: 8
-        host: 127.0.0.1
-        port: 6379
+        host: ${REDIS_HOST:127.0.0.1}
+        port: ${REDIS_PORT:6379}
     messages:
         basename: i18n/messages
         encoding: UTF-8
@@ -108,10 +108,23 @@ management:
             exposure:
                 include: "*"
 jwt:
-    secret: jwt-secret
+    secret: ${JWT_SECRET:jwt-secret}
     access:
         expiration: 3600
         header: Authorization
     refresh:
         expiration: 36000
         header: RefreshToken
+springdoc:
+  swagger-ui:
+    path: /api-docs/swagger-ui
+    url: /docs/friday-api.yaml
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+    display-request-duration: true
+  show-actuator: true
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  paths-to-match:
+    - /v1/**

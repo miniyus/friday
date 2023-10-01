@@ -8,7 +8,7 @@ import com.miniyus.friday.domain.users.User;
  * @author miniyus
  * @date 2023/09/02
  */
-public interface CreateUserPort extends UpdateUserPort {
+public interface CreateUserPort {
     User createUser(User user);
 
     boolean isUniqueEmail(String email);

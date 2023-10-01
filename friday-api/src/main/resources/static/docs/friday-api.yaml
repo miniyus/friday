@@ -1,0 +1,292 @@
+openapi: 3.0.1
+info:
+  title: Friday API
+  description: Friday REST API Docs with Swagger UI.
+  version: 0.0.1
+servers:
+- url: http://127.0.0.1:8080
+tags: []
+paths:
+  /v1/users:
+    post:
+      tags:
+      - v1
+      summary: create user
+      description: create user
+      operationId: create-user
+      parameters:
+      - name: Authorization
+        in: header
+        description: 인증 토큰
+        required: true
+        schema:
+          type: string
+        example: "Bearer {access-token}"
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/v1-users536576408'
+            examples:
+              create-user:
+                value: |-
+                  {
+                    "email" : "miniyu97@gmail.com",
+                    "password" : "password@1234",
+                    "name" : "tester",
+                    "role" : "USER"
+                  }
+      responses:
+        "201":
+          description: "201"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/v1-users-id-2070375760'
+              examples:
+                create-user:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "tester@gmail.com",
+                      "name" : "tester",
+                      "role" : "USER",
+                      "snsId" : null,
+                      "provider" : null,
+                      "createdAt" : "2023-10-01T17:43:52.03327",
+                      "updatedAt" : "2023-10-01T17:43:52.033282"
+                    }
+  /v1/users/{id}:
+    get:
+      tags:
+      - v1
+      summary: retrieve user
+      description: retrieve user
+      operationId: retrieve-user
+      parameters:
+      - name: id
+        in: path
+        description: user identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/v1-users-id-2070375760'
+              examples:
+                retrieve-user:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "tester@gmail.com",
+                      "name" : "tester",
+                      "role" : "USER",
+                      "snsId" : null,
+                      "provider" : null,
+                      "createdAt" : "2023-10-01T17:43:52.080913",
+                      "updatedAt" : "2023-10-01T17:43:52.080925"
+                    }
+    delete:
+      tags:
+      - v1
+      summary: delete user
+      description: delete user
+      operationId: delete-user
+      parameters:
+      - name: id
+        in: path
+        description: user identifier
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 인증 토큰
+        required: true
+        schema:
+          type: string
+        example: "Bearer {access-token}"
+      responses:
+        "204":
+          description: "204"
+    patch:
+      tags:
+      - v1
+      summary: update user
+      description: update user
+      operationId: update-user
+      parameters:
+      - name: id
+        in: path
+        description: user identifier
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 인증 토큰
+        required: true
+        schema:
+          type: string
+        example: "Bearer {access-token}"
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/v1-users-id-2116408159'
+            examples:
+              update-user:
+                value: |-
+                  {
+                    "name" : "updateName",
+                    "role" : "USER"
+                  }
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/v1-users-id-2070375760'
+              examples:
+                update-user:
+                  value: |-
+                    {
+                      "id" : 1,
+                      "email" : "tester@gmail.com",
+                      "name" : "updateName",
+                      "role" : "USER",
+                      "snsId" : null,
+                      "provider" : null,
+                      "createdAt" : "2023-10-01T17:43:51.889601",
+                      "updatedAt" : "2023-10-01T17:43:51.889618"
+                    }
+  /v1/users/{id}/reset-password:
+    patch:
+      tags:
+      - v1
+      summary: reset password
+      description: reset password
+      operationId: reset-password
+      parameters:
+      - name: id
+        in: path
+        description: user identifier
+        required: true
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        description: 인증 토큰
+        required: true
+        schema:
+          type: string
+        example: "Bearer {access-token}"
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/v1-users-id-reset-password534780144'
+            examples:
+              reset-password:
+                value: |-
+                  {
+                    "password" : "resetPassword"
+                  }
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/v1-users-id-reset-password-1973861162'
+              examples:
+                reset-password:
+                  value: |-
+                    {
+                      "resetPassword" : true
+                    }
+components:
+  schemas:
+    v1-users-id-reset-password534780144:
+      required:
+      - password
+      type: object
+      properties:
+        password:
+          type: string
+          description: password
+    v1-users536576408:
+      required:
+      - email
+      - name
+      - password
+      - role
+      type: object
+      properties:
+        password:
+          type: string
+          description: 비밀번호
+        role:
+          type: string
+          description: 역할
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          description: 이메일
+    v1-users-id-2070375760:
+      required:
+      - createdAt
+      - email
+      - id
+      - name
+      - provider
+      - role
+      - snsId
+      - updatedAt
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: createdAt
+        role:
+          type: string
+          description: role
+        name:
+          type: string
+          description: name
+        id:
+          type: number
+          description: user identifier
+        email:
+          type: string
+          description: email
+        updatedAt:
+          type: string
+          description: updatedAt
+    v1-users-id-2116408159:
+      required:
+      - name
+      - role
+      type: object
+      properties:
+        role:
+          type: string
+          description: role
+        name:
+          type: string
+          description: name
+    v1-users-id-reset-password-1973861162:
+      required:
+      - resetPassword
+      type: object
+      properties:
+        resetPassword:
+          type: boolean
+          description: user identifier

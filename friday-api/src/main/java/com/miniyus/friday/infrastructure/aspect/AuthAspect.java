@@ -12,7 +12,7 @@ public class AuthAspect extends LoggingAspect{
         super("Auth", LoggerFactory.getLogger(AuthAspect.class));
     }
 
-    @Pointcut("within(com.miniyus.friday.auth.*)")
+    @Pointcut("within(com.miniyus.friday.adapter.in.rest.AuthController)")
     public void authPoint() {
     }
 

@@ -41,7 +41,7 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1693615970889.4014
+    "timestampMs": 1694698914225
   },
   "appMapMetadata": {
     "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserDetailsServiceTest_loadUserByUsernameTest.appmap.json": {

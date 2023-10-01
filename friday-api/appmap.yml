@@ -1,7 +1,8 @@
 name: "friday"
-appmap_dir: "build/appmap"
+appmap_dir: "tmp/appmap"
 packages:
 - path: "com.miniyus.friday"
 - path: "db.migration"
 - path: "i18n"
+- path: "org.springframework.restdocs.templates"
 - path: "static.docs"

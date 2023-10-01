@@ -125,7 +125,7 @@ public class HostServiceTest {
 
         when(updateHostPort.findById(any())).thenReturn(Optional.of(testDomain));
 
-        Host updated = hostService.updateHost(updateHostRequest.toDomain(1L));
+        Host updated = hostService.updateHost(updateHostRequest.toDomain(1L, 1L));
 
         Assertions.assertThat(updated)
             .hasFieldOrPropertyWithValue("id", 1L)
@@ -163,7 +163,7 @@ public class HostServiceTest {
 
         when(retrieveHostPort.findAll(any(Pageable.class))).thenReturn(page);
 
-        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L));
+        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L), retrieveHostRequest.getPageable());
         Assertions.assertThat(hosts)
             .hasSize(testDomains.size());
 

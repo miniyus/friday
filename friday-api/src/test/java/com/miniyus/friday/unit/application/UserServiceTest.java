@@ -124,7 +124,6 @@ public class UserServiceTest {
 
     @Test
     void updateUser() throws Exception {
-        var testDomain = testDomains.get(0);
         var testOrigin = testDomains.get(0);
 
         var testUpdate = new User(
@@ -141,8 +140,8 @@ public class UserServiceTest {
 
         testUpdate.patch("testUpdate", null);
 
+        when(updateUserPort.findById(any())).thenReturn(Optional.of(testOrigin));
         when(updateUserPort.updateUser(any(User.class))).thenReturn(testUpdate);
-        when(updateUserPort.findById(any())).thenReturn(Optional.of(testDomain));
 
         var request = UpdateUserRequest.builder()
                 .name("testUpdate")

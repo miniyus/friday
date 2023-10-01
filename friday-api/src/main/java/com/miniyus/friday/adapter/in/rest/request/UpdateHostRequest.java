@@ -2,6 +2,7 @@ package com.miniyus.friday.adapter.in.rest.request;
 
 import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.domain.hosts.UpdateHost;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
 /**
@@ -10,12 +11,12 @@ import lombok.Builder;
 @Builder
 public record UpdateHostRequest(
     Long id,
-    String host,
-    String summary,
-    String description,
-    String path,
-    boolean publish) {
-    public UpdateHost toDomain(Long userId) {
+    @NotBlank(message = "validation.host.host.notBlank") String host,
+    @NotBlank(message = "validation.host.summary.notBlank") String summary,
+    @NotBlank(message = "validation.host.description.notBlank") String description,
+    @NotBlank(message = "validation.host.path.notBlank") String path,
+    @NotBlank(message = "validation.host.publish.notBlank") boolean publish) {
+    public UpdateHost toDomain(Long id, Long userId) {
         return UpdateHost.builder()
             .id(id)
             .host(host)

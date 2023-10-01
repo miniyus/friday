@@ -2,7 +2,6 @@ package com.miniyus.friday.application;
 
 import java.util.List;
 
-import com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;

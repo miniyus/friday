@@ -10,9 +10,10 @@ import org.aspectj.lang.JoinPoint;
  */
 public interface HexagonalAspect {
 
-    static String REQUEST = "Request";
-    static String PERSISTENCE = "Persistence";
-    static String APPLICATION = "Application";
+    String REQUEST = "Request";
+    String PERSISTENCE = "Persistence";
+    String APPLICATION = "Application";
+    String DOMAIN = "Domain";
 
     // Adapter layer
 
