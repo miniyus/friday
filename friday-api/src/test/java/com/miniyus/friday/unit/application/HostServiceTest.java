@@ -64,7 +64,8 @@ public class HostServiceTest {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null,
-                1L
+                1L,
+                null
             );
             testDomains.add(testDomain);
         }
@@ -119,7 +120,8 @@ public class HostServiceTest {
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null,
-                1L
+                1L,
+                null
             )
         );
 
