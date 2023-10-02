@@ -1,5 +1,6 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
+import com.miniyus.friday.domain.hosts.CreateHost;
 import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import jakarta.validation.constraints.NotBlank;
@@ -21,14 +22,14 @@ public record CreateHostRequest(
     @NotBlank(message = "validation.host.publish.notBlank")
     boolean publish
 ) {
-    public Host toDomain(Long userId) {
-        return Host.create(
-            host,
-            summary,
-            description,
-            path,
-            publish,
-            userId
-        );
+    public CreateHost toDomain(Long userId) {
+        return CreateHost.builder()
+            .host(host)
+            .summary(summary)
+            .description(description)
+            .path(path)
+            .publish(publish)
+            .userId(userId)
+            .build();
     }
 }

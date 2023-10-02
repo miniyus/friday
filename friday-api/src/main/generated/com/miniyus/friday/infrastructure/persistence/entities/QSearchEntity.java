@@ -31,6 +31,8 @@ public class QSearchEntity extends EntityPathBase<SearchEntity> {
 
     public final StringPath description = createString("description");
 
+    public final QFileEntity file;
+
     public final QHostEntity host;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
@@ -66,6 +68,7 @@ public class QSearchEntity extends EntityPathBase<SearchEntity> {
 
     public QSearchEntity(Class<? extends SearchEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.file = inits.isInitialized("file") ? new QFileEntity(forProperty("file")) : null;
         this.host = inits.isInitialized("host") ? new QHostEntity(forProperty("host"), inits.get("host")) : null;
     }
 

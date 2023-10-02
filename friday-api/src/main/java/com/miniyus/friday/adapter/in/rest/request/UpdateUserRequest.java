@@ -1,9 +1,9 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
+import com.miniyus.friday.common.UserRole;
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.common.validation.annotation.NullOrNotBlank;
-import com.miniyus.friday.domain.users.UpdateUser;
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.domain.users.User;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 
@@ -24,8 +24,8 @@ public record UpdateUserRequest(
         message = "validation.user.role.enum", ignoreCase = true) String role)
     implements Serializable {
 
-    public UpdateUser toDomain(Long id)  {
-        return UpdateUser.builder()
+    public User toDomain(Long id)  {
+        return User.builder()
             .id(id)
             .name(name)
             .role(role)

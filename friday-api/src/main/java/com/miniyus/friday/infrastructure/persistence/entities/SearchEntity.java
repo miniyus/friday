@@ -1,69 +1,115 @@
 package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
 /**
  * Search Entity
  *
- * @author seongminyoo
+ * @author miniyus
  * @date 2023/09/04
  */
-@Entity
 @Getter
+@Builder
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Where(clause = "deleted_at is null")
 @Table(name = "search")
+@Where(clause = "deleted_at is null")
+@SQLDelete(sql = "UPDATE search SET deleted_at = NOW() WHERE id = ?")
 public class SearchEntity extends BaseEntity {
+
     @Id
     @GeneratedValue
-    private Long id;
+    protected Long id;
 
-    @Column(nullable = true)
+    /**
+     * The Query key.
+     */
+    @Column
+    @NonNull
     private String queryKey;
 
+    /**
+     * The Query.
+     */
+    @Column(nullable = false)
+    @NonNull
     private String query;
 
+    /**
+     * The Description.
+     */
+    @Column(nullable = false)
+    @NonNull
     private String description;
 
+    /**
+     * The Publishing status.
+     */
+    @Column(nullable = false)
     private boolean publish;
 
+    /**
+     * The Views.
+     */
+    @Column(nullable = false)
     private int views;
 
+    /**
+     * The Deleted at.
+     */
+    @Column
+    @Nullable
     private LocalDateTime deletedAt;
 
-    @Column(nullable = true)
+    /**
+     * The Short url.
+     */
+    @Column
+    @Nullable
     private String shortUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "file_id")
+    private FileEntity file;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private HostEntity host;
 
     /**
-     * @param queryKey
-     * @param query
-     * @param description
-     * @param publish
+     * Instantiates a new Search entity.
+     *
+     * @param queryKey    the query key
+     * @param query       the query
+     * @param description the description
+     * @param publish     the publishing status
+     * @author miniyus
+     * @date 2023/09/04
      */
-    public SearchEntity(String queryKey, String query, String description, boolean publish) {
-        this.queryKey = queryKey;
-        this.query = query;
-        this.description = description;
-        this.publish = publish;
-        this.views = 0;
+    public static SearchEntity create(
+        String queryKey,
+        String query,
+        String description,
+        boolean publish,
+        FileEntity file
+    ) {
+        return SearchEntity.builder()
+            .queryKey(queryKey)
+            .query(query)
+            .description(description)
+            .publish(publish)
+            .views(0)
+            .file(file)
+            .build();
     }
 
     /**
@@ -73,49 +119,62 @@ public class SearchEntity extends BaseEntity {
      * @param query       a String representing the query
      * @param description a String representing the description
      * @param publish     a boolean indicating whether to publish
+     * @author miniyus
+     * @date 2023/09/04
      */
-    public void update(String queryKey, String query, String description, boolean publish) {
+    public void update(
+        String queryKey,
+        String query,
+        String description,
+        boolean publish,
+        FileEntity file
+    ) {
         this.queryKey = queryKey;
         this.query = query;
         this.description = description;
         this.publish = publish;
+        this.file = file;
     }
 
+
     /**
-     * Publishes the data.
+     * Publish.
      *
-     * @param None No parameters are required.
-     * @return None No return value.
+     * @author miniyus
+     * @date 2023/09/04
      */
     public void publish() {
         this.publish = true;
     }
 
+
     /**
-     * Unpublishes the item.
+     * Unpublish.
      *
-     * @param none This function does not take any parameters.
-     * @return This function does not return a value.
+     * @author miniyus
+     * @date 2023/09/04
      */
     public void unpublish() {
         this.publish = false;
     }
 
+
     /**
-     * Increments the value of the 'views' variable by 1.
+     * Increment views.
      *
-     * No parameters.
-     * 
-     * No return value.
+     * @author miniyus
+     * @date 2023/09/04
      */
     public void incrementViews() {
         this.views++;
     }
 
+
     /**
-     * Deletes the object by setting the deletedAt field to the current date and
-     * time.
+     * Delete.
      *
+     * @author miniyus
+     * @date 2023/09/04
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

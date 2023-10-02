@@ -1,11 +1,13 @@
 package com.miniyus.friday.domain.hosts;
 
 
+import com.miniyus.friday.domain.hosts.searches.Search;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -21,41 +23,34 @@ public class Host {
     LocalDateTime updatedAt;
     LocalDateTime deletedAt;
     Long userId;
+    List<Search> searches;
 
     public static Host create(
-        String host,
-        String summary,
-        String description,
-        String path,
-        boolean publish,
-        Long userId
+        CreateHost createHost
     ) {
         return new Host(
             null,
-            host,
-            summary,
-            description,
-            path,
-            publish,
+            createHost.host(),
+            createHost.summary(),
+            createHost.description(),
+            createHost.path(),
+            createHost.publish(),
             null,
             null,
             null,
-            userId
+            createHost.userId(),
+            null
         );
     }
 
     public void update(
-        String host,
-        String summary,
-        String description,
-        String path,
-        boolean publish
+        UpdateHost updateHost
     ) {
-        this.host = host;
-        this.summary = summary;
-        this.description = description;
-        this.path = path;
-        this.publish = publish;
+        this.host = updateHost.host();
+        this.summary = updateHost.summary();
+        this.description = updateHost.description();
+        this.path = updateHost.path();
+        this.publish = updateHost.publish();
     }
 
     public void enablePublish() {

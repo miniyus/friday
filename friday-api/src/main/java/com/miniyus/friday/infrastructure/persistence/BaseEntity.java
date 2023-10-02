@@ -2,14 +2,11 @@ package com.miniyus.friday.infrastructure.persistence;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
-import lombok.Getter;
 
 /**
  * Base Entity
@@ -20,13 +17,17 @@ import lombok.Getter;
  * @date 2023/09/04
  */
 @Getter
+@Setter
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public class BaseEntity {
+public abstract class BaseEntity {
+
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdAt;
+    protected LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updatedAt;
+    protected LocalDateTime updatedAt;
+
+    public abstract Long getId();
 }

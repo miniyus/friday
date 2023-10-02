@@ -32,6 +32,12 @@ logging:
     level:
         root: warn
         tomcat: warn
-        org.springframework.web: ${LOG_LEVEL:debug}
-        com.miniyus.friday: ${LOG_LEVEL:debug}
-        org.hibernate: error
+        org:
+            springframework:
+                web: ${LOG_LEVEL:debug}
+                core:
+                    LocalVariableTableParameterNameDiscoverer: error
+            hibernate: error
+        com:
+            miniyus:
+                friday: ${LOG_LEVEL:debug}

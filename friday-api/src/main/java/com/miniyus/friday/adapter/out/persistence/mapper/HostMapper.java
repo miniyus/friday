@@ -1,38 +1,35 @@
 package com.miniyus.friday.adapter.out.persistence.mapper;
 
-import com.miniyus.friday.domain.hosts.Host;
-import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
+import com.miniyus.friday.domain.hosts.Host;
+import com.miniyus.friday.domain.hosts.searches.Search;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
 public class HostMapper {
-    private final UserEntityRepository userRepository;
-
-    private UserEntity cacheUser;
-
-    private UserEntity getUser(Long userId) {
-        if (cacheUser == null) {
-            cacheUser = userRepository.findById(userId)
-                .orElseThrow(
-                    () -> new RestErrorException("error.userNotFound", RestErrorCode.NOT_FOUND)
-                );
-        } else if (!cacheUser.getId().equals(userId)) {
-            cacheUser = userRepository.findById(userId)
-                .orElseThrow(
-                    () -> new RestErrorException("error.userNotFound", RestErrorCode.NOT_FOUND)
-                );
-        }
-
-        return cacheUser;
+    public HostEntity create(Host domain, UserEntity userEntity) throws RestErrorException {
+        return HostEntity.create(
+            domain.getHost(),
+            domain.getSummary(),
+            domain.getDescription(),
+            domain.getPath(),
+            domain.isPublish(),
+            userEntity
+        );
     }
 
-    public HostEntity toEntity(Host domain) throws RestErrorException {
+    public HostEntity toEntity(
+        Host domain,
+        UserEntity userEntity,
+        List<SearchEntity> searchEntities
+    ) throws RestErrorException {
         return new HostEntity(
             domain.getId(),
             domain.getHost(),
@@ -41,11 +38,12 @@ public class HostMapper {
             domain.getPath(),
             domain.isPublish(),
             domain.getDeletedAt(),
-            getUser(domain.getUserId())
+            userEntity,
+            searchEntities
         );
     }
 
-    public Host toDomain(HostEntity entity) {
+    public Host toDomain(HostEntity entity, List<Search> searches) {
         return new Host(
             entity.getId(),
             entity.getHost(),
@@ -56,7 +54,8 @@ public class HostMapper {
             entity.getCreatedAt(),
             entity.getUpdatedAt(),
             entity.getDeletedAt(),
-            entity.getUser().getId()
+            entity.getUser().getId(),
+            searches
         );
     }
 }

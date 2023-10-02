@@ -9,7 +9,7 @@ import com.miniyus.friday.application.port.out.DeleteHostPort;
 import com.miniyus.friday.application.port.out.RetrieveHostPort;
 import com.miniyus.friday.application.port.out.UpdateHostPort;
 import com.miniyus.friday.application.service.HostService;
-import com.miniyus.friday.domain.hosts.FindHostById;
+import com.miniyus.friday.domain.hosts.HostIds;
 import com.miniyus.friday.domain.hosts.Host;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -141,7 +141,7 @@ public class HostServiceTest {
         var testDomain = testDomains.get(0);
         when(retrieveHostPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        Host host = hostService.retrieveById(new FindHostById(1L, 1L));
+        Host host = hostService.retrieveById(new HostIds(1L, 1L));
         Assertions.assertThat(host)
             .hasFieldOrPropertyWithValue("host", host.getHost())
             .hasFieldOrPropertyWithValue("summary", host.getSummary())

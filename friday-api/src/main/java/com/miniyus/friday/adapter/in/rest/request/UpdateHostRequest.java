@@ -1,6 +1,7 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
 import com.miniyus.friday.domain.hosts.Host;
+import com.miniyus.friday.domain.hosts.HostIds;
 import com.miniyus.friday.domain.hosts.UpdateHost;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -17,14 +18,18 @@ public record UpdateHostRequest(
     @NotBlank(message = "validation.host.path.notBlank") String path,
     @NotBlank(message = "validation.host.publish.notBlank") boolean publish) {
     public UpdateHost toDomain(Long id, Long userId) {
+        var ids = HostIds.builder()
+                    .id(id)
+                    .userId(userId)
+                    .build();
+
         return UpdateHost.builder()
-            .id(id)
+            .ids(ids)
             .host(host)
             .summary(summary)
             .description(description)
             .path(path)
             .publish(publish)
-            .userId(userId)
             .build();
     }
 }

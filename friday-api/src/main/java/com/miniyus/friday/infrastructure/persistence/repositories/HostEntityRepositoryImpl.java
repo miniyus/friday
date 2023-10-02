@@ -1,7 +1,9 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
 import com.miniyus.friday.domain.hosts.HostFilter;
+import com.miniyus.friday.domain.hosts.searches.SearchIds;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.AllArgsConstructor;
@@ -9,9 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
 import static com.miniyus.friday.infrastructure.persistence.entities.QHostEntity.hostEntity;
 import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
+import static com.miniyus.friday.infrastructure.persistence.entities.QSearchEntity.searchEntity;
+
 import java.util.Objects;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Repository

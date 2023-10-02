@@ -1,6 +1,7 @@
 package com.miniyus.friday.infrastructure.jwt;
 
 import java.util.Optional;
+
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
@@ -82,12 +83,12 @@ public class JwtService {
     private AccessTokenEntity createAccessToken(UserEntity userEntity) {
         String token = jwtProvider.createAccessToken(userEntity.getEmail());
 
-        var accessToken = AccessTokenEntity.builder()
-            .type(JwtProvider.BEARER)
-            .token(token)
-            .expiration(jwtProvider.accessTokenExpiration())
-            .userId(userEntity.getId())
-            .build();
+        var accessToken = AccessTokenEntity.create(
+            JwtProvider.BEARER,
+            token,
+            jwtProvider.accessTokenExpiration(),
+            userEntity.getId()
+        );
 
         return accessTokenRepository.save(accessToken);
     }
@@ -101,12 +102,12 @@ public class JwtService {
     private RefreshTokenEntity createRefreshToken(AccessTokenEntity tokenEntity) {
         String token = jwtProvider.createRefreshToken();
 
-        var refreshToken = RefreshTokenEntity.builder()
-            .type(JwtProvider.BEARER)
-            .token(token)
-            .expiration(jwtProvider.refreshTokenExpiration())
-            .accessTokenId(tokenEntity.getId())
-            .build();
+        var refreshToken = RefreshTokenEntity.create(
+            JwtProvider.BEARER,
+            token,
+            tokenEntity.getId(),
+            jwtProvider.refreshTokenExpiration()
+        );
 
         return refreshTokenRepository.save(refreshToken);
     }

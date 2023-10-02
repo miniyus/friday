@@ -25,9 +25,15 @@ logging:
     level:
         root: warn
         tomcat: warn
-        org.springframework.web: debug
-        com.miniyus.friday: debug
-        org.hibernate: error
+        org:
+            springframework:
+                web: debug
+                core:
+                    LocalVariableTableParameterNameDiscoverer: error
+            hibernate: error
+        com:
+            miniyus:
+                friday: debug
 management:
     endpoints:
         web:

@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.lang.NonNull;
 
 /**
  * Refresh Token Entity
@@ -17,6 +18,7 @@ import org.springframework.data.redis.core.index.Indexed;
  * @date 2023/09/02
  */
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @RedisHash("refresh_token")
@@ -25,15 +27,19 @@ public class RefreshTokenEntity {
     @GeneratedValue
     private String id;
 
+    @NonNull
     private String type;
 
     @Indexed
+    @NonNull
     private String token;
 
     @Indexed
+    @NonNull
     private String accessTokenId;
 
     @TimeToLive
+    @NonNull
     private Long expiration;
 
 
@@ -43,11 +49,17 @@ public class RefreshTokenEntity {
      * @param expiration    expiration seconds
      * @param accessTokenId access token id
      */
-    @Builder
-    public RefreshTokenEntity(String type, String token, String accessTokenId, Long expiration) {
-        this.type = type;
-        this.token = token;
-        this.expiration = expiration;
-        this.accessTokenId = accessTokenId;
+    public static RefreshTokenEntity create(
+        @NonNull String type,
+        @NonNull String token,
+        @NonNull String accessTokenId,
+        @NonNull Long expiration
+    ) {
+        return RefreshTokenEntity.builder()
+            .type(type)
+            .token(token)
+            .expiration(expiration)
+            .accessTokenId(accessTokenId)
+            .build();
     }
 }

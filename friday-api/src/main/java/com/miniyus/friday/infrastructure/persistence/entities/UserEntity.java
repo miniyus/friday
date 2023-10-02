@@ -4,16 +4,13 @@ import java.time.LocalDateTime;
 
 import com.miniyus.friday.common.UserRole;
 import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 /**
- * [description]
+ * User Entity
  *
  * @author miniyus
  * @date 2023/09/02
@@ -27,9 +24,10 @@ import lombok.NoArgsConstructor;
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")
 public class UserEntity extends BaseEntity {
+
     @Id
     @GeneratedValue
-    private Long id;
+    protected Long id;
 
     @Column
     private String snsId;
@@ -59,21 +57,24 @@ public class UserEntity extends BaseEntity {
      * @param password password
      * @param name     name
      * @param role     role
+     * @author miniyus
+     * @date 2023/09/02
      */
-    @Builder
-    public UserEntity(
+    public static UserEntity create(
         String snsId,
         String provider,
         String email,
         String password,
         String name,
         UserRole role) {
-        this.snsId = snsId;
-        this.provider = provider;
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.role = role;
+        return UserEntity.builder()
+            .snsId(snsId)
+            .provider(provider)
+            .email(email)
+            .password(password)
+            .name(name)
+            .role(role)
+            .build();
     }
 
     /**
@@ -94,5 +95,9 @@ public class UserEntity extends BaseEntity {
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void resetPassword(String password) {
+        this.password = password;
     }
 }

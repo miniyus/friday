@@ -1,9 +1,9 @@
 package com.miniyus.friday.adapter.out.persistence.mapper;
 
 import com.miniyus.friday.common.UserRole;
-import org.springframework.stereotype.Component;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import org.springframework.stereotype.Component;
 
 /**
  * [description]
@@ -13,6 +13,16 @@ import com.miniyus.friday.domain.users.User;
  */
 @Component
 public class UserMapper {
+    public UserEntity create(User domain) {
+        return UserEntity.create(
+            domain.getSnsId(),
+            domain.getProvider(),
+            domain.getEmail(),
+            domain.getPassword(),
+            domain.getName(),
+            UserRole.valueOf(domain.getRole())
+        );
+    }
 
     public UserEntity toEntity(User domain) {
         return new UserEntity(
@@ -23,7 +33,8 @@ public class UserMapper {
             domain.getPassword(),
             domain.getName(),
             UserRole.valueOf(domain.getRole()),
-            domain.getDeletedAt());
+            domain.getDeletedAt()
+        );
     }
 
     public User toDomain(UserEntity entity) {

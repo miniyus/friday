@@ -39,6 +39,8 @@ public class QHostEntity extends EntityPathBase<HostEntity> {
 
     public final BooleanPath publish = createBoolean("publish");
 
+    public final ListPath<SearchEntity, QSearchEntity> searches = this.<SearchEntity, QSearchEntity>createList("searches", SearchEntity.class, QSearchEntity.class, PathInits.DIRECT2);
+
     public final StringPath summary = createString("summary");
 
     //inherited

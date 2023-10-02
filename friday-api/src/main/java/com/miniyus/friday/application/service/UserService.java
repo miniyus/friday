@@ -6,7 +6,6 @@ import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
 import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
 import com.miniyus.friday.domain.users.ResetPassword;
-import com.miniyus.friday.domain.users.UpdateUser;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.application.exception.UserExistsException;
@@ -58,11 +57,11 @@ public class UserService
      * @return updated user
      */
     @Override
-    public User patchUser(UpdateUser request) {
-        User domain = updateUserPort.findById(request.id())
+    public User patchUser(User request) {
+        User domain = updateUserPort.findById(request.getId())
             .orElseThrow(UserNotFoundException::new);
 
-        domain.patch(request.name(), request.role());
+        domain.patch(request.getName(), request.getRole());
 
         return updateUserPort.updateUser(domain);
     }

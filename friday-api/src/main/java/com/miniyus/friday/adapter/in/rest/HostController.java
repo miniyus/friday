@@ -9,7 +9,7 @@ import com.miniyus.friday.adapter.in.rest.resource.HostResources.*;
 import com.miniyus.friday.application.port.in.usecase.*;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.domain.hosts.FindHostById;
+import com.miniyus.friday.domain.hosts.HostIds;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +63,12 @@ public class HostController {
     public void deleteHost(
         @PathVariable Long id
     ) {
-        deleteHostUsecase.deleteById(id, getUserInfo().getId());
+        deleteHostUsecase.deleteById(
+            HostIds.builder()
+                .id(id)
+                .userId(getUserInfo().getId())
+                .build()
+        );
     }
 
     @GetMapping("")
@@ -93,7 +98,7 @@ public class HostController {
     public ResponseEntity<HostResource> retrieveHost(
         @PathVariable Long id
     ) {
-        var host = retrieveHostQuery.retrieveById(new FindHostById(id, getUserInfo().getId()));
+        var host = retrieveHostQuery.retrieveById(new HostIds(id, getUserInfo().getId()));
         return ResponseEntity.ok(
             HostResource.fromDomain(host)
         );

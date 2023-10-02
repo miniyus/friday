@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
+import org.springframework.lang.NonNull;
 
 /**
  * Access Token Entity
@@ -17,6 +18,7 @@ import org.springframework.data.redis.core.index.Indexed;
  * @date 2023/09/02
  */
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @RedisHash("access_token")
@@ -25,15 +27,19 @@ public class AccessTokenEntity {
     @GeneratedValue
     private String id;
 
+    @NonNull
     private String type;
 
     @Indexed
+    @NonNull
     private String token;
 
     @Indexed
+    @NonNull
     private String userId;
 
     @TimeToLive
+    @NonNull
     private Long expiration;
 
     /**
@@ -42,11 +48,17 @@ public class AccessTokenEntity {
      * @param expiration token expiration seconds
      * @param userId     user id
      */
-    @Builder
-    public AccessTokenEntity(String type, String token, Long userId, Long expiration) {
-        this.type = type;
-        this.token = token;
-        this.userId = userId.toString();
-        this.expiration = expiration;
+    public static AccessTokenEntity create(
+        @NonNull String type,
+        @NonNull String token,
+        @NonNull Long userId,
+        @NonNull Long expiration
+    ) {
+        return AccessTokenEntity.builder()
+            .type(type)
+            .token(token)
+            .userId(userId.toString())
+            .expiration(expiration)
+            .build();
     }
 }
