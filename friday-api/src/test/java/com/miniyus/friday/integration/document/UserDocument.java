@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultHandler;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.*;
-import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResultHandler;
+import static com.miniyus.friday.integration.ApiDocumentUtils.getDocumentResultHandler;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -50,7 +50,7 @@ public abstract class UserDocument extends RestAdapterTest {
         String requestSchema,
         String responseSchema
     ) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(requestSchema, responseSchema)
                 .privateResource(true)
                 .requestFields(
@@ -69,9 +69,8 @@ public abstract class UserDocument extends RestAdapterTest {
                     fieldWithPath("createdAt").description("createdAt"),
                     fieldWithPath("updatedAt").description("updatedAt")
                 )
-                .build()
-        );
-        return getDocumentResultHandler("create user", resource);
+                .build();
+        return getDocumentResultHandler("create user", parameter);
     }
 
     protected void createUser(CreateUserRequest request, UserResource response) throws Exception {
@@ -98,7 +97,7 @@ public abstract class UserDocument extends RestAdapterTest {
     }
 
     protected ResultHandler retrieveUserDocument(String responseSchema) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder()
                 .privateResource(true)
                 .pathParameters(
@@ -114,10 +113,9 @@ public abstract class UserDocument extends RestAdapterTest {
                     fieldWithPath("createdAt").description("createdAt"),
                     fieldWithPath("updatedAt").description("updatedAt")
                 )
-                .responseSchema(Schema.schema(responseSchema)).build()
-        );
+                .responseSchema(Schema.schema(responseSchema)).build();
 
-        return getDocumentResultHandler("retrieve user", resource);
+        return getDocumentResultHandler("retrieve user", parameter);
     }
 
     protected void retrieveUser(Long id, UserResource response) throws Exception {
@@ -142,7 +140,7 @@ public abstract class UserDocument extends RestAdapterTest {
     }
 
     protected ResultHandler updateUserDocument(String requestSchema, String responseSchema) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(requestSchema, responseSchema)
                 .privateResource(true)
                 .pathParameters(
@@ -161,10 +159,9 @@ public abstract class UserDocument extends RestAdapterTest {
                     fieldWithPath("snsId").description("snsId"),
                     fieldWithPath("provider").description("provider"),
                     fieldWithPath("email").description("email")
-                ).build()
-        );
+                ).build();
 
-        return getDocumentResultHandler("update user", resource);
+        return getDocumentResultHandler("update user", parameter);
     }
 
     protected void updateUser(Long id, UpdateUserRequest request, UserResource response)
@@ -192,7 +189,7 @@ public abstract class UserDocument extends RestAdapterTest {
     }
 
     protected ResultHandler resetPasswordDocument(String requestSchema, String responseSchema) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(requestSchema, responseSchema)
                 .privateResource(true)
                 .pathParameters(
@@ -203,10 +200,9 @@ public abstract class UserDocument extends RestAdapterTest {
                 )
                 .responseFields(
                     fieldWithPath("resetPassword").description("reset password")
-                ).build()
-        );
+                ).build();
 
-        return getDocumentResultHandler("reset password", resource);
+        return getDocumentResultHandler("reset password", parameter);
     }
 
     protected void resetPassword(
@@ -230,15 +226,14 @@ public abstract class UserDocument extends RestAdapterTest {
     }
 
     protected ResultHandler deleteUserDocument() {
-        var resource = resource(
+        var parameter =
             getResourceBuilder()
                 .privateResource(true)
                 .pathParameters(
                     parameterWithName("id").description("user identifier")
-                ).build()
-        );
+                ).build();
 
-        return getDocumentResultHandler("delete user", resource);
+        return getDocumentResultHandler("delete user", parameter);
     }
 
     protected void deleteUser(Long id) throws Exception {

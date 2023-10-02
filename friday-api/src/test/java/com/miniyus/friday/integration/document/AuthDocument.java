@@ -12,11 +12,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultHandler;
 
-import static com.epages.restdocs.apispec.ResourceDocumentation.headerWithName;
-import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
-import static com.miniyus.friday.restdoc.ApiDocumentUtils.getDocumentResultHandler;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static com.epages.restdocs.apispec.ResourceDocumentation.*;
+import static com.miniyus.friday.integration.ApiDocumentUtils.getDocumentResultHandler;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -52,7 +50,7 @@ public abstract class AuthDocument extends RestAdapterTest {
         String requestSchema,
         String responseSchema
     ) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(requestSchema, responseSchema)
                 .requestFields(
                     fieldWithPath("email").description("email"),
@@ -66,10 +64,9 @@ public abstract class AuthDocument extends RestAdapterTest {
                     fieldWithPath("snsId").description("snsId"),
                     fieldWithPath("provider").description("provider"),
                     fieldWithPath("role").description("role")
-                ).build()
-        );
+                ).build();
 
-        return getDocumentResultHandler("auth signup", resource);
+        return getDocumentResultHandler("auth signup", parameter);
     }
 
     public void signup(PasswordUserInfo request, AuthUserResource response)
@@ -100,7 +97,7 @@ public abstract class AuthDocument extends RestAdapterTest {
         String requestSchema,
         String responseSchema
     ) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(requestSchema, responseSchema)
                 .requestFields(
                     fieldWithPath("email").description("email"),
@@ -115,10 +112,9 @@ public abstract class AuthDocument extends RestAdapterTest {
                     fieldWithPath("tokens.accessToken").description("accessToken"),
                     fieldWithPath("tokens.expiresIn").description("expiresIn"),
                     fieldWithPath("tokens.refreshToken").description("refreshToken")
-                ).build()
-        );
+                ).build();
 
-        return getDocumentResultHandler("auth signin", resource);
+        return getDocumentResultHandler("auth signin", parameter);
     }
 
     public void signin(PasswordAuthentication request, PasswordTokenResponse response)
@@ -151,7 +147,7 @@ public abstract class AuthDocument extends RestAdapterTest {
     protected ResultHandler refreshDocument(
         String responseSchema
     ) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder(
                 "refreshToken",
                 responseSchema
@@ -166,10 +162,9 @@ public abstract class AuthDocument extends RestAdapterTest {
                     fieldWithPath("refreshToken").description("refreshToken")
                 )
                 .responseSchema(Schema.schema(IssueToken.class.getName()))
-                .build()
-        );
+                .build();
 
-        return getDocumentResultHandler("auth refresh", resource);
+        return getDocumentResultHandler("auth refresh", parameter);
     }
 
     public void refresh(String request, IssueToken response) throws Exception {
@@ -193,7 +188,7 @@ public abstract class AuthDocument extends RestAdapterTest {
     protected ResultHandler userInfoDocument(
         String responseSchema
     ) {
-        var resource = resource(
+        var parameter =
             getResourceBuilder()
                 .privateResource(true)
                 .responseFields(
@@ -205,10 +200,9 @@ public abstract class AuthDocument extends RestAdapterTest {
                     fieldWithPath("role").description("role")
                 )
                 .responseSchema(Schema.schema(responseSchema))
-                .build()
-        );
+                .build();
 
-        return getDocumentResultHandler("auth user info", resource);
+        return getDocumentResultHandler("auth user info", parameter);
     }
 
     public void userInfo(AuthUserResource response) throws Exception {
@@ -232,11 +226,11 @@ public abstract class AuthDocument extends RestAdapterTest {
     }
 
     protected ResultHandler logoutDocument() {
-        return getDocumentResultHandler("auth logout", resource(
+        return getDocumentResultHandler("auth logout",
             getResourceBuilder()
                 .privateResource(true)
                 .build()
-        ));
+        );
     }
 
     public void logout() throws Exception {
