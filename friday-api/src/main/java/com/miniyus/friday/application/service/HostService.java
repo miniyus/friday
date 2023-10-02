@@ -69,7 +69,7 @@ public class HostService
 
     @Override
     public Search retrieveSearch(SearchIds ids) {
-        if (!accessibleToSearch(ids)) {
+        if (inaccessibleToSearch(ids)) {
             throw new ForbiddenErrorException();
         }
 
@@ -124,7 +124,7 @@ public class HostService
 
     @Override
     public Search updateSearch(UpdateSearch updateSearch) {
-        if (!accessibleToSearch(updateSearch.ids())) {
+        if (inaccessibleToSearch(updateSearch.ids())) {
             throw new ForbiddenErrorException();
         }
 
@@ -155,7 +155,7 @@ public class HostService
 
     @Override
     public void deleteSearchById(SearchIds ids) {
-        if (!accessibleToSearch(ids)) {
+        if (inaccessibleToSearch(ids)) {
             throw new ForbiddenErrorException();
         }
 
@@ -164,7 +164,7 @@ public class HostService
         deleteHostPort.deleteSearchById(ids.id());
     }
 
-    private boolean accessibleToSearch(SearchIds ids) {
+    private boolean inaccessibleToSearch(SearchIds ids) {
         var host = this.retrieveById(
             HostIds.builder()
                 .id(ids.hostId())
@@ -172,6 +172,6 @@ public class HostService
                 .build()
         );
 
-        return host != null;
+        return host == null;
     }
 }
