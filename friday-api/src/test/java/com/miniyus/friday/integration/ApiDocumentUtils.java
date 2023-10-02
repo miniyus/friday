@@ -35,12 +35,12 @@ public class ApiDocumentUtils {
         return resource(parameters);
     }
 
-    public static ResultHandler getDocumentResultHandler(String identifier, ResourceSnippetParameters snippet) {
+    public static ResultHandler getDocumentResultHandler(String identifier, ResourceSnippetParameters parameters) {
         return document(
             identifier,
             getDocumentRequest(),
             getDocumentResponse(),
-            getDocumentSnippet(snippet)
+            getDocumentSnippet(parameters)
         );
     }
 }
