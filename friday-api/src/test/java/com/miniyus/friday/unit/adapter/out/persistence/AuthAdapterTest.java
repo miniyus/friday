@@ -2,6 +2,7 @@ package com.miniyus.friday.unit.adapter.out.persistence;
 
 import com.github.javafaker.Faker;
 import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.domain.auth.Auth;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
@@ -97,7 +98,13 @@ public class AuthAdapterTest {
             testUser.getName()
         );
 
-        var userInfo = authService.signup(passwordUserInfo);
+        var userInfo = authService.signup(
+            Auth.builder()
+                .email(testUser.getEmail())
+                .name(testUser.getName())
+                .password(testUser.getPassword())
+                .build()
+        );
 
         assertThat(userInfo)
             .hasFieldOrPropertyWithValue("id", testUser.getId())
@@ -126,7 +133,7 @@ public class AuthAdapterTest {
 
         var testRefresh = jwtProvider.createRefreshToken();
 
-        var issueToken = authService.refresh(JwtProvider.BEARER + " " + testRefresh);
+        var issueToken = authService.refreshToken(JwtProvider.BEARER + " " + testRefresh);
         assertThat(issueToken)
             .isNotNull()
             .hasFieldOrProperty("accessToken")

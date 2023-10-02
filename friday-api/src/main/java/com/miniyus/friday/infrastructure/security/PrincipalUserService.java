@@ -22,7 +22,7 @@ import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2UserInfo
 import lombok.RequiredArgsConstructor;
 
 /**
- * [description]
+ * The type Principal user service.
  *
  * @author miniyus
  * @date 2023/08/27
@@ -32,8 +32,20 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
+    /**
+     * The User repository.
+     */
     private final UserEntityRepository userRepository;
 
+    /**
+     * Build principal user info principal user info.
+     *
+     * @param entity     the entity
+     * @param attributes the attributes
+     * @return the principal user info
+     * @author miniyus
+     * @date 2023/08/27
+     */
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
         Map<String, Object> attributes) {
         OAuth2Provider provider = null;
@@ -58,6 +70,14 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
             .build();
     }
 
+    /**
+     * Gets authorities.
+     *
+     * @param entity the entity
+     * @return the authorities
+     * @author miniyus
+     * @date 2023/08/27
+     */
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -66,6 +86,14 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
         return authorities;
     }
 
+    /**
+     * Create principal user info.
+     *
+     * @param userInfo the user info
+     * @return the principal user info
+     * @author miniyus
+     * @date 2023/08/27
+     */
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
             .snsId(userInfo.snsId())
@@ -86,6 +114,8 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      * @param userRequest the OAuth2UserRequest object containing the request details
      * @return the OAuth2User representing the loaded user
      * @throws OAuth2AuthenticationException if an error occurs during the authentication process
+     * @author miniyus
+     * @date 2023/08/27
      */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

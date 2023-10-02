@@ -2,8 +2,13 @@ package com.miniyus.friday.integration.adapter.in.rest;
 
 import com.miniyus.friday.adapter.in.rest.AuthController;
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
-import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.application.port.in.query.RetrieveUserInfoQuery;
+import com.miniyus.friday.application.port.in.usecase.RefreshTokenUsecase;
+import com.miniyus.friday.application.port.in.usecase.RevokeTokenUsecase;
+import com.miniyus.friday.application.port.in.usecase.SignupUsecase;
 import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.domain.auth.Auth;
+import com.miniyus.friday.domain.auth.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
@@ -28,7 +33,17 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = AuthController.class)
 public class AuthControllerTest extends AuthDocument {
     @MockBean
-    private AuthAdapter authAdapter;
+    private SignupUsecase signupUsecase;
+
+    @MockBean
+    private RefreshTokenUsecase refreshTokenUsecase;
+
+    @MockBean
+    private RevokeTokenUsecase revokeTokenUsecase;
+
+    @MockBean
+    private RetrieveUserInfoQuery retrieveUserInfoQuery;
+
 
     private PasswordUserInfo buildSignupRequest() {
         return PasswordUserInfo
@@ -39,11 +54,20 @@ public class AuthControllerTest extends AuthDocument {
             .build();
     }
 
-     private AuthUserResource buildSignupResponse(PasswordUserInfo request) {
+    private AuthUserResource buildSignupResponse(PasswordUserInfo request) {
         var testAuthority = new ArrayList<GrantedAuthority>();
         testAuthority.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        var response = PrincipalUserInfo.builder()
+        var response = Auth.builder()
+            .id(1L)
+            .name(request.name())
+            .role(UserRole.MANAGER)
+            .password(passwordEncoder.encode(request.password()))
+            .email(request.email())
+            .build();
+        when(signupUsecase.signup(any())).thenReturn(response);
+
+        var principal = PrincipalUserInfo.builder()
             .id(1L)
             .accountNonExpired(true)
             .accountNonLocked(true)
@@ -58,10 +82,9 @@ public class AuthControllerTest extends AuthDocument {
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
             .build();
+        when(userDetailsService.loadUserByUsername(any())).thenReturn(principal);
 
-        when(authAdapter.signup(any(PasswordUserInfo.class))).thenReturn(response);
-        when(userDetailsService.loadUserByUsername(any())).thenReturn(response);
-        return AuthUserResource.fromPrincipalUserInfo(response);
+        return AuthUserResource.fromDomain(response);
     }
 
     private IssueToken buildIssueToken() {
@@ -114,13 +137,12 @@ public class AuthControllerTest extends AuthDocument {
         when(userDetailsService.loadUserByUsername(any()))
             .thenReturn(response);
 
-        var resource = AuthUserResource.fromPrincipalUserInfo(response);
         var tokens = buildIssueToken();
 
         return new PasswordTokenResponse(
-            resource.id(),
-            resource.email(),
-            resource.name(),
+            response.getId(),
+            response.getEmail(),
+            response.getName(),
             tokens
         );
     }
@@ -132,8 +154,8 @@ public class AuthControllerTest extends AuthDocument {
         signin(signinInfo, response);
     }
 
-    private IssueToken buildRefreshTokenResponse() {
-        var tokens = buildIssueToken();
+    private Token buildRefreshTokenResponse() {
+        var issueToken = buildIssueToken();
         var user = UserEntity.builder()
             .id(1L)
             .email(faker.internet().emailAddress())
@@ -145,9 +167,17 @@ public class AuthControllerTest extends AuthDocument {
         when(jwtService.getUserByRefreshToken(any())).thenReturn(
             Optional.of(user));
 
-        when(authAdapter.refresh(any())).thenReturn(tokens);
+        var token = Token.builder()
+            .tokenType(issueToken.tokenType())
+            .accessToken(issueToken.accessToken())
+            .refreshToken(issueToken.refreshToken())
+            .expiresIn(issueToken.expiresIn())
+            .build();
+        when(refreshTokenUsecase.refreshToken(any())).thenReturn(
+            token
+        );
 
-        return tokens;
+        return token;
     }
 
     @Test
@@ -178,8 +208,16 @@ public class AuthControllerTest extends AuthDocument {
             .password(passwordEncoder.encode(faker.internet().password()))
             .build();
 
-        when(authAdapter.userInfo()).thenReturn(principal);
-        return AuthUserResource.fromPrincipalUserInfo(principal);
+        var domain = Auth.builder()
+            .email(principal.getEmail())
+            .id(principal.getId())
+            .name(principal.getName())
+            .snsId(principal.getSnsId())
+            .snsId(principal.getName())
+            .role(principal.getRole())
+            .build();
+        when(retrieveUserInfoQuery.retrieveUserInfo()).thenReturn(domain);
+        return AuthUserResource.fromDomain(domain);
     }
 
     @Test

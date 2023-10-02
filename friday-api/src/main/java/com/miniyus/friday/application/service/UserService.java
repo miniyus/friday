@@ -1,4 +1,4 @@
-package com.miniyus.friday.application;
+package com.miniyus.friday.application.service;
 
 import java.util.List;
 

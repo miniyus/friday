@@ -1,4 +1,4 @@
-package com.miniyus.friday.application;
+package com.miniyus.friday.application.service;
 
 import com.miniyus.friday.application.exception.HostExistsException;
 import com.miniyus.friday.application.exception.HostForbiddenException;

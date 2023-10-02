@@ -8,7 +8,7 @@ import com.miniyus.friday.application.port.out.CreateHostPort;
 import com.miniyus.friday.application.port.out.DeleteHostPort;
 import com.miniyus.friday.application.port.out.RetrieveHostPort;
 import com.miniyus.friday.application.port.out.UpdateHostPort;
-import com.miniyus.friday.application.HostService;
+import com.miniyus.friday.application.service.HostService;
 import com.miniyus.friday.domain.hosts.FindHostById;
 import com.miniyus.friday.domain.hosts.Host;
 import org.assertj.core.api.Assertions;

@@ -1,5 +1,6 @@
 package com.miniyus.friday.adapter.in.rest.resource;
 
+import com.miniyus.friday.domain.auth.Auth;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import org.springframework.data.domain.Page;
@@ -47,14 +48,23 @@ public record UserResources(
         String snsId,
         String provider
     ) {
-        public static AuthUserResource fromPrincipalUserInfo(PrincipalUserInfo user) {
+        public static AuthUserResource fromDomain(Auth user) {
+            String provider;
+            if (user.getProvider() == null) {
+                provider = null;
+            } else if (user.getProvider().isBlank()) {
+                provider = null;
+            } else {
+                provider = user.getProvider();
+            }
+
             return new AuthUserResource(
                 user.getId(),
                 user.getEmail(),
                 user.getName(),
                 user.getRole().getValue(),
                 user.getSnsId(),
-                user.getProvider() != null ? user.getProvider().getValue() : null
+                provider
             );
         }
     }

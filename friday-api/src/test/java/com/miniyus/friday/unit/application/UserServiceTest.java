@@ -22,7 +22,7 @@ import com.miniyus.friday.application.port.out.CreateUserPort;
 import com.miniyus.friday.application.port.out.DeleteUserPort;
 import com.miniyus.friday.application.port.out.RetrieveUserPort;
 import com.miniyus.friday.application.port.out.UpdateUserPort;
-import com.miniyus.friday.application.UserService;
+import com.miniyus.friday.application.service.UserService;
 import com.miniyus.friday.domain.users.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

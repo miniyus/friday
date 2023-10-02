@@ -3,6 +3,7 @@ package com.miniyus.friday.integration.document;
 import com.epages.restdocs.apispec.ResourceSnippetParametersBuilder;
 import com.epages.restdocs.apispec.Schema;
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
+import com.miniyus.friday.domain.auth.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
@@ -167,7 +168,7 @@ public abstract class AuthDocument extends RestAdapterTest {
         return getDocumentResultHandler("auth refresh", parameter);
     }
 
-    public void refresh(String request, IssueToken response) throws Exception {
+    public void refresh(String request, Token response) throws Exception {
         var result = mockMvc.perform(
             post("/v1/auth/refresh-token")
                 .with(csrf().asHeader())

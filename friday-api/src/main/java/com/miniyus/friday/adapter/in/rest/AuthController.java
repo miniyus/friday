@@ -2,7 +2,13 @@ package com.miniyus.friday.adapter.in.rest;
 
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
 import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.application.port.in.query.RetrieveUserInfoQuery;
+import com.miniyus.friday.application.port.in.usecase.RefreshTokenUsecase;
+import com.miniyus.friday.application.port.in.usecase.RevokeTokenUsecase;
+import com.miniyus.friday.application.port.in.usecase.SignupUsecase;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
+import com.miniyus.friday.domain.auth.Auth;
+import com.miniyus.friday.domain.auth.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import com.miniyus.friday.infrastructure.security.config.SecurityConfiguration;
@@ -23,7 +29,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestAdapter
 @RequiredArgsConstructor
 public class AuthController {
-    private final AuthAdapter authService;
+    private final SignupUsecase signupUsecase;
+    private final RefreshTokenUsecase refreshTokenUsecase;
+    private final RevokeTokenUsecase revokeTokenUsecase;
+    private final RetrieveUserInfoQuery retrieveUserInfoQuery;
 
     /**
      * Creates a new user account by signing up.
@@ -35,7 +44,14 @@ public class AuthController {
     public ResponseEntity<AuthUserResource> signup(
         @Valid @RequestBody PasswordUserInfo authentication) {
         // Call the authService.signup() method to sign up the user and get the user information
-        var user = authService.signup(authentication);
+
+        var authDomain = Auth.builder()
+            .email(authentication.email())
+            .name(authentication.name())
+            .password(authentication.password())
+            .build();
+
+        var user = signupUsecase.signup(authDomain);
 
         // Build the URI for the /v1/auth/me endpoint
         ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
@@ -43,7 +59,7 @@ public class AuthController {
         var uri = builder.build().toUri();
 
         // Return a ResponseEntity with the created URI and the user information
-        return ResponseEntity.created(uri).body(AuthUserResource.fromPrincipalUserInfo(user));
+        return ResponseEntity.created(uri).body(AuthUserResource.fromDomain(user));
     }
 
     /**
@@ -53,10 +69,10 @@ public class AuthController {
      * @return The response entity containing the issued access token.
      */
     @PostMapping(SecurityConfiguration.REFRESH_URL)
-    public ResponseEntity<IssueToken> refresh(
+    public ResponseEntity<Token> refresh(
         @RequestHeader(name = "RefreshToken") String refreshToken) {
         // Call the authService to refresh the token
-        var tokens = authService.refresh(refreshToken);
+        var tokens = refreshTokenUsecase.refreshToken(refreshToken);
         // Create a response entity with the issued access token
         return ResponseEntity.ok(tokens);
     }
@@ -64,15 +80,14 @@ public class AuthController {
     @GetMapping(SecurityConfiguration.USERINFO_URL)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<AuthUserResource> userInfo() {
-        var userInfo = authService.userInfo();
-
-        return ResponseEntity.ok(AuthUserResource.fromPrincipalUserInfo(userInfo));
+        var userInfo = retrieveUserInfoQuery.retrieveUserInfo();
+        return ResponseEntity.ok(AuthUserResource.fromDomain(userInfo));
     }
 
     @PostMapping(SecurityConfiguration.LOGOUT_URL)
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void revokeToken() {
-        authService.revokeToken();
+        revokeTokenUsecase.revokeToken();
     }
 }

@@ -61,7 +61,7 @@ public class HostAspect extends LoggingAspect implements HexagonalAspect {
     }
 
     @Override
-    @Pointcut("within(com.miniyus.friday.application.HostService)")
+    @Pointcut("within(com.miniyus.friday.application.service.HostService)")
     public void applicationPoint() {
     }
 

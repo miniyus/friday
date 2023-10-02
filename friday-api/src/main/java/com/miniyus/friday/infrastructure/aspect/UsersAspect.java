@@ -74,7 +74,7 @@ public class UsersAspect extends LoggingAspect implements HexagonalAspect {
 
     // Application layer
 
-    @Pointcut("within(com.miniyus.friday.application.UserService)")
+    @Pointcut("within(com.miniyus.friday.application.service.UserService)")
     @Override
     public void applicationPoint() {}
 
