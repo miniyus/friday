@@ -35,12 +35,13 @@ public class AuthAdapterTest {
     @Mock
     private JwtService jwtService;
 
+    @Mock
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final Faker faker = new Faker();
 
     @InjectMocks
-    private AuthAdapter authService;
+    private AuthAdapter authAdapter;
 
     private PrincipalUserInfo testUser;
 
@@ -98,7 +99,7 @@ public class AuthAdapterTest {
             testUser.getName()
         );
 
-        var userInfo = authService.signup(
+        var userInfo = authAdapter.signup(
             Auth.builder()
                 .email(testUser.getEmail())
                 .name(testUser.getName())
@@ -108,7 +109,7 @@ public class AuthAdapterTest {
 
         assertThat(userInfo)
             .hasFieldOrPropertyWithValue("id", testUser.getId())
-            .hasFieldOrPropertyWithValue("username", testUser.getUsername())
+            .hasFieldOrPropertyWithValue("email", testUser.getUsername())
             .hasFieldOrPropertyWithValue("name", testUser.getName())
             .hasFieldOrPropertyWithValue("role", testUser.getRole());
     }
@@ -133,7 +134,7 @@ public class AuthAdapterTest {
 
         var testRefresh = jwtProvider.createRefreshToken();
 
-        var issueToken = authService.refreshToken(JwtProvider.BEARER + " " + testRefresh);
+        var issueToken = authAdapter.refreshToken(JwtProvider.BEARER + " " + testRefresh);
         assertThat(issueToken)
             .isNotNull()
             .hasFieldOrProperty("accessToken")

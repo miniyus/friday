@@ -22,9 +22,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.IntStream;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -155,7 +157,8 @@ public class HostServiceTest {
     @Test
     public void retrieveHostsTest() {
         var pageable = PageRequest.of(1, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
-        var retrieveHostRequest = RetrieveHostRequest.builder()
+        var retrieveHostRequest = RetrieveHostRequest
+            .builder()
             .pageable(pageable)
             .build();
 
@@ -163,20 +166,21 @@ public class HostServiceTest {
 
         var page = new PageImpl<>(testDomains, pageable, testDomains.size());
 
-        when(retrieveHostPort.findAll(any(Pageable.class))).thenReturn(page);
+        when(retrieveHostPort.findAll(any(), any(Pageable.class))).thenReturn(page);
 
-        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L), retrieveHostRequest.getPageable());
+        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L),
+            retrieveHostRequest.getPageable());
         Assertions.assertThat(hosts)
             .hasSize(testDomains.size());
 
         hosts.stream()
             .forEachOrdered(host -> Assertions.assertThat(host)
-            .hasFieldOrProperty("host")
-            .hasFieldOrProperty("summary")
-            .hasFieldOrProperty("description")
-            .hasFieldOrProperty("path")
-            .hasFieldOrProperty("publish")
-        );
+                .hasFieldOrProperty("host")
+                .hasFieldOrProperty("summary")
+                .hasFieldOrProperty("description")
+                .hasFieldOrProperty("path")
+                .hasFieldOrProperty("publish")
+            );
 
         var hostList = hosts.stream().toList();
         IntStream.range(0, hostList.size()).forEach(

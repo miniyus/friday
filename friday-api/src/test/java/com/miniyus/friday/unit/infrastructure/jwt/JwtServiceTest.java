@@ -97,7 +97,7 @@ public class JwtServiceTest {
             .token(jwtProvider.createAccessToken(testUser.getEmail()))
             .expiration(3600L)
             .type(JwtProvider.BEARER)
-            .userId(1L)
+            .userId("1")
             .build();
 
         when(accessTokenRepository.save(any())).thenReturn(

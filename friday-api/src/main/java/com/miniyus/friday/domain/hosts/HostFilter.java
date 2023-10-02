@@ -19,7 +19,7 @@ public record HostFilter(
     public boolean isEmpty() {
         return host == null && summary == null && path == null && description == null
             && createdAtStart == null && updatedAtStart == null
-            && createdAtEnd == null && updatedAtEnd == null;
+            && createdAtEnd == null && updatedAtEnd == null && userId == null;
     }
 }
 
