@@ -1,41 +1,36 @@
 server:
-    servlet:
-        encoding:
-            force-response: true
+  servlet:
+    encoding:
+      force-response: true
 spring:
-    h2:
-        console:
-            enabled: false
-    jpa:
-        show-sql: true
-        hibernate:
-            ddl-auto: create
-    datasource:
-        url: jdbc:tc:postgresql:15:///testDB
-        username: testUser
-        password: testPass
-        driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+  h2:
+    console:
+      enabled: false
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:tc:postgresql:15:///testDB
+    username: testUser
+    password: testPass
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
 logging:
-    file:
-        path: ${LOG_PATH:log}
-        name: ${LOG_PATH:log}/friday-api.log
-    logback:
-        rollingpolicy:
-            file-name-pattern: ${LOG_PATH:log}/friday-api-%d{yyyy-MM-dd}.%i
-    level:
-        root: warn
-        tomcat: warn
-        org:
-            springframework:
-                web: debug
-                core:
-                    LocalVariableTableParameterNameDiscoverer: error
-            hibernate: error
-        com:
-            miniyus:
-                friday: debug
-management:
-    endpoints:
-        web:
-            exposure:
-                include: "*"
+  file:
+    path: ${LOG_PATH:log}
+    name: ${LOG_PATH:log}/friday-api.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_PATH:log}/friday-api-%d{yyyy-MM-dd}.%i
+  level:
+    root: warn
+    tomcat: warn
+    org:
+      springframework:
+        web: debug
+        core:
+          LocalVariableTableParameterNameDiscoverer: error
+      hibernate: error
+    com:
+      miniyus:
+        friday: debug
