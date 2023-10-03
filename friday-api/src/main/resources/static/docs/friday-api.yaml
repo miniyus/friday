@@ -27,9 +27,9 @@ paths:
               create user:
                 value: |-
                   {
-                    "email" : "justine.barrows@example.com",
-                    "password" : "0nc3rzf97xd89",
-                    "name" : "Dr. Hallie Rolfson",
+                    "email" : "russel.hermann@example.com",
+                    "password" : "wv3vdbrl1",
+                    "name" : "Herbert Haag IV",
                     "role" : "USER"
                   }
       responses:
@@ -44,13 +44,13 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "justine.barrows@example.com",
-                      "name" : "Dr. Hallie Rolfson",
+                      "email" : "russel.hermann@example.com",
+                      "name" : "Herbert Haag IV",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-02T03:56:32.545037",
-                      "updatedAt" : "2023-10-02T03:56:32.545053"
+                      "createdAt" : "2023-10-03T03:59:07.745907",
+                      "updatedAt" : "2023-10-03T03:59:07.745918"
                     }
       security:
       - bearerAuthJWT: []
@@ -85,11 +85,11 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "migdalia.howell@hotmail.com",
-                      "name" : "Retta Hilpert",
+                      "email" : "dell.hartmann@hotmail.com",
+                      "name" : "Cristopher Herman",
                       "role" : "USER",
-                      "snsId" : "47832e39-39df-4a71-a9b2-e83626b0fd87",
-                      "provider" : "google"
+                      "snsId" : "Cristopher Herman",
+                      "provider" : null
                     }
       security:
       - bearerAuthJWT: []
@@ -140,8 +140,8 @@ paths:
               auth signin:
                 value: |-
                   {
-                    "email" : "rupert.hegmann@hotmail.com",
-                    "password" : "dwai3dr8prztl"
+                    "email" : "broderick.mitchell@hotmail.com",
+                    "password" : "qllrur35n"
                   }
       responses:
         "200":
@@ -155,8 +155,8 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "rupert.hegmann@hotmail.com",
-                      "name" : "Ms. Malinda Rau",
+                      "email" : "broderick.mitchell@hotmail.com",
+                      "name" : "Chuck Halvorson",
                       "tokens" : {
                         "tokenType" : "Bearer",
                         "accessToken" : "access",
@@ -180,9 +180,9 @@ paths:
               auth signup:
                 value: |-
                   {
-                    "email" : "dolores.dooley@example.com",
-                    "password" : "by9p0zud",
-                    "name" : "Miguelina Pagac"
+                    "email" : "regenia.wilderman@example.com",
+                    "password" : "7trejs3hy6",
+                    "name" : "Roseanne Bailey"
                   }
       responses:
         "201":
@@ -196,8 +196,8 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "dolores.dooley@example.com",
-                      "name" : "Miguelina Pagac",
+                      "email" : "regenia.wilderman@example.com",
+                      "name" : "Roseanne Bailey",
                       "role" : "MANAGER",
                       "snsId" : null,
                       "provider" : null
@@ -228,13 +228,13 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "aaron.hamill@example.com",
-                      "name" : "Krissy Hettinger",
+                      "email" : "matt.hudson@example.com",
+                      "name" : "Nicholas Rodriguez",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-02T03:56:32.609001",
-                      "updatedAt" : "2023-10-02T03:56:32.609017"
+                      "createdAt" : "2023-10-03T03:59:07.796913",
+                      "updatedAt" : "2023-10-03T03:59:07.796924"
                     }
       security:
       - bearerAuthJWT: []
@@ -278,7 +278,7 @@ paths:
               update user:
                 value: |-
                   {
-                    "name" : "Lauran Becker",
+                    "name" : "Roger Farrell Jr.",
                     "role" : "USER"
                   }
       responses:
@@ -293,13 +293,13 @@ paths:
                   value: |-
                     {
                       "id" : 1,
-                      "email" : "lonny.blanda@example.com",
-                      "name" : "Lauran Becker",
+                      "email" : "roderick.okeefe@example.com",
+                      "name" : "Roger Farrell Jr.",
                       "role" : "USER",
                       "snsId" : null,
                       "provider" : null,
-                      "createdAt" : "2023-10-02T03:56:32.474871",
-                      "updatedAt" : "2023-10-02T03:56:32.474883"
+                      "createdAt" : "2023-10-03T03:59:07.679948",
+                      "updatedAt" : "2023-10-03T03:59:07.679964"
                     }
       security:
       - bearerAuthJWT: []
@@ -326,7 +326,7 @@ paths:
               reset password:
                 value: |-
                   {
-                    "password" : "i11u59sraoktrsm"
+                    "password" : "ram5l0zny"
                   }
       responses:
         "200":
@@ -345,49 +345,6 @@ paths:
       - bearerAuthJWT: []
 components:
   schemas:
-    com.miniyus.friday.infrastructure.jwt.IssueToken:
-      title: com.miniyus.friday.infrastructure.jwt.IssueToken
-      required:
-      - accessToken
-      - expiresIn
-      - refreshToken
-      - tokenType
-      type: object
-      properties:
-        expiresIn:
-          type: number
-          description: expiresIn
-        accessToken:
-          type: string
-          description: accessToken
-        tokenType:
-          type: string
-          description: tokenType
-        refreshToken:
-          type: string
-          description: refreshToken
-    com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource:
-      title: com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource
-      required:
-      - resetPassword
-      type: object
-      properties:
-        resetPassword:
-          type: boolean
-          description: reset password
-    com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest:
-      title: com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest
-      required:
-      - name
-      - role
-      type: object
-      properties:
-        role:
-          type: string
-          description: role
-        name:
-          type: string
-          description: name
     com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource:
       title: com.miniyus.friday.adapter.in.rest.resource.UserResources$AuthUserResource
       required:
@@ -411,6 +368,49 @@ components:
         email:
           type: string
           description: email
+    com.miniyus.friday.infrastructure.jwt.IssueToken:
+      title: com.miniyus.friday.infrastructure.jwt.IssueToken
+      required:
+      - accessToken
+      - expiresIn
+      - refreshToken
+      - tokenType
+      type: object
+      properties:
+        expiresIn:
+          type: number
+          description: expiresIn
+        accessToken:
+          type: string
+          description: accessToken
+        tokenType:
+          type: string
+          description: tokenType
+        refreshToken:
+          type: string
+          description: refreshToken
+    com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest:
+      title: com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest
+      required:
+      - name
+      - role
+      type: object
+      properties:
+        role:
+          type: string
+          description: role
+        name:
+          type: string
+          description: name
+    com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource:
+      title: com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource
+      required:
+      - resetPassword
+      type: object
+      properties:
+        resetPassword:
+          type: boolean
+          description: reset password
     com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource:
       title: com.miniyus.friday.adapter.in.rest.resource.UserResources$UserResource
       required:

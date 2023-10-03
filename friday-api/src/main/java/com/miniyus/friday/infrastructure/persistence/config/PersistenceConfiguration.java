@@ -1,13 +1,15 @@
-package com.miniyus.friday.infrastructure.persistence;
+package com.miniyus.friday.infrastructure.persistence.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Configuration
-public class QuerydslConfiguration {
+@EnableJpaAuditing
+public class PersistenceConfiguration {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -15,4 +17,5 @@ public class QuerydslConfiguration {
     public JPAQueryFactory jpaQueryFactory() {
         return new JPAQueryFactory(entityManager);
     }
+
 }

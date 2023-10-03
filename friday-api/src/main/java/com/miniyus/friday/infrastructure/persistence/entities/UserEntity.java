@@ -23,7 +23,7 @@ import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 @Table(name = "auth_user")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")
-public class UserEntity extends BaseEntity {
+public class UserEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
