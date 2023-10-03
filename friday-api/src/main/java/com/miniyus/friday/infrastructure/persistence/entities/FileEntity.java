@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Table(name = "file")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE file SET deleted_at = NOW() WHERE id = ?")
-public class FileEntity extends BaseEntity {
+public class FileEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue

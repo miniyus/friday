@@ -27,7 +27,7 @@ import java.util.Optional;
 @Table(name = "host")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE host SET deleted_at = NOW() WHERE id = ?")
-public class HostEntity extends BaseEntity {
+public class HostEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue

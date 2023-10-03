@@ -25,7 +25,7 @@ import org.springframework.lang.Nullable;
 @Table(name = "search")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE search SET deleted_at = NOW() WHERE id = ?")
-public class SearchEntity extends BaseEntity {
+public class SearchEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
