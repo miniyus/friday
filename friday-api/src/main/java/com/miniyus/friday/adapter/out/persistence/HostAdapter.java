@@ -36,14 +36,6 @@ public class HostAdapter extends CacheEntity<HostEntity>
     private final HostMapper hostMapper;
     private final SearchMapper searchMapper;
 
-    private Host toDomain(HostEntity hostEntity) {
-        var searches = hostEntity.getSearches()
-            .stream()
-            .map(searchMapper::toDomain)
-            .toList();
-        return hostMapper.toDomain(hostEntity, searches);
-    }
-
     @Override
     public Host create(Host host) {
         var entity = hostMapper.create(host, ownerAdapter.getUserEntity());
@@ -177,4 +169,13 @@ public class HostAdapter extends CacheEntity<HostEntity>
     protected JpaRepository<HostEntity, Long> getCacheRepository() {
         return hostRepository;
     }
+
+    private Host toDomain(HostEntity hostEntity) {
+        var searches = hostEntity.getSearches()
+            .stream()
+            .map(searchMapper::toDomain)
+            .toList();
+        return hostMapper.toDomain(hostEntity, searches);
+    }
+
 }

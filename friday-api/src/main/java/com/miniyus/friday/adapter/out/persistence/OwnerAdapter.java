@@ -11,14 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class OwnerAdapter extends CacheEntity<UserEntity>{
+public class OwnerAdapter extends CacheEntity<UserEntity> {
     private final UserEntityRepository repository;
-
-    private PrincipalUserInfo userInfo() {
-        return (PrincipalUserInfo) SecurityContextHolder.getContext()
-            .getAuthentication()
-            .getPrincipal();
-    }
 
     public UserEntity getUserEntity() {
         var principal = userInfo();
@@ -32,12 +26,20 @@ public class OwnerAdapter extends CacheEntity<UserEntity>{
             .orElseThrow(this::accessDeniedException);
     }
 
-    private AccessDeniedException accessDeniedException() {
-        return new AccessDeniedException("error.accessDenied");
-    }
-
     @Override
     protected JpaRepository<UserEntity, Long> getCacheRepository() {
         return repository;
     }
+
+    private AccessDeniedException accessDeniedException() {
+        return new AccessDeniedException("error.accessDenied");
+    }
+
+    private PrincipalUserInfo userInfo() {
+        return (PrincipalUserInfo) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
+    }
+
 }
