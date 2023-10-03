@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.persistence.config;
+package com.miniyus.friday.infrastructure.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

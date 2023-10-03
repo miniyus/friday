@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.i18n;
+package com.miniyus.friday.infrastructure.config;
 
 import java.util.Locale;
 import org.springframework.context.annotation.Bean;

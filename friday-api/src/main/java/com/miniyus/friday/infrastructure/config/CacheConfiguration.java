@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.cache;
+package com.miniyus.friday.infrastructure.config;
 
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.cache.annotation.EnableCaching;

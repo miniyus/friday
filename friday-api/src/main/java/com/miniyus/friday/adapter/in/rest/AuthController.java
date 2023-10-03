@@ -1,7 +1,6 @@
 package com.miniyus.friday.adapter.in.rest;
 
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
-import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
 import com.miniyus.friday.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.application.port.in.usecase.RefreshTokenUsecase;
 import com.miniyus.friday.application.port.in.usecase.RevokeTokenUsecase;
@@ -9,9 +8,8 @@ import com.miniyus.friday.application.port.in.usecase.SignupUsecase;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.domain.auth.Auth;
 import com.miniyus.friday.domain.auth.Token;
-import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.miniyus.friday.infrastructure.security.config.SecurityConfiguration;
+import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

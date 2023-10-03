@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.security.config;
+package com.miniyus.friday.infrastructure.config;
 
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.context.MessageSource;

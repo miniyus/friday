@@ -1,4 +1,4 @@
-package com.miniyus.friday.infrastructure.aspect.config;
+package com.miniyus.friday.infrastructure.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
