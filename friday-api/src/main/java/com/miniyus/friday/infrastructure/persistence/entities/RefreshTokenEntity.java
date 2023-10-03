@@ -20,7 +20,6 @@ import org.springframework.lang.NonNull;
 @Getter
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @RedisHash("refresh_token")
 public class RefreshTokenEntity {
     @Id

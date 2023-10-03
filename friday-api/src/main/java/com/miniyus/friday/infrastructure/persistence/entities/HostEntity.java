@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -20,10 +21,10 @@ import java.util.Optional;
  * @date 2023/09/04
  */
 @Entity
-@Builder
 @Getter
-@AllArgsConstructor
+@SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "host")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE host SET deleted_at = NOW() WHERE id = ?")

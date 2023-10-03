@@ -1,7 +1,7 @@
 package com.miniyus.friday.adapter.in.rest.request;
 
-import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.common.pagination.PageRequest;
+import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.domain.hosts.HostFilter;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 /**
  * DTO for {@link Host}
  */
-
-@Builder
 @Getter
+@Builder
 public class RetrieveHostRequest extends PageRequest {
     @Nullable
     String host;

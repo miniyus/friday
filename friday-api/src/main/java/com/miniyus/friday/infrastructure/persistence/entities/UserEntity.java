@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.miniyus.friday.common.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
@@ -15,11 +16,11 @@ import com.miniyus.friday.infrastructure.persistence.BaseEntity;
  * @author miniyus
  * @date 2023/09/02
  */
-@Getter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Getter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "auth_user")
 @Where(clause = "deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")

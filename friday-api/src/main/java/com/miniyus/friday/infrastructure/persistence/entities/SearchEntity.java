@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
@@ -18,10 +19,10 @@ import org.springframework.lang.Nullable;
  * @date 2023/09/04
  */
 @Getter
-@Builder
+@SuperBuilder
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "search")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE search SET deleted_at = NOW() WHERE id = ?")

@@ -19,7 +19,6 @@ import org.springframework.lang.NonNull;
  */
 @Getter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 @RedisHash("access_token")
 public class AccessTokenEntity {

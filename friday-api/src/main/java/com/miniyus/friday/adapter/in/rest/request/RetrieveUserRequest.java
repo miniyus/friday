@@ -19,7 +19,6 @@ import org.springframework.data.domain.Sort;
  * @date 2023/09/06
  */
 @Getter
-@AllArgsConstructor
 @Builder
 public class RetrieveUserRequest extends PageRequest implements Serializable {
     @Nullable

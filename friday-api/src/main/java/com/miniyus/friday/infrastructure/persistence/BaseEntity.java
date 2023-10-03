@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,9 +18,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  * @date 2023/09/04
  */
 @Getter
-@Setter
-@EntityListeners(AuditingEntityListener.class)
+@SuperBuilder
 @MappedSuperclass
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity<T> {
 
     @CreatedDate

@@ -3,7 +3,9 @@ package com.miniyus.friday.unit.infrastructure.jwt;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
 import java.util.Optional;
+
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
 import com.miniyus.friday.common.UserRole;
@@ -48,7 +50,6 @@ public class JwtServiceTest {
 
     /**
      * Set up the test environment before each test case.
-     *
      */
     @BeforeEach
     void setUp() {
@@ -77,7 +78,6 @@ public class JwtServiceTest {
 
     /**
      * A test for the issueToken method.
-     *
      */
     @Test
     void issueTokenTest() {
@@ -101,13 +101,13 @@ public class JwtServiceTest {
             .build();
 
         when(accessTokenRepository.save(any())).thenReturn(
-            new AccessTokenEntity(
-                "1",
-                JwtProvider.BEARER,
-                testAccessToken.getToken(),
-                testAccessToken.getUserId(),
-                testAccessToken.getExpiration()
-            )
+            AccessTokenEntity.builder()
+                .userId("1")
+                .type(JwtProvider.BEARER)
+                .token(testAccessToken.getToken())
+                .userId(testAccessToken.getUserId())
+                .expiration(testAccessToken.getExpiration())
+                .build()
         );
 
         var testRefreshToken = RefreshTokenEntity.builder()
