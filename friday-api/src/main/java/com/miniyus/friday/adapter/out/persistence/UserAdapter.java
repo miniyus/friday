@@ -1,10 +1,7 @@
 package com.miniyus.friday.adapter.out.persistence;
 
 import com.miniyus.friday.adapter.out.persistence.mapper.UserMapper;
-import com.miniyus.friday.application.port.out.CreateUserPort;
-import com.miniyus.friday.application.port.out.DeleteUserPort;
-import com.miniyus.friday.application.port.out.RetrieveUserPort;
-import com.miniyus.friday.application.port.out.UpdateUserPort;
+import com.miniyus.friday.application.port.out.UserPort;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.domain.users.UserFilter;
@@ -26,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @PersistenceAdapter
 public class UserAdapter
-    implements CreateUserPort, RetrieveUserPort, UpdateUserPort, DeleteUserPort {
+    implements UserPort {
     private final UserEntityRepository userRepository;
     private final UserMapper mapper;
 
@@ -87,5 +84,4 @@ public class UserAdapter
     public boolean isUniqueEmail(String email) {
         return userRepository.existsByEmail(email);
     }
-
 }

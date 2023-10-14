@@ -23,10 +23,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestAdapter(path = "/v1/hosts")
 @RequiredArgsConstructor
 public class HostController {
-    final CreateHostUsecase createHostUsecase;
-    final UpdateHostUsecase updateHostUsecase;
-    final DeleteHostUsecase deleteHostUsecase;
-    final RetrieveHostQuery retrieveHostQuery;
+    private final HostUsecase hostUsecase;
+    private final RetrieveHostQuery retrieveHostQuery;
 
     private PrincipalUserInfo getUserInfo() {
         return (PrincipalUserInfo) SecurityContextHolder.getContext()
@@ -39,7 +37,7 @@ public class HostController {
     public ResponseEntity<HostResource> createHost(
         @RequestBody @Valid CreateHostRequest request) {
 
-        var host = createHostUsecase.createHost(request.toDomain(getUserInfo().getId()));
+        var host = hostUsecase.createHost(request.toDomain(getUserInfo().getId()));
         var location = ServletUriComponentsBuilder.fromCurrentRequest()
             .path("/{id}")
             .buildAndExpand(host.getId())
@@ -54,7 +52,7 @@ public class HostController {
         @PathVariable Long id,
         @RequestBody @Valid UpdateHostRequest request
     ) {
-        var host = updateHostUsecase.updateHost(request.toDomain(id, getUserInfo().getId()));
+        var host = hostUsecase.updateHost(request.toDomain(id, getUserInfo().getId()));
         return ResponseEntity.ok(HostResource.fromDomain(host));
     }
 
@@ -63,7 +61,7 @@ public class HostController {
     public void deleteHost(
         @PathVariable Long id
     ) {
-        deleteHostUsecase.deleteById(
+        hostUsecase.deleteHostById(
             HostIds.builder()
                 .id(id)
                 .userId(getUserInfo().getId())
@@ -83,7 +81,7 @@ public class HostController {
             req = retrieveAll;
         }
 
-        var domains = retrieveHostQuery.retrieveAll(
+        var domains = retrieveHostQuery.retrieveHosts(
             req.toDomain(getUserInfo().getId()),
             req.getPageable()
         );
@@ -98,7 +96,7 @@ public class HostController {
     public ResponseEntity<HostResource> retrieveHost(
         @PathVariable Long id
     ) {
-        var host = retrieveHostQuery.retrieveById(new HostIds(id, getUserInfo().getId()));
+        var host = retrieveHostQuery.retrieveHostById(new HostIds(id, getUserInfo().getId()));
         return ResponseEntity.ok(
             HostResource.fromDomain(host)
         );

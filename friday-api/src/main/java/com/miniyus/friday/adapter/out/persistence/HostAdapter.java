@@ -3,10 +3,7 @@ package com.miniyus.friday.adapter.out.persistence;
 import com.miniyus.friday.adapter.out.persistence.mapper.HostMapper;
 import com.miniyus.friday.adapter.out.persistence.mapper.SearchMapper;
 import com.miniyus.friday.application.exception.HostNotFoundException;
-import com.miniyus.friday.application.port.out.CreateHostPort;
-import com.miniyus.friday.application.port.out.DeleteHostPort;
-import com.miniyus.friday.application.port.out.RetrieveHostPort;
-import com.miniyus.friday.application.port.out.UpdateHostPort;
+import com.miniyus.friday.application.port.out.HostPort;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.domain.hosts.Host;
 import com.miniyus.friday.domain.hosts.HostFilter;
@@ -27,12 +24,9 @@ import java.util.Optional;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class HostAdapter extends CacheEntity<HostEntity>
-    implements CreateHostPort, UpdateHostPort, DeleteHostPort,
-    RetrieveHostPort {
+public class HostAdapter extends CacheEntity<HostEntity> implements HostPort {
     private final OwnerAdapter ownerAdapter;
     private final HostEntityRepository hostRepository;
-    private final SearchEntityRepository searchRepository;
     private final HostMapper hostMapper;
     private final SearchMapper searchMapper;
 
@@ -52,55 +46,8 @@ public class HostAdapter extends CacheEntity<HostEntity>
     }
 
     @Override
-    public Search createSearch(Search search) {
-        var hostEntity = hostRepository.findById(search.getHostId())
-            .orElseThrow(HostNotFoundException::new);
-
-        hostEntity.createSearch(
-            searchMapper.create(search)
-        );
-
-        hostRepository.save(hostEntity);
-
-        return searchRepository.findLastSearchByHostId(hostEntity.getId())
-            .map(searchMapper::toDomain)
-            .orElse(null);
-    }
-
-    @Override
-    public boolean isUniqueSearch(WhereSearch whereSearch) {
-        return searchRepository.existsByHostIdAndQueryKeyAndQuery(
-            whereSearch.hostId(),
-            whereSearch.queryKey(),
-            whereSearch.query()
-        );
-    }
-
-    @Override
     public void deleteById(Long id) {
         hostRepository.deleteById(id);
-    }
-
-    @Override
-    public Optional<Search> findSearchById(Long id) {
-        return searchRepository.findById(id).map(searchMapper::toDomain);
-    }
-
-    @Override
-    public Page<Search> findSearchAll(Long hostId, Pageable pageable) {
-        return searchRepository.findAllByHostId(hostId, pageable)
-            .map(searchMapper::toDomain);
-    }
-
-    @Override
-    public Page<Search> findSearchAll(SearchFilter searchFilter, Pageable pageable) {
-        return searchRepository.findSearches(searchFilter, pageable)
-            .map(searchMapper::toDomain);
-    }
-
-    @Override
-    public void deleteSearchById(Long id) {
-        searchRepository.deleteById(id);
     }
 
     @Override
@@ -152,18 +99,6 @@ public class HostAdapter extends CacheEntity<HostEntity>
         return this.toDomain(updated);
     }
 
-    @Override
-    public Search updateSearch(Search search) {
-        var hostEntity = getCacheEntity(search.getHostId()).orElse(null);
-        if (hostEntity == null) {
-            return null;
-        }
-
-        var searchEntity = searchMapper.toEntity(search, hostEntity);
-        var updated = searchRepository.save(searchEntity);
-
-        return searchMapper.toDomain(updated);
-    }
 
     @Override
     protected JpaRepository<HostEntity, Long> getCacheRepository() {

@@ -2,9 +2,7 @@ package com.miniyus.friday.adapter.in.rest;
 
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
 import com.miniyus.friday.application.port.in.query.RetrieveUserInfoQuery;
-import com.miniyus.friday.application.port.in.usecase.RefreshTokenUsecase;
-import com.miniyus.friday.application.port.in.usecase.RevokeTokenUsecase;
-import com.miniyus.friday.application.port.in.usecase.SignupUsecase;
+import com.miniyus.friday.application.port.in.usecase.AuthUsecase;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.domain.auth.Auth;
 import com.miniyus.friday.domain.auth.Token;
@@ -27,10 +25,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestAdapter
 @RequiredArgsConstructor
 public class AuthController {
-    private final SignupUsecase signupUsecase;
-    private final RefreshTokenUsecase refreshTokenUsecase;
-    private final RevokeTokenUsecase revokeTokenUsecase;
     private final RetrieveUserInfoQuery retrieveUserInfoQuery;
+    private final AuthUsecase  authUsecase;
 
     /**
      * Creates a new user account by signing up.
@@ -49,7 +45,7 @@ public class AuthController {
             .password(authentication.password())
             .build();
 
-        var user = signupUsecase.signup(authDomain);
+        var user = authUsecase.signup(authDomain);
 
         // Build the URI for the /v1/auth/me endpoint
         ServletUriComponentsBuilder builder = ServletUriComponentsBuilder.fromCurrentRequestUri();
@@ -70,7 +66,7 @@ public class AuthController {
     public ResponseEntity<Token> refresh(
         @RequestHeader(name = "RefreshToken") String refreshToken) {
         // Call the authService to refresh the token
-        var tokens = refreshTokenUsecase.refreshToken(refreshToken);
+        var tokens = authUsecase.refreshToken(refreshToken);
         // Create a response entity with the issued access token
         return ResponseEntity.ok(tokens);
     }
@@ -86,6 +82,6 @@ public class AuthController {
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void revokeToken() {
-        revokeTokenUsecase.revokeToken();
+        authUsecase.revokeToken();
     }
 }

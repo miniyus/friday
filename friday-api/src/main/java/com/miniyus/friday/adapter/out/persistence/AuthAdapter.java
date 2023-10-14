@@ -1,9 +1,6 @@
 package com.miniyus.friday.adapter.out.persistence;
 
-import com.miniyus.friday.application.port.out.RefreshTokenPort;
-import com.miniyus.friday.application.port.out.RetrieveUserInfoPort;
-import com.miniyus.friday.application.port.out.RevokeTokenPort;
-import com.miniyus.friday.application.port.out.SignupPort;
+import com.miniyus.friday.application.port.out.AuthPort;
 import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
@@ -24,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @PersistenceAdapter
 @Transactional
-public class AuthAdapter implements SignupPort, RefreshTokenPort, RevokeTokenPort,
-    RetrieveUserInfoPort {
+public class AuthAdapter implements AuthPort {
     private final CustomUserDetailsService userDetailsService;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;

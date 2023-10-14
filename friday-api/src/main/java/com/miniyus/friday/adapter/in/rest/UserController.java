@@ -7,9 +7,7 @@ import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource;
 import com.miniyus.friday.adapter.in.rest.resource.UserResources;
 import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
-import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
-import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
-import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
+import com.miniyus.friday.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.domain.users.User;
@@ -42,10 +40,8 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @Slf4j
 public class UserController {
-    private final CreateUserUsecase createUserUsecase;
+    private final UserUsecase userUsecase;
     private final RetrieveUserQuery readUserQuery;
-    private final UpdateUserUsecase updateUserUsecase;
-    private final DeleteUserUsecase deleteUserUsecase;
 
     /**
      * Creates a new user.
@@ -60,7 +56,7 @@ public class UserController {
         @Valid @RequestBody CreateUserRequest request,
         UriComponentsBuilder uriComponentsBuilder) {
 
-        User create = createUserUsecase.createUser(request.toDomain());
+        User create = userUsecase.createUser(request.toDomain());
 
         URI uri = uriComponentsBuilder
             .path("/v1/users/{id}")
@@ -125,7 +121,7 @@ public class UserController {
         @PathVariable Long id,
         @Valid @RequestBody UpdateUserRequest request) {
 
-        var updated = updateUserUsecase.patchUser(request.toDomain(id));
+        var updated = userUsecase.patchUser(request.toDomain(id));
 
         return ResponseEntity.ok(
             UserResource.fromDomain(updated)
@@ -145,7 +141,7 @@ public class UserController {
         @PathVariable Long id,
         @RequestBody @Valid ResetPasswordRequest password) {
 
-        var updated= updateUserUsecase.resetPassword(password.toDomain(id));
+        var updated= userUsecase.resetPassword(password.toDomain(id));
         return ResponseEntity.ok(
            new ResetPasswordResource(updated)
         );
@@ -160,6 +156,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable Long id) {
-        deleteUserUsecase.deleteById(id);
+        userUsecase.deleteById(id);
     }
 }

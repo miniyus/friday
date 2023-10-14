@@ -2,9 +2,8 @@ package com.miniyus.friday.application.service;
 
 import java.util.List;
 
-import com.miniyus.friday.application.port.in.usecase.CreateUserUsecase;
-import com.miniyus.friday.application.port.in.usecase.DeleteUserUsecase;
-import com.miniyus.friday.application.port.in.usecase.UpdateUserUsecase;
+import com.miniyus.friday.application.port.in.usecase.UserUsecase;
+import com.miniyus.friday.application.port.out.UserPort;
 import com.miniyus.friday.domain.users.ResetPassword;
 import com.miniyus.friday.domain.users.User;
 import com.miniyus.friday.common.pagination.SimplePage;
@@ -16,10 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.application.port.in.query.RetrieveUserQuery;
-import com.miniyus.friday.application.port.out.CreateUserPort;
-import com.miniyus.friday.application.port.out.DeleteUserPort;
-import com.miniyus.friday.application.port.out.RetrieveUserPort;
-import com.miniyus.friday.application.port.out.UpdateUserPort;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -30,25 +25,18 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @Usecase
-public class UserService
-    implements CreateUserUsecase, RetrieveUserQuery, UpdateUserUsecase, DeleteUserUsecase {
-    private final CreateUserPort createUserPort;
-
-    private final RetrieveUserPort readUserPort;
-
-    private final UpdateUserPort updateUserPort;
-
-    private final DeleteUserPort deleteUserPort;
+public class UserService implements UserUsecase, RetrieveUserQuery {
+    private final UserPort userPort;
 
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public User createUser(User user) {
-        if (createUserPort.isUniqueEmail(user.getEmail())) {
+        if (userPort.isUniqueEmail(user.getEmail())) {
             throw new UserExistsException();
         }
 
-        return createUserPort.createUser(user);
+        return userPort.createUser(user);
     }
 
     /**
@@ -58,12 +46,12 @@ public class UserService
      */
     @Override
     public User patchUser(User request) {
-        User domain = updateUserPort.findById(request.getId())
+        User domain = userPort.findById(request.getId())
             .orElseThrow(UserNotFoundException::new);
 
         domain.patch(request.getName(), request.getRole());
 
-        return updateUserPort.updateUser(domain);
+        return userPort.updateUser(domain);
     }
 
     /**
@@ -73,7 +61,7 @@ public class UserService
      */
     @Override
     public List<User> findAll() {
-        return readUserPort.findAll();
+        return userPort.findAll();
     }
 
     /**
@@ -90,9 +78,9 @@ public class UserService
 
         // only paginate
         if (request.isEmpty()) {
-            result = readUserPort.findAll(pageable);
+            result = userPort.findAll(pageable);
         } else {
-            result = readUserPort.findAll(request, pageable);
+            result = userPort.findAll(request, pageable);
         }
 
         return new SimplePage<>(
@@ -111,18 +99,18 @@ public class UserService
      */
     @Override
     public User findById(Long id) {
-        return readUserPort.findById(id)
+        return userPort.findById(id)
             .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
     public boolean resetPassword(ResetPassword restPassword) {
-        User user = readUserPort.findById(restPassword.id())
+        User user = userPort.findById(restPassword.id())
             .orElseThrow(UserNotFoundException::new);
 
         user.resetPassword(passwordEncoder.encode(restPassword.password()));
 
-        return updateUserPort.resetPassword(user) != null;
+        return userPort.resetPassword(user) != null;
     }
 
     /**
@@ -131,7 +119,7 @@ public class UserService
      * @param id the ID of the entity to delete
      */
     @Override
-    public void deleteById(Long id) {
-        deleteUserPort.deleteById(id);
+    public void deleteUserById(Long id) {
+        userPort.deleteById(id);
     }
 }

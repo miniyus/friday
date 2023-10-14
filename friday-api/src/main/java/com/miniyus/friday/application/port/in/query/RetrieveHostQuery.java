@@ -8,18 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface RetrieveHostQuery {
-    Host retrieveById(HostIds findHostById);
+    Host retrieveHostById(HostIds findHostById);
 
-    Host retrieveByHost(WhereHost whereHost);
+    Host retrieveHost(WhereHost whereHost);
 
-    Page<Host> retrieveAll(HostFilter filter, Pageable pageable);
+    Page<Host> retrieveHosts(HostFilter filter, Pageable pageable);
 
-    Page<Host> retrieveByPublish(
+    Page<Host> retrieveHostByPublish(
         WherePublish wherePublish,
         Pageable pageable
     );
-
-    Page<Search> retrieveSearches(SearchFilter filter, Pageable pageable);
-
-    Search retrieveSearch(SearchIds ids);
 }
