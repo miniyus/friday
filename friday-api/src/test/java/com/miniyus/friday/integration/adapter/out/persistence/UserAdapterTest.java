@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.miniyus.friday.domain.users.UserFilter;
+import com.miniyus.friday.users.domain.UserFilter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,9 +26,9 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.adapter.out.persistence.UserAdapter;
-import com.miniyus.friday.adapter.out.persistence.mapper.UserMapper;
-import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.users.adapter.out.persistence.UserAdapter;
+import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
+import com.miniyus.friday.users.domain.User;
 
 /**
  * [description]

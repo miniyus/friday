@@ -1,6 +1,5 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.domain.hosts.searches.Search;
 import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

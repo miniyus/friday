@@ -1,15 +1,15 @@
 package com.miniyus.friday.unit.adapter.out.persistence;
 
 import com.github.javafaker.Faker;
-import com.miniyus.friday.adapter.out.persistence.AuthAdapter;
-import com.miniyus.friday.domain.auth.Auth;
+import com.miniyus.friday.users.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.users.domain.Auth;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

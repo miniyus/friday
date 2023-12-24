@@ -3,7 +3,7 @@ package com.miniyus.friday.integration.annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import org.springframework.security.test.context.support.WithSecurityContext;
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.users.domain.UserRole;
 
 /**
  * [description]

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.common.error.AuthErrorCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
-import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2Attributes;
-import com.miniyus.friday.infrastructure.security.oauth2.userinfo.OAuth2UserInfo;
+import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2Attributes;
+import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
 
 /**

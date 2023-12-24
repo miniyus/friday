@@ -2,6 +2,7 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
+import com.miniyus.friday.users.domain.UserRole;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
@@ -36,7 +37,7 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath provider = createString("provider");
 
-    public final EnumPath<com.miniyus.friday.common.UserRole> role = createEnum("role", com.miniyus.friday.common.UserRole.class);
+    public final EnumPath<UserRole> role = createEnum("role", UserRole.class);
 
     public final StringPath snsId = createString("snsId");
 

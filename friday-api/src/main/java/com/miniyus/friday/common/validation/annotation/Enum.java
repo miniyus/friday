@@ -1,27 +1,64 @@
 package com.miniyus.friday.common.validation.annotation;
 
+import com.precisionbio.cuttysark.common.validation.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import com.miniyus.friday.common.validation.EnumValidator;
 
-/* 해당 annotation이 실행 할 ConstraintValidator 구현체를 `EnumValidator`로 지정합니다. */
-@Constraint(validatedBy = { EnumValidator.class })
-/* 해당 annotation은 메소드, 필드, 파라미터에 적용 할 수 있습니다. */
-@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
-/* annotation을 Runtime까지 유지합니다. */
+/**
+ * Enum validation
+ *
+ * @author seongminyoo
+ * @see EnumValidator
+ * @since 2023/09/14
+ */
+@Constraint(validatedBy = {EnumValidator.class})
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Enum {
+    /**
+     * Validation fail message
+     *
+     * @return the message
+     */
     String message() default "Invalid value. This is not permitted.";
 
+    /**
+     * For the grouping
+     *
+     * @return the groups
+     */
     Class<?>[] groups() default {};
 
+    /**
+     * The Payloads
+     *
+     * @return payloads
+     */
     Class<? extends Payload>[] payload() default {};
 
+    /**
+     * Valid enum class
+     *
+     * @return the enum
+     */
     Class<? extends java.lang.Enum<?>> enumClass();
 
+    /**
+     * Ignore case.
+     *
+     * @return default false.
+     */
     boolean ignoreCase() default false;
+
+    /**
+     * nullable.
+     *
+     * @return default false.
+     */
+    boolean nullable() default false;
 }

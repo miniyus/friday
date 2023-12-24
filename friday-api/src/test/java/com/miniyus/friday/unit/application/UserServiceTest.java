@@ -17,9 +17,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import com.github.javafaker.Faker;
 import com.miniyus.friday.common.error.RestErrorException;
-import com.miniyus.friday.adapter.in.rest.request.CreateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.application.service.UserService;
-import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.users.domain.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**

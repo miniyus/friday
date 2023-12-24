@@ -4,11 +4,11 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;

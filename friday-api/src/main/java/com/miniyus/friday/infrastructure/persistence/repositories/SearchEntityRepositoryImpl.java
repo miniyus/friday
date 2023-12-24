@@ -1,6 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.domain.hosts.searches.SearchFilter;
+import com.miniyus.friday.hosts.domain.searches.SearchFilter;
 import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.validation;
 
-import com.miniyus.friday.common.validation.annotation.Enum;
+import com.precisionbio.cuttysark.common.util.EnumUtil;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -15,23 +15,18 @@ public class EnumValidator implements ConstraintValidator<Enum, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        boolean result = false;
-
-        if (value == null) {
-            return result;
+        if (this.annotation.nullable() && value == null) {
+            return true;
+        } else if (value == null) {
+            return false;
         }
 
-        Object[] enumValues = this.annotation.enumClass().getEnumConstants();
-        if (enumValues != null) {
-            for (Object enumValue : enumValues) {
-                if (value.equals(enumValue.toString())
-                        || (this.annotation.ignoreCase() && value.equalsIgnoreCase(enumValue.toString()))) {
-                    result = true;
-                    break;
-                }
-            }
+        try {
+            var enumValue = EnumUtil.of(annotation.enumClass(), value, annotation.ignoreCase());
+            return enumValue != null;
+        } catch (IllegalArgumentException e) {
+            return false;
         }
-        return result;
     }
 
 }

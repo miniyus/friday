@@ -1,64 +1,50 @@
 package com.miniyus.friday.infrastructure.aspect;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * [description]
+ * Security Aspect
  *
- * @author miniyus
- * @date 2023/09/11
+ * @author seongminyoo
+ * @since 2023/09/11
  */
 @Aspect
 @Component
 public class SecurityAspect extends LoggingAspect {
 
-    // security aspect
-    public SecurityAspect() {
-        super("Security", LoggerFactory.getLogger(SecurityAspect.class));
-    }
-
-    // oauth2 api point
-    @Pointcut("within(com.miniyus.friday.infrastructure.security.oauth2.*)")
-    public void oAuth2Point() {}
-
-    @Before("oAuth2Point()")
-    public void beforeOAuth2(JoinPoint joinPoint) throws Throwable {
-        beforeLogging("OAuth2", joinPoint);
-    }
-
-    @AfterReturning(pointcut = "oAuth2Point()", returning = "returnValue")
-    public void afterOAuth2Retuning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("OAuth2", joinPoint, returnValue);
-    }
-
-    @AfterThrowing(pointcut = "oAuth2Point()", throwing = "e")
-    public void afterOAuth2Throwing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging("OAuth2", joinPoint, e);
+    /**
+     * Auth API aspect
+     *
+     * @param objectMapper object mapper
+     */
+    public SecurityAspect(ObjectMapper objectMapper) {
+        super(
+            "Security",
+            LoggerFactory.getLogger(SecurityAspect.class),
+            objectMapper);
     }
 
     // services point
-    @Pointcut("within(com.miniyus.friday.infrastructure.security.*)")
-    public void applicationPoint() {}
-
-    @Before("applicationPoint()")
-    public void beforeApplication(JoinPoint joinPoint) throws Throwable {
-        beforeLogging("Application", joinPoint);
+    @Pointcut("within(com.precisionbio.cuttysark.infrastructure.security.*)")
+    public void securityPoint() {
     }
 
-    @AfterReturning(pointcut = "applicationPoint()", returning = "returnValue")
-    public void afterApplicationReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Application", joinPoint, returnValue);
+    @Before("securityPoint()")
+    public void beforeSecurity(JoinPoint joinPoint) {
+        beforeLogging("Security", joinPoint);
     }
 
-    @AfterThrowing(pointcut = "applicationPoint()", throwing = "e")
-    public void afterApplicationThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
-        afterThrowingLogging("Application", joinPoint, e);
+    @AfterReturning(pointcut = "securityPoint()", returning = "returnValue")
+    public void afterSecurityReturning(JoinPoint joinPoint, Object returnValue) {
+        afterReturningLogging("Security", joinPoint, returnValue);
+    }
+
+    @AfterThrowing(pointcut = "securityPoint()", throwing = "e")
+    public void afterSecurityThrowing(JoinPoint joinPoint, Exception e) {
+        afterThrowingLogging("Security", joinPoint, e);
     }
 }

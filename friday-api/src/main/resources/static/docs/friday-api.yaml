@@ -460,7 +460,7 @@ components:
           type: string
           description: email
     com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest:
-      title: com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest
+      title: com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest
       required:
       - password
       type: object
@@ -469,7 +469,7 @@ components:
           type: string
           description: password
     com.miniyus.friday.adapter.in.rest.request.CreateUserRequest:
-      title: com.miniyus.friday.adapter.in.rest.request.CreateUserRequest
+      title: com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest
       required:
       - email
       - name

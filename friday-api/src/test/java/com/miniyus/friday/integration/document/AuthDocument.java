@@ -2,8 +2,8 @@ package com.miniyus.friday.integration.document;
 
 import com.epages.restdocs.apispec.ResourceSnippetParametersBuilder;
 import com.epages.restdocs.apispec.Schema;
-import com.miniyus.friday.adapter.in.rest.resource.UserResources.AuthUserResource;
-import com.miniyus.friday.domain.auth.Token;
+import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.AuthUserResource;
+import com.miniyus.friday.users.domain.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;

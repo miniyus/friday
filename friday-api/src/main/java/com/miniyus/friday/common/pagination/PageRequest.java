@@ -1,63 +1,59 @@
 package com.miniyus.friday.common.pagination;
 
-import jakarta.annotation.Nullable;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 
-import java.util.List;
-
-@NoArgsConstructor
 @Getter
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+@Schema(title = "PageRequest", description = "Page Request")
 public class PageRequest {
     @NotNull
-    int page;
+    @Schema(description = "Page", example = "1")
+    protected int page;
 
     @NotNull
-    int size;
+    @Schema(description = "Page Size", example = "1")
+    protected int size;
 
     @Nullable
-    List<String> sort;
+    @Schema(description = """
+        Sort field. Multiple fields can be provided. The default sort is 'createdAt,desc'.
+        queryString ex) ?sort=createdAt,desc&sort=updatedAt,desc
+        """, example = "createdAt,desc")
+    protected Sort sort;
 
     public Pageable toPageable() {
-        if (page == 0) {
-            page = 1;
-        }
-
-        if (size == 0) {
-            size = 20;
-        }
-
         if (sort == null || sort.isEmpty()) {
             var sortBy = Sort.by(new Sort.Order(Sort.Direction.DESC, "createdAt"));
 
             return org.springframework.data.domain.PageRequest.of(
                 page - 1,
                 size,
-                sortBy
-            );
+                sortBy);
         }
-
-        var orders = sort.stream()
-            .map(this::mappingOrder).toList();
 
         return org.springframework.data.domain.PageRequest.of(
             page - 1,
             size,
-            Sort.by(orders)
-        );
+            sort);
     }
 
-    private Sort.Order mappingOrder(String sortParameter) {
-        var split = sortParameter.split(",");
-
-        if (split.length > 1) {
-            var direction = Sort.Direction.fromOptionalString(split[1]).orElse(Sort.Direction.ASC);
-            return new Sort.Order(direction, split[0]);
-        }
-
-        return Sort.Order.by(split[0]);
+    public static Pageable of(@NonNull Pageable pageable) {
+        return PageRequest.builder()
+            .page(pageable.getPageNumber())
+            .size(pageable.getPageSize())
+            .sort(pageable.getSort())
+            .build()
+            .toPageable();
     }
 }

@@ -3,7 +3,7 @@ package com.miniyus.friday.infrastructure.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

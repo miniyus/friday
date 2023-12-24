@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.validation;
 
-import com.miniyus.friday.common.validation.annotation.NullOrNotBlank;
+import com.precisionbio.cuttysark.common.validation.annotation.NullOrNotBlank;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

@@ -1,8 +1,11 @@
 package com.miniyus.friday.infrastructure.persistence.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.miniyus.friday.common.UserRole;
+import com.miniyus.friday.common.fake.annotation.NoFake;
+import com.miniyus.friday.users.domain.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -50,6 +53,12 @@ public class UserEntity extends BaseEntity<Long> {
 
     @Column
     private LocalDateTime deletedAt;
+
+    @NoFake
+    @Builder.Default
+    @OrderBy("createdAt DESC")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<LoginHistoryEntity> loginHistories = new ArrayList<>();
 
     /**
      * @param snsId    sns id

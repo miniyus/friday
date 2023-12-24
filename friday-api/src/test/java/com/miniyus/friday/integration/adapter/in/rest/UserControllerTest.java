@@ -1,14 +1,14 @@
 package com.miniyus.friday.integration.adapter.in.rest;
 
-import com.miniyus.friday.adapter.in.rest.UserController;
-import com.miniyus.friday.adapter.in.rest.request.CreateUserRequest;
-import com.miniyus.friday.adapter.in.rest.request.ResetPasswordRequest;
+import com.miniyus.friday.users.adapter.in.rest.UserController;
+import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource;
-import com.miniyus.friday.adapter.in.rest.resource.UserResources.UserResource;
-import com.miniyus.friday.application.port.in.query.RetrieveUserQuery;
-import com.miniyus.friday.common.UserRole;
-import com.miniyus.friday.domain.users.User;
+import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
+import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
+import com.miniyus.friday.users.domain.UserRole;
+import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.integration.document.UserDocument;
 import org.junit.jupiter.api.Test;

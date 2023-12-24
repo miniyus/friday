@@ -1,21 +1,28 @@
 package com.miniyus.friday.common.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.common.request.annotation.QueryParam;
+import com.precisionbio.cuttysark.common.request.annotation.QueryParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
 public class QueryParameterResolver implements HandlerMethodArgumentResolver {
 
     private final ObjectMapper objectMapper;
+    private final Validator validator;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -27,33 +34,47 @@ public class QueryParameterResolver implements HandlerMethodArgumentResolver {
         final MethodParameter parameter,
         final ModelAndViewContainer mavContainer,
         final NativeWebRequest webRequest,
-        final WebDataBinderFactory binderFactory) throws Exception {
-
+        final WebDataBinderFactory binderFactory
+    ) throws Exception {
         final HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
-        final String json = qs2json(request.getQueryString());
-        return objectMapper.readValue(json, parameter.getParameterType());
-    }
 
-    private String qs2json(String a) {
+        final Map<String, Object> map = qs2Map(request.getQueryString());
 
-        if (a == null) {
-            return "{}";
+        var resolveParameter = objectMapper.convertValue(map, parameter.getParameterType());
+        var dataBinder = new DataBinder(resolveParameter);
+        dataBinder.setValidator(validator);
+        dataBinder.validate();
+        if (dataBinder.getBindingResult().hasErrors()) {
+            throw new MethodArgumentNotValidException(parameter, dataBinder.getBindingResult());
         }
 
-        StringBuilder res = new StringBuilder("{\"");
+        return resolveParameter;
+    }
 
-        for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) == '=') {
-                res.append("\"" + ":" + "\"");
-            } else if (a.charAt(i) == '&') {
-                res.append("\"" + "," + "\"");
-            } else {
-                res.append(a.charAt(i));
+    private Map<String, Object> qs2Map(String queryString) {
+        Map<String, Object> map = new HashMap<>();
+
+        if(queryString == null) {
+            return map;
+        }
+
+        String[] pairs = queryString.split("&");
+        for (String pair : pairs) {
+            String[] keyValue = pair.split("=");
+            if (keyValue.length == 2) {
+                String key = keyValue[0];
+                String value = keyValue[1];
+
+                // 배열로 처리할 경우
+                if (value.contains(",")) {
+                    String[] arrayValues = value.split(",");
+                    map.put(key, arrayValues);
+                } else {
+                    map.put(key, value);
+                }
             }
         }
 
-        res.append("\"" + "}");
-
-        return res.toString();
+        return map;
     }
 }

@@ -12,7 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.test.context.ActiveProfiles;
 import com.miniyus.friday.common.error.RestErrorCode;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

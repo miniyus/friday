@@ -33,10 +33,10 @@ import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.security.auth.filter.PasswordAuthenticationFilter;
 import com.miniyus.friday.infrastructure.security.auth.handler.LoginFailureHandler;
 import com.miniyus.friday.infrastructure.security.auth.handler.LoginSuccessHandler;
-import com.miniyus.friday.infrastructure.security.oauth2.handler.OAuth2AccessDeniedHandler;
-import com.miniyus.friday.infrastructure.security.oauth2.handler.OAuth2AuthenticationEntryPoint;
-import com.miniyus.friday.infrastructure.security.oauth2.handler.OAuth2FailureHandler;
-import com.miniyus.friday.infrastructure.security.oauth2.handler.OAuth2SuccessHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AccessDeniedHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AuthenticationEntryPoint;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2FailureHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2SuccessHandler;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 

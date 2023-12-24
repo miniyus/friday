@@ -2,10 +2,9 @@ package com.miniyus.friday.infrastructure.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.common.error.ErrorCode;
-import com.miniyus.friday.infrastructure.advice.ErrorResponse;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
-import com.miniyus.friday.infrastructure.security.oauth2.response.OAuth2TokenResponse;
+import com.miniyus.friday.infrastructure.security.social.response.OAuth2TokenResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

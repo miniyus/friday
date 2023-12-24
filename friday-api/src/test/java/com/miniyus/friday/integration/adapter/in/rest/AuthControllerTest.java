@@ -1,18 +1,17 @@
 package com.miniyus.friday.integration.adapter.in.rest;
 
-import com.miniyus.friday.adapter.in.rest.AuthController;
-import com.miniyus.friday.adapter.in.rest.resource.UserResources.*;
-import com.miniyus.friday.application.port.in.query.RetrieveUserInfoQuery;
-import com.miniyus.friday.common.UserRole;
-import com.miniyus.friday.domain.auth.Auth;
-import com.miniyus.friday.domain.auth.Token;
+import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
+import com.miniyus.friday.users.adapter.in.rest.AuthController;
+import com.miniyus.friday.users.domain.UserRole;
+import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.users.domain.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.miniyus.friday.infrastructure.security.oauth2.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.integration.document.AuthDocument;
 import org.junit.jupiter.api.Test;
