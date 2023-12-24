@@ -2,12 +2,12 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
-import com.miniyus.friday.users.domain.UserRole;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -31,13 +31,15 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<LoginHistoryEntity, QLoginHistoryEntity> loginHistories = this.<LoginHistoryEntity, QLoginHistoryEntity>createList("loginHistories", LoginHistoryEntity.class, QLoginHistoryEntity.class, PathInits.DIRECT2);
+
     public final StringPath name = createString("name");
 
     public final StringPath password = createString("password");
 
     public final StringPath provider = createString("provider");
 
-    public final EnumPath<UserRole> role = createEnum("role", UserRole.class);
+    public final EnumPath<com.miniyus.friday.users.domain.UserRole> role = createEnum("role", com.miniyus.friday.users.domain.UserRole.class);
 
     public final StringPath snsId = createString("snsId");
 

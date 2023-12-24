@@ -1,7 +1,7 @@
 package com.miniyus.friday.common.util;
 
-import com.precisionbio.cuttysark.common.request.UploadFile;
-import com.precisionbio.cuttysark.common.request.exception.ResizeImageException;
+import com.miniyus.friday.common.request.UploadFile;
+import com.miniyus.friday.common.request.exception.ResizeImageException;
 import marvin.image.MarvinImage;
 import org.marvinproject.image.transform.scale.Scale;
 import org.openapitools.jackson.nullable.JsonNullable;

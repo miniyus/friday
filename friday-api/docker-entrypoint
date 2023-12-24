@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /app
+
+GRADLE_OPTS=$JAVA_OPTS ./gradlew bootRun -t

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.users.domain.UserRole;
-import com.miniyus.friday.common.error.AuthErrorCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2Attributes;
 import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2UserInfo;
 import lombok.RequiredArgsConstructor;
@@ -48,9 +48,9 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      */
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
         Map<String, Object> attributes) {
-        OAuth2Provider provider = null;
+        SocialProvider provider = null;
         if (entity.getProvider() != null) {
-            provider = OAuth2Provider.of(entity.getProvider());
+            provider = SocialProvider.of(entity.getProvider());
         }
 
         return PrincipalUserInfo.builder()
@@ -81,7 +81,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add((GrantedAuthority) () -> entity.getRole().getValue());
+        authorities.add((GrantedAuthority) () -> entity.getRole().value());
 
         return authorities;
     }
@@ -97,7 +97,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
             .snsId(userInfo.snsId())
-            .provider(userInfo.getProvider().getValue())
+            .provider(userInfo.getProvider().value())
             .email(userInfo.email())
             .password(null)
             .name(userInfo.name())
@@ -135,9 +135,9 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
 
         OAuth2UserInfo userInfo = oAuthAttributes.toUserInfo();
         UserEntity userREntity = userRepository
-            .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().getValue())
+            .findBySnsIdAndProvider(userInfo.snsId(), userInfo.getProvider().value())
             .orElseThrow(
-                () -> new OAuth2AuthenticationException(AuthErrorCode.INVALID_REQUEST.name()));
+                () -> new OAuth2AuthenticationException(RestErrorCode.INVALID_REQUEST.name()));
 
         PrincipalUserInfo user = buildPrincipalUserInfo(
             userREntity,

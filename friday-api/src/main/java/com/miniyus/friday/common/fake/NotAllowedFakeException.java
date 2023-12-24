@@ -11,8 +11,8 @@ public class NotAllowedFakeException extends RuntimeException {
      * Not allowed injects fake data.
      *
      * @param message error message.
-     * @see com.precisionbio.cuttysark.common.fake.annotation.NoFake
-     * @see com.precisionbio.cuttysark.common.fake.FakeInjector
+     * @see com.miniyus.friday.common.fake.annotation.NoFake
+     * @see com.miniyus.friday.common.fake.FakeInjector
      */
     public NotAllowedFakeException(String message) {
         super(message);

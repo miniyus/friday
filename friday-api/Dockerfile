@@ -1,4 +1,4 @@
-FROM gradle:8.3 AS build
+FROM gradle:8.4 AS build
 
 LABEL maintainer="miniyus"
 

@@ -1,6 +1,5 @@
 package com.miniyus.friday.common.util;
 
-import com.precisionbio.cuttysark.infrastructure.i18n.EnumMessageUtil;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class EnumUtil {
         Enum<?>[] values = enumClass.getEnumConstants();
         List<Select> selectList = new ArrayList<>();
 
-        if(enumClass.equals(HasOrder.class)) {
+        if (enumClass.equals(HasOrder.class)) {
             Arrays.sort(values);
         }
 

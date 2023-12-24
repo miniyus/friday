@@ -6,8 +6,10 @@ WORKDIR /app
 
 COPY build.gradle /app/build.gradle
 COPY gradlew /app/gradlew
-COPY src /app/src
+COPY docker-entrypoint /
 
 EXPOSE 8080
 
-ENTRYPOINT [ "./gradlew", "bootRun", "-t"]
+ENV JAVA_OPTS=""
+
+ENTRYPOINT ["/docker-entrypoint"]

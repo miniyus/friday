@@ -87,6 +87,7 @@ public class SecurityConfiguration {
             .requestMatchers(
                 AntPathRequestMatcher.antMatcher("/h2-console/**"),
                 AntPathRequestMatcher.antMatcher("/docs/**"),
+                AntPathRequestMatcher.antMatcher("/openapi/**"),
                 AntPathRequestMatcher.antMatcher("/actuator/**"),
                 AntPathRequestMatcher.antMatcher("/api-docs/**"),
                 AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),

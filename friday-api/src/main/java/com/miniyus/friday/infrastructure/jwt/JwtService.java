@@ -2,7 +2,7 @@ package com.miniyus.friday.infrastructure.jwt;
 
 import java.util.Optional;
 
-import com.miniyus.friday.common.error.AuthErrorCode;
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import jakarta.validation.constraints.NotNull;
@@ -184,13 +184,13 @@ public class JwtService {
         var accessToken = accessTokenRepository.findByUserId(userId.toString())
             .orElseThrow(() -> new RestErrorException(
                 "error.invalidToken",
-                AuthErrorCode.INVALID_TOKEN
+                RestErrorCode.INVALID_TOKEN
             )).getId();
 
         var refreshToken = refreshTokenRepository.findByAccessTokenId(accessToken)
             .orElseThrow(() -> new RestErrorException(
                 "error.invalidToken",
-                AuthErrorCode.INVALID_TOKEN
+                RestErrorCode.INVALID_TOKEN
             )).getId();
 
         accessTokenRepository.deleteById(accessToken);

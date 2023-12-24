@@ -21,6 +21,8 @@ public class QFileEntity extends EntityPathBase<FileEntity> {
 
     public final com.miniyus.friday.infrastructure.persistence.QBaseEntity _super = new com.miniyus.friday.infrastructure.persistence.QBaseEntity(this);
 
+    public final StringPath convName = createString("convName");
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
@@ -31,6 +33,8 @@ public class QFileEntity extends EntityPathBase<FileEntity> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath mimeType = createString("mimeType");
+
+    public final StringPath originName = createString("originName");
 
     public final StringPath path = createString("path");
 

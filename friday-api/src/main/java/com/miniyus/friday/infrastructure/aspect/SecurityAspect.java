@@ -29,7 +29,7 @@ public class SecurityAspect extends LoggingAspect {
     }
 
     // services point
-    @Pointcut("within(com.precisionbio.cuttysark.infrastructure.security.*)")
+    @Pointcut("within(com.miniyus.friday.infrastructure.security.*)")
     public void securityPoint() {
     }
 

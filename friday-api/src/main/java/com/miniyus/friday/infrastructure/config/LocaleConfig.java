@@ -1,8 +1,12 @@
 package com.miniyus.friday.infrastructure.config;
 
 import java.util.Locale;
+
+import com.miniyus.friday.common.util.MessageUtil;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
@@ -32,5 +36,12 @@ public class LocaleConfig implements WebMvcConfigurer {
 
         // Return the LocaleResolver bean
         return localeResolver;
+    }
+
+    @Bean
+    public MessageSourceAccessor messageSourceAccessor(MessageSource messageSource) {
+        MessageSourceAccessor messageSourceAccessor = new MessageSourceAccessor(messageSource);
+        MessageUtil.setMessageSourceAccessor(messageSourceAccessor); // ⚡️ 아래의 MessageUtil 클래스에 세팅
+        return messageSourceAccessor;
     }
 }

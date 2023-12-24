@@ -1,33 +1,36 @@
+server:
+  undertow:
+    threads:
+      io: 2
+      worker: 200
 spring:
   h2:
     console:
       enabled: false
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 2
   jpa:
-    show-sql: true
     hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-        jdbc:
-          lob:
-            non_contextual_creation: true
+      ddl-auto: ${DB_DDL_AUTO:validate}
 logging:
-  file:
-    path: ${LOG_PATH:log}
-    name: ${LOG_PATH:log}/friday-api.log
-  logback:
-    rollingpolicy:
-      file-name-pattern: ${LOG_PATH:log}/friday-api-%d{yyyy-MM-dd}.%i
   level:
     root: warn
-    tomcat: warn
-    org:
-      springframework:
-        web: ${LOG_LEVEL:debug}
-        core:
-          LocalVariableTableParameterNameDiscoverer: error
-      hibernate: error
-    com:
-      miniyus:
-        friday: ${LOG_LEVEL:debug}
+    undertow: warn
+    org.springframework.web: debug
+    org.springframework.core.LocalVariableTableParameterNameDiscoverer: error
+    org.springframework.security: debug
+    org.springframework.data: debug
+    org.hibernate: error
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    org.hibernate.orm.jdbc.bind: trace
+    org.hibernate.orm.jdbc.extract: trace
+    com.miniyus.com.miniyus.friday: debug
+    com.miniyus.com.miniyus.friday.infrastructure.aspect: debug
+    com.miniyus.com.miniyus.friday.infrastructure.advice: debug
+    com.miniyus.com.miniyus.friday.infrastructure.task: debug

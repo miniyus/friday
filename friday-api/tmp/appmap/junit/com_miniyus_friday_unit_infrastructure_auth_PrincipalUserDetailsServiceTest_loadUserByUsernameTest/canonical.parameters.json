@@ -1,0 +1,15 @@
+[
+  "accountNonExpired",
+  "accountNonLocked",
+  "attributes",
+  "authorities",
+  "credentialsNonExpired",
+  "enabled",
+  "id",
+  "name",
+  "password",
+  "provider",
+  "role",
+  "snsId",
+  "username"
+]

@@ -19,26 +19,29 @@ services:
         networks:
             - friday
         environment:
+            - APP_NAME=${APPIO_NAME:-Cuttysark APPIO}
+            - APP_SECRET=${APPIO_SECRET}
             - APP_ENV=${APP_ENV}
-            - API_URL=${API_URL}
-            - API_LOG_LEVEL=${API_LOG_LEVEL}
-            - JWT_SECRET=${JWT_SECRET}
+            - APP_URL=${API_URL}
+            - LOG_LEVEL=${API_LOG_LEVEL:-debug}
+            - JWT_SECRET=${JWT_SECRET:-secret}
             - DB_HOST=${DB_HOST:-friday-db}
             - DB_DATABASE=${DB_DATABASE}
             - DB_USERNAME=${DB_USERNAME}
             - DB_PASSWORD=${DB_PASSWORD}
             - DB_PORT=${DB_PORT}
             - REDIS_HOST=${REDIS_HOST:-friday-redis}
-            - REDIS_DATABASE=${REDIS_DATABASE}
-            - REDIS_USERNAME=${REDIS_USERNAME}
-            - REDIS_PASSWORD=${REDIS_PASSWORD}
-            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_DATABASE=${REDIS_DATABASE:-0}
+            - REDIS_USERNAME=${REDIS_USERNAME:-}
+            - REDIS_PASSWORD=${REDIS_PASSWORD:-}
+            - REDIS_PORT=${REDIS_PORT:6379}
             - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
             - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
             - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
             - NAVER_CLIENT_SECRET=${NAVER_CLIENT_SECRET}
             - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
             - KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}
+            - JAVA_OPTS=${JAVA_OPTS:-}
     friday-db:
         container_name: friday-db
         image: postgres:15

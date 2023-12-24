@@ -1,7 +1,9 @@
 package com.miniyus.friday.integration.adapter.in.rest;
 
+import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.users.adapter.in.rest.AuthController;
+import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
 import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.users.domain.Auth;
 import com.miniyus.friday.users.domain.Token;
@@ -11,7 +13,7 @@ import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.integration.document.AuthDocument;
 import org.junit.jupiter.api.Test;
@@ -29,13 +31,7 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = AuthController.class)
 public class AuthControllerTest extends AuthDocument {
     @MockBean
-    private SignupUsecase signupUsecase;
-
-    @MockBean
-    private RefreshTokenUsecase refreshTokenUsecase;
-
-    @MockBean
-    private RevokeTokenUsecase revokeTokenUsecase;
+    private AuthUsecase usecase;
 
     @MockBean
     private RetrieveUserInfoQuery retrieveUserInfoQuery;
@@ -61,7 +57,7 @@ public class AuthControllerTest extends AuthDocument {
             .password(passwordEncoder.encode(request.password()))
             .email(request.email())
             .build();
-        when(signupUsecase.signup(any())).thenReturn(response);
+        when(usecase.signup(any())).thenReturn(response);
 
         var principal = PrincipalUserInfo.builder()
             .id(1L)
@@ -169,7 +165,7 @@ public class AuthControllerTest extends AuthDocument {
             .refreshToken(issueToken.refreshToken())
             .expiresIn(issueToken.expiresIn())
             .build();
-        when(refreshTokenUsecase.refreshToken(any())).thenReturn(
+        when(usecase.refreshToken(any())).thenReturn(
             token
         );
 
@@ -198,7 +194,7 @@ public class AuthControllerTest extends AuthDocument {
             .enabled(true)
             .name(faker.name().fullName())
             .role(UserRole.USER)
-            .provider(OAuth2Provider.GOOGLE)
+            .provider(SocialProvider.GOOGLE)
             .snsId(faker.internet().uuid())
             .email(faker.internet().emailAddress())
             .password(passwordEncoder.encode(faker.internet().password()))

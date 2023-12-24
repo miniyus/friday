@@ -13,15 +13,15 @@ import java.util.List;
 public class AuthErrorException extends RestErrorException {
     protected List<Object> args;
 
-    public AuthErrorException(String message, AuthErrorCode errorCode) {
+    public AuthErrorException(String message, ErrorCode errorCode) {
         super(message, errorCode);
     }
 
-    public AuthErrorException(AuthErrorCode errorCode) {
+    public AuthErrorException(ErrorCode errorCode) {
         super(errorCode);
     }
 
-    public AuthErrorException(AuthErrorCode errorCode, String message, Object... args) {
+    public AuthErrorException(ErrorCode errorCode, String message, Object... args) {
         super(errorCode, message, args);
     }
 

@@ -2,7 +2,7 @@ package com.miniyus.friday.infrastructure.security.social.userinfo;
 
 import java.io.Serializable;
 import java.util.Map;
-import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 
 /**
  * [description]
@@ -13,7 +13,7 @@ import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
 public interface OAuth2UserInfo extends Serializable{
     String snsId();
 
-    OAuth2Provider getProvider();
+    SocialProvider getProvider();
 
     String email();
 

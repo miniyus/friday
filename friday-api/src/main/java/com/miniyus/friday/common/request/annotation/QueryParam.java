@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * This annotation is for query parameter.
  *
  * @author seongminyoo
- * @see com.precisionbio.cuttysark.common.request.QueryParameterResolver
+ * @see com.miniyus.friday.common.request.QueryParameterResolver
  * @since 2023/09/14
  */
 @Retention(RetentionPolicy.RUNTIME)

@@ -8,7 +8,7 @@ import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
@@ -34,7 +34,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     String snsId;
 
-    OAuth2Provider provider;
+    SocialProvider provider;
 
     String email;
 

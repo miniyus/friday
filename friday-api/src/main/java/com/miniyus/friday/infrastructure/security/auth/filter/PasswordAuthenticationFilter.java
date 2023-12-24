@@ -2,6 +2,8 @@ package com.miniyus.friday.infrastructure.security.auth.filter;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+
+import lombok.Getter;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,32 +18,42 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * [description]
+ * password authentication filter.
+ * <p>패스워드 로그인(For Console User) 인증을 위한 필터</p>
  *
- * @author seongminyoo
+ * @author miniyus
  * @date 2023/09/04
  */
 @Slf4j
 public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/login"; // "/login"으로 오는 요청을 처리
     private static final String HTTP_METHOD = "POST"; // 로그인 HTTP 메소드는 POST
     private static final String CONTENT_TYPE = "application/json"; // JSON 타입의 데이터로 오는 로그인 요청만 처리
-    private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER =
-            new AntPathRequestMatcher(
-                    DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD); // "/login" + POST로 온 요청에 매칭된다.
+    /**
+     * username 파라미터 필드 이름
+     */
+    public static final String USERNAME_PARAMETER = "email";
 
+    /**
+     * password 파라미터 필드 이름
+     */
+    public static final String PASSWORD_PARAMETER = "password";
     private final ObjectMapper objectMapper;
 
+    @Getter
+    private final String defaultLoginRequestUrl;
+
+    /**
+     * PasswordAuthenticationFilter Constructor.
+     *
+     * @param loginPathRequestMatcher 로그인 URL 패턴 설정.
+     * @param objectMapper            JSON 데이터 변환을 위한 ObjectMapper
+     */
     public PasswordAuthenticationFilter(
-            AntPathRequestMatcher loginPathRequestMatcher,
-            ObjectMapper objectMapper) {
+        AntPathRequestMatcher loginPathRequestMatcher,
+        ObjectMapper objectMapper) {
         super(loginPathRequestMatcher);
         this.objectMapper = objectMapper;
-    }
-
-    public PasswordAuthenticationFilter(ObjectMapper objectMapper) {
-        super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER); // 위에서 설정한 "login" + POST로 온 요청을 처리하기 위해 설정
-        this.objectMapper = objectMapper;
+        this.defaultLoginRequestUrl = loginPathRequestMatcher.getPattern();
     }
 
     /**
@@ -59,19 +71,19 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
      */
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
-            HttpServletResponse response)
-            throws AuthenticationException, IOException {
+        HttpServletResponse response)
+        throws AuthenticationException, IOException {
         if (request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)) {
             throw new AuthenticationServiceException(
-                    "Authentication Content-Type not supported: " + request.getContentType());
+                "Authentication Content-Type not supported: " + request.getContentType());
         }
 
         String messageBody = StreamUtils.copyToString(
-                request.getInputStream(),
-                StandardCharsets.UTF_8);
+            request.getInputStream(),
+            StandardCharsets.UTF_8);
 
         PasswordAuthentication usernamePassword =
-                objectMapper.readValue(messageBody, PasswordAuthentication.class);
+            objectMapper.readValue(messageBody, PasswordAuthentication.class);
 
         String email = usernamePassword.email();
         String password = usernamePassword.password();
@@ -79,8 +91,24 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
         log.debug("login email: {}", email);
 
         UsernamePasswordAuthenticationToken authRequest =
-                new UsernamePasswordAuthenticationToken(email, password);
+            new UsernamePasswordAuthenticationToken(email, password);
 
         return this.getAuthenticationManager().authenticate(authRequest);
+    }
+
+    public String getUsernameParameter() {
+        return USERNAME_PARAMETER;
+    }
+
+    public String getPasswordParameter() {
+        return PASSWORD_PARAMETER;
+    }
+
+    public String getHttpMethod() {
+        return HTTP_METHOD;
+    }
+
+    public String getContentType() {
+        return CONTENT_TYPE;
     }
 }

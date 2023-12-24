@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.error;
 
-import com.precisionbio.cuttysark.common.hexagon.annotation.RestAdapter;
+import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.context.annotation.Profile;

@@ -40,6 +40,14 @@ public class FileEntity extends BaseEntity<Long> {
     @NonNull
     private String path;
 
+    @Column(nullable = false)
+    @NonNull
+    private String originName;
+
+    @Column(nullable = false)
+    @NonNull
+    private String convName;
+
     @Column(nullable = false, length = 20)
     @NonNull
     private String extension;

@@ -1,8 +1,7 @@
 package com.miniyus.friday.infrastructure.aspect;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
-import com.precisionbio.cuttysark.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.io.IOUtils;
 import org.aspectj.lang.JoinPoint;
@@ -80,7 +79,7 @@ public abstract class LoggingAspect {
             log.info("User-Agent {}", userAgent);
 
             if (userInfo != null) {
-                var client = userInfo.getClient().value();
+                var client = userInfo.getProvider().value();
                 var id = userInfo.getId();
                 log.info("Auth: Id={}, Client={}", id, client);
             }
@@ -193,7 +192,7 @@ public abstract class LoggingAspect {
     protected String paramMapToString(Map<String, String[]> paramMap) {
         return paramMap.entrySet().stream()
             .map(entry -> String.format("%s -> (%s)",
-                entry.getKey(), Joiner.on(",").join(entry.getValue())))
+                entry.getKey(), String.join(", ", entry.getValue())))
             .collect(Collectors.joining(", "));
     }
 

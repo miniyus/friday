@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.util;
 
-import com.precisionbio.cuttysark.common.fake.FakeInjector;
+import com.miniyus.friday.common.fake.FakeInjector;
 
 import java.util.List;
 

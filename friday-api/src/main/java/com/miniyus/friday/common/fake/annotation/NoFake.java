@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Not allowed fake data to be injected from FakeInjector.
- * @see com.precisionbio.cuttysark.common.fake.FakeInjector
+ * @see com.miniyus.friday.common.fake.FakeInjector
  */
 @Target({ElementType.FIELD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

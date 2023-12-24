@@ -2,10 +2,10 @@ package com.miniyus.friday.infrastructure.security.social.handler;
 
 import java.io.IOException;
 
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-import com.miniyus.friday.common.error.AuthErrorCode;
 import org.springframework.security.core.AuthenticationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -30,7 +30,7 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
             AuthenticationException exception) throws IOException {
         log.debug("Failure oauth login: {}", exception.getMessage());
 
-        AuthErrorCode code = AuthErrorCode.INVALID_CLIENT;
+        RestErrorCode code = RestErrorCode.INVALID_CLIENT;
         var message = exception.getMessage();
 
         responseHandler.handleErrorResponse(

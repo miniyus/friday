@@ -24,7 +24,7 @@ public record AuthUserResource(
             user.getId(),
             user.getEmail(),
             user.getName(),
-            user.getRole().getValue(),
+            user.getRole().value(),
             user.getSnsId(),
             provider
         );

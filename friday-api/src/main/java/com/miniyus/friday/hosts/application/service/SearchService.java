@@ -8,7 +8,6 @@ import com.miniyus.friday.hosts.application.port.in.usecase.SearchUsecase;
 import com.miniyus.friday.hosts.application.port.out.HostPort;
 import com.miniyus.friday.hosts.application.port.out.SearchPort;
 import com.miniyus.friday.hosts.domain.searches.*;
-import com.miniyus.friday.hosts.searches.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

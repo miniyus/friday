@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * This annotation is for form data parameter.
  *
  * @author seongminyoo
- * @see com.precisionbio.cuttysark.common.request.FormDataParameterResolver
+ * @see com.miniyus.friday.common.request.FormDataParameterResolver
  * @since 2023/10/15
  */
 @Retention(RetentionPolicy.RUNTIME)

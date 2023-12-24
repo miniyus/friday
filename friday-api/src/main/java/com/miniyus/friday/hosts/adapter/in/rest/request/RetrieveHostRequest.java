@@ -5,6 +5,7 @@ import com.miniyus.friday.hosts.domain.Host;
 import com.miniyus.friday.hosts.domain.HostFilter;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
  * DTO for {@link Host}
  */
 @Getter
-@Builder
+@SuperBuilder
 public class RetrieveHostRequest extends PageRequest {
     @Nullable
     String host;

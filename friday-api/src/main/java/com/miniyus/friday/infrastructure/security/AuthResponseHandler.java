@@ -2,6 +2,7 @@ package com.miniyus.friday.infrastructure.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.common.error.ErrorCode;
+import com.miniyus.friday.common.error.ErrorResponse;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.infrastructure.security.social.response.OAuth2TokenResponse;
@@ -51,7 +52,7 @@ public class AuthResponseHandler {
         OAuth2TokenResponse tokenResponse = new OAuth2TokenResponse(
             userInfo.getId(),
             userInfo.getSnsId(),
-            userInfo.getProvider().getValue(),
+            userInfo.getProvider().value(),
             userInfo.getEmail(),
             token);
 

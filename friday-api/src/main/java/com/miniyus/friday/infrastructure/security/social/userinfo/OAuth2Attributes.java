@@ -1,7 +1,7 @@
 package com.miniyus.friday.infrastructure.security.social.userinfo;
 
 import java.util.Map;
-import com.miniyus.friday.infrastructure.security.social.OAuth2Provider;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.infrastructure.security.social.exception.NotSupportProviderException;
 import lombok.Builder;
 import lombok.Getter;
@@ -84,7 +84,7 @@ public class OAuth2Attributes {
 
     public OAuth2UserInfo toUserInfo() {
         try {
-            OAuth2Provider provider = OAuth2Provider.of(this.provider);
+            SocialProvider provider = SocialProvider.of(this.provider);
             return switch (provider) {
                 case GOOGLE -> GoogleUserInfo.builder()
                         .email(email)

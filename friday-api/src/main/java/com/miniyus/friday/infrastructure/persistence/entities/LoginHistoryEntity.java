@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Table(name = "login_history")
 public class LoginHistoryEntity extends BaseEntity<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
 

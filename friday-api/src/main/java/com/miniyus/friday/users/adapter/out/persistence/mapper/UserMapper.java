@@ -25,16 +25,16 @@ public class UserMapper {
     }
 
     public UserEntity toEntity(User domain) {
-        return new UserEntity(
-            domain.getId(),
-            domain.getSnsId(),
-            domain.getProvider(),
-            domain.getEmail(),
-            domain.getPassword(),
-            domain.getName(),
-            UserRole.valueOf(domain.getRole()),
-            domain.getDeletedAt()
-        );
+        return UserEntity.builder()
+            .id(domain.getId())
+            .snsId(domain.getSnsId())
+            .provider(domain.getProvider())
+            .email(domain.getEmail())
+            .password(domain.getPassword())
+            .name(domain.getName())
+            .role(UserRole.valueOf(domain.getRole()))
+            .deletedAt(domain.getDeletedAt())
+            .build();
     }
 
     public User toDomain(UserEntity entity) {
@@ -43,7 +43,7 @@ public class UserMapper {
             entity.getEmail(),
             entity.getPassword(),
             entity.getName(),
-            entity.getRole().getValue(),
+            entity.getRole().value(),
             entity.getSnsId(),
             entity.getProvider(),
             entity.getCreatedAt(),

@@ -1,5 +1,7 @@
 package com.miniyus.friday.users.domain;
 
+import com.miniyus.friday.common.util.EnumUtil;
+import com.miniyus.friday.common.util.HasText;
 import lombok.Getter;
 
 /**
@@ -9,13 +11,24 @@ import lombok.Getter;
  * @date 2023/09/02
  */
 @Getter
-public enum UserRole {
-    ADMIN("ADMIN"), MANAGER("MANAGER"), USER("USER");
+public enum UserRole implements HasText {
+    ADMIN, MANAGER, USER;
 
-    private final String value;
-
-    UserRole(String value) {
-        this.value = value;
+    @Override
+    public String text() {
+        return value();
     }
 
+    @Override
+    public String value() {
+        return name().toLowerCase();
+    }
+
+    public static UserRole of(String value) {
+        return EnumUtil.of(UserRole.class, value);
+    }
+
+    public static UserRole of(String value, boolean ignoreCase) {
+        return EnumUtil.of(UserRole.class, value, ignoreCase);
+    }
 }

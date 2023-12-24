@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.request;
 
-import com.precisionbio.cuttysark.common.util.UploadFileUtil;
+import com.miniyus.friday.common.util.UploadFileUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package com.miniyus.friday.common.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.precisionbio.cuttysark.common.request.annotation.QueryParam;
+import com.miniyus.friday.common.request.annotation.QueryParam;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;

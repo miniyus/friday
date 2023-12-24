@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.NamingBase;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.github.javafaker.Faker;
-import com.precisionbio.cuttysark.common.fake.annotation.NoFake;
+import com.miniyus.friday.common.fake.annotation.NoFake;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

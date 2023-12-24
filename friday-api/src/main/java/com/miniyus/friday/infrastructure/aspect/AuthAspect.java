@@ -68,13 +68,13 @@ public class AuthAspect extends LoggingAspect {
 
     /**
      * AOP: login end point pointcut
-     * <p>If has {@link com.precisionbio.cuttysark.infrastructure.aspect.annotation.LoginEndPoint}
+     * <p>If has {@link com.miniyus.friday.infrastructure.aspect.annotation.LoginEndPoint}
      * annotation</p>
      *
-     * @see com.precisionbio.cuttysark.infrastructure.aspect.annotation.LoginEndPoint
+     * @see com.miniyus.friday.infrastructure.aspect.annotation.LoginEndPoint
      */
     @Pointcut(
-        "@annotation(com.precisionbio.cuttysark.infrastructure.aspect.annotation.LoginEndPoint)")
+        "@annotation(com.miniyus.friday.infrastructure.aspect.annotation.LoginEndPoint)")
     public void loginEndPoint() {
     }
 
@@ -161,7 +161,7 @@ public class AuthAspect extends LoggingAspect {
     /**
      * Auth controller point
      */
-    @Pointcut("within(com.precisionbio.cuttysark.users.adapter.in.auth.controller.AuthController)")
+    @Pointcut("within(com.miniyus.friday.users.adapter.in.auth.controller.AuthController)")
     public void authControllerPoint() {
     }
 
@@ -213,7 +213,7 @@ public class AuthAspect extends LoggingAspect {
     /**
      * Auth Persistence point
      */
-    @Pointcut("within(com.precisionbio.cuttysark.users.adapter.out.persistence.AuthAdapter)")
+    @Pointcut("within(com.miniyus.friday.users.adapter.out.persistence.AuthAdapter)")
     public void authPersistencePoint() {
     }
 

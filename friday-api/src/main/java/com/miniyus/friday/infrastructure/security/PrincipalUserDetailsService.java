@@ -51,7 +51,7 @@ public class PrincipalUserDetailsService implements CustomUserDetailsService {
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add((GrantedAuthority) () -> entity.getRole().getValue());
+        authorities.add((GrantedAuthority) () -> entity.getRole().value());
 
         return authorities;
     }

@@ -1,6 +1,5 @@
 package com.miniyus.friday.users.adapter.out.persistence;
 
-import com.miniyus.friday.common.error.AuthErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
@@ -57,7 +56,7 @@ public class AuthAdapter implements AuthPort {
         if (!tokenType.equals(JwtProvider.BEARER)) {
             throw new RestErrorException(
                 "error.unsupportedTokenType",
-                AuthErrorCode.UNSUPPORTED_TOKEN_TYPE
+                RestErrorCode.UNSUPPORTED_TOKEN_TYPE
             );
         }
 
@@ -65,7 +64,7 @@ public class AuthAdapter implements AuthPort {
         if (user == null) {
             throw new RestErrorException(
                 "error.userNotFound",
-                AuthErrorCode.ACCESS_DENIED
+                RestErrorCode.ACCESS_DENIED
             );
         }
 
@@ -90,10 +89,7 @@ public class AuthAdapter implements AuthPort {
     public Auth retrieveUserInfo() {
         var user = userInfo();
         if (user == null) {
-            throw new RestErrorException(
-                "error.userNotExists",
-                RestErrorCode.NOT_FOUND
-            );
+            throw userNotExists();
         }
 
         return Auth.builder()
@@ -102,7 +98,7 @@ public class AuthAdapter implements AuthPort {
             .email(user.getEmail())
             .name(user.getName())
             .snsId(user.getSnsId())
-            .provider(user.getProvider().getValue())
+            .provider(user.getProvider().value())
             .build();
     }
 
@@ -110,19 +106,20 @@ public class AuthAdapter implements AuthPort {
     public void revokeToken() {
         var user = userInfo();
         if (user == null) {
-            throw new RestErrorException(
-                "error.userNotExists",
-                RestErrorCode.NOT_FOUND
-            );
+            throw userNotExists();
         }
 
         if (user.getId() == null) {
-            throw new RestErrorException(
-                "error.userNotExists",
-                RestErrorCode.NOT_FOUND
-            );
+            throw userNotExists();
         }
 
         jwtService.revokeTokenByUserId(user.getId());
+    }
+
+    private RestErrorException userNotExists() {
+        return new RestErrorException(
+            "error.userNotExists",
+            RestErrorCode.NOT_FOUND
+        );
     }
 }

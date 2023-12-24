@@ -8,6 +8,7 @@ import com.miniyus.friday.users.domain.UserFilter;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -18,7 +19,7 @@ import org.springframework.data.domain.Sort;
  * @date 2023/09/06
  */
 @Getter
-@Builder
+@SuperBuilder
 public class RetrieveUserRequest extends PageRequest implements Serializable {
     @Nullable
     final String email;

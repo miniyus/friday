@@ -1,6 +1,6 @@
 package com.miniyus.friday.common.validation.annotation;
 
-import com.precisionbio.cuttysark.common.validation.EnumValidator;
+import com.miniyus.friday.common.validation.EnumValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
