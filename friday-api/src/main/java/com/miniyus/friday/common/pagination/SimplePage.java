@@ -1,9 +1,7 @@
 package com.miniyus.friday.common.pagination;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * SimplePage
@@ -30,8 +27,9 @@ import java.util.stream.Collectors;
     "empty",
     "content"
 })
+@EqualsAndHashCode(callSuper = true)
 public class SimplePage<T> extends PageImpl<T> {
-    private final Map<String, List<T>> resource;
+    private final transient Map<String, List<T>> resource;
 
     /**
      * For Json Serialization
@@ -56,7 +54,7 @@ public class SimplePage<T> extends PageImpl<T> {
         super(content, PageRequest.of(page + 1, size, Sort.by(sort.stream()
             .map(el -> el.split(","))
             .map(ar -> new Sort.Order(Sort.Direction.fromString(ar[1]), ar[0]))
-            .collect(Collectors.toList()))), totalElements);
+            .toList())), totalElements);
         this.resource = new HashMap<>();
         this.resource.put(resourceName, content);
     }
@@ -113,7 +111,7 @@ public class SimplePage<T> extends PageImpl<T> {
     public List<String> getSortList() {
         return getSort().stream()
             .map(order -> order.getProperty() + "," + order.getDirection().name())
-            .collect(Collectors.toList());
+            .toList();
     }
 
     /**
@@ -122,6 +120,7 @@ public class SimplePage<T> extends PageImpl<T> {
      * @return get resources
      */
     @JsonAnyGetter
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public Map<String, List<T>> getResource() {
         return resource;
     }

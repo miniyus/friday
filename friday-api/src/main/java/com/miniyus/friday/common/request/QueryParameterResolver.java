@@ -54,7 +54,7 @@ public class QueryParameterResolver implements HandlerMethodArgumentResolver {
     private Map<String, Object> qs2Map(String queryString) {
         Map<String, Object> map = new HashMap<>();
 
-        if(queryString == null) {
+        if (queryString == null || queryString.isBlank()) {
             return map;
         }
 

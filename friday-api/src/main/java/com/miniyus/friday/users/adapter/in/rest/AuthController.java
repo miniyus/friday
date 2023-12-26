@@ -1,6 +1,9 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
+import com.miniyus.friday.api.auth.AuthApi;
 import com.miniyus.friday.common.hexagon.BaseController;
+import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
+import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
@@ -25,7 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  */
 @RestAdapter
 @RequiredArgsConstructor
-public class AuthController extends BaseController {
+public class AuthController extends BaseController implements AuthApi {
     private final RetrieveUserInfoQuery retrieveUserInfoQuery;
     private final AuthUsecase authUsecase;
 
@@ -57,6 +60,19 @@ public class AuthController extends BaseController {
         return ResponseEntity.created(uri).body(AuthUserResource.fromDomain(user));
     }
 
+    @Override
+    @GetMapping(SecurityConfiguration.OAUTH2_LOGIN_URL + "/{provider}")
+    public void oauth2Login(@PathVariable String provider) {
+        // just for documentation.
+    }
+
+    @Override
+    @PostMapping(SecurityConfiguration.LOGIN_URL)
+    public ResponseEntity<PasswordTokenResponse> signin(PasswordAuthentication authentication) {
+        // just for documentation.
+        return null;
+    }
+
     /**
      * Refreshes the access token using the provided refresh token.
      *
@@ -73,14 +89,14 @@ public class AuthController extends BaseController {
     }
 
     @GetMapping(SecurityConfiguration.USERINFO_URL)
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAnyAuthority('user', 'admin')")
     public ResponseEntity<AuthUserResource> userInfo() {
         var userInfo = retrieveUserInfoQuery.retrieveUserInfo();
         return ResponseEntity.ok(AuthUserResource.fromDomain(userInfo));
     }
 
     @PostMapping(SecurityConfiguration.LOGOUT_URL)
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('user', 'admin')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void revokeToken() {
         authUsecase.revokeToken();

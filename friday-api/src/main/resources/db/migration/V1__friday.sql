@@ -46,14 +46,16 @@ CREATE TABLE
 
 CREATE TABLE "file"
 (
-    "id"         bigserial PRIMARY KEY,
-    "mime_type"  varchar(50)  NOT NULL,
-    "size"       int          NOT NULL,
-    "path"       varchar(255) NOT NULL,
-    "extension"  varchar(20)  NOT NULL,
-    "created_at" timestamp,
-    "updated_at" timestamp,
-    "deleted_at" timestamp
+    "id"          bigserial PRIMARY KEY,
+    "mime_type"   varchar(50)  NOT NULL,
+    "size"        int          NOT NULL,
+    "path"        varchar(255) NOT NULL,
+    "origin_name" varchar(255) NOT NULL,
+    "conv_name"   varchar(255) NOT NULL,
+    "extension"   varchar(20)  NOT NULL,
+    "created_at"  timestamp,
+    "updated_at"  timestamp,
+    "deleted_at"  timestamp
 );
 
 CREATE TABLE "search_file"

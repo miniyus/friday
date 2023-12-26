@@ -28,7 +28,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
         Authentication authentication) {
-        log.debug("OAuth2 Login 성공!");
+        log.debug("Success OAuth2 login");
 
         if (response.isCommitted()) {
             log.debug("Response has already been committed.");

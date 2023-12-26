@@ -1,68 +1,52 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
-import java.net.URI;
-
+import com.miniyus.friday.api.users.UserApi;
 import com.miniyus.friday.common.hexagon.BaseController;
+import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
+import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
+import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.resource.ResetPasswordResource;
 import com.miniyus.friday.users.adapter.in.rest.resource.UserResources;
-import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.*;
-import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
-import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
-import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.users.domain.User;
-import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.util.UriComponentsBuilder;
-import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
+import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
+import com.miniyus.friday.users.domain.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 /**
- * [description]
+ * User Controller
  *
  * @author miniyus
  * @date 2023/09/02
  */
-@RestAdapter(path = "v1/users")
+@RestAdapter(path = UserApi.PATH)
 @RequiredArgsConstructor
 @Slf4j
-public class UserController extends BaseController {
+public class UserController extends BaseController implements UserApi {
     private final UserUsecase userUsecase;
     private final RetrieveUserQuery readUserQuery;
 
     /**
      * Creates a new user.
      *
-     * @param request              the createUser request
-     * @param uriComponentsBuilder the uriComponentsBuilder for creating the location URI
+     * @param request the createUser request
      * @return the ResponseEntity containing the createUser response
      */
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserResource> createUser(
-        @Valid @RequestBody CreateUserRequest request,
-        UriComponentsBuilder uriComponentsBuilder) {
-
+        @Valid @RequestBody CreateUserRequest request) {
         User create = userUsecase.createUser(request.toDomain());
-
-        URI uri = uriComponentsBuilder
-            .path("/v1/users/{id}")
-            .buildAndExpand(create.getId())
-            .toUri();
 
         return ResponseEntity
             .created(createUri("/{id}", create.getId()))
@@ -142,9 +126,9 @@ public class UserController extends BaseController {
         @PathVariable Long id,
         @RequestBody @Valid ResetPasswordRequest password) {
 
-        var updated= userUsecase.resetPassword(password.toDomain(id));
+        var updated = userUsecase.resetPassword(password.toDomain(id));
         return ResponseEntity.ok(
-           new ResetPasswordResource(updated)
+            new ResetPasswordResource(updated)
         );
     }
 

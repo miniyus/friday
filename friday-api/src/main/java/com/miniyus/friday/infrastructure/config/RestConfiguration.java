@@ -30,8 +30,6 @@ import java.util.List;
 @EnableTransactionManagement(proxyTargetClass = true)
 public class RestConfiguration implements WebMvcConfigurer {
     public static final String PREFIX = "/v1";
-    public static final String CONSOLE_PREFIX = "/console";
-    public static final String DMS_PREFIX = "/dms";
     private final QueryParameterResolver queryParameterResolver;
     private final FormDataParameterResolver formDataParameterResolver;
     private final AuthUserMethodResolver authUserMethodResolver;
