@@ -1,5 +1,55 @@
 package com.miniyus.friday.api.hosts;
 
+import com.miniyus.friday.hosts.adapter.in.rest.request.CreateSearchRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateSearchRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
+
+@Tag(name = "Search API")
 public interface SearchApi {
-    String PATH = HostApi.PATH + "/{id}/searches";
+    String PATH = HostApi.PATH + "/{hostId}/searches";
+
+    @Operation(summary = "create host search")
+    @PostMapping(PATH)
+    ResponseEntity<SearchResource> createHostSearch(
+        @PathVariable Long hostId,
+        @RequestBody @Valid CreateSearchRequest request,
+        @AuthUser PrincipalUserInfo userInfo);
+
+    @Operation(summary = "retrieve host searches")
+    @GetMapping(PATH)
+    ResponseEntity<SearchResources> retrieveHostSearches(
+        @PathVariable Long hostId,
+        @AuthUser PrincipalUserInfo userInfo);
+
+    @Operation(summary = "retrieve host search")
+    @GetMapping(PATH + "/{id}")
+    ResponseEntity<SearchResource> retrieveHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo);
+
+    @Operation(summary = "update host searches")
+    @PatchMapping(PATH + "/{id}")
+    ResponseEntity<SearchResource> updateHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @RequestBody @Valid UpdateSearchRequest request,
+        @AuthUser PrincipalUserInfo userInfo);
+
+    @Operation(summary = "delete host search")
+    @DeleteMapping(PATH + "/{id}")
+    void deleteHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo);
+
 }

@@ -1,12 +1,7 @@
 package com.miniyus.friday.hosts.adapter.in.rest.request;
 
 import com.miniyus.friday.hosts.domain.searches.CreateSearch;
-import com.miniyus.friday.hosts.domain.searches.SearchImage;
 import lombok.Builder;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Objects;
 
 @Builder
 public record CreateSearchRequest(
@@ -14,24 +9,18 @@ public record CreateSearchRequest(
     String query,
     String description,
     boolean publish,
-    Long hostId
+    Long hostId,
+    Long imageId
 ) {
 
-    public CreateSearch toDomain(Long hostId, MultipartFile file) throws IOException {
+    public CreateSearch toDomain(Long hostId) {
         return CreateSearch.builder()
             .hostId(hostId)
             .queryKey(queryKey)
             .query(query)
             .description(description)
             .publish(publish)
-            .searchImage(SearchImage.builder()
-                .mimeType(file.getContentType())
-                .size(file.getSize())
-                .path(file.getOriginalFilename())
-                .extension(Objects.requireNonNull(file.getOriginalFilename())
-                    .substring(file.getOriginalFilename().lastIndexOf(".") + 1))
-                .inputStream(file.getInputStream())
-                .build())
+            .imageId(imageId)
             .build();
     }
 }

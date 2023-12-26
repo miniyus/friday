@@ -10,6 +10,6 @@ public record CreateSearch(
     String query,
     String description,
     boolean publish,
-    SearchImage searchImage
+    Long imageId
 ) {
 }

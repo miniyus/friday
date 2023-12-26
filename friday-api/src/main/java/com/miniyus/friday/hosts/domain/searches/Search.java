@@ -1,5 +1,6 @@
 package com.miniyus.friday.hosts.domain.searches;
 
+import com.miniyus.friday.common.util.JsonNullableUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class Search {
     private boolean publish;
     private int views;
     private String shortUrl;
-    private SearchImage searchImage;
+    private Long imageId;
     private LocalDateTime deletedAt;
     private Long hostId;
     private Long fileId;
@@ -32,7 +33,7 @@ public class Search {
             .publish(createSearch.publish())
             .views(0)
             .shortUrl(null)
-            .searchImage(createSearch.searchImage())
+            .imageId(createSearch.imageId())
             .hostId(createSearch.hostId())
             .build();
     }
@@ -48,10 +49,28 @@ public class Search {
     public void update(
         UpdateSearch updateSearch
     ) {
-        this.queryKey = updateSearch.queryKey();
-        this.query = updateSearch.query();
-        this.description = updateSearch.description();
-        this.publish = updateSearch.publish();
-        this.searchImage = updateSearch.searchImage();
+        if (JsonNullableUtil.isPresent(updateSearch.queryKey())) {
+            this.queryKey = JsonNullableUtil.unwrap(updateSearch.queryKey(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(updateSearch.query())) {
+            this.query = JsonNullableUtil.unwrap(updateSearch.query(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(updateSearch.description())) {
+            this.description = JsonNullableUtil.unwrap(updateSearch.description(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(updateSearch.publish())) {
+            this.publish = JsonNullableUtil.unwrap(updateSearch.publish(), false);
+        }
+
+        if (JsonNullableUtil.isPresent(updateSearch.imageId())) {
+            this.fileId = JsonNullableUtil.unwrap(updateSearch.imageId(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(updateSearch.imageId())) {
+            this.imageId = JsonNullableUtil.unwrap(updateSearch.imageId(), null);
+        }
     }
 }

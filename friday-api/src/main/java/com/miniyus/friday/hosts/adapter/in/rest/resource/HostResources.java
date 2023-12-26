@@ -2,7 +2,6 @@ package com.miniyus.friday.hosts.adapter.in.rest.resource;
 
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.hosts.domain.Host;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.Page;
@@ -17,9 +16,7 @@ import static com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources.Ho
  * DTO for {@link Host}
  */
 @EqualsAndHashCode(callSuper = true)
-@Schema(name = "HostResources")
 public class HostResources extends SimplePage<HostResource> implements Serializable {
-    @Schema(name = "hosts", description = "hosts")
     private transient List<HostResource> hosts;
 
     /**
@@ -38,7 +35,6 @@ public class HostResources extends SimplePage<HostResource> implements Serializa
     }
 
     @Builder
-    @Schema(name = "HostResource")
     public record HostResource(
         Long id,
         String host,

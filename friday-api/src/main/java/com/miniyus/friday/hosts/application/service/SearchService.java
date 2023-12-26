@@ -35,9 +35,14 @@ public class SearchService implements SearchUsecase, RetrieveSearchQuery {
 
     @Override
     public Search createSearch(CreateSearch search) {
-        hostPort.findById(
-            search.hostId()
-        ).orElseThrow(ForbiddenErrorException::new);
+        var ids = SearchIds.builder()
+            .hostId(search.hostId())
+            .userId(search.userId())
+            .build();
+
+        if (inaccessibleToSearch(ids)) {
+            throw new ForbiddenErrorException();
+        }
 
         return searchPort.createSearch(Search.create(search));
     }

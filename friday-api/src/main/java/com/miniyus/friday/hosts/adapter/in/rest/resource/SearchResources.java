@@ -1,13 +1,32 @@
 package com.miniyus.friday.hosts.adapter.in.rest.resource;
 
+import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.hosts.domain.searches.Search;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.domain.Page;
 
+import java.io.Serializable;
 import java.util.List;
 
-public record SearchResources(
-    List<SearchResource> searches
-) {
+import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.*;
+
+@EqualsAndHashCode(callSuper = true)
+public class SearchResources extends SimplePage<SearchResource> implements Serializable {
+    private transient List<SearchResource> searches;
+
+    public SearchResources(Page<Search> domain) {
+        super(
+            domain.getContent()
+                .stream()
+                .map(SearchResource::fromDomain)
+                .toList(),
+            domain.getTotalElements(),
+            domain.getPageable(),
+            "searches");
+    }
+
     @Builder
     public record SearchResource(
         Long id,
