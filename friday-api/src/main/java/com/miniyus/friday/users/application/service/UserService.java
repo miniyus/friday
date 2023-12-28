@@ -1,9 +1,9 @@
-package com.miniyus.friday.hosts.application.service;
+package com.miniyus.friday.users.application.service;
 
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.common.pagination.SimplePage;
-import com.miniyus.friday.users.application.exception.UserExistsException;
-import com.miniyus.friday.users.application.exception.UserNotFoundException;
+import com.miniyus.friday.users.application.exception.ExistsUserException;
+import com.miniyus.friday.users.application.exception.NotFoundUserException;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.application.port.out.UserPort;
@@ -33,21 +33,20 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
     @Override
     public User createUser(User user) {
         if (userPort.isUniqueEmail(user.getEmail())) {
-            throw new UserExistsException();
+            throw new ExistsUserException();
         }
 
         return userPort.createUser(user);
     }
 
     /**
-     *
      * @param request update user
      * @return updated user
      */
     @Override
     public User patchUser(User request) {
         User domain = userPort.findById(request.getId())
-            .orElseThrow(UserNotFoundException::new);
+            .orElseThrow(NotFoundUserException::new);
 
         domain.patch(request.getName(), request.getRole());
 
@@ -73,14 +72,15 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
      * @return a Page object containing the list of users that match the search criteria
      */
     @Override
-    public Page<User> findAll(UserFilter request, Pageable pageable) {
+    public Page<User> findAll(UserFilter request) {
         Page<User> result;
+        Pageable pageable = request.pageable();
 
         // only paginate
         if (request.isEmpty()) {
             result = userPort.findAll(pageable);
         } else {
-            result = userPort.findAll(request, pageable);
+            result = userPort.findAll(request);
         }
 
         return new SimplePage<>(
@@ -100,13 +100,13 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
     @Override
     public User findById(Long id) {
         return userPort.findById(id)
-            .orElseThrow(UserNotFoundException::new);
+            .orElseThrow(NotFoundUserException::new);
     }
 
     @Override
     public boolean resetPassword(ResetPassword restPassword) {
         User user = userPort.findById(restPassword.id())
-            .orElseThrow(UserNotFoundException::new);
+            .orElseThrow(NotFoundUserException::new);
 
         user.resetPassword(passwordEncoder.encode(restPassword.password()));
 

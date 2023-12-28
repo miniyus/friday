@@ -1,12 +1,25 @@
 package com.miniyus.friday.infrastructure.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.miniyus.friday.infrastructure.jwt.JwtAuthenticationFilter;
+import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
+import com.miniyus.friday.infrastructure.security.auth.filter.PasswordAuthenticationFilter;
+import com.miniyus.friday.infrastructure.security.auth.handler.LoginFailureHandler;
+import com.miniyus.friday.infrastructure.security.auth.handler.LoginSuccessHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AccessDeniedHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AuthenticationEntryPoint;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2FailureHandler;
+import com.miniyus.friday.infrastructure.security.social.handler.OAuth2SuccessHandler;
+import jakarta.servlet.Filter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -26,19 +39,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.miniyus.friday.infrastructure.jwt.JwtAuthenticationFilter;
-import com.miniyus.friday.infrastructure.jwt.JwtService;
-import com.miniyus.friday.infrastructure.security.auth.filter.PasswordAuthenticationFilter;
-import com.miniyus.friday.infrastructure.security.auth.handler.LoginFailureHandler;
-import com.miniyus.friday.infrastructure.security.auth.handler.LoginSuccessHandler;
-import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AccessDeniedHandler;
-import com.miniyus.friday.infrastructure.security.social.handler.OAuth2AuthenticationEntryPoint;
-import com.miniyus.friday.infrastructure.security.social.handler.OAuth2FailureHandler;
-import com.miniyus.friday.infrastructure.security.social.handler.OAuth2SuccessHandler;
-import jakarta.servlet.Filter;
-import lombok.RequiredArgsConstructor;
 
 /**
  * Spring Security Configuration

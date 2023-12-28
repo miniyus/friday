@@ -1,8 +1,8 @@
 package com.miniyus.friday.users.adapter.out.persistence.mapper;
 
-import com.miniyus.friday.users.domain.UserRole;
-import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.stereotype.Component;
 
 /**

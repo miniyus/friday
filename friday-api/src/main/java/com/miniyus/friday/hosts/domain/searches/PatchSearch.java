@@ -4,7 +4,7 @@ import lombok.Builder;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 @Builder
-public record UpdateSearch(
+public record PatchSearch(
     SearchIds ids,
     JsonNullable<String> queryKey,
     JsonNullable<String> query,

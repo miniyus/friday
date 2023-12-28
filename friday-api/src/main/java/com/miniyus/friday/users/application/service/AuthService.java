@@ -1,8 +1,8 @@
 package com.miniyus.friday.users.application.service;
 
+import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
-import com.miniyus.friday.common.hexagon.annotation.Usecase;
 import com.miniyus.friday.users.application.port.out.AuthPort;
 import com.miniyus.friday.users.domain.Auth;
 import com.miniyus.friday.users.domain.Token;

@@ -1,18 +1,17 @@
 package com.miniyus.friday.infrastructure.security.auth.handler;
 
-import java.io.IOException;
-
-import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+
+import java.io.IOException;
 
 /**
  * [description]

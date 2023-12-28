@@ -3,10 +3,11 @@ package com.miniyus.friday.integration.adapter.in.rest;
 import com.miniyus.friday.users.adapter.in.rest.UserController;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
-import com.miniyus.friday.adapter.in.rest.request.UpdateUserRequest;
-import com.miniyus.friday.adapter.in.rest.resource.ResetPasswordResource;
+import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
+import com.miniyus.friday.users.adapter.in.rest.resource.ResetPasswordResource;
 import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
+import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
@@ -31,16 +32,10 @@ import static org.mockito.Mockito.when;
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest extends UserDocument {
     @MockBean
-    private CreateUserUsecase createUserUsecase;
+    private UserUsecase userUsecase;
 
     @MockBean
     private RetrieveUserQuery retrieveUserQuery;
-
-    @MockBean
-    private UpdateUserUsecase updateUserUsecase;
-
-    @MockBean
-    private DeleteUserUsecase deleteUserUsecase;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -52,7 +47,7 @@ public class UserControllerTest extends UserDocument {
             faker.internet().safeEmailAddress(),
             faker.internet().password(),
             faker.name().fullName(),
-            UserRole.USER.getValue(),
+            UserRole.USER.value(),
             null,
             null,
             LocalDateTime.now(),
@@ -73,7 +68,7 @@ public class UserControllerTest extends UserDocument {
     }
 
     private UserResource buildCreateUserResponse() {
-        when(createUserUsecase.createUser(any())).thenReturn(domain);
+        when(userUsecase.createUser(any())).thenReturn(domain);
         return UserResource.fromDomain(domain);
     }
 
@@ -104,7 +99,7 @@ public class UserControllerTest extends UserDocument {
         return UpdateUserRequest
             .builder()
             .name(faker.name().fullName())
-            .role(UserRole.USER.getValue())
+            .role(UserRole.USER.value())
             .build();
     }
 
@@ -116,7 +111,7 @@ public class UserControllerTest extends UserDocument {
             request.role()
         );
 
-        when(updateUserUsecase.patchUser(any())).thenReturn(domain);
+        when(userUsecase.patchUser(any())).thenReturn(domain);
 
         return UserResource.fromDomain(domain);
     }
@@ -146,7 +141,7 @@ public class UserControllerTest extends UserDocument {
 
         boolean isMatches = passwordEncoder.matches(request.password(), domain.getPassword());
 
-        when(updateUserUsecase.resetPassword(any())).thenReturn(
+        when(userUsecase.resetPassword(any())).thenReturn(
             isMatches
         );
 

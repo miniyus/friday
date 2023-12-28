@@ -1,16 +1,19 @@
 package com.miniyus.friday.infrastructure.persistence.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
+import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
+
+import java.time.LocalDateTime;
 
 /**
  * Search Entity
@@ -18,11 +21,13 @@ import org.springframework.lang.Nullable;
  * @author miniyus
  * @date 2023/09/04
  */
-@Getter
-@SuperBuilder
 @Entity
+@Getter
+@Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @Table(name = "search")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE search SET deleted_at = NOW() WHERE id = ?")

@@ -1,14 +1,15 @@
 package com.miniyus.friday.unit.application;
 
 import com.github.javafaker.Faker;
-import com.miniyus.friday.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.adapter.in.rest.request.UpdateHostRequest;
-import com.miniyus.friday.application.service.HostService;
-import com.miniyus.friday.hosts.domain.HostIds;
+import com.miniyus.friday.annotation.UnitTest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.CreateHostRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveHostRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateHostRequest;
+import com.miniyus.friday.hosts.application.port.out.HostPort;
+import com.miniyus.friday.hosts.application.service.HostService;
 import com.miniyus.friday.hosts.domain.Host;
+import com.miniyus.friday.hosts.domain.HostIds;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -16,11 +17,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -29,16 +32,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class HostServiceTest {
     @Mock
-    private CreateHostPort createHostPort;
-
-    @Mock
-    private RetrieveHostPort retrieveHostPort;
-
-    @Mock
-    private UpdateHostPort updateHostPort;
-
-    @Mock
-    private DeleteHostPort deleteHostPort;
+    private HostPort hostPort;
 
     @InjectMocks
     private HostService hostService;
@@ -48,7 +42,7 @@ public class HostServiceTest {
     private final Faker faker = new Faker();
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         testDomains = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -69,31 +63,31 @@ public class HostServiceTest {
         }
     }
 
-    @Test
+    @UnitTest
     public void createHostTest() {
         var testDomain = testDomains.get(0);
         CreateHostRequest createHostRequest = CreateHostRequest.builder()
-            .host(testDomain.getHost())
+            .host(testDomain.getHostname())
             .summary(testDomain.getSummary())
             .description(testDomain.getDescription())
             .path(testDomain.getPath())
             .publish(testDomain.isPublish())
             .build();
 
-        when(createHostPort.isUniqueHost(any())).thenReturn(true);
-        when(createHostPort.create(any())).thenReturn(testDomain);
+        when(hostPort.isUniqueHost(any())).thenReturn(true);
+        when(hostPort.create(any())).thenReturn(testDomain);
 
         Host created = hostService.createHost(createHostRequest.toDomain(1L));
 
         Assertions.assertThat(created)
-            .hasFieldOrPropertyWithValue("host", created.getHost())
+            .hasFieldOrPropertyWithValue("host", created.getHostname())
             .hasFieldOrPropertyWithValue("summary", created.getSummary())
             .hasFieldOrPropertyWithValue("description", created.getDescription())
             .hasFieldOrPropertyWithValue("path", created.getPath())
             .hasFieldOrPropertyWithValue("publish", created.isPublish());
     }
 
-    @Test
+    @UnitTest
     public void updateHostTest() {
         var testDomain = testDomains.get(0);
         var host = faker.internet().domainName();
@@ -107,7 +101,7 @@ public class HostServiceTest {
             .description(desc)
             .path(path)
             .build();
-        when(updateHostPort.update(any())).thenReturn(
+        when(hostPort.update(any())).thenReturn(
             new Host(
                 1L,
                 host,
@@ -123,9 +117,9 @@ public class HostServiceTest {
             )
         );
 
-        when(updateHostPort.findById(any())).thenReturn(Optional.of(testDomain));
+        when(hostPort.findById(any())).thenReturn(Optional.of(testDomain));
 
-        Host updated = hostService.updateHost(updateHostRequest.toDomain(1L, 1L));
+        Host updated = hostService.patchHost(updateHostRequest.toDomain(1L, 1L));
 
         Assertions.assertThat(updated)
             .hasFieldOrPropertyWithValue("id", 1L)
@@ -136,36 +130,34 @@ public class HostServiceTest {
             .hasFieldOrPropertyWithValue("publish", true);
     }
 
-    @Test
+    @UnitTest
     public void retrieveHostTest() {
         var testDomain = testDomains.get(0);
-        when(retrieveHostPort.findById(1L)).thenReturn(Optional.of(testDomain));
+        when(hostPort.findById(1L)).thenReturn(Optional.of(testDomain));
 
-        Host host = hostService.retrieveById(new HostIds(1L, 1L));
+        Host host = hostService.retrieveHostById(new HostIds(1L, 1L));
         Assertions.assertThat(host)
-            .hasFieldOrPropertyWithValue("host", host.getHost())
+            .hasFieldOrPropertyWithValue("host", host.getHostname())
             .hasFieldOrPropertyWithValue("summary", host.getSummary())
             .hasFieldOrPropertyWithValue("description", host.getDescription())
             .hasFieldOrPropertyWithValue("path", host.getPath())
             .hasFieldOrPropertyWithValue("publish", host.isPublish());
     }
 
-    @Test
+    @UnitTest
     public void retrieveHostsTest() {
         var pageable = PageRequest.of(1, 20, Sort.by(Sort.Direction.DESC, "createdAt"));
         var retrieveHostRequest = RetrieveHostRequest
             .builder()
-            .pageable(pageable)
             .build();
 
         Collections.reverse(testDomains);
 
         var page = new PageImpl<>(testDomains, pageable, testDomains.size());
 
-        when(retrieveHostPort.findAll(any(), any(Pageable.class))).thenReturn(page);
+        when(hostPort.findAll(any())).thenReturn(page);
 
-        var hosts = hostService.retrieveAll(retrieveHostRequest.toDomain(1L),
-            retrieveHostRequest.getPageable());
+        var hosts = hostService.retrieveHosts(retrieveHostRequest.toDomain(1L, pageable));
         Assertions.assertThat(hosts)
             .hasSize(testDomains.size());
 
@@ -185,13 +177,12 @@ public class HostServiceTest {
         );
     }
 
-    @Test
+    @UnitTest
     public void deleteHostTest() {
-        when(retrieveHostPort.findById(1L)).thenReturn(Optional.empty());
+        when(hostPort.findById(1L)).thenReturn(Optional.empty());
+        hostPort.deleteById(1L);
 
-        deleteHostPort.deleteById(1L);
-
-        var host = retrieveHostPort.findById(1L);
+        var host = hostPort.findById(1L);
         Assertions.assertThat(host)
             .isEmpty();
     }

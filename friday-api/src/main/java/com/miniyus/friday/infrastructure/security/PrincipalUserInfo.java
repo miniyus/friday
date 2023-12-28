@@ -1,17 +1,17 @@
 package com.miniyus.friday.infrastructure.security;
 
-import java.util.Collection;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.miniyus.friday.users.domain.UserRole;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
+import com.miniyus.friday.users.domain.UserRole;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * PrincipalUserInfo

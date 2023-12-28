@@ -3,7 +3,6 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

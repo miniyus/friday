@@ -1,19 +1,19 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
 import com.miniyus.friday.hosts.domain.HostFilter;
+import com.miniyus.friday.infrastructure.persistence.SortQueryDsl;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.Objects;
 
 import static com.miniyus.friday.infrastructure.persistence.entities.QHostEntity.hostEntity;
 import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
-
-import java.util.Objects;
 
 @AllArgsConstructor
 @Repository
@@ -22,11 +22,17 @@ public class HostEntityRepositoryImpl implements QHostEntityRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<HostEntity> findHosts(HostFilter hostFilter, Pageable pageable) {
+    public Page<HostEntity> findHosts(HostFilter hostFilter) {
         var query = jpaQueryFactory.selectFrom(hostEntity);
+        var pageable = hostFilter.pageable();
+        var order = SortQueryDsl.createOrderSpecifier(
+            hostEntity,
+            pageable.getSort());
+
         var hosts = whereHostFilter(query, hostFilter)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
+            .orderBy(order)
             .fetch();
 
         var count = whereHostFilter(

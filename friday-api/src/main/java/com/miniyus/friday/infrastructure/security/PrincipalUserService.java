@@ -1,11 +1,13 @@
 package com.miniyus.friday.infrastructure.security;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-
 import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
+import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2Attributes;
+import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2UserInfo;
 import com.miniyus.friday.users.domain.UserRole;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -14,12 +16,10 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.security.social.SocialProvider;
-import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2Attributes;
-import com.miniyus.friday.infrastructure.security.social.userinfo.OAuth2UserInfo;
-import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * The type Principal user service.

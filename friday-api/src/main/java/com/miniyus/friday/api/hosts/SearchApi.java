@@ -1,6 +1,8 @@
 package com.miniyus.friday.api.hosts;
 
+import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.hosts.adapter.in.rest.request.CreateSearchRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveSearchRequest;
 import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateSearchRequest;
 import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
@@ -8,6 +10,9 @@ import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +33,10 @@ public interface SearchApi {
     @GetMapping(PATH)
     ResponseEntity<SearchResources> retrieveHostSearches(
         @PathVariable Long hostId,
+        @QueryParam RetrieveSearchRequest request,
+        @PageableDefault(page = 1,
+            sort = "createdAt",
+            direction = Sort.Direction.DESC) Pageable pageable,
         @AuthUser PrincipalUserInfo userInfo);
 
     @Operation(summary = "retrieve host search")

@@ -2,7 +2,6 @@ package com.miniyus.friday.hosts.adapter.in.rest.resource;
 
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.hosts.domain.searches.Search;
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.Page;
@@ -10,7 +9,7 @@ import org.springframework.data.domain.Page;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.*;
+import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
 
 @EqualsAndHashCode(callSuper = true)
 public class SearchResources extends SimplePage<SearchResource> implements Serializable {

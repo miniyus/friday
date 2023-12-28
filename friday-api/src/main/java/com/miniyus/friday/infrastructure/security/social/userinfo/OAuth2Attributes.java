@@ -1,11 +1,12 @@
 package com.miniyus.friday.infrastructure.security.social.userinfo;
 
-import java.util.Map;
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.infrastructure.security.social.exception.NotSupportProviderException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Map;
 
 /**
  * [description]
@@ -26,7 +27,7 @@ public class OAuth2Attributes {
     private String app;
 
     public static OAuth2Attributes of(String registrationId, String userNameAttributeName,
-            Map<String, Object> attributes) {
+        Map<String, Object> attributes) {
 
         log.debug("oauth provider : {}", registrationId);
 
@@ -46,26 +47,26 @@ public class OAuth2Attributes {
     }
 
     private static OAuth2Attributes ofGoogle(String userNameAttributeName,
-            Map<String, Object> attributes) {
+        Map<String, Object> attributes) {
         return OAuth2Attributes.builder()
-                .id((String) attributes.get("sub"))
-                .name((String) attributes.get("name"))
-                .email((String) attributes.get("email"))
-                .attributes(attributes)
-                .nameAttributeKey(userNameAttributeName)
-                .build();
+            .id((String) attributes.get("sub"))
+            .name((String) attributes.get("name"))
+            .email((String) attributes.get("email"))
+            .attributes(attributes)
+            .nameAttributeKey(userNameAttributeName)
+            .build();
     }
 
     @SuppressWarnings("unchecked")
     private static OAuth2Attributes ofNaver(Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
         return OAuth2Attributes.builder()
-                .id((String) response.get("id"))
-                .name((String) response.get("name"))
-                .email((String) response.get("email"))
-                .attributes(response)
-                .nameAttributeKey("id")
-                .build();
+            .id((String) response.get("id"))
+            .name((String) response.get("name"))
+            .email((String) response.get("email"))
+            .attributes(response)
+            .nameAttributeKey("id")
+            .build();
 
     }
 
@@ -74,38 +75,38 @@ public class OAuth2Attributes {
         Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
         Map<String, Object> kakaoProfile = (Map<String, Object>) kakaoAccount.get("profile");
         return OAuth2Attributes.builder()
-                .id((String) kakaoAccount.get("id"))
-                .name((String) kakaoProfile.get("nickname"))
-                .email((String) kakaoAccount.get("email"))
-                .attributes(kakaoAccount)
-                .nameAttributeKey("id")
-                .build();
+            .id((String) kakaoAccount.get("id"))
+            .name((String) kakaoProfile.get("nickname"))
+            .email((String) kakaoAccount.get("email"))
+            .attributes(kakaoAccount)
+            .nameAttributeKey("id")
+            .build();
     }
 
     public OAuth2UserInfo toUserInfo() {
         try {
-            SocialProvider provider = SocialProvider.of(this.provider);
-            return switch (provider) {
+            SocialProvider socialProvider = SocialProvider.of(this.provider);
+            return switch (socialProvider) {
                 case GOOGLE -> GoogleUserInfo.builder()
-                        .email(email)
-                        .snsId(id)
-                        .name(name)
-                        .attributes(attributes)
-                        .build();
+                    .email(email)
+                    .snsId(id)
+                    .name(name)
+                    .attributes(attributes)
+                    .build();
                 case KAKAO -> KakaoUserInfo.builder()
-                        .email(email)
-                        .snsId(id)
-                        .name(name)
-                        .attributes(attributes)
-                        .build();
+                    .email(email)
+                    .snsId(id)
+                    .name(name)
+                    .attributes(attributes)
+                    .build();
                 case NAVER -> NaverUserInfo.builder()
-                        .email(email)
-                        .snsId(id)
-                        .name(name)
-                        .attributes(attributes)
-                        .build();
+                    .email(email)
+                    .snsId(id)
+                    .name(name)
+                    .attributes(attributes)
+                    .build();
                 default -> throw new NotSupportProviderException("error.notSupportProvider",
-                        this.provider);
+                    this.provider);
             };
         } catch (IllegalArgumentException e) {
             throw new NotSupportProviderException("error.notSupportProvider", this.provider);

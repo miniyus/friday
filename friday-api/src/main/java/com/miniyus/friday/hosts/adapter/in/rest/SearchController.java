@@ -3,30 +3,36 @@ package com.miniyus.friday.hosts.adapter.in.rest;
 import com.miniyus.friday.api.hosts.SearchApi;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
+import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.hosts.adapter.in.rest.request.CreateSearchRequest;
+import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveSearchRequest;
 import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateSearchRequest;
 import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources;
 import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
+import com.miniyus.friday.hosts.application.port.in.query.RetrieveSearchQuery;
 import com.miniyus.friday.hosts.application.port.in.usecase.SearchUsecase;
-import com.miniyus.friday.hosts.domain.searches.CreateSearch;
+import com.miniyus.friday.hosts.domain.searches.SearchIds;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
-@RestAdapter(path = SearchApi.PATH)
 @RequiredArgsConstructor
+@RestAdapter(path = SearchApi.PATH)
+@PreAuthorize("hasAnyAuthority('user', 'admin')")
 public class SearchController extends BaseController implements SearchApi {
     private final SearchUsecase searchUsecase;
+    private final RetrieveSearchQuery searchQuery;
 
     @Override
     @PostMapping("")
-    @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<SearchResource> createHostSearch(
         @PathVariable Long hostId,
         @RequestBody @Valid CreateSearchRequest request,
@@ -39,25 +45,64 @@ public class SearchController extends BaseController implements SearchApi {
     }
 
     @Override
-    public ResponseEntity<SearchResources> retrieveHostSearches(Long hostId,
-        PrincipalUserInfo userInfo) {
-        return null;
+    @GetMapping("")
+    public ResponseEntity<SearchResources> retrieveHostSearches(
+        @PathVariable Long hostId,
+        @QueryParam RetrieveSearchRequest request,
+        @PageableDefault(page = 1,
+            sort = "createdAt",
+            direction = Sort.Direction.DESC) Pageable pageable,
+        @AuthUser PrincipalUserInfo userInfo) {
+        var domain = searchQuery.retrieveSearches(
+            request.toDomain(userInfo.getId(), hostId, pageable));
+        return ResponseEntity.ok(new SearchResources(domain));
     }
 
     @Override
-    public ResponseEntity<SearchResource> retrieveHostSearch(Long hostId, Long id,
-        PrincipalUserInfo userInfo) {
-        return null;
+    @GetMapping("/{id}")
+    public ResponseEntity<SearchResource> retrieveHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo) {
+        var domain = searchQuery.retrieveSearch(
+            SearchIds.builder()
+                .hostId(hostId)
+                .id(id)
+                .userId(userInfo.getId())
+                .build());
+        return ResponseEntity.ok(SearchResource.fromDomain(domain));
     }
 
     @Override
-    public ResponseEntity<SearchResource> updateHostSearch(Long hostId, Long id,
-        UpdateSearchRequest request, PrincipalUserInfo userInfo) {
-        return null;
+    @PatchMapping("/{id}")
+    public ResponseEntity<SearchResource> updateHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @RequestBody @Valid UpdateSearchRequest request,
+        @AuthUser PrincipalUserInfo userInfo) {
+        var domain = searchUsecase.patchSearch(
+            request.toDomain(
+                SearchIds.builder()
+                    .hostId(hostId)
+                    .id(id)
+                    .userId(userInfo.getId())
+                    .build()));
+
+        return ResponseEntity.ok(SearchResource.fromDomain(domain));
     }
 
     @Override
-    public void deleteHostSearch(Long hostId, Long id, PrincipalUserInfo userInfo) {
-
+    @DeleteMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteHostSearch(
+        @PathVariable Long hostId,
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo) {
+        searchUsecase.deleteSearchById(
+            SearchIds.builder()
+                .hostId(hostId)
+                .id(id)
+                .userId(userInfo.getId())
+                .build());
     }
 }

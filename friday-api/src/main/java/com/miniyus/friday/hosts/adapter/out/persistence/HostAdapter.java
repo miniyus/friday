@@ -1,33 +1,40 @@
 package com.miniyus.friday.hosts.adapter.out.persistence;
 
+import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
+import com.miniyus.friday.hosts.adapter.out.persistence.mapper.HostMapper;
+import com.miniyus.friday.hosts.adapter.out.persistence.mapper.SearchMapper;
+import com.miniyus.friday.hosts.application.exception.NotFoundHostException;
+import com.miniyus.friday.hosts.application.port.out.HostPort;
 import com.miniyus.friday.hosts.domain.Host;
 import com.miniyus.friday.hosts.domain.HostFilter;
 import com.miniyus.friday.hosts.domain.WhereHost;
 import com.miniyus.friday.hosts.domain.WherePublish;
-import com.miniyus.friday.hosts.adapter.out.persistence.mapper.HostMapper;
-import com.miniyus.friday.hosts.adapter.out.persistence.mapper.SearchMapper;
-import com.miniyus.friday.hosts.application.port.out.HostPort;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.HostEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class HostAdapter extends CacheEntity<HostEntity> implements HostPort {
-    private final OwnerAdapter ownerAdapter;
+public class HostAdapter implements HostPort {
+    private final UserEntityRepository userEntityRepository;
     private final HostEntityRepository hostRepository;
     private final HostMapper hostMapper;
     private final SearchMapper searchMapper;
 
     @Override
     public Host create(Host host) {
-        var entity = hostMapper.create(host, ownerAdapter.getUserEntity());
+        var user = userEntityRepository.findById(host.getUserId())
+            .orElseThrow(
+                () -> new RestErrorException(RestErrorCode.NOT_FOUND, "user.error.notFound"));
+
+        var entity = hostMapper.create(host, user);
         var created = hostRepository.save(entity);
         return hostMapper.toDomain(
             created,
@@ -61,43 +68,27 @@ public class HostAdapter extends CacheEntity<HostEntity> implements HostPort {
     }
 
     @Override
-    public Page<Host> findAll(Pageable pageable) {
-        return hostRepository.findAll(pageable).map(this::toDomain);
-    }
-
-    @Override
-    public Page<Host> findAll(HostFilter host, Pageable pageable) {
-        return hostRepository.findHosts(
-            host,
-            pageable
-        ).map(this::toDomain);
+    public Page<Host> findAll(HostFilter host) {
+        return hostRepository.findHosts(host)
+            .map(this::toDomain);
     }
 
     @Override
     public Optional<Host> findById(Long id) {
-        return getCacheEntity(id)
+        return hostRepository.findById(id)
             .map(this::toDomain);
     }
 
     @Override
     public Host update(Host host) {
-        var entity = hostMapper.toEntity(
-            host,
-            ownerAdapter.getUserEntity(),
-            host.getSearches()
-                .stream()
-                .map(searchMapper::toEntity)
-                .toList()
-        );
+        var entity = hostRepository.findById(host.getId())
+            .orElseThrow(NotFoundHostException::new);
+
+        hostMapper.update(entity, host);
 
         var updated = hostRepository.save(entity);
+
         return this.toDomain(updated);
-    }
-
-
-    @Override
-    protected JpaRepository<HostEntity, Long> getCacheRepository() {
-        return hostRepository;
     }
 
     private Host toDomain(HostEntity hostEntity) {

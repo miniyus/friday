@@ -1,6 +1,7 @@
 package com.miniyus.friday.infrastructure.security.social.response;
 
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
+
 import java.io.Serializable;
 
 /**

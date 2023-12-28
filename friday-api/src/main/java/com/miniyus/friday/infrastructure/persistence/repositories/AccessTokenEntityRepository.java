@@ -2,6 +2,7 @@ package com.miniyus.friday.infrastructure.persistence.repositories;
 
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import org.springframework.data.repository.CrudRepository;
+
 import java.util.Optional;
 
 /**

@@ -3,7 +3,7 @@ package com.miniyus.friday.hosts.domain;
 import lombok.Builder;
 
 @Builder
-public record UpdateHost(
+public record PatchHost(
     HostIds ids,
     String host,
     String summary,

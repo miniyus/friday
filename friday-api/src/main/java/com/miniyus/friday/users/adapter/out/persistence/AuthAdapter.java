@@ -3,15 +3,15 @@ package com.miniyus.friday.users.adapter.out.persistence;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
-import com.miniyus.friday.users.application.port.out.AuthPort;
-import com.miniyus.friday.users.domain.Auth;
-import com.miniyus.friday.users.domain.Token;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.miniyus.friday.users.application.port.out.AuthPort;
+import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.users.domain.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,20 +30,20 @@ public class AuthAdapter implements AuthPort {
         try {
             userDetailsService.setPasswordEncoder(passwordEncoder);
             var principalUserInfo = userDetailsService.create(
-               PasswordUserInfo.builder()
-                   .email(authentication.getEmail())
-                   .name(authentication.getName())
-                   .password(passwordEncoder.encode(authentication.getPassword()))
-                   .build()
-                );
+                PasswordUserInfo.builder()
+                    .email(authentication.getEmail())
+                    .name(authentication.getName())
+                    .password(passwordEncoder.encode(authentication.getPassword()))
+                    .build()
+            );
             return Auth.builder()
                 .id(principalUserInfo.getId())
                 .name(principalUserInfo.getName())
                 .email(principalUserInfo.getEmail())
                 .role(principalUserInfo.getRole())
                 .build();
-        } catch (Throwable throwable) {
-            throw new RestErrorException("error.userExists", RestErrorCode.CONFLICT);
+        } catch (Exception e) {
+            throw new RestErrorException("auth.error.exists", RestErrorCode.CONFLICT, e);
         }
     }
 
@@ -118,7 +118,7 @@ public class AuthAdapter implements AuthPort {
 
     private RestErrorException userNotExists() {
         return new RestErrorException(
-            "error.userNotExists",
+            "auth.error.notFound",
             RestErrorCode.NOT_FOUND
         );
     }

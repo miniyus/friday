@@ -11,7 +11,11 @@ import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 public interface HostApi {
@@ -23,15 +27,20 @@ public interface HostApi {
          @RequestBody @Valid CreateHostRequest request,
          @AuthUser PrincipalUserInfo userInfo);
 
+     @GetMapping("")
+     @PreAuthorize("hasAnyAuthority('USER')")
+     ResponseEntity<HostResources> retrieveHosts(
+         @QueryParam @Valid RetrieveHostRequest retrieveAll,
+         @PageableDefault(
+             page = 1,
+             sort = "createdAt", direction = Sort.Direction.DESC)
+         Pageable pageable,
+         @AuthUser PrincipalUserInfo userInfo
+     );
+
      @Operation(summary = "retrieve host")
      @GetMapping(PATH + "/{id}")
      ResponseEntity<HostResource> retrieveHost(@PathVariable Long id,
-         @AuthUser PrincipalUserInfo userInfo);
-
-     @Operation(summary = "retrieve hosts")
-     @GetMapping(PATH)
-     ResponseEntity<HostResources> retrieveHosts(
-         @QueryParam @Valid RetrieveHostRequest retrieveAll,
          @AuthUser PrincipalUserInfo userInfo);
 
      @Operation(summary = "update host")

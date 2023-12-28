@@ -2,24 +2,21 @@ package com.miniyus.friday.hosts.adapter.out.persistence;
 
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
 import com.miniyus.friday.hosts.adapter.out.persistence.mapper.SearchMapper;
-import com.miniyus.friday.hosts.application.exception.HostNotFoundException;
+import com.miniyus.friday.hosts.application.exception.NotFoundHostException;
 import com.miniyus.friday.hosts.application.port.out.SearchPort;
 import com.miniyus.friday.hosts.domain.searches.Search;
 import com.miniyus.friday.hosts.domain.searches.SearchFilter;
 import com.miniyus.friday.hosts.domain.searches.WhereSearch;
-import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.HostEntityRepository;
 import com.miniyus.friday.infrastructure.persistence.repositories.SearchEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 @PersistenceAdapter
 @RequiredArgsConstructor
-public class SearchAdapter extends CacheEntity<SearchEntity> implements SearchPort {
+public class SearchAdapter implements SearchPort {
     private final HostEntityRepository hostRepository;
     private final SearchEntityRepository searchRepository;
     private final SearchMapper searchMapper;
@@ -27,12 +24,8 @@ public class SearchAdapter extends CacheEntity<SearchEntity> implements SearchPo
     @Override
     public Search createSearch(Search search) {
         var hostEntity = hostRepository.findById(search.getHostId())
-            .orElseThrow(HostNotFoundException::new);
-
-        hostEntity.createSearch(
-            searchMapper.create(search)
-        );
-
+            .orElseThrow(NotFoundHostException::new);
+        hostEntity.createSearch(searchMapper.create(search));
         hostRepository.save(hostEntity);
 
         return searchRepository.findLastSearchByHostId(hostEntity.getId())
@@ -51,19 +44,14 @@ public class SearchAdapter extends CacheEntity<SearchEntity> implements SearchPo
 
     @Override
     public Search updateSearch(Search search) {
-        var hostEntity = getCacheEntity(search.getHostId()).orElse(null);
-        if (hostEntity == null) {
-            return null;
-        }
+        var searchEntity = searchRepository.findById(search.getHostId())
+            .orElseThrow(NotFoundHostException::new);
 
-        var searchEntity = searchMapper.toEntity(search, hostEntity.getHost());
+        searchMapper.update(searchEntity, search);
+
         var updated = searchRepository.save(searchEntity);
 
         return searchMapper.toDomain(updated);
-    }
-    @Override
-    public Optional<Search> findById(Long id) {
-        return Optional.empty();
     }
 
     @Override
@@ -72,24 +60,13 @@ public class SearchAdapter extends CacheEntity<SearchEntity> implements SearchPo
     }
 
     @Override
-    public Page<Search> findSearchAll(Long hostId, Pageable pageable) {
-        return searchRepository.findAllByHostId(hostId, pageable)
-            .map(searchMapper::toDomain);
-    }
-
-    @Override
-    public Page<Search> findSearchAll(SearchFilter searchFilter, Pageable pageable) {
-        return searchRepository.findSearches(searchFilter, pageable)
+    public Page<Search> findSearchAll(SearchFilter searchFilter) {
+        return searchRepository.findSearches(searchFilter)
             .map(searchMapper::toDomain);
     }
 
     @Override
     public void deleteSearchById(Long id) {
         searchRepository.deleteById(id);
-    }
-
-    @Override
-    protected JpaRepository<SearchEntity, Long> getCacheRepository() {
-        return searchRepository;
     }
 }

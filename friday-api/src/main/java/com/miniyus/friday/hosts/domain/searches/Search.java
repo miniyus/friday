@@ -18,7 +18,6 @@ public class Search {
     private boolean publish;
     private int views;
     private String shortUrl;
-    private Long imageId;
     private LocalDateTime deletedAt;
     private Long hostId;
     private Long fileId;
@@ -33,7 +32,7 @@ public class Search {
             .publish(createSearch.publish())
             .views(0)
             .shortUrl(null)
-            .imageId(createSearch.imageId())
+            .fileId(createSearch.imageId())
             .hostId(createSearch.hostId())
             .build();
     }
@@ -46,8 +45,8 @@ public class Search {
         this.shortUrl = shortUrl;
     }
 
-    public void update(
-        UpdateSearch updateSearch
+    public void patch(
+        PatchSearch updateSearch
     ) {
         if (JsonNullableUtil.isPresent(updateSearch.queryKey())) {
             this.queryKey = JsonNullableUtil.unwrap(updateSearch.queryKey(), null);
@@ -67,10 +66,6 @@ public class Search {
 
         if (JsonNullableUtil.isPresent(updateSearch.imageId())) {
             this.fileId = JsonNullableUtil.unwrap(updateSearch.imageId(), null);
-        }
-
-        if (JsonNullableUtil.isPresent(updateSearch.imageId())) {
-            this.imageId = JsonNullableUtil.unwrap(updateSearch.imageId(), null);
         }
     }
 }

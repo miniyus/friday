@@ -1,7 +1,6 @@
 package com.miniyus.friday.common.error;
 
 import lombok.Getter;
-import java.util.List;
 
 /**
  * [description]
@@ -11,8 +10,6 @@ import java.util.List;
  */
 @Getter
 public class AuthErrorException extends RestErrorException {
-    protected List<Object> args;
-
     public AuthErrorException(String message, ErrorCode errorCode) {
         super(message, errorCode);
     }

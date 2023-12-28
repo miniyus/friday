@@ -4,6 +4,7 @@ import com.miniyus.friday.users.domain.ResetPassword;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+
 import java.io.Serializable;
 
 /**

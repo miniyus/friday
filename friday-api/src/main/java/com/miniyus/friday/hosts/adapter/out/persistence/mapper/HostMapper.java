@@ -4,7 +4,6 @@ import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.hosts.domain.Host;
 import com.miniyus.friday.hosts.domain.searches.Search;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
-import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,7 @@ import java.util.List;
 public class HostMapper {
     public HostEntity create(Host domain, UserEntity userEntity) throws RestErrorException {
         return HostEntity.create(
-            domain.getHost(),
+            domain.getHostname(),
             domain.getSummary(),
             domain.getDescription(),
             domain.getPath(),
@@ -25,22 +24,16 @@ public class HostMapper {
         );
     }
 
-    public HostEntity toEntity(
-        Host domain,
-        UserEntity userEntity,
-        List<SearchEntity> searchEntities
+    public HostEntity update(
+        HostEntity entity,
+        Host domain
     ) throws RestErrorException {
-        return new HostEntity(
-            domain.getId(),
-            domain.getHost(),
-            domain.getSummary(),
-            domain.getDescription(),
-            domain.getPath(),
-            domain.isPublish(),
-            domain.getDeletedAt(),
-            userEntity,
-            searchEntities
-        );
+        return entity
+            .setHost(domain.getHostname())
+            .setSummary(domain.getSummary())
+            .setDescription(domain.getDescription())
+            .setPath(domain.getPath())
+            .setPublish(domain.isPublish());
     }
 
     public Host toDomain(HostEntity entity, List<Search> searches) {

@@ -12,6 +12,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +34,10 @@ public interface UserApi {
 
     @GetMapping(PATH)
     ResponseEntity<Page<UserResources.UserResource>> retrieveUsers(
-        @QueryParam @Valid RetrieveUserRequest request);
+        @QueryParam @Valid RetrieveUserRequest request,
+        @PageableDefault(page = 1,
+        sort = "createdAt",
+        direction = Direction.DESC) Pageable pageable);
 
     @PatchMapping(PATH + "/{id}")
     ResponseEntity<UserResources.UserResource> patchUser(

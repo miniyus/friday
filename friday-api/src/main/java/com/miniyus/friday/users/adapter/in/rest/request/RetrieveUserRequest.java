@@ -1,16 +1,12 @@
 package com.miniyus.friday.users.adapter.in.rest.request;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import com.miniyus.friday.common.pagination.PageRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.miniyus.friday.common.util.LocalDateTimeUtil;
 import com.miniyus.friday.users.domain.UserFilter;
 import jakarta.annotation.Nullable;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.experimental.SuperBuilder;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
+import java.io.Serializable;
 
 /**
  * [description]
@@ -18,69 +14,50 @@ import org.springframework.data.domain.Sort;
  * @author miniyus
  * @date 2023/09/06
  */
-@Getter
-@SuperBuilder
-public class RetrieveUserRequest extends PageRequest implements Serializable {
-    @Nullable
-    final String email;
+@Builder
+public record RetrieveUserRequest(
+    @Nullable String email,
+
+    @Nullable String name,
 
     @Nullable
-    final String name;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String createdAtStart,
 
     @Nullable
-    final LocalDateTime createdAtStart;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String createdAtEnd,
 
     @Nullable
-    final LocalDateTime createdAtEnd;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String updatedAtStart,
 
     @Nullable
-    final LocalDateTime updatedAtStart;
-
-    @Nullable
-    final LocalDateTime updatedAtEnd;
-
-    @Nullable
-    final Pageable pageable;
-
-    public Pageable getPageable() {
-        return toPageable();
-    }
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String updatedAtEnd) implements Serializable {
     public UserFilter toDomain() {
-        return UserFilter.builder()
+        var builder = UserFilter.builder()
             .email(email)
-            .name(name)
-            .createdAtStart(createdAtStart)
-            .createdAtEnd(createdAtEnd)
-            .updatedAtStart(updatedAtStart)
-            .updatedAtEnd(updatedAtEnd)
-            .build();
-    }
+            .name(name);
 
-    public static RetrieveUserRequest create() {
-        return RetrieveUserRequest.builder()
-            .pageable(
-                org.springframework.data.domain.PageRequest.of(
-                    0,
-                    20,
-                    Sort.Direction.DESC,
-                    "createdAt")
-            ).build();
-    }
+        if (createdAtStart != null && createdAtEnd != null) {
+            var createdAtRange = LocalDateTimeUtil.parseRangeFromString(
+                "yyyy-MM-dd",
+                createdAtStart,
+                createdAtEnd);
+            builder.createdAtStart(createdAtRange.startAt());
+            builder.createdAtEnd(createdAtRange.endAt());
+        }
 
-    public static RetrieveUserRequest create(
-        int page,
-        int pageSize,
-        String sortDirection,
-        String sortField
-    ) {
-        return RetrieveUserRequest.builder()
-            .pageable(
-                org.springframework.data.domain.PageRequest.of(
-                    page,
-                    pageSize,
-                    Sort.Direction.valueOf(sortDirection),
-                    sortField)
-            ).build();
+        if (updatedAtStart != null && updatedAtEnd != null) {
+            var updatedAtRange = LocalDateTimeUtil.parseRangeFromString(
+                "yyyy-MM-dd",
+                updatedAtStart,
+                updatedAtEnd);
+            builder.updatedAtStart(updatedAtRange.startAt());
+            builder.updatedAtEnd(updatedAtRange.endAt());
+        }
+
+        return builder.build();
     }
 }

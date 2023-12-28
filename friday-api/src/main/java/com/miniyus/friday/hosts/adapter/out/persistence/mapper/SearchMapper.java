@@ -1,98 +1,53 @@
 package com.miniyus.friday.hosts.adapter.out.persistence.mapper;
 
+import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.hosts.domain.searches.Search;
-import com.miniyus.friday.hosts.domain.searches.SearchImage;
-import com.miniyus.friday.infrastructure.persistence.entities.FileEntity;
-import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.FileEntityRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class SearchMapper {
-    public SearchEntity create(Search search) {
-        var uploadedImage = search.getSearchImage();
+    private final FileEntityRepository fileEntityRepository;
 
-        var file = FileEntity.create(
-            uploadedImage.getMimeType(),
-            uploadedImage.getSize(),
-            uploadedImage.getPath(),
-            uploadedImage.getExtension()
-        );
+    public SearchEntity create(Search search) {
+        var fileEntity = fileEntityRepository.findById(search.getFileId())
+            .orElseThrow(
+                () -> new RestErrorException(RestErrorCode.NOT_FOUND, "file.error.notFound"));
 
         return SearchEntity.create(
             search.getQueryKey(),
             search.getQuery(),
             search.getDescription(),
             search.isPublish(),
-            file
+            fileEntity
         );
     }
 
-    public SearchEntity toEntity(Search domain, HostEntity host) {
-        var uploadedImage = domain.getSearchImage();
-
-        var file = FileEntity.builder()
-            .id(uploadedImage.getId())
-            .size(uploadedImage.getSize())
-            .path(uploadedImage.getPath())
-            .mimeType(uploadedImage.getMimeType())
-            .extension(uploadedImage.getExtension())
-            .build();
-
-        return SearchEntity.builder()
-            .id(domain.getId())
-            .description(domain.getDescription())
-            .queryKey(domain.getQueryKey())
-            .query(domain.getQuery())
-            .publish(domain.isPublish())
-            .views(domain.getViews())
-            .file(file)
-            .host(host)
-            .build();
-    }
-
-    public SearchEntity toEntity(Search domain) {
-        var uploadedImage = domain.getSearchImage();
-
-        var file = FileEntity.builder()
-            .id(uploadedImage.getId())
-            .size(uploadedImage.getSize())
-            .path(uploadedImage.getPath())
-            .mimeType(uploadedImage.getMimeType())
-            .extension(uploadedImage.getExtension())
-            .build();
-
-        return SearchEntity.builder()
-            .id(domain.getId())
-            .description(domain.getDescription())
-            .queryKey(domain.getQueryKey())
-            .query(domain.getQuery())
-            .publish(domain.isPublish())
-            .views(domain.getViews())
-            .file(file)
-            .build();
+    public SearchEntity update(SearchEntity entity, Search domain) {
+        return entity.setId(domain.getId())
+            .setDescription(domain.getDescription())
+            .setQueryKey(domain.getQueryKey())
+            .setQuery(domain.getQuery())
+            .setPublish(domain.isPublish())
+            .setViews(domain.getViews());
     }
 
     public Search toDomain(SearchEntity entity) {
-        var searchImage = SearchImage.builder()
-            .id(entity.getFile().getId())
-            .size(entity.getFile().getSize())
-            .path(entity.getFile().getPath())
-            .mimeType(entity.getFile().getMimeType())
-            .extension(entity.getFile().getExtension())
+        return Search.builder()
+            .id(entity.getId())
+            .queryKey(entity.getQueryKey())
+            .query(entity.getQuery())
+            .description(entity.getDescription())
+            .publish(entity.isPublish())
+            .views(entity.getViews())
+            .shortUrl(entity.getShortUrl())
+            .deletedAt(entity.getDeletedAt())
+            .hostId(entity.getHost().getId())
+            .fileId(entity.getFile().getId())
             .build();
-        return new Search(
-            entity.getId(),
-            entity.getQueryKey(),
-            entity.getQuery(),
-            entity.getDescription(),
-            entity.isPublish(),
-            entity.getViews(),
-            entity.getShortUrl(),
-            searchImage,
-            entity.getDeletedAt(),
-            entity.getHost().getId(),
-            entity.getFile().getId()
-        );
     }
 }

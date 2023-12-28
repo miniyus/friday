@@ -1,12 +1,12 @@
 package com.miniyus.friday.users.adapter.out.persistence;
 
-import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
-import com.miniyus.friday.users.application.port.out.UserPort;
 import com.miniyus.friday.common.hexagon.annotation.PersistenceAdapter;
-import com.miniyus.friday.users.domain.User;
-import com.miniyus.friday.users.domain.UserFilter;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
+import com.miniyus.friday.users.application.port.out.UserPort;
+import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.users.domain.UserFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -46,10 +46,8 @@ public class UserAdapter
     }
 
     @Override
-    public Page<User> findAll(UserFilter searchUser, Pageable pageable) {
-        Page<UserEntity> userEntities = userRepository.findUsers(
-            searchUser,
-            pageable);
+    public Page<User> findAll(UserFilter searchUser) {
+        Page<UserEntity> userEntities = userRepository.findUsers(searchUser);
         return userEntities.map(mapper::toDomain);
     }
 
@@ -71,8 +69,7 @@ public class UserAdapter
 
     @Override
     public User resetPassword(User user) {
-        var entity = mapper.toEntity(user);
-        return this.save(entity);
+        return updateUser(user);
     }
 
     @Override

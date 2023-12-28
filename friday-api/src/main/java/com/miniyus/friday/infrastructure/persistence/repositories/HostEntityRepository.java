@@ -1,7 +1,6 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
-import com.miniyus.friday.infrastructure.persistence.entities.SearchEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

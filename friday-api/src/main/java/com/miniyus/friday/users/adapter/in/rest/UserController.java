@@ -18,6 +18,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -77,17 +81,12 @@ public class UserController extends BaseController implements UserApi {
     @GetMapping("")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Page<UserResource>> retrieveUsers(
-        @QueryParam @Valid RetrieveUserRequest request) {
+        @QueryParam @Valid RetrieveUserRequest request,
+        @PageableDefault(page = 1,
+        sort = "createdAt",
+        direction = Direction.DESC) Pageable pageable) {
 
-        RetrieveUserRequest req;
-        if (request == null) {
-            log.debug("req is null");
-            req = RetrieveUserRequest.create();
-        } else {
-            req = request;
-        }
-
-        Page<User> users = readUserQuery.findAll(req.toDomain(), req.getPageable());
+        Page<User> users = readUserQuery.findAll(request.toDomain());
 
         log.debug("users count: " + users.getContent().size());
 

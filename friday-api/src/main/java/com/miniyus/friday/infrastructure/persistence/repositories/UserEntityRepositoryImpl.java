@@ -1,7 +1,8 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import com.miniyus.friday.users.domain.UserFilter;
+import com.miniyus.friday.infrastructure.persistence.SortQueryDsl;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.users.domain.UserFilter;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
+
 import java.util.Objects;
+
+import static com.miniyus.friday.infrastructure.persistence.entities.QUserEntity.userEntity;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,14 +21,15 @@ public class UserEntityRepositoryImpl implements QUserEntityRepository {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public Page<UserEntity> findUsers(UserFilter searchUser,
-        Pageable pageable) {
-
+    public Page<UserEntity> findUsers(UserFilter searchUser) {
+        var pageable = searchUser.pageable();
+        var order = SortQueryDsl.createOrderSpecifier(userEntity, pageable.getSort());
         var content = whereSearchUser(
             queryFactory.selectFrom(userEntity),
             searchUser)
             .offset(pageable.getOffset())
             .limit(pageable.getPageSize())
+            .orderBy(order)
             .fetch();
 
         var count = whereSearchUser(queryFactory.select(userEntity.count())

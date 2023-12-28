@@ -1,7 +1,7 @@
 package com.miniyus.friday.infrastructure.security;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**

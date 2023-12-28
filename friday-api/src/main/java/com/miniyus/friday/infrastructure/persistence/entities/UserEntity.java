@@ -1,17 +1,20 @@
 package com.miniyus.friday.infrastructure.persistence.entities;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.miniyus.friday.common.fake.annotation.NoFake;
+import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import com.miniyus.friday.users.domain.UserRole;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import com.miniyus.friday.infrastructure.persistence.BaseEntity;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User Entity

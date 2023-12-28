@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Host {
     Long id;
-    String host;
+    String hostname;
     String summary;
     String description;
     String path;
@@ -43,14 +43,14 @@ public class Host {
         );
     }
 
-    public void update(
-        UpdateHost updateHost
+    public void patch(
+        PatchHost patchHost
     ) {
-        this.host = updateHost.host();
-        this.summary = updateHost.summary();
-        this.description = updateHost.description();
-        this.path = updateHost.path();
-        this.publish = updateHost.publish();
+        this.hostname = patchHost.host();
+        this.summary = patchHost.summary();
+        this.description = patchHost.description();
+        this.path = patchHost.path();
+        this.publish = patchHost.publish();
     }
 
     public void enablePublish() {

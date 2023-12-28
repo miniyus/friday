@@ -1,8 +1,9 @@
 package com.miniyus.friday.infrastructure.security.social.userinfo;
 
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
+
 import java.io.Serializable;
 import java.util.Map;
-import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 
 /**
  * [description]

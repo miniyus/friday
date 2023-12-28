@@ -1,80 +1,66 @@
 package com.miniyus.friday.hosts.adapter.in.rest.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.miniyus.friday.common.pagination.PageRequest;
 import com.miniyus.friday.hosts.domain.Host;
 import com.miniyus.friday.hosts.domain.HostFilter;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 
-import java.time.LocalDateTime;
+import static com.miniyus.friday.common.util.LocalDateTimeUtil.parseRangeFromString;
 
 /**
  * DTO for {@link Host}
  */
-@Getter
-@SuperBuilder
-public class RetrieveHostRequest extends PageRequest {
-    @Nullable
-    String host;
-    @Nullable
-    String summary;
-    @Nullable
-    String description;
-    @Nullable
-    String path;
-    @Nullable
-    LocalDateTime createdAtStart;
-    @Nullable
-    LocalDateTime createdAtEnd;
-    @Nullable
-    LocalDateTime updatedAtStart;
-    @Nullable
-    LocalDateTime updatedAtEnd;
-    @Nullable
-    Pageable pageable;
+@Builder
+public record RetrieveHostRequest(
+    @Nullable String host,
+    @Nullable String summary,
+    @Nullable String description,
+    @Nullable String path,
 
-    public Pageable getPageable() {
-        return toPageable();
-    }
+    @Nullable
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String createdAtStart,
 
-    public HostFilter toDomain(Long userId) {
-        return HostFilter.builder()
+    @Nullable
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String createdAtEnd,
+
+    @Nullable
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String updatedAtStart,
+
+    @Nullable
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    String updatedAtEnd) {
+
+    public HostFilter toDomain(Long userId, Pageable pageable) {
+        var builder = HostFilter.builder()
             .userId(userId)
             .summary(summary)
             .description(description)
             .path(path)
-            .createdAtStart(createdAtStart)
-            .createdAtEnd(createdAtEnd)
-            .updatedAtStart(updatedAtStart)
-            .updatedAtEnd(updatedAtEnd)
-            .build();
-    }
+            .pageable(PageRequest.of(pageable));
 
-    public static RetrieveHostRequest create() {
-        return RetrieveHostRequest.builder()
-            .pageable(
-                org.springframework.data.domain.PageRequest.of(
-                    0,
-                    20,
-                    Sort.Direction.DESC,
-                    "createdAt")
-            ).build();
-    }
+        if (createdAtStart != null && createdAtEnd != null) {
+            var createdAtRange = parseRangeFromString("yyyy-MM-dd",
+                createdAtStart,
+                createdAtEnd);
+            builder.createdAtStart(createdAtRange.startAt())
+                .createdAtEnd(createdAtRange.endAt());
+        }
 
-    public static RetrieveHostRequest create(int pageNumber, int pageSize, String sortDirection,
-        String sortField) {
-        return RetrieveHostRequest.builder()
-            .pageable(
-                org.springframework.data.domain.PageRequest.of(
-                    pageNumber,
-                    pageSize,
-                    Sort.Direction.fromString(sortDirection),
-                    sortField)
-            ).build();
+        if (updatedAtStart != null && updatedAtEnd != null) {
+            var updatedAtRange = parseRangeFromString("yyyy-MM-dd",
+                updatedAtStart,
+                updatedAtEnd);
+            builder.updatedAtStart(updatedAtRange.startAt())
+                .updatedAtEnd(updatedAtRange.endAt());
+        }
+
+        return builder.build();
     }
 }
 

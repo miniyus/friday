@@ -22,9 +22,7 @@ public interface HostPort {
 
     Page<Host> findByPublish(WherePublish wherePublish, Pageable pageable);
 
-    Page<Host> findAll(Pageable pageable);
-
-    Page<Host> findAll(HostFilter host, Pageable pageable);
+    Page<Host> findAll(HostFilter host);
 
     void deleteById(Long id);
 

@@ -3,9 +3,10 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -21,10 +22,12 @@ import java.util.Optional;
  * @date 2023/09/04
  */
 @Entity
+@Setter
 @Getter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @Table(name = "host")
 @Where(clause = "deleted_at is null")
 @SQLDelete(sql = "UPDATE host SET deleted_at = NOW() WHERE id = ?")

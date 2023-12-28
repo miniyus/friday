@@ -1,11 +1,11 @@
 package com.miniyus.friday.infrastructure.config;
 
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.miniyus.friday.infrastructure.jwt.JwtProvider;
-import lombok.Data;
 
 /**
  * JWT Configuration

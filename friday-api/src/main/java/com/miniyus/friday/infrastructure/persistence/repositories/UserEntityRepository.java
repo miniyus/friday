@@ -1,7 +1,7 @@
 package com.miniyus.friday.infrastructure.persistence.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 

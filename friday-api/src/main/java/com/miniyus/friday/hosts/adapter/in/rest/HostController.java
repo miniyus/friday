@@ -15,21 +15,25 @@ import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources.HostResource;
 
-@RestAdapter(path = "/v1/hosts")
+@RestAdapter(path = HostApi.PATH)
 @RequiredArgsConstructor
+@PreAuthorize("hasAnyAuthority('user', 'admin')")
 public class HostController extends BaseController implements HostApi {
     private final HostUsecase hostUsecase;
     private final RetrieveHostQuery retrieveHostQuery;
 
     @Override
     @PostMapping("")
-    @PreAuthorize("hasAnyAuthority('USER')")
+
     public ResponseEntity<HostResource> createHost(
         @RequestBody @Valid CreateHostRequest request,
         @AuthUser PrincipalUserInfo userInfo) {
@@ -41,19 +45,17 @@ public class HostController extends BaseController implements HostApi {
 
     @Override
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<HostResource> updateHost(
         @PathVariable Long id,
         @RequestBody @Valid UpdateHostRequest request,
         @AuthUser PrincipalUserInfo userInfo
     ) {
-        var host = hostUsecase.updateHost(request.toDomain(id, userInfo.getId()));
+        var host = hostUsecase.patchHost(request.toDomain(id, userInfo.getId()));
         return ResponseEntity.ok(HostResource.fromDomain(host));
     }
 
     @Override
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER')")
     public void deleteHost(
         @PathVariable Long id,
         @AuthUser PrincipalUserInfo userInfo
@@ -68,22 +70,16 @@ public class HostController extends BaseController implements HostApi {
 
     @Override
     @GetMapping("")
-    @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<HostResources> retrieveHosts(
-        @QueryParam @Valid RetrieveHostRequest retrieveAll,
+        @QueryParam @Valid RetrieveHostRequest req,
+        @PageableDefault(
+            page = 1,
+            sort = "createdAt", direction = Sort.Direction.DESC)
+        Pageable pageable,
         @AuthUser PrincipalUserInfo userInfo
     ) {
-        RetrieveHostRequest req;
-        if (retrieveAll == null) {
-            req = RetrieveHostRequest.create();
-        } else {
-            req = retrieveAll;
-        }
-
         var domains = retrieveHostQuery.retrieveHosts(
-            req.toDomain(userInfo.getId()),
-            req.getPageable()
-        );
+            req.toDomain(userInfo.getId(), pageable));
 
         return ResponseEntity.ok(
             new HostResources(domains));
@@ -91,7 +87,6 @@ public class HostController extends BaseController implements HostApi {
 
     @Override
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('USER')")
     public ResponseEntity<HostResource> retrieveHost(
         @PathVariable Long id,
         @AuthUser PrincipalUserInfo userInfo) {

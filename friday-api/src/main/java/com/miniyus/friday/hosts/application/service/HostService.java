@@ -2,8 +2,8 @@ package com.miniyus.friday.hosts.application.service;
 
 import com.miniyus.friday.common.error.ForbiddenErrorException;
 import com.miniyus.friday.common.hexagon.annotation.Usecase;
-import com.miniyus.friday.hosts.application.exception.HostExistsException;
-import com.miniyus.friday.hosts.application.exception.HostNotFoundException;
+import com.miniyus.friday.hosts.application.exception.ExistsHostException;
+import com.miniyus.friday.hosts.application.exception.NotFoundHostException;
 import com.miniyus.friday.hosts.application.port.in.query.RetrieveHostQuery;
 import com.miniyus.friday.hosts.application.port.in.usecase.HostUsecase;
 import com.miniyus.friday.hosts.application.port.out.HostPort;
@@ -12,15 +12,24 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-@RequiredArgsConstructor
 @Usecase
+@RequiredArgsConstructor
 public class HostService implements HostUsecase, RetrieveHostQuery {
+    /**
+     * hostPort.
+     */
     private final HostPort hostPort;
 
+    /**
+     * Retrieves a host by its ID.
+     *
+     * @param findHostById the host ID to search for
+     * @return the retrieved host
+     */
     @Override
     public Host retrieveHostById(HostIds findHostById) {
         var host = hostPort.findById(findHostById.id()).orElseThrow(
-            HostNotFoundException::new
+            NotFoundHostException::new
         );
 
         if (!host.getUserId().equals(findHostById.userId())) {
@@ -30,23 +39,41 @@ public class HostService implements HostUsecase, RetrieveHostQuery {
         return host;
     }
 
-
+    /**
+     * Retrieves a host based on the specified criteria.
+     *
+     * @param whereHost the criteria used to retrieve the host
+     * @return the retrieved host
+     */
     @Override
     public Host retrieveHost(WhereHost whereHost) {
         return hostPort.findByHost(whereHost).orElseThrow(
-            HostNotFoundException::new
+            NotFoundHostException::new
         );
     }
 
+    /**
+     * Retrieves hosts based on the provided filter.
+     *
+     * @param filter the filter to apply to the hosts
+     * @return the page containing the retrieved hosts
+     */
     @Override
-    public Page<Host> retrieveHosts(HostFilter filter, Pageable pageable) {
+    public Page<Host> retrieveHosts(HostFilter filter) {
         if (filter.isEmpty()) {
             throw new ForbiddenErrorException();
         }
 
-        return hostPort.findAll(filter, pageable);
+        return hostPort.findAll(filter);
     }
 
+    /**
+     * Retrieves a page of hosts based on the specified publish filter and pagination settings.
+     *
+     * @param wherePublish the filter to apply when retrieving hosts
+     * @param pageable     the pagination settings
+     * @return the page of hosts that match the filter and pagination settings
+     */
     @Override
     public Page<Host> retrieveHostByPublish(
         WherePublish wherePublish,
@@ -55,6 +82,12 @@ public class HostService implements HostUsecase, RetrieveHostQuery {
         return hostPort.findByPublish(wherePublish, pageable);
     }
 
+    /**
+     * Creates a new host based on the given CreateHost object.
+     *
+     * @param host the CreateHost object containing the details of the host to be created
+     * @return the newly created Host object
+     */
     @Override
     public Host createHost(CreateHost host) {
         WhereHost whereHost = WhereHost.builder()
@@ -63,23 +96,29 @@ public class HostService implements HostUsecase, RetrieveHostQuery {
             .build();
 
         if (!hostPort.isUniqueHost(whereHost)) {
-            throw new HostExistsException();
+            throw new ExistsHostException();
         }
 
         return hostPort.create(Host.create(host));
     }
 
+    /**
+     * Patch a host.
+     *
+     * @param patchHost the object containing the information to patch the host
+     * @return the updated host after patching
+     */
     @Override
-    public Host updateHost(UpdateHost updateHost) {
-        var exists = hostPort.findById(updateHost.ids().id()).orElseThrow(
-            HostNotFoundException::new
+    public Host patchHost(PatchHost patchHost) {
+        var exists = hostPort.findById(patchHost.ids().id()).orElseThrow(
+            NotFoundHostException::new
         );
 
-        if (!exists.getUserId().equals(updateHost.ids().userId())) {
+        if (!exists.getUserId().equals(patchHost.ids().userId())) {
             throw new ForbiddenErrorException();
         }
 
-        exists.update(updateHost);
+        exists.patch(patchHost);
 
         return hostPort.update(exists);
     }
@@ -92,7 +131,7 @@ public class HostService implements HostUsecase, RetrieveHostQuery {
     @Override
     public void deleteHostById(HostIds ids) {
         var deletable = hostPort.findById(ids.id())
-            .orElseThrow(HostNotFoundException::new)
+            .orElseThrow(NotFoundHostException::new)
             .getUserId().equals(ids.userId());
 
         if (!deletable) {

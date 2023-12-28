@@ -1,15 +1,15 @@
 package com.miniyus.friday.infrastructure.security.auth.handler;
 
-import java.io.IOException;
-
-import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+
+import java.io.IOException;
 
 /**
  * JWT 로그인 실패 시 처리하는 핸들러 SimpleUrlAuthenticationFailureHandler를 상속받아서 구현

@@ -1,9 +1,9 @@
 package com.miniyus.friday.infrastructure.security.social.userinfo;
 
-import java.util.Map;
-
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import lombok.Builder;
+
+import java.util.Map;
 
 /**
  * [description]

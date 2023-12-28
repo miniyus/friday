@@ -9,7 +9,7 @@ public interface RetrieveHostQuery {
 
     Host retrieveHost(WhereHost whereHost);
 
-    Page<Host> retrieveHosts(HostFilter filter, Pageable pageable);
+    Page<Host> retrieveHosts(HostFilter filter);
 
     Page<Host> retrieveHostByPublish(
         WherePublish wherePublish,

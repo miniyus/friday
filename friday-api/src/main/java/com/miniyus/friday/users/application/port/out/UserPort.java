@@ -15,7 +15,7 @@ public interface UserPort {
 
     void deleteById(Long id);
 
-     User updateUser(User user);
+    User updateUser(User user);
 
     Optional<User> findById(Long id);
 
@@ -25,6 +25,6 @@ public interface UserPort {
 
     Page<User> findAll(Pageable pageable);
 
-    Page<User> findAll(UserFilter searchUser, Pageable pageable);
+    Page<User> findAll(UserFilter searchUser);
 
 }
