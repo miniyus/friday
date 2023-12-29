@@ -4,8 +4,8 @@ import { styled } from '@mui/material/styles';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import LanguageIcon from '@mui/icons-material/Language';
-import ToggleableProps from './ToggleableProps';
-import NavItems from '@app/components/layouts/NavItems';
+import ToggleableProps from '@components/layouts/ToggleableProps';
+import NavItems from '@components/layouts/NavItems';
 import { useState } from 'react';
 const drawerWidth: number = 240;
 

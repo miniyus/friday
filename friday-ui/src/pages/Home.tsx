@@ -1,7 +1,7 @@
 // src/pages/Home.tsx
 import React from 'react';
 import { Typography, Box } from '@mui/material';
-import PageLayout from '@app/components/layouts/PaageLayout';
+import PageLayout from '@components/layouts/PaageLayout';
 
 const Home: React.FC = () => {
     return (

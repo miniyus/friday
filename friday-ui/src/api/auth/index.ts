@@ -2,9 +2,9 @@ import {
     SigninRequest,
     SignupRequest,
     UserResource,
-} from "@app/api/auth/types";
-import { ApiResponse, ErrorResInterface } from "@app/api/base/ApiClient";
-import BaseClient from "@app/api/base/BaseClient";
+} from "@api/auth/types";
+import { ApiResponse, ErrorResInterface } from "@api/base/ApiClient";
+import BaseClient from "@api/base/BaseClient";
 
 class AuthClient extends BaseClient {
     static readonly prefix = "/v1/auth";

@@ -18,8 +18,8 @@ services:
         networks:
             - friday
         environment:
-            - APP_NAME=${APPIO_NAME:-Cuttysark APPIO}
-            - APP_SECRET=${APPIO_SECRET}
+            - APP_NAME=${APPIO_NAME:-Friday API}
+            - APP_SECRET=${APP_SECRET:-}
             - APP_ENV=${APP_ENV}
             - APP_URL=${API_URL}
             - LOG_LEVEL=${API_LOG_LEVEL:-debug}
@@ -33,7 +33,7 @@ services:
             - REDIS_DATABASE=${REDIS_DATABASE:-0}
             - REDIS_USERNAME=${REDIS_USERNAME:-}
             - REDIS_PASSWORD=${REDIS_PASSWORD:-}
-            - REDIS_PORT=${REDIS_PORT:6379}
+            - REDIS_PORT=${REDIS_PORT:-6379}
             - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
             - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
             - NAVER_CLIENT_ID=${NAVER_CLIENT_ID}
@@ -93,6 +93,23 @@ services:
         volumes:
             - ./friday-ui:/react
             - /react/node_modules
+    friday-traafik:
+        image: traefik:latest
+        container_name: traefik
+        environment:
+            API_SERVER_NAME: ${API_SERVER_NAME:-localhost/api}
+            UI_SERVER_NAME: ${UI_SERVER_NAME:-localhost/ui}
+        networks:
+            - friday
+        ports:
+            - '80:80'
+            - '443:443'
+        restart: always
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./infrastructure/config/traefik/traefik.static.yml:/etc/traefik/traefik.yml
+            - ./infrastructure/config/traefik/traefik.dynamic.yml:/etc/traefik/traefik.dynamic.yml
+            - ./infrastructure/data/letsencrypt:/letsencrypt
 networks:
     friday:
         driver: bridge

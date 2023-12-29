@@ -5,13 +5,21 @@ import axios, {
     AxiosRequestConfig,
     InternalAxiosRequestConfig,
 } from 'axios';
-import { makePath } from '../utils/str';
+import { makePath } from '@api/utils/str';
 
+/**
+ * Token Type.
+ */
 export interface Token {
     tokenType: string | null;
     token: string | null;
 }
 
+/**
+ * Api Response Type.
+ *
+ * Wrapping AxiosResponse
+ */
 export interface ApiResponse<T = any, D = any> extends AxiosResponse<T, D> {
     data: T;
     config: InternalAxiosRequestConfig<D>;
@@ -19,49 +27,92 @@ export interface ApiResponse<T = any, D = any> extends AxiosResponse<T, D> {
     error: ErrorResInterface | null;
 }
 
+/**
+ * Error Response Type.
+ */
 export interface ErrorResInterface {
-    status: string;
+    error: string;
     code: number;
     message: string;
 }
 
+/**
+ * Attachment Type.
+ */
 export interface Attachment {
     name: string;
     file: File;
 }
 
+/**
+ * ErrorResponse class.
+ */
 export class ErrorResponse implements ErrorResInterface {
-    private readonly _status: string;
+    private readonly _error: string;
     private readonly _code: number;
     private readonly _message: string;
 
+    /**
+     * Constructs a new instance of the ErrorResInterface class.
+     *
+     * @param {ErrorResInterface} props - The properties for the ErrorResInterface.
+     */
     constructor(props: ErrorResInterface) {
-        this._status = props.status;
+        this._error = props.error;
         this._code = props.code;
         this._message = props.message;
     }
 
-    get status(): string {
-        return this._status;
+    /**
+     * Get the error of the object.
+     *
+     * @return {string} The status of the object.
+     */
+    get error(): string {
+        return this._error;
     }
 
+    /**
+     * Returns the value of the code property.
+     *
+     * @return {number} The value of the code property.
+     */
     get code(): number {
         return this._code;
     }
 
+    /**
+     * Get the value of the message property.
+     *
+     * @return {string} The value of the message property.
+     */
     get message(): string {
         return this._message;
     }
 
+    /**
+     * Serializes the error response object.
+     *
+     * @return {ErrorResInterface} The serialized error response object.
+     */
     public serialize(): ErrorResInterface {
         return {
-            status: this.status,
+            error: this.error,
             code: this.code,
             message: this.message,
         };
     }
 }
 
+export interface ErrorHandler {
+    (error: any | AxiosError | Error): ErrorResInterface;
+}
+
+/**
+ * ApiClient class.
+ *
+ * Wrapping Axios
+ */
 export default class ApiClient {
     protected _host: string;
     protected _token: Token | null;
@@ -70,11 +121,13 @@ export default class ApiClient {
     protected _attachment: Attachment[];
     protected _error: any;
     protected _isSuccess: boolean;
+    protected _errorHandler: ErrorHandler | null;
 
     /**
      * @param {string} host
+     * @param errorHandler
      */
-    constructor(host: string) {
+    constructor(host: string, errorHandler: ErrorHandler | null = null) {
         this._host = host;
         this._headers = null;
         this._response = null;
@@ -82,6 +135,7 @@ export default class ApiClient {
         this._error = null;
         this._isSuccess = false;
         this._attachment = [];
+        this._errorHandler = errorHandler;
     }
 
     /**
@@ -92,7 +146,7 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * get response
      * @returns {AxiosResponse<*, *>|null}
      */
     get response(): AxiosResponse<any, any> | null {
@@ -100,7 +154,7 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * get error
      * @returns {*}
      */
     get error(): any {
@@ -108,7 +162,7 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * request
      * @param {AxiosRequestConfig} config
      * @returns {Promise<AxiosResponse<*, *>|*>}
      */
@@ -152,11 +206,11 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * make url
      * @param {string} path
      * @returns {string}
      */
-    makeUrl(path: string) {
+    makeUrl(path: string): string {
         const [schema, host] = this.host.split('://');
         const url = makePath(host, path);
         return schema + '://' + url;
@@ -178,56 +232,25 @@ export default class ApiClient {
                 isSuccess: true,
                 error: null,
             };
-        } catch (error: any | AxiosError) {
+        } catch (error: any | AxiosError | Error) {
             this._isSuccess = false;
             this._error = error;
-            const errorResponse: ErrorResInterface = {
-                status: 'error',
-                code: 999,
-                message: '관리자에게 문의해주세요.',
-            };
 
-            if (error instanceof AxiosError) {
-                if (error.response?.status || 500 < 500) {
-                    errorResponse.status =
-                        error.response?.data.status || 'error';
-                    errorResponse.code =
-                        error.response?.data.code ||
-                        error.response?.status ||
-                        999;
-
-                    if (
-                        this.error.response.data.hasOwnProperty('failed_fields')
-                    ) {
-                        const messages = [];
-                        for (const [key, value] of Object.entries(
-                            error.response?.data.failed_fields,
-                        )) {
-                            console.debug(
-                                `failed_key: ${key}, failed_value: ${value}`,
-                            );
-                            messages.push(value);
-                        }
-                        errorResponse.message = messages.join(', ');
-                    } else {
-                        errorResponse.message =
-                            error.response?.data.message ||
-                            error.response?.statusText ||
-                            '';
-                    }
-                }
+            let errorResponse = null;
+            if (this._errorHandler) {
+               errorResponse =this._errorHandler(error);
             }
 
             return {
-                ...error.response,
+                ...error,
                 isSuccess: false,
-                error: new ErrorResponse(errorResponse),
+                error: errorResponse,
             };
         }
     }
 
     /**
-     *
+     * Returns the value of the isSuccess property.
      * @returns {boolean}
      */
     isSuccess(): boolean {
@@ -235,7 +258,7 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * with token
      * @param {string} token
      * @param {string|null} tokenType
      * @returns {ApiClient}
@@ -246,7 +269,7 @@ export default class ApiClient {
     }
 
     /**
-     *
+     * with headers
      * @param {RawAxiosRequestHeaders} headers
      * @returns {ApiClient}
      */
@@ -255,7 +278,13 @@ export default class ApiClient {
         return this;
     }
 
-    attach(file: Attachment | Attachment[]) {
+    /**
+     * Attaches one or more files to the current object.
+     *
+     * @param {Attachment | Attachment[]} file - The file(s) to be attached. Can be a single file or an array of files.
+     * @return {this} - Returns nothing.
+     */
+    attach(file: Attachment | Attachment[]): ApiClient {
         if (Array.isArray(file)) {
             this._attachment.concat(file);
         } else {

@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es5",
+        "target": "ES2022",
+        "module": "ES2022",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
@@ -9,15 +10,17 @@
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "baseUrl": "./",
+        "baseUrl": "src",
         "paths": {
-            "@app/*": ["src/*"]
+            "@api/*": ["api/*"],
+            "@components/*": ["components/*"],
+            "config/*": ["config/*"],
+            "@pages/*": ["pages/*"],
         }
     },
     "include": ["src"]

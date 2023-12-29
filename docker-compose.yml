@@ -15,7 +15,8 @@ services:
       - friday-redis
     volumes:
       - ./api/src/main/resources/:/app/resources
-      - ./data/friday:/data
+      - ./infrastructure/data/api/data:/app/data
+      - ./infrastructure/data/api/logs:/app/logs
     networks:
       - friday
     environment:
@@ -55,7 +56,7 @@ services:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./infrastructure/data/db:/var/lib/postgresql/data
     ports:
       - "${DB_PORT:-5432}:5432"
     healthcheck:
@@ -81,7 +82,7 @@ services:
     networks:
       - friday
     volumes:
-      - ./data/redis:/data
+      - ./infrastructure/data/redis:/data
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       retries: 3
@@ -93,7 +94,7 @@ services:
       context: ./friday-ui
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "${UI_PORT:-3000}:3000"
     networks:
       - friday
   friday-traafik:
@@ -110,9 +111,9 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik/traefik.static.yml:/etc/traefik/traefik.yml
-      - ./traefik/traefik.dynamic.yml:/etc/traefik/traefik.dynamic.yml
-      - ./data/letsencrypt:/letsencrypt
+      - ./infrastructure/config/traefik/traefik-ssl.static.yml:/etc/traefik/traefik.yml
+      - ./infrastructure/config/traefik/traefik-ssl.dynamic.yml:/etc/traefik/traefik.dynamic.yml
+      - ./infrastructure/data/letsencrypt:/letsencrypt
 networks:
   friday:
     driver: bridge

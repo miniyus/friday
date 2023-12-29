@@ -1,13 +1,13 @@
-import makeClient from "@app/api";
-import AuthClient from "@app/api/auth";
+import makeClient from 'api';
+import AuthClient from '@api/auth';
 
-describe("auth api tests", () => {
-    it("signup", async () => {
-        const authClient = makeClient<AuthClient>(AuthClient);
+describe('auth api tests', () => {
+    it('signup', async () => {
+        const authClient = makeClient<AuthClient>(AuthClient, {});
         const res = await authClient.signup({
-            email: "test@email.com",
-            password: "test",
-            name: "test",
+            email: 'test@email.com',
+            password: 'test',
+            name: 'test',
         });
 
         expect(res.status).toBe(200);

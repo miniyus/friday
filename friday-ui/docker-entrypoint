@@ -3,7 +3,7 @@
 cd /app
 
 if [ ! -d /app/node_modules ]; then
-  npm ci
+  yarn install
 fi
 
-npm run start
+yarn run start

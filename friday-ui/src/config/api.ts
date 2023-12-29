@@ -1,4 +1,4 @@
-import {ApiConfig} from "@app/api";
+import {ApiConfig} from "api";
 
 export interface ApiConfigs {
     [key: string]: ApiConfig;
