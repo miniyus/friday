@@ -1,0 +1,28 @@
+global:
+  checkNewVersion: true
+
+log:
+  level: "DEBUG" # Set the desired log level: DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+
+entryPoints:
+  web:
+    address: ":80"
+
+  web-secure:
+    address: ":443"
+api:
+  insecure: true
+  dashboard: true
+certificatesResolvers:
+  acmeResolver:
+    acme:
+      email: "miniyu97@gmail.com" # Set your email address for Let's Encrypt notifications
+      storage: "/letsencrypt/acme.json" # Store Let's Encrypt certificates and configuration
+      httpChallenge:
+        entryPoint: web
+providers:
+  docker:
+    exposedByDefault: false
+    network: proxy
+  file:
+    filename: "/etc/traefik/traefik.dynamic.yml"

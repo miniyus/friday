@@ -1,0 +1,46 @@
+http:
+  routers:
+    http-api:
+      rule: "Host(`{{env "API_SERVER_NAME"}}`)"
+      service: "friday-api"
+      entrypoints:
+        - "web"
+      middlewares:
+        - redirect
+    https-api:
+      rule: "Host(`{{env "API_SERVER_NAME"}}`)"
+      service: "friday-api"
+      entrypoints:
+        - "web-secure"
+      tls:
+        certResolver: acmeResolver
+    http-ui:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`)"
+      service: "friday-ui"
+      entrypoints:
+        - "web"
+      middlewares:
+        - redirect
+    https-ui:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`)"
+      service: "friday-ui"
+      entrypoints:
+        - "web-secure"
+      middlewares:
+      tls:
+        certResolver: acmeResolver
+  services:
+    api:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: 'http://friday-api:8080'
+    ui:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: 'http://friday-ui:3000'
+  middlewares:
+    redirect:
+      redirectScheme:
+        scheme: https

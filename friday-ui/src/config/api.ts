@@ -1,14 +1,12 @@
-import { ApiConfig } from "@app/api";
+import {ApiConfig} from "@app/api";
 
 export interface ApiConfigs {
     [key: string]: ApiConfig;
 }
 
-export default function (): ApiConfigs {
-    return {
-        default: {
-            host: process.env.REACT_APP_API_HOST ?? "",
-            prefix: process.env.REACT_APP_API_PREFIX ?? "",
-        },
-    };
-}
+export default ({
+    default: {
+        host: "/api",
+        prefix: "/v1",
+    },
+}) as ApiConfigs;

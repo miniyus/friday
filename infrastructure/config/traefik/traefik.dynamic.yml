@@ -1,0 +1,23 @@
+http:
+  routers:
+    http-api:
+      rule: "Host(`{{env "API_SERVER_NAME"}}`)"
+      service: "friday-api"
+      entrypoints:
+        - "web"
+    http-ui:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`)"
+      service: "friday-ui"
+      entrypoints:
+        - "web"
+  services:
+    api:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: 'http://friday-api:8080'
+    ui:
+      loadBalancer:
+        passHostHeader: true
+        servers:
+          - url: 'http://friday-ui:3000'

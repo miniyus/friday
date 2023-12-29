@@ -1,0 +1,21 @@
+global:
+  checkNewVersion: true
+
+log:
+  level: "DEBUG" # Set the desired log level: DEBUG, INFO, WARN, ERROR, FATAL, PANIC
+
+entryPoints:
+  web:
+    address: ":80"
+
+  web-secure:
+    address: ":443"
+api:
+  insecure: true
+  dashboard: true
+providers:
+  docker:
+    exposedByDefault: false
+    network: proxy
+  file:
+    filename: "/etc/traefik/traefik.dynamic.yml"
