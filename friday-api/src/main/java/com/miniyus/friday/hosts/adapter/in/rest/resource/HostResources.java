@@ -48,7 +48,7 @@ public class HostResources extends SimplePage<HostResource> implements Serializa
         public static HostResource fromDomain(Host host) {
             return HostResource.builder()
                 .id(host.getId())
-                .host(host.getHost())
+                .host(host.getHostname())
                 .summary(host.getSummary())
                 .description(host.getDescription())
                 .path(host.getPath())

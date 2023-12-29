@@ -1,8 +1,8 @@
 package com.miniyus.friday.infrastructure.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Configuration;
  * @author miniyus
  * @date 2023/09/04
  */
-@Configuration
-@ConfigurationProperties(prefix = "jwt")
-@RequiredArgsConstructor
 @Data
+@Configuration
+@JsonIgnoreProperties({"secret"})
+@ConfigurationProperties(prefix = "jwt")
 public class JwtConfiguration {
     private String secret;
 

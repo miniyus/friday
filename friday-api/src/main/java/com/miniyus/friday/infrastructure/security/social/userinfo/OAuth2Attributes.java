@@ -9,22 +9,51 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.Map;
 
 /**
- * [description]
+ * OAuth2 attributes.
  *
  * @author miniyus
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Getter
 @Builder
 @Slf4j
 public class OAuth2Attributes {
+    /**
+     * email key
+     */
+    private static final String EMAIL_KEY = "email";
+
+    /**
+     * attributes
+     */
     private Map<String, Object> attributes;
+
+    /**
+     * oauth login user id
+     */
     private String id;
+
+    /**
+     * name attribute key
+     */
     private String nameAttributeKey;
+
+    /**
+     * name
+     */
     private String name;
+
+    /**
+     * email
+     */
     private String email;
+
+    /**
+     * oauth2 provider
+     *
+     * @see SocialProvider
+     */
     private String provider;
-    private String app;
 
     public static OAuth2Attributes of(String registrationId, String userNameAttributeName,
         Map<String, Object> attributes) {
@@ -51,7 +80,7 @@ public class OAuth2Attributes {
         return OAuth2Attributes.builder()
             .id((String) attributes.get("sub"))
             .name((String) attributes.get("name"))
-            .email((String) attributes.get("email"))
+            .email((String) attributes.get(EMAIL_KEY))
             .attributes(attributes)
             .nameAttributeKey(userNameAttributeName)
             .build();
@@ -63,7 +92,7 @@ public class OAuth2Attributes {
         return OAuth2Attributes.builder()
             .id((String) response.get("id"))
             .name((String) response.get("name"))
-            .email((String) response.get("email"))
+            .email((String) response.get(EMAIL_KEY))
             .attributes(response)
             .nameAttributeKey("id")
             .build();
@@ -77,7 +106,7 @@ public class OAuth2Attributes {
         return OAuth2Attributes.builder()
             .id((String) kakaoAccount.get("id"))
             .name((String) kakaoProfile.get("nickname"))
-            .email((String) kakaoAccount.get("email"))
+            .email((String) kakaoAccount.get(EMAIL_KEY))
             .attributes(kakaoAccount)
             .nameAttributeKey("id")
             .build();
@@ -105,8 +134,6 @@ public class OAuth2Attributes {
                     .name(name)
                     .attributes(attributes)
                     .build();
-                default -> throw new NotSupportProviderException("error.notSupportProvider",
-                    this.provider);
             };
         } catch (IllegalArgumentException e) {
             throw new NotSupportProviderException("error.notSupportProvider", this.provider);

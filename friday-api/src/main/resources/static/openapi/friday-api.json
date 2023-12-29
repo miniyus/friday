@@ -1,0 +1,1369 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Cuttysark APPIO",
+    "description": "Cuttysark API Documentation.",
+    "version": "0.0.1-SNAPSHOT"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8888"
+    }
+  ],
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/v1/users": {
+      "get": {
+        "tags": [
+          "User API"
+        ],
+        "operationId": "retrieveUsers",
+        "parameters": [
+          {
+            "name": "request",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RetrieveUserRequest"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageUserResource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User API"
+        ],
+        "summary": "create user (admin)",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hosts": {
+      "get": {
+        "tags": [
+          "Host API"
+        ],
+        "operationId": "retrieveHosts",
+        "parameters": [
+          {
+            "name": "req",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RetrieveHostRequest"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostResources"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Host API"
+        ],
+        "summary": "create host",
+        "operationId": "createHost",
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateHostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hosts/{hostId}/searches": {
+      "get": {
+        "tags": [
+          "Search API"
+        ],
+        "summary": "retrieve host searches",
+        "operationId": "retrieveHostSearches",
+        "parameters": [
+          {
+            "name": "hostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "request",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/RetrieveSearchRequest"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResources"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Search API"
+        ],
+        "summary": "create host search",
+        "operationId": "createHostSearch",
+        "parameters": [
+          {
+            "name": "hostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth API"
+        ],
+        "operationId": "signup",
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordUserInfo"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUserResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "tokens": {
+                      "$ref": "#/components/schemas/IssueToken"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/v1/auth/refresh-token": {
+      "post": {
+        "tags": [
+          "Auth API"
+        ],
+        "summary": "refresh token",
+        "description": "refresh token",
+        "operationId": "refresh",
+        "parameters": [
+          {
+            "name": "RefreshToken",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth API"
+        ],
+        "summary": "revoke token",
+        "operationId": "revokeToken",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/v1/users/{id}": {
+      "get": {
+        "tags": [
+          "User API"
+        ],
+        "operationId": "retrieveUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "User API"
+        ],
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "User API"
+        ],
+        "operationId": "patchUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{id}/reset-password": {
+      "patch": {
+        "tags": [
+          "User API"
+        ],
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetPasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResetPasswordResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hosts/{id}": {
+      "get": {
+        "tags": [
+          "Host API"
+        ],
+        "summary": "retrieve host",
+        "operationId": "retrieveHost",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostResource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Host API"
+        ],
+        "summary": "delete host",
+        "operationId": "deleteHost",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Host API"
+        ],
+        "summary": "update host",
+        "operationId": "updateHost",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateHostRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HostResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/hosts/{hostId}/searches/{id}": {
+      "get": {
+        "tags": [
+          "Search API"
+        ],
+        "summary": "retrieve host search",
+        "operationId": "retrieveHostSearch",
+        "parameters": [
+          {
+            "name": "hostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResource"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Search API"
+        ],
+        "summary": "delete host search",
+        "operationId": "deleteHostSearch",
+        "parameters": [
+          {
+            "name": "hostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Search API"
+        ],
+        "summary": "update host searches",
+        "operationId": "updateHostSearch",
+        "parameters": [
+          {
+            "name": "hostId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json;charset\u003dUTF-8": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/auth/me": {
+      "get": {
+        "tags": [
+          "Auth API"
+        ],
+        "summary": "user info",
+        "operationId": "userInfo",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthUserResource"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateUserRequest": {
+        "required": [
+          "email",
+          "name",
+          "password",
+          "role"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 50,
+            "minLength": 8,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 20,
+            "minLength": 2,
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "UserResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "snsId": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateHostRequest": {
+        "required": [
+          "description",
+          "host",
+          "path",
+          "publish",
+          "summary"
+        ],
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          }
+        }
+      },
+      "HostResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateSearchRequest": {
+        "type": "object",
+        "properties": {
+          "queryKey": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          },
+          "hostId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "SearchResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "queryKey": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          },
+          "views": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shortUrl": {
+            "type": "string"
+          },
+          "hostId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "PasswordUserInfo": {
+        "required": [
+          "email",
+          "name",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 50,
+            "minLength": 8,
+            "type": "string"
+          },
+          "name": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          }
+        }
+      },
+      "AuthUserResource": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "snsId": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          }
+        }
+      },
+      "PasswordAuthentication": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "IssueToken": {
+        "type": "object",
+        "properties": {
+          "tokenType": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "PasswordTokenResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "tokens": {
+            "$ref": "#/components/schemas/IssueToken"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "tokenType": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateUserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "maxLength": 50,
+            "minLength": 2,
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        }
+      },
+      "ResetPasswordRequest": {
+        "required": [
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "password": {
+            "maxLength": 50,
+            "minLength": 8,
+            "type": "string"
+          }
+        }
+      },
+      "ResetPasswordResource": {
+        "type": "object",
+        "properties": {
+          "resetPassword": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateHostRequest": {
+        "required": [
+          "description",
+          "host",
+          "path",
+          "publish",
+          "summary"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "host": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          }
+        }
+      },
+      "JsonNullableBoolean": {
+        "type": "object",
+        "properties": {
+          "present": {
+            "type": "boolean"
+          }
+        }
+      },
+      "JsonNullableString": {
+        "type": "object",
+        "properties": {
+          "present": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateSearchRequest": {
+        "type": "object",
+        "properties": {
+          "queryKey": {
+            "$ref": "#/components/schemas/JsonNullableString"
+          },
+          "query": {
+            "$ref": "#/components/schemas/JsonNullableString"
+          },
+          "description": {
+            "$ref": "#/components/schemas/JsonNullableString"
+          },
+          "publish": {
+            "$ref": "#/components/schemas/JsonNullableBoolean"
+          }
+        }
+      },
+      "RetrieveUserRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAtStart": {
+            "type": "string"
+          },
+          "createdAtEnd": {
+            "type": "string"
+          },
+          "updatedAtStart": {
+            "type": "string"
+          },
+          "updatedAtEnd": {
+            "type": "string"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PageUserResource": {
+        "type": "object",
+        "properties": {
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserResource"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RetrieveHostRequest": {
+        "type": "object",
+        "properties": {
+          "host": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          },
+          "createdAtStart": {
+            "type": "string"
+          },
+          "createdAtEnd": {
+            "type": "string"
+          },
+          "updatedAtStart": {
+            "type": "string"
+          },
+          "updatedAtEnd": {
+            "type": "string"
+          }
+        }
+      },
+      "HostResources": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "RetrieveSearchRequest": {
+        "type": "object",
+        "properties": {
+          "queryKey": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "publish": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SearchResources": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

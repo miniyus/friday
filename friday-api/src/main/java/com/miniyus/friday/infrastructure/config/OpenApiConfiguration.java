@@ -47,8 +47,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class OpenApiConfiguration {
     public static final String PREFIX = RestConfiguration.PREFIX;
-    public static final String CONSOLE_PREFIX = RestConfiguration.CONSOLE_PREFIX;
-    public static final String DMS_PREFIX = RestConfiguration.DMS_PREFIX;
 
     private final ApplicationContext applicationContext;
 
@@ -90,7 +88,6 @@ public class OpenApiConfiguration {
         return GroupedOpenApi.builder()
             .group("api")
             .pathsToMatch(PREFIX + "/**")
-            .pathsToExclude(CONSOLE_PREFIX + "/**", DMS_PREFIX + "/**")
             .build();
     }
 
@@ -159,25 +156,28 @@ public class OpenApiConfiguration {
     private List<Server> servers() throws IOException {
         List<Server> servers = new ArrayList<>();
         servers.add(new Server().url("http://localhost:8888"));
+
         ClassPathResource resource = new ClassPathResource("static/openapi/servers.json");
-        InputStream inputStream = resource.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(inputStreamReader);
-        StringBuilder content = new StringBuilder();
+        if (resource.exists()) {
+            InputStream inputStream = resource.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader reader = new BufferedReader(inputStreamReader);
+            StringBuilder content = new StringBuilder();
 
-        String line;
-        while ((line = reader.readLine()) != null) {
-            content.append(line);
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+
+            var jsonNode = objectMapper.readTree(content.toString());
+
+            jsonNode.get("servers").forEach(node -> {
+                var server = new Server();
+                server.url(node.get("url").asText());
+                server.description(node.get("description").asText());
+                servers.add(server);
+            });
         }
-
-        var jsonNode = objectMapper.readTree(content.toString());
-
-        jsonNode.get("servers").forEach(node -> {
-            var server = new Server();
-            server.url(node.get("url").asText());
-            server.description(node.get("description").asText());
-            servers.add(server);
-        });
 
         String serverUrl = System.getenv("SERVER_URL");
         if (serverUrl != null) {

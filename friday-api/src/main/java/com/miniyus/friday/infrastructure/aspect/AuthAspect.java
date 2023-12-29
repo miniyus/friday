@@ -136,21 +136,25 @@ public class AuthAspect extends LoggingAspect {
         UserEntity user;
         ResponseEntity<Token> token = (ResponseEntity<Token>) returnValue;
 
-        log.info("[After login Returning] {}", toJson(returnValue));
+        var json = toJson(returnValue);
+        log.info("[After login Returning] {}", json);
 
         var loginHistoryEntity = createFromRequest();
-        if (token != null && token.getBody() != null) {
-            user = accessTokenEntityRepository
-                .findByToken(token.getBody().accessToken())
-                .flatMap((AccessTokenEntity tokenEntity) ->
-                    userEntityRepository.findById(Long.valueOf(tokenEntity.getUserId()))
-                ).orElse(null);
-            loginHistoryEntity.setUser(user);
-            loginHistoryEntity.setSuccess(true);
-            loginHistoryEntity.setStatusCode(token.getStatusCode().value());
-        } else {
-            loginHistoryEntity.setUser(null);
-            loginHistoryEntity.setSuccess(false);
+
+        loginHistoryEntity.setUser(null);
+        loginHistoryEntity.setSuccess(false);
+        if (token != null) {
+            var tokenBody = token.getBody();
+            if (tokenBody != null && tokenBody.accessToken() != null) {
+                user = accessTokenEntityRepository
+                    .findByToken(tokenBody.accessToken())
+                    .flatMap((AccessTokenEntity tokenEntity) ->
+                        userEntityRepository.findById(Long.valueOf(tokenEntity.getUserId()))
+                    ).orElse(null);
+                loginHistoryEntity.setUser(user);
+                loginHistoryEntity.setSuccess(true);
+                loginHistoryEntity.setStatusCode(token.getStatusCode().value());
+            }
         }
 
         loginHistoryEntityRepository.save(loginHistoryEntity);
@@ -161,7 +165,7 @@ public class AuthAspect extends LoggingAspect {
     /**
      * Auth controller point
      */
-    @Pointcut("within(com.miniyus.friday.users.adapter.in.auth.controller.AuthController)")
+    @Pointcut("within(com.miniyus.friday.users.adapter.in.rest.AuthController)")
     public void authControllerPoint() {
     }
 
