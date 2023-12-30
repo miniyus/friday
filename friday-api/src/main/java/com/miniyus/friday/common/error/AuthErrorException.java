@@ -6,7 +6,7 @@ import lombok.Getter;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/08/28
+ * @since 2023/08/28
  */
 @Getter
 public class AuthErrorException extends RestErrorException {

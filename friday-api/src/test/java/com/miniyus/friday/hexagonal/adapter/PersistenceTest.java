@@ -2,16 +2,15 @@ package com.miniyus.friday.hexagonal.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.javafaker.Faker;
-import com.precisionbio.cuttysark.AbstractTestContainerTest;
-import com.precisionbio.cuttysark.common.fake.FakeInjector;
-import com.precisionbio.cuttysark.infrastructure.persistence.BaseEntity;
-import com.precisionbio.cuttysark.infrastructure.persistence.entities.UserEntity;
-import com.precisionbio.cuttysark.infrastructure.persistence.repositories.UserEntityRepository;
-import com.precisionbio.cuttysark.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.precisionbio.cuttysark.infrastructure.security.social.SocialProvider;
-import com.precisionbio.cuttysark.users.domain.Client;
-import com.precisionbio.cuttysark.users.domain.UserRole;
+import com.miniyus.friday.AbstractTestContainerTest;
+import com.miniyus.friday.common.fake.FakeInjector;
+import com.miniyus.friday.infrastructure.persistence.BaseEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
+import com.miniyus.friday.users.domain.UserRole;
+import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +37,7 @@ public abstract class PersistenceTest<Id, Entity extends BaseEntity<Id>> extends
     protected UserEntity testUserEntity;
 
     protected FakeInjector fakeInjector;
+
     public PersistenceTest() {
         super();
         var objetMapper = new ObjectMapper();
@@ -58,40 +58,42 @@ public abstract class PersistenceTest<Id, Entity extends BaseEntity<Id>> extends
         return repository.saveAll(entities);
     }
 
-    public void createTestUser(Client client) {
-        if (client.equals(Client.CONSOLE)) {
+    public void createTestUser(boolean passwordUser) {
+        if (passwordUser) {
+            var userInfo = PasswordUserInfo.builder()
+                .password(faker.internet().password())
+                .email(faker.internet().safeEmailAddress())
+                .name(faker.name().name())
+                .build();
             testUserEntity = userEntityRepository.save(
-                UserEntity.create(
-                    PasswordUserInfo.builder()
-                        .password(faker.internet().password())
-                        .email(faker.internet().safeEmailAddress())
-                        .name(faker.name().username())
-                        .department(faker.lorem().word())
-                        .build(),
-                    passwordEncoder
-                )
+                UserEntity.builder()
+                    .email(userInfo.email())
+                    .name(userInfo.name())
+                    .password(passwordEncoder.encode(userInfo.password()))
+                    .build()
             );
         } else {
             testUserEntity = userEntityRepository.save(
                 UserEntity.builder()
-                    .client(client)
-                    .username(faker.internet().emailAddress())
+                    .email(faker.internet().emailAddress())
                     .password(passwordEncoder.encode(faker.internet().password()))
                     .snsId(faker.internet().uuid())
-                    .role(UserRole.USER)
-                    .registrationId(SocialProvider.GOOGLE.value())
                     .provider(SocialProvider.GOOGLE)
+                    .role(UserRole.USER)
                     .build()
             );
         }
     }
 
-    public UserEntity getUserEntity(Client client) {
-        if (testUserEntity != null && testUserEntity.getClient().equals(client)) {
-            return testUserEntity;
+    public UserEntity getUserEntity(boolean passwordUser) {
+        if (testUserEntity != null) {
+            var isPasswordUser = testUserEntity.getProvider() == null;
+            if (isPasswordUser == passwordUser) {
+                return testUserEntity;
+            }
         }
 
-        createTestUser(client);
+        createTestUser(passwordUser);
         return testUserEntity;
     }
 

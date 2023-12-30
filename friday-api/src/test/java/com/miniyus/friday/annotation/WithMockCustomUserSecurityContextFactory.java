@@ -1,8 +1,7 @@
 package com.miniyus.friday.annotation;
 
-import com.github.javafaker.Faker;
-import com.precisionbio.cuttysark.infrastructure.security.PrincipalUserInfo;
-import com.precisionbio.cuttysark.users.domain.Client;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import net.datafaker.Faker;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,7 +36,6 @@ public class WithMockCustomUserSecurityContextFactory
         String password = new Faker().internet().password();
         var principal = PrincipalUserInfo.builder()
             .id(annotation.id())
-            .client(Client.HUMAN)
             .snsId(null)
             .email(annotation.username())
             .name(annotation.name())
@@ -47,7 +45,7 @@ public class WithMockCustomUserSecurityContextFactory
             .accountNonLocked(true)
             .credentialsNonExpired(true)
             .attributes(null)
-            .provider(null)
+            .provider(annotation.provider())
             .authorities(authorities)
             .role(annotation.role())
             .build();

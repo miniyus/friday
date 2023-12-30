@@ -1,22 +1,16 @@
 package com.miniyus.friday.common.fake;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies.NamingBase;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.github.javafaker.Faker;
 import com.miniyus.friday.common.fake.annotation.NoFake;
+import com.miniyus.friday.common.fake.exception.NotAllowedFakeException;
+import com.miniyus.friday.common.fake.resolver.ReflectResolver;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import net.datafaker.Faker;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
@@ -29,7 +23,6 @@ import java.util.function.UnaryOperator;
  * @see Faker
  * @since 2023/10/19
  */
-@RequiredArgsConstructor
 public class FakeInjector {
 
     /**
@@ -56,11 +49,34 @@ public class FakeInjector {
     private final ObjectMapper objectMapper;
 
     /**
+     * random generator
+     */
+    private final Random rand = new Random();
+
+    /**
+     * reflect resolver.
+     * <p>
+     * The default resolver is {@link ReflectResolver}.
+     * </p>
+     * <p>
+     * Generating fake data using Reflection.
+     * </p>
+     *
+     * @see ReflectResolver#resolvePropertyType(Field, Object)
+     * @see #inject(Field, Object)
+     */
+    private final ReflectResolver resolver;
+
+    public FakeInjector(Faker faker, ObjectMapper objectMapper) {
+        this.faker = faker;
+        this.objectMapper = objectMapper;
+        this.resolver = new ReflectResolver(this, this.faker);
+    }
+
+    /**
      * Capabilities available for multiple data injections
      */
     private Function<Object, Object> map;
-
-    private final Random rand = new Random();
 
     /**
      * Generates a list of objects of type T.
@@ -292,169 +308,6 @@ public class FakeInjector {
     private void inject(Field field, Object instance)
         throws IllegalAccessException, InvocationTargetException, NoSuchMethodException,
         InstantiationException {
-        field.setAccessible(true); // can be access the private, protected, and public fields
-        if (getField(field, instance) != null) {
-            return; // already injected.
-        }
-        if (field.getType() == String.class) {
-            setField(field, instance, faker.lorem().word());
-        } else if (field.getType() == char.class || field.getType() == Character.class) {
-            setField(field, instance, (char) faker.number().randomDigit());
-        } else if (field.getType() == byte.class || field.getType() == Byte.class) {
-            setField(field, instance, (byte) faker.number().randomDigit());
-        } else if (field.getType() == byte[].class || field.getType() == Byte[].class) {
-            setField(field, instance, faker.name().name().getBytes());
-        } else if (field.getType() == short.class || field.getType() == Short.class) {
-            var s = getField(field, instance);
-            if (s instanceof Short && !s.equals(0)) {
-                // Cause built-in type short not allowed null.
-                // So, it considers the unassigned status as zero.
-                return;
-            }
-            setField(field, instance, (short) faker.number().randomDigit());
-        } else if (field.getType() == int.class || field.getType() == Integer.class) {
-            var i = getField(field, instance);
-            if (i instanceof Integer && !i.equals(0)) {
-                // Cause built-in type int not allowed null.
-                // So, it considers the unassigned status as zero.
-                return;
-            }
-            setField(field, instance, (int) faker.number().randomNumber());
-        } else if (field.getType() == float.class || field.getType() == Float.class) {
-            var f = getField(field, instance);
-            if (f instanceof Float && !f.equals(0.0)) {
-                // Cause built-in type float not allowed null.
-                // So, it considers the unassigned status as zero.
-                return;
-            }
-            setField(field, instance, (float) faker.number().randomDouble(2, 0, 100));
-        } else if (field.getType() == double.class || field.getType() == Double.class) {
-            var d = getField(field, instance);
-            if (d instanceof Double && !d.equals(0.0)) {
-                // Cause built-in double not allowed null.
-                // So, it considers the unassigned status as zero.
-                return;
-            }
-            setField(field, instance, faker.number().randomDouble(2, 0, 100));
-        } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-            var b = getField(field, instance);
-            if (b instanceof Boolean && !b.equals(false)) {
-                // Cause built-in boolean not allowed null.
-                // So, it considers the unassigned status as false.
-                return;
-            }
-            setField(field, instance, faker.bool().bool());
-        } else if (field.getType() == Date.class) {
-            setField(field, instance, faker.date().birthday());
-        } else if (field.getType() == LocalDateTime.class) {
-            setField(field, instance, LocalDateTime.now());
-        } else if (field.getType() == LocalDate.class) {
-            setField(field, instance, LocalDate.now());
-        } else if (field.getType() == Long.class || field.getType() == long.class) {
-            var l = getField(field, instance);
-            if (l instanceof Long && !l.equals(0L)) {
-                // Cause built-in long not allowed null.
-                // So, it considers the unassigned status as zero.
-                return;
-            }
-            setField(field, instance, faker.number().randomNumber());
-        } else if (field.getType() == LocalTime.class) {
-            setField(field, instance, LocalTime.now());
-        } else if (field.getType().isEnum()) {
-            setField(field, instance, randomEnum((Class<? extends Enum<?>>) field.getType()));
-        } else if (field.getType().isArray()) {
-            // array type has component type
-            // use component type to generate
-            var componentType = field.getType().getComponentType();
-            var componentInstance =
-                this.generate(componentType, 3).toArray(new Object[defaultArraySize]);
-            setField(field, instance, componentInstance);
-        } else if (field.getType() == List.class) {
-            // list class has generic type
-            // use generic type to generate
-            var genericType = field.getGenericType();
-            if (genericType instanceof ParameterizedType parameterizedType) {
-                var listType = parameterizedType.getActualTypeArguments()[0];
-                Class<?> componentType = (Class<?>) listType;
-                var componentInstance = this.generate(componentType, 3);
-                setField(field, instance, componentInstance);
-            }
-        } else {
-            // else type considers as object
-            // recursively call generate
-            setField(field, instance, this.generate(field.getType()));
-        }
-    }
-
-    /**
-     * Sets the value of a field in an instance using reflection.
-     *
-     * @param field    reflect field
-     * @param instance the instance on which to set the field
-     * @param value    the value to set
-     */
-    @SuppressWarnings({"unchecked", "java:S3011"})
-    private void setField(Field field, Object instance, Object value)
-        throws IllegalAccessException, InvocationTargetException, InstantiationException,
-        NoSuchMethodException {
-        if (instance instanceof Map) {
-            var fieldName = resolvePropertyName(field);
-            ((Map<String, Object>) instance).put(fieldName, value);
-        } else {
-            field.set(instance, value);
-        }
-    }
-
-    /**
-     * Retrieves the value of a field from an object.
-     *
-     * @param field    the field to retrieve the value from
-     * @param instance the object to retrieve the value from
-     * @return the value of the field
-     * @throws IllegalAccessException if the field is inaccessible
-     */
-    @SuppressWarnings("unchecked")
-    private Object getField(Field field, Object instance)
-        throws IllegalAccessException, InvocationTargetException, InstantiationException,
-        NoSuchMethodException {
-        if (instance instanceof Map) {
-            var fieldName = resolvePropertyName(field);
-            return ((Map<String, Object>) instance).get(fieldName);
-        }
-        return field.get(instance);
-    }
-
-    /**
-     * Resolves the property name for a given field.
-     *
-     * @param field the field for which to resolve the property name
-     * @return the resolved property name
-     * @throws InstantiationException    if an error occurs while instantiating a class
-     * @throws IllegalAccessException    if an error occurs while accessing a class
-     * @throws NoSuchMethodException     if the requested method does not exist
-     * @throws InvocationTargetException if an error occurs while invoking a method
-     */
-    @SuppressWarnings("unchecked")
-    private String resolvePropertyName(Field field)
-        throws InstantiationException, IllegalAccessException, NoSuchMethodException,
-        InvocationTargetException {
-        if (field.isAnnotationPresent(JsonProperty.class)) {
-            var annotation = field.getAnnotation(JsonProperty.class);
-            var propertyName = annotation.value();
-            if (propertyName != null) {
-                return propertyName;
-            }
-        } else if (field.getDeclaringClass().isAnnotationPresent(JsonNaming.class)) {
-            Constructor<? extends NamingBase> propertyNamingConstructor =
-                (Constructor<? extends NamingBase>) field
-                    .getDeclaringClass()
-                    .getAnnotation(JsonNaming.class)
-                    .value()
-                    .getDeclaredConstructor();
-            var propertyNamingStrategy = propertyNamingConstructor.newInstance();
-            return propertyNamingStrategy.translate(field.getName());
-        }
-
-        return field.getName();
+        resolver.resolvePropertyType(field, instance);
     }
 }

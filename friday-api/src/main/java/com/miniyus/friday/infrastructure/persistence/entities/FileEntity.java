@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
@@ -15,17 +16,18 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "file")
-@Where(clause = "deleted_at IS NULL")
+@SQLRestriction("deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE file SET deleted_at = NOW() WHERE id = ?")
 public class FileEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    protected Long id;
+    private Long id;
 
     @Column(nullable = false, length = 50)
     @NonNull
@@ -54,6 +56,9 @@ public class FileEntity extends BaseEntity<Long> {
     @Column
     @Nullable
     private LocalDateTime deletedAt;
+
+    @ManyToOne
+    private UserEntity user;
 
     public static FileEntity create(
         @NonNull String mimeType,

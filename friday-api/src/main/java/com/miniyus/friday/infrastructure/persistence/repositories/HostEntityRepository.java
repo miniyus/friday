@@ -9,8 +9,6 @@ import java.util.Optional;
 
 public interface HostEntityRepository extends JpaRepository<HostEntity, Long>,
     QHostEntityRepository {
-    Optional<HostEntity> findByIdAndUserId(Long id, Long userId);
-
     boolean existsByHostAndUserId(String host, Long userId);
 
     Optional<HostEntity> findByHostAndUserId(String host, Long userId);

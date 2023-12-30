@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 public abstract class HexagonalArchitectureTest {
-    protected final String basePackage = "com.precisionbio.cuttysark";
+    protected final String basePackage = "com.miniyus.friday";
     protected final String domainPackage = "domain";
     protected final String domain;
 

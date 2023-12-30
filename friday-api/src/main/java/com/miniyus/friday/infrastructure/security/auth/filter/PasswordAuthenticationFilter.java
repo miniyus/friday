@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ import java.nio.charset.StandardCharsets;
  * <p>패스워드 로그인(For Console User) 인증을 위한 필터</p>
  *
  * @author miniyus
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Slf4j
 public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
@@ -37,10 +38,21 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
      * password 파라미터 필드 이름
      */
     public static final String PASSWORD_PARAMETER = "password";
+
+    /**
+     * secret parameter field name
+     */
+    public static final String SECRET_PARAMETER = "secret";
+
+    /**
+     * object mapper
+     */
     private final ObjectMapper objectMapper;
 
     @Getter
     private final String defaultLoginRequestUrl;
+
+    private final String appSecret;
 
     /**
      * PasswordAuthenticationFilter Constructor.
@@ -50,10 +62,12 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
      */
     public PasswordAuthenticationFilter(
         AntPathRequestMatcher loginPathRequestMatcher,
-        ObjectMapper objectMapper) {
+        ObjectMapper objectMapper,
+        String appSecret) {
         super(loginPathRequestMatcher);
         this.objectMapper = objectMapper;
         this.defaultLoginRequestUrl = loginPathRequestMatcher.getPattern();
+        this.appSecret = appSecret;
     }
 
     /**
@@ -87,8 +101,13 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
 
         String email = usernamePassword.email();
         String password = usernamePassword.password();
+        String secret = usernamePassword.secret();
 
         log.debug("login email: {}", email);
+
+        if (!secret.equals(appSecret)) {
+            throw new AccessDeniedException("Invalid secret key.");
+        }
 
         UsernamePasswordAuthenticationToken authRequest =
             new UsernamePasswordAuthenticationToken(email, password);
@@ -102,6 +121,10 @@ public class PasswordAuthenticationFilter extends AbstractAuthenticationProcessi
 
     public String getPasswordParameter() {
         return PASSWORD_PARAMETER;
+    }
+
+    public String getAppSecretParameter() {
+        return SECRET_PARAMETER;
     }
 
     public String getHttpMethod() {

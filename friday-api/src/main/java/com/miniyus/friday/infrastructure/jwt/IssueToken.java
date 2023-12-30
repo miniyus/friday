@@ -8,7 +8,7 @@ import java.io.Serializable;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @JsonIgnoreProperties({
     "accessTokenKey",

@@ -1,3 +1,5 @@
+app:
+  secret: ${APP_SECRET:secret}
 server:
   servlet:
     encoding:
@@ -11,7 +13,7 @@ spring:
     hibernate:
       ddl-auto: create
   datasource:
-    url: jdbc:tc:postgresql:15:///testDB
+    url: jdbc:tc:postgresql:16:///testDB
     username: testUser
     password: testPass
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver

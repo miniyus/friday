@@ -14,7 +14,7 @@ import java.io.Serializable;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Builder
 public record CreateUserRequest(

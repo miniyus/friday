@@ -1,18 +1,20 @@
 package com.miniyus.friday.unit.infrastructure.advice;
 
-import com.github.javafaker.Faker;
 import com.miniyus.friday.common.error.ErrorCode;
 import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
-import static org.assertj.core.api.Assertions.assertThat;
+import com.miniyus.friday.hexagonal.application.UsecaseTest;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ActiveProfiles("test")
-public class RestErrorExceptionTest {
+public class RestErrorExceptionTest extends UsecaseTest {
     private final Faker faker = new Faker();
 
     @Test

@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.*;
@@ -31,7 +32,7 @@ public class FileSystemManager {
     }
 
     public FileSystemAdapterWrapper getAdapterWrapper(Class<? extends FileSystemAdapter> clazz) {
-        if(fileSystemAdapterWrappers.containsKey(clazz.getName())) {
+        if (fileSystemAdapterWrappers.containsKey(clazz.getName())) {
             return fileSystemAdapterWrappers.get(clazz.getName());
         } else {
             var wrapper = new FileSystemAdapterWrapper(getAdapter(clazz), fileEntityRepository);
@@ -51,7 +52,7 @@ public class FileSystemManager {
             }
 
             var uuid = UUID.randomUUID();
-            var clientPath = getUserInfo().getProvider().value();
+            var clientPath = Objects.requireNonNull(getUserInfo().getId()).toString();
 
             String originName;
             if (multipartFile.getOriginalFilename() == null) {
@@ -95,8 +96,12 @@ public class FileSystemManager {
         }
 
         public String getUrl(FileEntity entity) {
-            var url = entity.getPath();
-            return adapter.getUrl(url).toString();
+            return adapter.getUrl(entity.getPath())
+                .toString();
+        }
+
+        public File getFile(FileEntity entity) throws IOException {
+            return adapter.getFile(entity.getPath());
         }
 
         private String makePath(String... path) {

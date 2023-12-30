@@ -7,7 +7,6 @@ import com.miniyus.friday.hosts.application.port.out.SearchPort;
 import com.miniyus.friday.hosts.domain.searches.Search;
 import com.miniyus.friday.hosts.domain.searches.SearchFilter;
 import com.miniyus.friday.hosts.domain.searches.WhereSearch;
-import com.miniyus.friday.infrastructure.persistence.repositories.HostEntityRepository;
 import com.miniyus.friday.infrastructure.persistence.repositories.SearchEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,20 +16,14 @@ import java.util.Optional;
 @PersistenceAdapter
 @RequiredArgsConstructor
 public class SearchAdapter implements SearchPort {
-    private final HostEntityRepository hostRepository;
     private final SearchEntityRepository searchRepository;
     private final SearchMapper searchMapper;
 
     @Override
     public Search createSearch(Search search) {
-        var hostEntity = hostRepository.findById(search.getHostId())
-            .orElseThrow(NotFoundHostException::new);
-        hostEntity.createSearch(searchMapper.create(search));
-        hostRepository.save(hostEntity);
-
-        return searchRepository.findLastSearchByHostId(hostEntity.getId())
-            .map(searchMapper::toDomain)
-            .orElse(null);
+        var entity = searchMapper.create(search);
+        return searchMapper.toDomain(
+            searchRepository.save(entity));
     }
 
     @Override
@@ -48,10 +41,8 @@ public class SearchAdapter implements SearchPort {
             .orElseThrow(NotFoundHostException::new);
 
         searchMapper.update(searchEntity, search);
-
-        var updated = searchRepository.save(searchEntity);
-
-        return searchMapper.toDomain(updated);
+        return searchMapper.toDomain(
+            searchRepository.save(searchEntity));
     }
 
     @Override

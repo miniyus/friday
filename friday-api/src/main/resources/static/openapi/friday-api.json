@@ -1,13 +1,18 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Cuttysark APPIO",
-    "description": "Cuttysark API Documentation.",
+    "title": "Friday API",
+    "description": "Friday API Documentation.",
     "version": "0.0.1-SNAPSHOT"
   },
   "servers": [
     {
-      "url": "http://localhost:8888"
+      "url": "http://localhost:8080",
+      "description": "Local"
+    },
+    {
+      "url": "http://localhost:8888",
+      "description": "Development server"
     }
   ],
   "security": [
@@ -19,7 +24,7 @@
     "/v1/users": {
       "get": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "operationId": "retrieveUsers",
         "parameters": [
@@ -55,13 +60,13 @@
       },
       "post": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "summary": "create user (admin)",
         "operationId": "createUser",
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateUserRequest"
               }
@@ -86,7 +91,7 @@
     "/v1/hosts": {
       "get": {
         "tags": [
-          "Host API"
+          "Hosts"
         ],
         "operationId": "retrieveHosts",
         "parameters": [
@@ -122,13 +127,13 @@
       },
       "post": {
         "tags": [
-          "Host API"
+          "Hosts"
         ],
         "summary": "create host",
         "operationId": "createHost",
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateHostRequest"
               }
@@ -153,7 +158,7 @@
     "/v1/hosts/{hostId}/searches": {
       "get": {
         "tags": [
-          "Search API"
+          "Searches"
         ],
         "summary": "retrieve host searches",
         "operationId": "retrieveHostSearches",
@@ -199,7 +204,7 @@
       },
       "post": {
         "tags": [
-          "Search API"
+          "Searches"
         ],
         "summary": "create host search",
         "operationId": "createHostSearch",
@@ -216,7 +221,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSearchRequest"
               }
@@ -241,12 +246,12 @@
     "/v1/auth/signup": {
       "post": {
         "tags": [
-          "Auth API"
+          "Auth"
         ],
         "operationId": "signup",
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/PasswordUserInfo"
               }
@@ -325,7 +330,7 @@
     "/v1/auth/refresh-token": {
       "post": {
         "tags": [
-          "Auth API"
+          "Auth"
         ],
         "summary": "refresh token",
         "description": "refresh token",
@@ -357,7 +362,7 @@
     "/v1/auth/logout": {
       "post": {
         "tags": [
-          "Auth API"
+          "Auth"
         ],
         "summary": "revoke token",
         "operationId": "revokeToken",
@@ -371,7 +376,7 @@
     "/v1/users/{id}": {
       "get": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "operationId": "retrieveUser",
         "parameters": [
@@ -400,7 +405,7 @@
       },
       "delete": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "operationId": "deleteUser",
         "parameters": [
@@ -422,7 +427,7 @@
       },
       "patch": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "operationId": "patchUser",
         "parameters": [
@@ -438,7 +443,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateUserRequest"
               }
@@ -463,7 +468,7 @@
     "/v1/users/{id}/reset-password": {
       "patch": {
         "tags": [
-          "User API"
+          "Users"
         ],
         "operationId": "resetPassword",
         "parameters": [
@@ -479,7 +484,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ResetPasswordRequest"
               }
@@ -504,7 +509,7 @@
     "/v1/hosts/{id}": {
       "get": {
         "tags": [
-          "Host API"
+          "Hosts"
         ],
         "summary": "retrieve host",
         "operationId": "retrieveHost",
@@ -534,7 +539,7 @@
       },
       "delete": {
         "tags": [
-          "Host API"
+          "Hosts"
         ],
         "summary": "delete host",
         "operationId": "deleteHost",
@@ -557,7 +562,7 @@
       },
       "patch": {
         "tags": [
-          "Host API"
+          "Hosts"
         ],
         "summary": "update host",
         "operationId": "updateHost",
@@ -574,7 +579,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateHostRequest"
               }
@@ -599,7 +604,7 @@
     "/v1/hosts/{hostId}/searches/{id}": {
       "get": {
         "tags": [
-          "Search API"
+          "Searches"
         ],
         "summary": "retrieve host search",
         "operationId": "retrieveHostSearch",
@@ -638,7 +643,7 @@
       },
       "delete": {
         "tags": [
-          "Search API"
+          "Searches"
         ],
         "summary": "delete host search",
         "operationId": "deleteHostSearch",
@@ -670,7 +675,7 @@
       },
       "patch": {
         "tags": [
-          "Search API"
+          "Searches"
         ],
         "summary": "update host searches",
         "operationId": "updateHostSearch",
@@ -696,7 +701,7 @@
         ],
         "requestBody": {
           "content": {
-            "application/json;charset\u003dUTF-8": {
+            "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSearchRequest"
               }
@@ -721,7 +726,7 @@
     "/v1/auth/me": {
       "get": {
         "tags": [
-          "Auth API"
+          "Auth"
         ],
         "summary": "user info",
         "operationId": "userInfo",
@@ -879,9 +884,12 @@
             "type": "integer",
             "format": "int64"
           },
-          "imageId": {
-            "type": "integer",
-            "format": "int64"
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
           }
         }
       },
@@ -1076,10 +1084,6 @@
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
           "host": {
             "type": "string"
           },
@@ -1097,36 +1101,26 @@
           }
         }
       },
-      "JsonNullableBoolean": {
-        "type": "object",
-        "properties": {
-          "present": {
-            "type": "boolean"
-          }
-        }
-      },
-      "JsonNullableString": {
-        "type": "object",
-        "properties": {
-          "present": {
-            "type": "boolean"
-          }
-        }
-      },
       "UpdateSearchRequest": {
+        "required": [
+          "description",
+          "publish",
+          "query",
+          "queryKey"
+        ],
         "type": "object",
         "properties": {
           "queryKey": {
-            "$ref": "#/components/schemas/JsonNullableString"
+            "type": "string"
           },
           "query": {
-            "$ref": "#/components/schemas/JsonNullableString"
+            "type": "string"
           },
           "description": {
-            "$ref": "#/components/schemas/JsonNullableString"
+            "type": "string"
           },
           "publish": {
-            "$ref": "#/components/schemas/JsonNullableBoolean"
+            "type": "boolean"
           }
         }
       },
@@ -1208,12 +1202,12 @@
           "sort": {
             "$ref": "#/components/schemas/SortObject"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/PageableObject"
           },
           "empty": {
             "type": "boolean"
@@ -1252,10 +1246,10 @@
           "empty": {
             "type": "boolean"
           },
-          "unsorted": {
+          "sorted": {
             "type": "boolean"
           },
-          "sorted": {
+          "unsorted": {
             "type": "boolean"
           }
         }

@@ -2,6 +2,8 @@ package com.miniyus.friday.hosts.domain.searches;
 
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record CreateSearch(
     Long hostId,
@@ -10,6 +12,6 @@ public record CreateSearch(
     String query,
     String description,
     boolean publish,
-    Long imageId
+    List<Long> images
 ) {
 }

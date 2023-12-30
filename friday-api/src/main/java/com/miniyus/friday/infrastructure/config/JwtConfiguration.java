@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * JWT Configuration
  *
  * @author miniyus
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Data
 @Configuration

@@ -13,7 +13,7 @@ import java.lang.annotation.*;
  * Persistence Adapter. for persistence layer
  *
  * @author miniyus
- * @date 2023/09/09
+ * @since 2023/09/09
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

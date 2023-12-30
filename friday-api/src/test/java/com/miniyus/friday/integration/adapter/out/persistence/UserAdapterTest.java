@@ -1,17 +1,17 @@
 package com.miniyus.friday.integration.adapter.out.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
+import com.miniyus.friday.hexagonal.adapter.PersistenceTest;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.miniyus.friday.users.adapter.out.persistence.UserAdapter;
+import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
+import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.users.domain.UserFilter;
-import org.junit.jupiter.api.Test;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,12 +23,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import com.github.javafaker.Faker;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.users.adapter.out.persistence.UserAdapter;
-import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
-import com.miniyus.friday.users.domain.User;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * [description]
@@ -41,7 +42,7 @@ import com.miniyus.friday.users.domain.User;
 @ActiveProfiles("test")
 @Testcontainers
 @Transactional
-public class UserAdapterTest {
+public class UserAdapterTest extends PersistenceTest<Long, UserEntity> {
 
     @Autowired
     private UserAdapter userAdapter;
@@ -193,10 +194,7 @@ public class UserAdapterTest {
             .email(selectUser.getEmail())
             .build();
 
-        var users = userAdapter.findAll(
-            filter,
-            getPageable()
-        );
+        var users = userAdapter.findAll(filter);
 
         assertThat(users).isNotNull()
             .isNotEmpty()
@@ -211,10 +209,7 @@ public class UserAdapterTest {
             .name(selectUser.getName())
             .build();
 
-        var users = userAdapter.findAll(
-            filter,
-            getPageable()
-        );
+        var users = userAdapter.findAll(filter);
 
         assertThat(users).isNotNull()
             .isNotEmpty()
@@ -230,10 +225,7 @@ public class UserAdapterTest {
             .createdAtEnd(testEntities.get(testEntities.size() - 1).getCreatedAt())
             .build();
 
-        var users = userAdapter.findAll(
-            filter,
-            getPageable()
-        );
+        var users = userAdapter.findAll(filter);
 
         assertThat(users).isNotNull()
             .isNotEmpty();
@@ -248,10 +240,7 @@ public class UserAdapterTest {
             .updatedAtEnd(testEntities.get(testEntities.size() - 1).getUpdatedAt())
             .build();
 
-        var users = userAdapter.findAll(
-            filter,
-            getPageable()
-        );
+        var users = userAdapter.findAll(filter);
 
         assertThat(users).isNotNull()
             .isNotEmpty();
@@ -268,12 +257,14 @@ public class UserAdapterTest {
             .updatedAtEnd(testEntities.get(testEntities.size() - 1).getUpdatedAt())
             .build();
 
-        var users = userAdapter.findAll(
-            filter,
-            getPageable()
-        );
+        var users = userAdapter.findAll(filter);
 
         assertThat(users).isNotNull()
             .isNotEmpty();
+    }
+
+    @Override
+    protected UserEntity createTestEntity(int index) {
+        return null;
     }
 }

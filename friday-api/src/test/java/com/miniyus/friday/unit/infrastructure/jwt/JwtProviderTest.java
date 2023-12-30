@@ -1,18 +1,14 @@
 package com.miniyus.friday.unit.infrastructure.jwt;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import java.util.Date;
-
-import com.github.javafaker.Faker;
+import com.miniyus.friday.hexagonal.application.UsecaseTest;
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.miniyus.friday.infrastructure.jwt.JwtProvider;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Jwt Provider Test
@@ -20,8 +16,7 @@ import com.miniyus.friday.infrastructure.jwt.JwtProvider;
  * @author miniyus
  * @date 2023/09/04
  */
-@ExtendWith(MockitoExtension.class)
-public class JwtProviderTest {
+public class JwtProviderTest extends UsecaseTest {
 
     private JwtProvider jwtProvider;
 

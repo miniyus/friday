@@ -14,10 +14,10 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import java.io.IOException;
 
 /**
- * [description]
+ * Login Success Handler
  *
  * @author seongminyoo
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Slf4j
 @RequiredArgsConstructor

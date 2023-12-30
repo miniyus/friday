@@ -14,11 +14,12 @@ import java.time.LocalDateTime;
 
 /**
  * Base Entity
- * 
- * auto fill createdAt, updatedAt
- * 
- * @author seongminyoo
- * @date 2023/09/04
+ * <p>
+ * auto-fill createdAt, updatedAt
+ * </p>
+ *
+ * @author miniyus
+ * @since 2023/09/04
  */
 @Getter
 @SuperBuilder

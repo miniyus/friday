@@ -10,7 +10,7 @@ import java.util.List;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/06
+ * @since 2023/09/06
  */
 public interface RetrieveUserQuery {
     List<User> findAll();

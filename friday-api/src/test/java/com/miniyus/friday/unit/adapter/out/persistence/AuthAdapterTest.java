@@ -1,22 +1,21 @@
 package com.miniyus.friday.unit.adapter.out.persistence;
 
-import com.github.javafaker.Faker;
-import com.miniyus.friday.users.adapter.out.persistence.AuthAdapter;
-import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.hexagonal.application.UsecaseTest;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
-import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.miniyus.friday.users.adapter.out.persistence.AuthAdapter;
+import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.users.domain.UserRole;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -27,8 +26,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-public class AuthAdapterTest {
+
+public class AuthAdapterTest extends UsecaseTest {
     @Mock
     private CustomUserDetailsService userDetailsService;
 
@@ -53,10 +52,9 @@ public class AuthAdapterTest {
             .id(1L)
             .email(faker.internet().safeEmailAddress())
             .password(faker.internet().password())
-            .name(faker.name().username())
+            .name(faker.name().name())
             .role(UserRole.USER)
             .build();
-
 
         jwtProvider = new JwtProvider(
             faker.internet().uuid(),
@@ -116,20 +114,19 @@ public class AuthAdapterTest {
 
     @Test
     public void refreshTest() {
+        var userEntity = UserEntity.create(
+            testUser.getSnsId(),
+            testUser.getProvider(),
+            testUser.getEmail(),
+            testUser.getPassword(),
+            testUser.getName(),
+            testUser.getRole()
+        );
+
         when(jwtService.getUserByRefreshToken(any()))
             .thenReturn(
                 Optional.of(
-                    new UserEntity(
-                        testUser.getId(),
-                        null,
-                        null,
-                        testUser.getUsername(),
-                        testUser.getPassword(),
-                        testUser.getName(),
-                        testUser.getRole(),
-                        null
-                    )
-                )
+                    userEntity.setId(testUser.getId()))
             );
 
         var testRefresh = jwtProvider.createRefreshToken();

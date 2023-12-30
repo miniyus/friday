@@ -25,7 +25,7 @@ import java.util.Map;
  * The type Principal user service.
  *
  * @author miniyus
- * @date 2023/08/27
+ * @since 2023/08/27
  */
 @Service
 @RequiredArgsConstructor
@@ -44,14 +44,11 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      * @param attributes the attributes
      * @return the principal user info
      * @author miniyus
-     * @date 2023/08/27
+     * @since 2023/08/27
      */
     private PrincipalUserInfo buildPrincipalUserInfo(UserEntity entity,
         Map<String, Object> attributes) {
-        SocialProvider provider = null;
-        if (entity.getProvider() != null) {
-            provider = SocialProvider.of(entity.getProvider());
-        }
+        SocialProvider provider = entity.getProvider();
 
         return PrincipalUserInfo.builder()
             .id(entity.getId())
@@ -76,7 +73,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      * @param entity the entity
      * @return the authorities
      * @author miniyus
-     * @date 2023/08/27
+     * @since 2023/08/27
      */
     private Collection<? extends GrantedAuthority> getAuthorities(UserEntity entity) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
@@ -92,12 +89,12 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      * @param userInfo the user info
      * @return the principal user info
      * @author miniyus
-     * @date 2023/08/27
+     * @since 2023/08/27
      */
     public PrincipalUserInfo create(OAuth2UserInfo userInfo) {
         UserEntity entity = UserEntity.builder()
             .snsId(userInfo.snsId())
-            .provider(userInfo.getProvider().value())
+            .provider(userInfo.getProvider())
             .email(userInfo.email())
             .password(null)
             .name(userInfo.name())
@@ -115,7 +112,7 @@ public class PrincipalUserService implements OAuth2UserService<OAuth2UserRequest
      * @return the OAuth2User representing the loaded user
      * @throws OAuth2AuthenticationException if an error occurs during the authentication process
      * @author miniyus
-     * @date 2023/08/27
+     * @since 2023/08/27
      */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

@@ -2,21 +2,21 @@ http:
   routers:
     http-api:
       rule: "Host(`{{env "API_SERVER_NAME"}}`)"
-      service: "friday-api"
+      service: "api"
       entrypoints:
         - "web"
       middlewares:
         - redirect
     https-api:
       rule: "Host(`{{env "API_SERVER_NAME"}}`)"
-      service: "friday-api"
+      service: "api"
       entrypoints:
         - "web-secure"
       tls:
         certResolver: acmeResolver
     http-ui:
       rule: "Host(`{{env "UI_SERVER_NAME"}}`)"
-      service: "friday-ui"
+      service: "ui"
       entrypoints:
         - "web"
       middlewares:
@@ -27,6 +27,22 @@ http:
       entrypoints:
         - "web-secure"
       middlewares:
+      tls:
+        certResolver: acmeResolver
+    proxy-api:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`) && PathPrefix(`/api`)"
+      service: "api"
+      entrypoints:
+        - "web"
+      middlewares:
+        - redirect
+    secure-proxy-api:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`) && PathPrefix(`/api`)"
+      service: "api"
+      entrypoints:
+        - "web-secure"
+      middlewares:
+        - proxy-replacePath
       tls:
         certResolver: acmeResolver
   services:
@@ -44,3 +60,7 @@ http:
     redirect:
       redirectScheme:
         scheme: https
+    proxy-replacePath:
+      replacePathRegex:
+        regex: "^/api/(.*)"
+        replacement: "/$1"

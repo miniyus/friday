@@ -9,17 +9,18 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Search Entity
  *
  * @author miniyus
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Entity
 @Getter
@@ -29,13 +30,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "search")
-@Where(clause = "deleted_at is null")
+@SQLRestriction("deleted_at is null")
 @SQLDelete(sql = "UPDATE search SET deleted_at = NOW() WHERE id = ?")
 public class SearchEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    protected Long id;
+    private Long id;
 
     /**
      * The Query key.
@@ -84,11 +85,12 @@ public class SearchEntity extends BaseEntity<Long> {
     @Nullable
     private String shortUrl;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
-    private FileEntity file;
+    @OneToMany(cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "search")
+    private List<SearchFileEntity> searchFiles;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private HostEntity host;
 
     /**
@@ -99,14 +101,13 @@ public class SearchEntity extends BaseEntity<Long> {
      * @param description the description
      * @param publish     the publishing status
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public static SearchEntity create(
         String queryKey,
         String query,
         String description,
-        boolean publish,
-        FileEntity file
+        boolean publish
     ) {
         return SearchEntity.builder()
             .queryKey(queryKey)
@@ -114,7 +115,6 @@ public class SearchEntity extends BaseEntity<Long> {
             .description(description)
             .publish(publish)
             .views(0)
-            .file(file)
             .build();
     }
 
@@ -126,20 +126,18 @@ public class SearchEntity extends BaseEntity<Long> {
      * @param description a String representing the description
      * @param publish     a boolean indicating whether to publish
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void update(
         String queryKey,
         String query,
         String description,
-        boolean publish,
-        FileEntity file
+        boolean publish
     ) {
         this.queryKey = queryKey;
         this.query = query;
         this.description = description;
         this.publish = publish;
-        this.file = file;
     }
 
 
@@ -147,7 +145,7 @@ public class SearchEntity extends BaseEntity<Long> {
      * Publish.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void publish() {
         this.publish = true;
@@ -158,7 +156,7 @@ public class SearchEntity extends BaseEntity<Long> {
      * Unpublish.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void unpublish() {
         this.publish = false;
@@ -169,7 +167,7 @@ public class SearchEntity extends BaseEntity<Long> {
      * Increment views.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void incrementViews() {
         this.views++;
@@ -180,7 +178,7 @@ public class SearchEntity extends BaseEntity<Long> {
      * Delete.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

@@ -29,6 +29,16 @@ public class EnumUtil {
         return selectList;
     }
 
+    /**
+     * A method that returns an enum constant of the specified enum type with the specified value.
+     *
+     * @param enumClass the Class object of the enum type from which to return a constant
+     * @param value     the string value of the constant to return
+     * @param <T>       the enum type whose constant is to be returned
+     * @return the enum constant of the specified enum type with the specified value
+     * @throws IllegalArgumentException if the specified enum type has no constant with the
+     *                                  specified value
+     */
     @SuppressWarnings("unchecked")
     public static <T extends Enum<?>> T of(Class<T> enumClass, String value) {
         if (enumClass.isEnum()) {

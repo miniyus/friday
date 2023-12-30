@@ -1,0 +1,8 @@
+{
+  "servers": [
+    {
+      "url": "http://localhost:8888",
+      "description": "Development server"
+    }
+  ]
+}

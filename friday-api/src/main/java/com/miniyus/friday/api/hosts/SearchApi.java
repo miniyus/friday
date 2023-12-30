@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
 
-@Tag(name = "Search API")
+@Tag(name = "Searches")
 public interface SearchApi {
     String PATH = HostApi.PATH + "/{hostId}/searches";
 

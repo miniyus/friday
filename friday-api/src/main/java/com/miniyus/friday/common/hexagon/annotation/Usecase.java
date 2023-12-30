@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.lang.annotation.*;
 
 /**
- * [description]
+ * usecase.
  *
  * @author miniyus
- * @date 2023/09/09
+ * @since 2023/09/09
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

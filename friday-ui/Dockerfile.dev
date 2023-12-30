@@ -1,12 +1,11 @@
-FROM node:20.10-alpine as build
+FROM node:20.10-alpine AS build
 
 LABEL maintainer="miniyus"
 
-WORKDIR /react
+WORKDIR /app
 
 COPY package.json .
 COPY yarn.lock .
-COPY .env .
 
 RUN yarn install
 
@@ -15,7 +14,5 @@ COPY docker-entrypoint /
 RUN chmod +x /docker-entrypoint
 
 EXPOSE 3000
-
-COPY . .
 
 ENTRYPOINT [ "/docker-entrypoint" ]

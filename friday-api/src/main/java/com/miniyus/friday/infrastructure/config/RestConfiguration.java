@@ -2,7 +2,6 @@ package com.miniyus.friday.infrastructure.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.javafaker.Faker;
 import com.miniyus.friday.common.fake.FakeInjector;
 import com.miniyus.friday.common.request.FormDataParameterResolver;
 import com.miniyus.friday.common.request.QueryParameterResolver;
@@ -10,6 +9,7 @@ import com.miniyus.friday.common.util.FakeUtil;
 import com.miniyus.friday.common.util.RequestFilter;
 import com.miniyus.friday.infrastructure.security.AuthUserMethodResolver;
 import lombok.RequiredArgsConstructor;
+import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -30,20 +30,47 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableTransactionManagement(proxyTargetClass = true)
 public class RestConfiguration implements WebMvcConfigurer {
+    /**
+     * api endpoint prefix
+     */
     public static final String PREFIX = "/v1";
+
+    /**
+     * query parameter resolver
+     */
     private final QueryParameterResolver queryParameterResolver;
+
+    /**
+     * form data parameter resolver
+     */
     private final FormDataParameterResolver formDataParameterResolver;
+
+    /**
+     * auth user resolver
+     */
     private final AuthUserMethodResolver authUserMethodResolver;
 
-    @Value("${app.name}")
+    /**
+     * application name
+     */
+    @Value("${info.app.name}")
     private String name;
 
-    @Value("${app.version}")
+    /**
+     * application version
+     */
+    @Value("${info.app.version}")
     private String version;
 
+    /**
+     * app secret
+     */
     @Value("${app.secret}")
     private String secret;
 
+    /**
+     * active spring profile
+     */
     @Value("${spring.profiles.active}")
     private String profile;
 

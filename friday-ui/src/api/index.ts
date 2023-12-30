@@ -8,12 +8,18 @@ import BaseClient from '@api/base/BaseClient';
 import { makePath } from '@api/utils/str';
 import { AxiosError, AxiosRequestHeaders } from 'axios';
 
+/**
+ * ClientType
+ */
 interface ClientType<T> {
     new (client: ApiClient): T;
 
     readonly prefix: string;
 }
 
+/**
+ * Api configuration.
+ */
 export interface ApiConfig {
     host?: string | null;
     prefix?: string | null;
@@ -22,6 +28,12 @@ export interface ApiConfig {
     errorHandler?: ErrorHandler;
 }
 
+/**
+ * Checks if the given response is an error response.
+ *
+ * @param {any} res - The response object to check.
+ * @return {boolean} Returns true if the response is an error response, false otherwise.
+ */
 export const isErrorResponse = (res: any): boolean => {
     if (res instanceof ErrorResponse) {
         return true;
@@ -30,6 +42,12 @@ export const isErrorResponse = (res: any): boolean => {
     return 'error' in res && 'code' in res && 'message' in res;
 };
 
+/**
+ * Serializes the error response.
+ *
+ * @param {any} res - the response object
+ * @return {ErrorResInterface} the serialized error response
+ */
 export const serializeErrorResponse = (res: any): ErrorResInterface => {
     if (res instanceof ErrorResponse) {
         return res.serialize();
@@ -46,6 +64,12 @@ export const serializeErrorResponse = (res: any): ErrorResInterface => {
     }
 };
 
+/**
+ * A function that serves as the default error handler.
+ *
+ * @param {any} error - The error object that is being handled.
+ * @return {ErrorResInterface} The error response object.
+ */
 export const defaultErrorHandler: ErrorHandler = (
     error: any,
 ): ErrorResInterface => {
@@ -138,11 +162,23 @@ export const api = (apiConfig: ApiConfig): ApiClient => {
     return client;
 };
 
+/**
+ * Creates a new instance of the specified client type using the given configuration.
+ *
+ * @param {ClientType<T extends BaseClient>} client - The client type to instantiate.
+ * @param {ApiConfig} config - The configuration for the API.
+ * @returns {T extends BaseClient} - The new instance of the client type.
+ */
 const makeClient = <T extends BaseClient>(
     client: ClientType<T>,
     config: ApiConfig,
 ): T => {
-    return new client(api(config));
+    return new client(
+        api({
+            ...config,
+            prefix: client.prefix,
+        }),
+    );
 };
 
 export default makeClient;

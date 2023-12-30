@@ -13,6 +13,7 @@ import com.miniyus.friday.infrastructure.security.social.handler.OAuth2FailureHa
 import com.miniyus.friday.infrastructure.security.social.handler.OAuth2SuccessHandler;
 import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,26 +45,81 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * Spring Security Configuration
  *
  * @author miniyus
- * @date 2023/08/27
+ * @since 2023/08/27
  */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-    public static final String LOGIN_URL = "/v1/auth/signin";
-    public static final String USERINFO_URL = "/v1/auth/me";
-    public static final String LOGOUT_URL = "/v1/auth/logout";
-    public static final String SIGNUP_URL = "/v1/auth/signup";
-    public static final String REFRESH_URL = "/v1/auth/refresh-token";
+    /**
+     * password user login url
+     */
+    public static final String LOGIN_URL = RestConfiguration.PREFIX + "auth/signin";
+
+    /**
+     * user info url
+     */
+    public static final String USERINFO_URL = RestConfiguration.PREFIX + "auth/me";
+
+    /**
+     * logout url
+     */
+    public static final String LOGOUT_URL = RestConfiguration.PREFIX + "auth/logout";
+
+    /**
+     * password user signup url
+     */
+    public static final String SIGNUP_URL = RestConfiguration.PREFIX + "auth/signup";
+
+    /**
+     * refresh token url
+     */
+    public static final String REFRESH_URL = RestConfiguration.PREFIX + "auth/refresh-token";
+
+    /**
+     * oauth2 login url
+     */
     public static final String OAUTH2_LOGIN_URL = "/oauth2/authorization";
+
+    /**
+     * oauth2 callback url
+     */
     public static final String OAUTH2_CALLBACK_URL = "/oauth2/callback";
 
+    /**
+     * user service
+     */
     private final OAuth2UserService<OAuth2UserRequest, OAuth2User> userService;
+
+    /**
+     * user details service
+     */
     private final UserDetailsService userDetailsService;
+
+    /**
+     * message source
+     */
     private final MessageSource messageSource;
+
+    /**
+     * object mapper
+     */
     private final ObjectMapper objectMapper;
+
+    /**
+     * jwt service
+     */
     private final JwtService jwtService;
+
+    /**
+     * app secret.
+     * <p>
+     * check your application.yml
+     * </p>
+     */
+    @Value("${app.secret}")
+    private String appSecret;
 
     /**
      * Generates the function comment for the given function body.
@@ -91,6 +147,7 @@ public class SecurityConfiguration {
                 AntPathRequestMatcher.antMatcher("/actuator/**"),
                 AntPathRequestMatcher.antMatcher("/api-docs/**"),
                 AntPathRequestMatcher.antMatcher("/v3/api-docs/**"),
+                AntPathRequestMatcher.antMatcher("/errors/**"),
                 AntPathRequestMatcher.antMatcher(LOGIN_URL),
                 AntPathRequestMatcher.antMatcher(SIGNUP_URL),
                 AntPathRequestMatcher.antMatcher(REFRESH_URL)
@@ -147,6 +204,11 @@ public class SecurityConfiguration {
         return http.build();
     }
 
+    /**
+     * Creates a password authentication filter.
+     *
+     * @return The created password authentication filter
+     */
     @Bean
     public Filter passwordAuthenticationFilter() {
         AntPathRequestMatcher loginPathRequestMatcher = new AntPathRequestMatcher(
@@ -155,7 +217,8 @@ public class SecurityConfiguration {
 
         PasswordAuthenticationFilter loginFilter = new PasswordAuthenticationFilter(
             loginPathRequestMatcher,
-            objectMapper);
+            objectMapper,
+            appSecret);
 
         loginFilter.setAuthenticationManager(authenticationManager());
         loginFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
@@ -170,11 +233,21 @@ public class SecurityConfiguration {
         );
     }
 
+    /**
+     * Creates and returns an instance of the AuthenticationEntryPoint interface.
+     *
+     * @return An instance of the AuthenticationEntryPoint interface.
+     */
     @Bean
     public AuthenticationEntryPoint authenticationEntryPoint() {
         return new OAuth2AuthenticationEntryPoint(authResponseHandler());
     }
 
+    /**
+     * Creates and returns an instance of the AuthenticationSuccessHandler interface.
+     *
+     * @return an instance of the AuthenticationSuccessHandler interface
+     */
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return new OAuth2SuccessHandler(
@@ -183,6 +256,12 @@ public class SecurityConfiguration {
         );
     }
 
+    /**
+     * Creates an instance of the AuthenticationFailureHandler interface using the
+     * OAuth2FailureHandler implementation.
+     *
+     * @return an instance of the AuthenticationFailureHandler interface
+     */
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new OAuth2FailureHandler(
@@ -190,6 +269,11 @@ public class SecurityConfiguration {
         );
     }
 
+    /**
+     * Creates a bean of type AccessDeniedHandler.
+     *
+     * @return a new instance of AccessDeniedHandler
+     */
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new OAuth2AccessDeniedHandler(authResponseHandler());
@@ -197,6 +281,8 @@ public class SecurityConfiguration {
 
     /**
      * 암호화 모듈 등록
+     *
+     * @return BCryptPasswordEncoder is default password encoder
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -205,6 +291,8 @@ public class SecurityConfiguration {
 
     /**
      * 자체 로그인을 위한 인증 매니저 등록
+     *
+     * @return DaoAuthenticationProvider is default authentication provider
      */
     @Bean
     public AuthenticationManager authenticationManager() {
@@ -216,29 +304,34 @@ public class SecurityConfiguration {
 
     /**
      * 로그인 성공 시 호출되는 LoginSuccessJWTProviderHandler 빈 등록
+     *
+     * @return LoginSuccessHandler is default login success handler
      */
     @Bean
-    public LoginSuccessHandler loginSuccessHandler() {
+    public AuthenticationSuccessHandler loginSuccessHandler() {
         return new LoginSuccessHandler(jwtService, authResponseHandler());
     }
 
     /**
      * 로그인 실패 시 호출되는 LoginFailureHandler 빈 등록
+     *
+     * @return LoginFailureHandler is default login failure handler
      */
     @Bean
-    public LoginFailureHandler loginFailureHandler() {
+    public AuthenticationFailureHandler loginFailureHandler() {
         return new LoginFailureHandler(authResponseHandler());
     }
 
     /**
      * jwt 인증 및 유효 여부 체크 핸들러
+     *
+     * @return JwtAuthenticationFilter is default jwt authentication filter
      */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
         return new JwtAuthenticationFilter(
             jwtService,
             userDetailsService,
-            objectMapper,
             LOGIN_URL);
     }
 }

@@ -3,6 +3,8 @@ package com.miniyus.friday.hosts.domain.searches;
 import lombok.Builder;
 import org.openapitools.jackson.nullable.JsonNullable;
 
+import java.util.List;
+
 @Builder
 public record PatchSearch(
     SearchIds ids,
@@ -10,6 +12,6 @@ public record PatchSearch(
     JsonNullable<String> query,
     JsonNullable<String> description,
     JsonNullable<Boolean> publish,
-    JsonNullable<Long> imageId
+    JsonNullable<List<Long>> images
 ) {
 }

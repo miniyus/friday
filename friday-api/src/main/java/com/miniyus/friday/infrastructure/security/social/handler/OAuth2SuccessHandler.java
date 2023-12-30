@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Slf4j
 @Component

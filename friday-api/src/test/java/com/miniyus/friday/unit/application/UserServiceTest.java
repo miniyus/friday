@@ -1,6 +1,5 @@
 package com.miniyus.friday.unit.application;
 
-import com.github.javafaker.Faker;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.hexagonal.application.UsecaseTest;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
@@ -8,6 +7,7 @@ import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.users.application.port.out.UserPort;
 import com.miniyus.friday.users.application.service.UserService;
 import com.miniyus.friday.users.domain.User;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

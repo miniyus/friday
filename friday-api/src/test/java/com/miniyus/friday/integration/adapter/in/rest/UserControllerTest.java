@@ -1,5 +1,7 @@
 package com.miniyus.friday.integration.adapter.in.rest;
 
+import com.miniyus.friday.integration.annotation.WithMockCustomUser;
+import com.miniyus.friday.integration.document.UserDocument;
 import com.miniyus.friday.users.adapter.in.rest.UserController;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
@@ -8,10 +10,8 @@ import com.miniyus.friday.users.adapter.in.rest.resource.ResetPasswordResource;
 import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
-import com.miniyus.friday.users.domain.UserRole;
 import com.miniyus.friday.users.domain.User;
-import com.miniyus.friday.integration.annotation.WithMockCustomUser;
-import com.miniyus.friday.integration.document.UserDocument;
+import com.miniyus.friday.users.domain.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

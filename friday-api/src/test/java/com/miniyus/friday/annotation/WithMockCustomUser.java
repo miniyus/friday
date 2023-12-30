@@ -1,14 +1,14 @@
 package com.miniyus.friday.annotation;
 
-import com.precisionbio.cuttysark.users.domain.Client;
-import com.precisionbio.cuttysark.users.domain.UserRole;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
+import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * [description]
+ * WithMockCustomUser
  *
  * @author miniyus
  * @date 2023/09/07
@@ -38,7 +38,7 @@ public @interface WithMockCustomUser {
     UserRole role() default UserRole.USER;
 
     /**
-     * @return client
+     * @return SocialProvider
      */
-    Client client() default Client.HUMAN;
+    SocialProvider provider() default SocialProvider.NONE;
 }

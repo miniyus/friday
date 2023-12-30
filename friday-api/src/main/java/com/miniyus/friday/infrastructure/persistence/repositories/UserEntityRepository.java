@@ -9,7 +9,7 @@ import java.util.Optional;
  * User Repository
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 public interface UserEntityRepository extends JpaRepository<UserEntity, Long>,
     QUserEntityRepository {

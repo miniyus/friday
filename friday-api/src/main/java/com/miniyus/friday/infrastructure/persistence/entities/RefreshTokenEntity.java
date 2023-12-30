@@ -14,7 +14,7 @@ import org.springframework.lang.NonNull;
  * Refresh Token Entity
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Getter
 @Builder

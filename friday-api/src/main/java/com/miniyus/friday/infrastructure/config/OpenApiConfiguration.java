@@ -52,10 +52,10 @@ public class OpenApiConfiguration {
 
     private final ObjectMapper objectMapper;
 
-    @Value("${app.name}")
+    @Value("${info.app.name}")
     private String name;
 
-    @Value("${app.version}")
+    @Value("${info.app.version}")
     private String version;
 
     @Bean
@@ -65,7 +65,7 @@ public class OpenApiConfiguration {
         Info info = new Info()
             .version(version)
             .title(name)
-            .description("Cuttysark API Documentation.");
+            .description("Friday API Documentation.");
 
         SecurityScheme securityScheme = new SecurityScheme()
             .name(tokenType)
@@ -155,7 +155,8 @@ public class OpenApiConfiguration {
 
     private List<Server> servers() throws IOException {
         List<Server> servers = new ArrayList<>();
-        servers.add(new Server().url("http://localhost:8888"));
+        servers.add(new Server().url("http://localhost:8080")
+            .description("Local"));
 
         ClassPathResource resource = new ClassPathResource("static/openapi/servers.json");
         if (resource.exists()) {

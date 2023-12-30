@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * User Business Domain
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Getter
 @Builder

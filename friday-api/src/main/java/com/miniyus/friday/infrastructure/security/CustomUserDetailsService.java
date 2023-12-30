@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/09
+ * @since 2023/09/09
  */
 public interface CustomUserDetailsService extends UserDetailsService {
     PrincipalUserInfo create(PasswordUserInfo authentication);

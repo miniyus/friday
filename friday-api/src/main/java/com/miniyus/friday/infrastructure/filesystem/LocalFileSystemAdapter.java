@@ -1,13 +1,16 @@
 package com.miniyus.friday.infrastructure.filesystem;
 
+import com.miniyus.friday.common.util.UploadFileUtil;
 import com.miniyus.friday.infrastructure.filesystem.exception.FileNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.InvalidMediaTypeException;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.MimeType;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -45,18 +48,42 @@ public class LocalFileSystemAdapter implements FileSystemAdapter {
     @Override
     public URL getUrl(String path) {
         try {
-            return new ClassPathResource(path).getURL();
+            return getFile(path).toURI().toURL();
         } catch (IOException e) {
-            throw new FileNotFoundException("File not found", e);
+            throw newFileNotFoundException(e);
         }
     }
 
     @Override
     public ResponseEntity<UrlResource> download(String path) {
-        UrlResource resource = new UrlResource(getUrl(path));
-        String contentDisposition = "attachment; filename=\"" + resource.getFilename() + "\"";
+        UrlResource resource;
+        String filename;
+        String contentDisposition;
+        MimeType mimeType;
+        long contentLength;
+
+        try {
+            resource = new UrlResource("file:" + makePath(BASE_PATH, path));
+            contentLength = resource.contentLength();
+            filename = resource.getFilename();
+            contentDisposition = "attachment; filename=\"" + filename + "\"";
+            mimeType = UploadFileUtil.getMimeType(path);
+        } catch (IOException e) {
+            throw newFileNotFoundException(e);
+        }
+
+        MediaType mediaType;
+
+        try {
+            mediaType = MediaType.parseMediaType(mimeType.toString());
+        } catch (InvalidMediaTypeException e) {
+            mediaType = MediaType.APPLICATION_OCTET_STREAM;
+        }
+
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+            .contentLength(contentLength)
+            .contentType(mediaType)
             .body(resource);
     }
 
@@ -65,7 +92,7 @@ public class LocalFileSystemAdapter implements FileSystemAdapter {
         try {
             return Files.deleteIfExists(Path.of(getFile(path).getPath()));
         } catch (IOException e) {
-            throw new FileNotFoundException("File not found", e);
+            throw newFileNotFoundException(e);
         }
     }
 
@@ -94,5 +121,9 @@ public class LocalFileSystemAdapter implements FileSystemAdapter {
         var p = Paths.get(base, path).toString();
         return p.replace("\\", "/")
             .replace("//", "/");
+    }
+
+    private FileNotFoundException newFileNotFoundException(Throwable throwable) {
+        return new FileNotFoundException("File not found", throwable);
     }
 }

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/11
+ * @since 2023/09/11
  */
 @Builder
 public record ResetPasswordRequest(

@@ -2,15 +2,15 @@ package com.miniyus.friday.infrastructure.persistence.entities;
 
 import com.miniyus.friday.common.fake.annotation.NoFake;
 import com.miniyus.friday.infrastructure.persistence.BaseEntity;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.users.domain.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
+import org.springframework.lang.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,27 +20,31 @@ import java.util.List;
  * User Entity
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Entity
 @Getter
+@Setter
 @SuperBuilder
+@Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "auth_user")
-@Where(clause = "deleted_at IS NULL")
+@SQLRestriction("deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE auth_user SET deleted_at = NOW() WHERE id = ?")
 public class UserEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    protected Long id;
+    private Long id;
 
     @Column
     private String snsId;
 
     @Column
-    private String provider;
+    @NonNull
+    @Enumerated(EnumType.STRING)
+    private SocialProvider provider;
 
     @Column(unique = true)
     private String email;
@@ -51,6 +55,7 @@ public class UserEntity extends BaseEntity<Long> {
     @Column(nullable = false)
     private String name;
 
+    @NonNull
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
@@ -60,8 +65,20 @@ public class UserEntity extends BaseEntity<Long> {
     @NoFake
     @Builder.Default
     @OrderBy("createdAt DESC")
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LoginHistoryEntity> loginHistories = new ArrayList<>();
+
+    @NoFake
+    @Builder.Default
+    @OrderBy("createdAt DESC")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<HostEntity> hosts = new ArrayList<>();
+
+    @NoFake
+    @Builder.Default
+    @OrderBy("createdAt DESC")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<FileEntity> files = new ArrayList<>();
 
     /**
      * @param snsId    sns id
@@ -71,11 +88,11 @@ public class UserEntity extends BaseEntity<Long> {
      * @param name     name
      * @param role     role
      * @author miniyus
-     * @date 2023/09/02
+     * @since 2023/09/02
      */
     public static UserEntity create(
         String snsId,
-        String provider,
+        SocialProvider provider,
         String email,
         String password,
         String name,

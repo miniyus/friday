@@ -2,8 +2,8 @@ package com.miniyus.friday.hexagonal.application;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.javafaker.Faker;
-import com.precisionbio.cuttysark.common.fake.FakeInjector;
+import com.miniyus.friday.common.fake.FakeInjector;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

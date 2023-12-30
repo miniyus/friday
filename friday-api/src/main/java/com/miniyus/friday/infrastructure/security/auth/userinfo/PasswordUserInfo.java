@@ -11,7 +11,7 @@ import java.io.Serializable;
  * password authentication user info
  *
  * @author seongminyoo
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Builder
 public record PasswordUserInfo(

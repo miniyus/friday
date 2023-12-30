@@ -9,7 +9,9 @@ services:
       args:
         JAR_FILE: friday.jar
     ports:
-      - "${API_PORT:-8080}:8080"
+      - "${API_PORT:-8888}:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - friday-db
       - friday-redis
@@ -21,8 +23,8 @@ services:
       - friday
     environment:
       # Application
-      - APP_NAME=${APPIO_NAME:-Cuttysark APPIO}
-      - APP_SECRET=${APPIO_SECRET}
+      - APP_NAME=${API_NAME:-Friday API}
+      - APP_SECRET=${API_SECRET}
       - APP_ENV=${APP_ENV}
       - APP_URL=${API_URL}
       - LOG_LEVEL=${API_LOG_LEVEL:-debug}
@@ -48,9 +50,10 @@ services:
       - KAKAO_CLIENT_SECRET=${KAKAO_CLIENT_SECRET}
       # Java Options
       - JAVA_OPTS=${JAVA_OPTS:-}
+      - ADMIN_SERVER_URL=${ADMIN_SERVER_URL:-http://host.docker.internal:4444}
   friday-db:
     container_name: friday-db
-    image: postgres:15
+    image: postgres:16-alpine
     environment:
       - POSTGRES_DB=${DB_DATABASE}
       - POSTGRES_USER=${DB_USERNAME}
@@ -99,21 +102,23 @@ services:
       - friday
   friday-traafik:
     image: traefik:latest
-    container_name: traefik
+    container_name: friday-traefik
     environment:
       API_SERVER_NAME: ${API_SERVER_NAME:-localhost/api}
       UI_SERVER_NAME: ${UI_SERVER_NAME:-localhost/ui}
     networks:
       - friday
     ports:
-      - '80:80'
-      - '443:443'
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./infrastructure/config/traefik/traefik-ssl.static.yml:/etc/traefik/traefik.yml
       - ./infrastructure/config/traefik/traefik-ssl.dynamic.yml:/etc/traefik/traefik.dynamic.yml
       - ./infrastructure/data/letsencrypt:/letsencrypt
+      - ./infrastructure/data/traefik/log:/var/log
 networks:
   friday:
     driver: bridge

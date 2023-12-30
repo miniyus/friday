@@ -2,17 +2,17 @@ package com.miniyus.friday.integration.document;
 
 import com.epages.restdocs.apispec.ResourceSnippetParametersBuilder;
 import com.epages.restdocs.apispec.Schema;
+import com.miniyus.friday.integration.RestAdapterTest;
 import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
 import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
 import com.miniyus.friday.users.adapter.in.rest.resource.ResetPasswordResource;
 import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
-import com.miniyus.friday.integration.RestAdapterTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultHandler;
 
-import static com.epages.restdocs.apispec.ResourceDocumentation.*;
+import static com.epages.restdocs.apispec.ResourceDocumentation.parameterWithName;
 import static com.miniyus.friday.integration.ApiDocumentUtils.getDocumentResultHandler;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;

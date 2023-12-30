@@ -1,15 +1,27 @@
 http:
   routers:
     http-api:
-      rule: "Host(`{{env "API_SERVER_NAME"}}`)"
-      service: "friday-api"
+      rule: "Host(`{{env "API_SERVER_NAME"}}`) && (
+              PathPrefix(`/v1`) || PathPrefix(`/v3`)
+              || PathPrefix(`/actuator`) || PathPrefix(`/api-docs`) 
+              || PathPrefix(`/docs`) || PathPrefix(`/openapi`) 
+              || PathPrefix(`/errors`)
+              )"
+      service: "api"
       entrypoints:
         - "web"
     http-ui:
       rule: "Host(`{{env "UI_SERVER_NAME"}}`)"
-      service: "friday-ui"
+      service: "ui"
       entrypoints:
         - "web"
+    proxy-api:
+      rule: "Host(`{{env "UI_SERVER_NAME"}}`) && PathPrefix(`/api`)"
+      service: "api"
+      entrypoints:
+        - "web"
+      middlewares:
+        - proxy-replacePath
   services:
     api:
       loadBalancer:
@@ -21,3 +33,8 @@ http:
         passHostHeader: true
         servers:
           - url: 'http://friday-ui:3000'
+  middlewares:
+    proxy-replacePath:
+      replacePathRegex:
+        regex: "^/api/(.*)"
+        replacement: "/$1"

@@ -3,9 +3,10 @@ package com.miniyus.friday.infrastructure.security;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.users.domain.UserRole;
-import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Value;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -17,7 +18,7 @@ import java.util.Map;
  * PrincipalUserInfo
  *
  * @author miniyus
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Builder
 @Value
@@ -30,19 +31,25 @@ import java.util.Map;
     "username"
 })
 public class PrincipalUserInfo implements UserDetails, OAuth2User {
+    @NonNull
     Long id;
 
+    @Nullable
     String snsId;
 
+    @NonNull
     SocialProvider provider;
 
+    @NonNull
     String email;
 
+    @NonNull
     String name;
 
     @Nullable
     String password;
 
+    @NonNull
     UserRole role;
 
     boolean enabled;
@@ -53,9 +60,9 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
 
     boolean accountNonLocked;
 
-    Map<String, Object> attributes;
+    transient Map<String, Object> attributes;
 
-    Collection<? extends GrantedAuthority> authorities;
+    transient Collection<? extends GrantedAuthority> authorities;
 
     /**
      * Retrieves the attributes of the object.
@@ -82,6 +89,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
      *
      * @return the name of the object
      */
+    @NonNull
     @Override
     public String getName() {
         return name;
@@ -153,7 +161,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
      *
      * @return the ID of the object, or null if it does not have an ID.
      */
-    @Nullable
+    @NonNull
     public Long getId() {
         return id;
     }
@@ -164,7 +172,7 @@ public class PrincipalUserInfo implements UserDetails, OAuth2User {
      * @return true if the user is an SNS user, false otherwise
      */
     public boolean isSnsUser() {
-        return (snsId != null && snsId.trim().isEmpty())
-            && provider != null;
+        return (snsId != null && !snsId.isBlank())
+            && !provider.equals(SocialProvider.NONE);
     }
 }

@@ -1,19 +1,23 @@
 package com.miniyus.friday.hosts.adapter.out.persistence.mapper;
 
+import com.miniyus.friday.common.error.RestErrorCode;
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.hosts.domain.Host;
-import com.miniyus.friday.hosts.domain.searches.Search;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class HostMapper {
-    public HostEntity create(Host domain, UserEntity userEntity) throws RestErrorException {
+    private final UserEntityRepository userEntityRepository;
+
+    public HostEntity create(Host domain) throws RestErrorException {
+        var userEntity = userEntityRepository.findById(domain.getUserId())
+            .orElseThrow(
+                () -> new RestErrorException(RestErrorCode.NOT_FOUND, "user.error.notFound"));
+
         return HostEntity.create(
             domain.getHostname(),
             domain.getSummary(),
@@ -36,7 +40,7 @@ public class HostMapper {
             .setPublish(domain.isPublish());
     }
 
-    public Host toDomain(HostEntity entity, List<Search> searches) {
+    public Host toDomain(HostEntity entity) {
         return new Host(
             entity.getId(),
             entity.getHost(),
@@ -47,8 +51,7 @@ public class HostMapper {
             entity.getCreatedAt(),
             entity.getUpdatedAt(),
             entity.getDeletedAt(),
-            entity.getUser().getId(),
-            searches
+            entity.getUser().getId()
         );
     }
 }

@@ -1,6 +1,6 @@
 plugins {
 	id "java"
-	id "org.springframework.boot" version "3.1.5"
+	id "org.springframework.boot" version "3.2.1"
 	id "io.spring.dependency-management" version "1.1.3"
 	id "com.epages.restdocs-api-spec" version "0.18.4"
 	id "org.hidetake.swagger.generator" version "2.18.2"
@@ -26,6 +26,16 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2022.0.3"
+    }
+}
+
+springBoot {
+	buildInfo()
+}
+
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-actuator"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
@@ -45,7 +55,7 @@ dependencies {
 	implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0"
 	implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 	implementation "io.hypersistence:hypersistence-utils-hibernate-62:3.6.1"
-	implementation "com.github.javafaker:javafaker:1.0.2"
+	implementation "net.datafaker:datafaker:2.0.2"
 	implementation "org.flywaydb:flyway-core"
 	implementation "com.auth0:java-jwt:4.4.0"
 	implementation "com.google.code.findbugs:jsr305:3.0.2"
@@ -57,6 +67,9 @@ dependencies {
 	implementation "com.querydsl:querydsl-apt"
 	implementation "com.github.downgoon:marvin:1.5.5"
     implementation "com.github.downgoon:MarvinPlugins:1.5.5"
+	implementation "com.github.maricn:logback-slack-appender:1.4.0"
+	implementation "de.codecentric:spring-boot-admin-starter-client:3.2.0"
+	implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
 	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"

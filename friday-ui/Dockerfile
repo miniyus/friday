@@ -2,9 +2,9 @@ FROM node:20.10-alpine AS build
 
 LABEL maintainer="miniyus"
 
-RUN mkdir /react
+RUN mkdir /app
 
-WORKDIR /react
+WORKDIR /app
 
 COPY . .
 
@@ -24,7 +24,7 @@ RUN npm install -g serve
 
 FROM base AS deploy
 
-WORKDIR /react
+WORKDIR /app
 
 EXPOSE 3000
 

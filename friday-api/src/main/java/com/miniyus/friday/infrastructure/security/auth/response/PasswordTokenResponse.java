@@ -6,7 +6,7 @@ import com.miniyus.friday.infrastructure.jwt.IssueToken;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 public record PasswordTokenResponse(
         Long id,

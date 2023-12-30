@@ -1,6 +1,7 @@
 package com.miniyus.friday.users.adapter.out.persistence.mapper;
 
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.stereotype.Component;
@@ -9,18 +10,19 @@ import org.springframework.stereotype.Component;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Component
 public class UserMapper {
     public UserEntity create(User domain) {
         return UserEntity.create(
             domain.getSnsId(),
-            domain.getProvider(),
+            SocialProvider
+                .ofElseNone(domain.getProvider(), true),
             domain.getEmail(),
             domain.getPassword(),
             domain.getName(),
-            UserRole.valueOf(domain.getRole())
+            UserRole.of(domain.getRole(), true)
         );
     }
 
@@ -28,11 +30,12 @@ public class UserMapper {
         return UserEntity.builder()
             .id(domain.getId())
             .snsId(domain.getSnsId())
-            .provider(domain.getProvider())
+            .provider(SocialProvider
+                .ofElseNone(domain.getProvider(), true))
             .email(domain.getEmail())
             .password(domain.getPassword())
             .name(domain.getName())
-            .role(UserRole.valueOf(domain.getRole()))
+            .role(UserRole.of(domain.getRole(), true))
             .deletedAt(domain.getDeletedAt())
             .build();
     }
@@ -45,7 +48,7 @@ public class UserMapper {
             entity.getName(),
             entity.getRole().value(),
             entity.getSnsId(),
-            entity.getProvider(),
+            entity.getProvider().value(),
             entity.getCreatedAt(),
             entity.getUpdatedAt(),
             entity.getDeletedAt());

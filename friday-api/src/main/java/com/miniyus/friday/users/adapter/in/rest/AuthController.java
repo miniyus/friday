@@ -24,7 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * Auth Controller
  *
  * @author miniyus
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @RestAdapter
 @RequiredArgsConstructor

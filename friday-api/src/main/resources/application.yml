@@ -1,13 +1,29 @@
 app:
-  name: ${APP_NAME:Cuttysark APPIO}
   secret: ${APP_SECRET:}
-  version: ${version:0.0.1-SNAPSHOT}
+info:
+  app:
+    name: ${APP_NAME:Friday API}
+    version: ${version:0.0.1-SNAPSHOT}
+  tags:
+    environment: ${APP_ENV:local}
 server:
   servlet:
     encoding:
       force-response: true
   forward-headers-strategy: framework
 spring:
+  application:
+    name: ${APP_NAME:Friday API}
+  boot:
+    admin:
+      client:
+        url: ${ADMIN_SERVER_URL:http://localhost:4444}
+        username: ${ADMIN_SERVER_USERNAME:admin}
+        password: ${ADMIN_SERVER_PASSWORD:admin}
+        instance:
+          metadata:
+            user.name: ${ADMIN_SERVER_USERNAME:admin}
+            user.password: ${ADMIN_SERVER_PASSWORD:admin}
   servlet:
     multipart:
       max-file-size: 100MB
@@ -34,13 +50,16 @@ spring:
     web:
       pageable:
         one-indexed-parameters: true
-  redis:
-    pool:
-      min-idle: 0
-      max-idle: 8
-      max-active: 8
-    host: ${REDIS_HOST:127.0.0.1}
-    port: ${REDIS_PORT:6379}
+    redis:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+    rest:
+      base-path: /api
+      detection-strategy: annotated
   messages:
     basename: i18n/messages
     encoding: UTF-8
@@ -95,9 +114,8 @@ spring:
     restart:
       enabled: true
 logging:
-  file:
-    path: ${LOG_PATH:log}
-    name: ${LOG_PATH:log}/friday-api.log
+  slack:
+    webhook-uri: ${SLACK_WEBHOOK_URI:slack-webhook-uri}
   level:
     root: warn
     undertow: warn
@@ -114,15 +132,28 @@ logging:
     com.miniyus.com.miniyus.friday.infrastructure.aspect: debug
     com.miniyus.com.miniyus.friday.infrastructure.advice: debug
     com.miniyus.com.miniyus.friday.infrastructure.task: debug
+  file:
+    name: friday.log
+    path: logs
+  pattern:
+    file: ${CONSOLE_LOG_PATTERN:%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}){faint} %clr(${LOG_LEVEL_PATTERN:%5p}) %clr(${PID:}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}}
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+  endpoint:
     env:
       show-values: ALWAYS
     configprops:
       show-values: ALWAYS
+    health:
+      show-details: ALWAYS
+    logfile:
+      enabled: true
+  info:
+    env:
+      enabled: true
 jwt:
   secret: ${JWT_SECRET:jwt-secret}
   accessToken:
@@ -139,8 +170,13 @@ springdoc:
     operationsSorter: method
     disable-swagger-default-url: true
     display-request-duration: true
+    urls:
+      - url: /openapi/friday-api.json
+        name: api
   show-actuator: true
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
   paths-to-match:
     - /v1/**
+  cache:
+    disabled: true

@@ -17,7 +17,7 @@ import java.util.Locale;
  * - default KOREA
  * 
  * @author miniyus
- * @date 2023/08/28
+ * @since 2023/08/28
  */
 @Configuration
 public class LocaleConfig implements WebMvcConfigurer {

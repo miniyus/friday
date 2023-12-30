@@ -12,7 +12,7 @@ import java.io.Serializable;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/06
+ * @since 2023/09/06
  */
 @Builder
 public record RetrieveUserRequest(

@@ -9,7 +9,7 @@ import java.util.Map;
  * [description]
  *
  * @author miniyus
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 public interface OAuth2UserInfo extends Serializable{
     String snsId();

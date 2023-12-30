@@ -1,13 +1,13 @@
 package com.miniyus.friday.unit.infrastructure.jwt;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
+import com.miniyus.friday.infrastructure.jwt.JwtProvider;
+import com.miniyus.friday.infrastructure.jwt.JwtService;
 import com.miniyus.friday.infrastructure.persistence.entities.AccessTokenEntity;
 import com.miniyus.friday.infrastructure.persistence.entities.RefreshTokenEntity;
+import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
+import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.users.domain.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,12 +15,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenEntityRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.RefreshTokenEntityRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.jwt.JwtProvider;
-import com.miniyus.friday.infrastructure.jwt.JwtService;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 /**
  * JWT Service Test

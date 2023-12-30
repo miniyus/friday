@@ -1,4 +1,4 @@
-package com.miniyus.friday.common.fake;
+package com.miniyus.friday.common.fake.exception;
 
 /**
  * Not allowed fake data to be injected from FakeInjector.

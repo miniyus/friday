@@ -6,10 +6,10 @@ import lombok.Builder;
 import java.util.Map;
 
 /**
- * [description]
+ * google user
  *
  * @author miniyus
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Builder
 public record GoogleUserInfo(

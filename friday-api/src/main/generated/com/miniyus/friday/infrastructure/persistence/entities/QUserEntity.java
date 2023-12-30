@@ -29,6 +29,10 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath email = createString("email");
 
+    public final ListPath<FileEntity, QFileEntity> files = this.<FileEntity, QFileEntity>createList("files", FileEntity.class, QFileEntity.class, PathInits.DIRECT2);
+
+    public final ListPath<HostEntity, QHostEntity> hosts = this.<HostEntity, QHostEntity>createList("hosts", HostEntity.class, QHostEntity.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final ListPath<LoginHistoryEntity, QLoginHistoryEntity> loginHistories = this.<LoginHistoryEntity, QLoginHistoryEntity>createList("loginHistories", LoginHistoryEntity.class, QLoginHistoryEntity.class, PathInits.DIRECT2);
@@ -37,7 +41,7 @@ public class QUserEntity extends EntityPathBase<UserEntity> {
 
     public final StringPath password = createString("password");
 
-    public final StringPath provider = createString("provider");
+    public final EnumPath<com.miniyus.friday.infrastructure.security.social.SocialProvider> provider = createEnum("provider", com.miniyus.friday.infrastructure.security.social.SocialProvider.class);
 
     public final EnumPath<com.miniyus.friday.users.domain.UserRole> role = createEnum("role", com.miniyus.friday.users.domain.UserRole.class);
 

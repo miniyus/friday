@@ -72,6 +72,7 @@ public class AuthUserMethodResolver implements HandlerMethodArgumentResolver {
         var userInfo = (PrincipalUserInfo) auth;
         assert annotation != null;
         if (annotation.entity()) {
+            assert userInfo.getId() != null;
             return repository.findById(userInfo.getId())
                 .orElseThrow(() -> new RestErrorException(RestErrorCode.ACCESS_DENIED));
         }

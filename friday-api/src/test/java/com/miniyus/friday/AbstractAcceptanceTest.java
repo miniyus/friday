@@ -1,54 +1,57 @@
 package com.miniyus.friday;
 
-import com.precisionbio.cuttysark.infrastructure.aws.s3.S3Service;
-import com.precisionbio.cuttysark.infrastructure.config.SecurityConfiguration;
-import com.precisionbio.cuttysark.infrastructure.security.social.SocialProvider;
-import com.precisionbio.cuttysark.users.adapter.in.auth.request.SocialLoginRequest;
-import com.precisionbio.cuttysark.users.domain.Client;
-import com.precisionbio.cuttysark.users.domain.Token;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.miniyus.friday.common.fake.FakeInjector;
+import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
+import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
+import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
+import com.miniyus.friday.users.domain.Token;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.net.URL;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public abstract class AbstractAcceptanceTest extends StubDmsClient {
+public abstract class AbstractAcceptanceTest {
     @LocalServerPort
     int port;
 
-    @MockBean
-    private S3Service s3;
-
     protected static String accessToken;
+
+    protected final ObjectMapper objectMapper;
+
+    protected final FakeInjector fakeInjector;
+
+    public AbstractAcceptanceTest() {
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        fakeInjector = new FakeInjector(
+            new Faker(),
+            objectMapper
+        );
+    }
 
     @BeforeEach
     public void setUp() throws Exception {
-        super.setup();
         RestAssured.port = port;
 
         var faker = fakeInjector.getFaker();
-        lenient().when(s3.save(any(), any())).thenReturn(true);
-        lenient().when(s3.getUrl(any())).thenReturn(new URL(faker.internet().avatar()));
     }
 
-    protected Token socialLoginTest(Client client) {
-        var req = SocialLoginRequest.builder()
-            .snsId(fakeInjector.getFaker().internet().uuid())
-            .provider(fakeInjector.randomEnum(SocialProvider.class).value())
-            .client(client.value())
-            .secret("secret")
-            .build();
+    protected Token loginTest() {
+        var req = new PasswordAuthentication(
+            fakeInjector.getFaker().internet().safeEmailAddress(),
+            fakeInjector.getFaker().internet().password(),
+            "secret"
+        );
 
         ExtractableResponse<Response> response = RestAssured
             .given().log().all()
@@ -56,20 +59,31 @@ public abstract class AbstractAcceptanceTest extends StubDmsClient {
             .header("Accept", "application/json")
             .body(req)
             .when()
-            .post(SecurityConfiguration.AUTH_TOKEN_URL)
+            .post(SecurityConfiguration.LOGIN_URL)
             .then().log().all()
             .extract();
         assertThat(response.statusCode()).isEqualTo(201);
 
-        Token token = response.body().as(Token.class);
+        PasswordTokenResponse token = response
+            .body().as(PasswordTokenResponse.class);
+
         assertThat(token).isNotNull()
-            .hasFieldOrProperty("tokenType")
-            .hasFieldOrProperty("accessToken")
-            .hasFieldOrProperty("expiresIn")
-            .hasFieldOrProperty("refreshToken");
+            .hasFieldOrProperty("id")
+            .hasFieldOrProperty("email")
+            .hasFieldOrProperty("name")
+            .hasFieldOrProperty("tokens.tokenType")
+            .hasFieldOrProperty("tokens.accessToken")
+            .hasFieldOrProperty("tokens.expiresIn")
+            .hasFieldOrProperty("tokens.refreshToken");
 
-        accessToken = token.accessToken();
+        accessToken = token.tokens()
+            .accessToken();
 
-        return token;
+        return Token.builder()
+            .accessToken(accessToken)
+            .refreshToken(token.tokens().refreshToken())
+            .tokenType(token.tokens().tokenType())
+            .expiresIn(token.tokens().expiresIn())
+            .build();
     }
 }

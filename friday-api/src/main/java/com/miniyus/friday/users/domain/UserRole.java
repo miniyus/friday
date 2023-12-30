@@ -8,7 +8,7 @@ import lombok.Getter;
  * [description]
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 @Getter
 public enum UserRole implements HasText {

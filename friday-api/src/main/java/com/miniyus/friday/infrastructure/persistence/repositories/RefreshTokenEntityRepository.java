@@ -9,7 +9,7 @@ import java.util.Optional;
  * Refresh Token Repository
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 public interface RefreshTokenEntityRepository extends CrudRepository<RefreshTokenEntity, String> {
     /**

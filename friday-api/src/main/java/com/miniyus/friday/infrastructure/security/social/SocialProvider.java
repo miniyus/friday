@@ -8,10 +8,11 @@ import lombok.Getter;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Getter
 public enum SocialProvider implements HasText {
+    NONE,
     GOOGLE,
     NAVER,
     KAKAO;
@@ -32,5 +33,21 @@ public enum SocialProvider implements HasText {
 
     public static SocialProvider of(String value, boolean ignoreCase) {
         return EnumUtil.of(SocialProvider.class, value, ignoreCase);
+    }
+
+    public static SocialProvider ofElseNone(String value) {
+        try {
+            return EnumUtil.of(SocialProvider.class, value);
+        } catch (IllegalArgumentException e) {
+            return SocialProvider.NONE;
+        }
+    }
+
+    public static SocialProvider ofElseNone(String value, boolean ignoreCase) {
+        try {
+            return EnumUtil.of(SocialProvider.class, value, ignoreCase);
+        } catch (IllegalArgumentException e) {
+            return SocialProvider.NONE;
+        }
     }
 }

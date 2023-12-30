@@ -1,13 +1,12 @@
 package com.miniyus.friday.hosts.domain;
 
 
-import com.miniyus.friday.hosts.domain.searches.Search;
+import com.miniyus.friday.common.util.JsonNullableUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Builder
@@ -23,7 +22,6 @@ public class Host {
     LocalDateTime updatedAt;
     LocalDateTime deletedAt;
     Long userId;
-    List<Search> searches;
 
     public static Host create(
         CreateHost createHost
@@ -38,19 +36,32 @@ public class Host {
             null,
             null,
             null,
-            createHost.userId(),
-            null
+            createHost.userId()
         );
     }
 
     public void patch(
         PatchHost patchHost
     ) {
-        this.hostname = patchHost.host();
-        this.summary = patchHost.summary();
-        this.description = patchHost.description();
-        this.path = patchHost.path();
-        this.publish = patchHost.publish();
+        if (JsonNullableUtil.isPresent(patchHost.host())) {
+            this.hostname = JsonNullableUtil.unwrap(patchHost.host(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(patchHost.summary())) {
+            this.summary = JsonNullableUtil.unwrap(patchHost.summary(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(patchHost.description())) {
+            this.description = JsonNullableUtil.unwrap(patchHost.description(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(patchHost.path())) {
+            this.path = JsonNullableUtil.unwrap(patchHost.path(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(patchHost.publish())) {
+            this.publish = JsonNullableUtil.unwrap(patchHost.publish(), null);
+        }
     }
 
     public void enablePublish() {

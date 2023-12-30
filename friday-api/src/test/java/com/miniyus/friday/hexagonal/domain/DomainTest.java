@@ -2,8 +2,8 @@ package com.miniyus.friday.hexagonal.domain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.github.javafaker.Faker;
-import com.precisionbio.cuttysark.common.fake.FakeInjector;
+import com.miniyus.friday.common.fake.FakeInjector;
+import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 
 public abstract class DomainTest {

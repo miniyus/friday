@@ -9,7 +9,7 @@ import java.util.Optional;
  * Access Token Repository
  *
  * @author miniyus
- * @date 2023/09/02
+ * @since 2023/09/02
  */
 public interface AccessTokenEntityRepository extends CrudRepository<AccessTokenEntity, String> {
     Optional<AccessTokenEntity> findByToken(String token);

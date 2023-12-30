@@ -9,7 +9,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.Optional;
  * Host Entity
  *
  * @author miniyus
- * @date 2023/09/04
+ * @since 2023/09/04
  */
 @Entity
 @Setter
@@ -29,13 +29,13 @@ import java.util.Optional;
 @AllArgsConstructor
 @Accessors(chain = true)
 @Table(name = "host")
-@Where(clause = "deleted_at is null")
+@SQLRestriction("deleted_at IS NULL")
 @SQLDelete(sql = "UPDATE host SET deleted_at = NOW() WHERE id = ?")
 public class HostEntity extends BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    protected Long id;
+    private Long id;
 
     /**
      * The Host.
@@ -65,16 +65,19 @@ public class HostEntity extends BaseEntity<Long> {
     /**
      * The Deleted at.
      */
-    @Column(nullable = true)
+    @Column
     private LocalDateTime deletedAt;
 
     /**
      * The User.
      */
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "host")
+    @OneToMany(fetch = FetchType.LAZY,
+        cascade = CascadeType.ALL,
+        orphanRemoval = true,
+        mappedBy = "host")
     private List<SearchEntity> searches;
 
     /**
@@ -86,7 +89,7 @@ public class HostEntity extends BaseEntity<Long> {
      * @param path        the path
      * @param publish     the publishing status
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public static HostEntity create(
         String host,
@@ -115,7 +118,7 @@ public class HostEntity extends BaseEntity<Long> {
      * @param path        The new path value.
      * @param publish     The new publishing value.
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void update(String host, String summary, String description, String path,
         boolean publish) {
@@ -130,7 +133,7 @@ public class HostEntity extends BaseEntity<Long> {
      * Publishes the data.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void publish() {
         this.publish = true;
@@ -140,7 +143,7 @@ public class HostEntity extends BaseEntity<Long> {
      * Unpublishes the item by setting the 'publish' flag to false.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void unpublish() {
         this.publish = false;
@@ -150,7 +153,7 @@ public class HostEntity extends BaseEntity<Long> {
      * Deletes the record by setting the `deletedAt` field to the current date and time.
      *
      * @author miniyus
-     * @date 2023/09/04
+     * @since 2023/09/04
      */
     public void delete() {
         this.deletedAt = LocalDateTime.now();

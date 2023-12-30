@@ -3,6 +3,8 @@ package com.miniyus.friday.hosts.adapter.in.rest.request;
 import com.miniyus.friday.hosts.domain.searches.CreateSearch;
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record CreateSearchRequest(
     String queryKey,
@@ -10,7 +12,7 @@ public record CreateSearchRequest(
     String description,
     boolean publish,
     Long hostId,
-    Long imageId
+    List<Long> images
 ) {
 
     public CreateSearch toDomain(Long hostId) {
@@ -20,7 +22,7 @@ public record CreateSearchRequest(
             .query(query)
             .description(description)
             .publish(publish)
-            .imageId(imageId)
+            .images(images)
             .build();
     }
 }

@@ -1,14 +1,15 @@
 package com.miniyus.friday.hosts.domain;
 
 import lombok.Builder;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 @Builder
 public record PatchHost(
     HostIds ids,
-    String host,
-    String summary,
-    String description,
-    String path,
-    boolean publish
+    JsonNullable<String> host,
+    JsonNullable<String> summary,
+    JsonNullable<String> description,
+    JsonNullable<String> path,
+    JsonNullable<Boolean> publish
 ) {
 }

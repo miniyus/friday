@@ -1,107 +1,124 @@
-CREATE TYPE USER_ROLE AS ENUM ('ADMIN', 'MANAGER', 'USER');
+CREATE SEQUENCE IF NOT EXISTS auth_user_seq START WITH 1 INCREMENT BY 50;
 
-CREATE TABLE
-    "auth_user"
+CREATE SEQUENCE IF NOT EXISTS file_seq START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS host_seq START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS login_history_seq START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS search_file_seq START WITH 1 INCREMENT BY 50;
+
+CREATE SEQUENCE IF NOT EXISTS search_seq START WITH 1 INCREMENT BY 50;
+
+CREATE TABLE auth_user
 (
-    "id"         bigserial PRIMARY KEY,
-    "sns_id"     varchar(100),
-    "provider"   varchar(20),
-    "email"      varchar(100) UNIQUE NOT NULL,
-    "name"       varchar(50)         NOT NULL,
-    "password"   varchar(50)         NOT NULL,
-    "role"       USER_ROLE           NOT NULL DEFAULT 'USER',
-    "created_at" timestamp,
-    "updated_at" timestamp,
-    "deleted_at" timestamp
+    id         BIGINT       NOT NULL,
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    sns_id     VARCHAR(255),
+    provider   VARCHAR(255),
+    email      VARCHAR(255),
+    password   VARCHAR(255) NOT NULL,
+    name       VARCHAR(255) NOT NULL,
+    role       VARCHAR(255),
+    deleted_at TIMESTAMP WITHOUT TIME ZONE,
+    CONSTRAINT pk_auth_user PRIMARY KEY (id)
 );
 
-CREATE TABLE
-    "host"
+CREATE TABLE file
 (
-    "id"          bigserial PRIMARY KEY,
-    "user_id"     bigint       NOT NULL,
-    "host"        varchar(100) NOT NULL,
-    "summary"     varchar(50)  NOT NULL,
-    "description" varchar(100) NOT NULL,
-    "path"        varchar(100) NOT NULL,
-    "publish"     boolean      NOT NULL,
-    "created_at"  timestamp,
-    "updated_at"  timestamp,
-    "deleted_at"  timestamp
+    id          BIGINT       NOT NULL,
+    created_at  TIMESTAMP WITHOUT TIME ZONE,
+    updated_at  TIMESTAMP WITHOUT TIME ZONE,
+    mime_type   VARCHAR(50)  NOT NULL,
+    size        BIGINT       NOT NULL,
+    path        VARCHAR(255) NOT NULL,
+    origin_name VARCHAR(255) NOT NULL,
+    conv_name   VARCHAR(255) NOT NULL,
+    extension   VARCHAR(20)  NOT NULL,
+    deleted_at  TIMESTAMP WITHOUT TIME ZONE,
+    user_id     BIGINT,
+    CONSTRAINT pk_file PRIMARY KEY (id)
 );
 
-CREATE TABLE
-    "search"
+CREATE TABLE host
 (
-    "id"          bigserial PRIMARY KEY,
-    "host_id"     bigint       NOT NULL,
-    "query_key"   varchar(20),
-    "query"       varchar(100) NOT NULL,
-    "description" varchar(100) NOT NULL,
-    "publish"     boolean      NOT NULL,
-    "created_at"  timestamp,
-    "updated_at"  timestamp,
-    "deleted_at"  timestamp
+    id          BIGINT  NOT NULL,
+    created_at  TIMESTAMP WITHOUT TIME ZONE,
+    updated_at  TIMESTAMP WITHOUT TIME ZONE,
+    host        VARCHAR(255),
+    summary     VARCHAR(255),
+    description VARCHAR(255),
+    path        VARCHAR(255),
+    publish     BOOLEAN NOT NULL,
+    deleted_at  TIMESTAMP WITHOUT TIME ZONE,
+    user_id     BIGINT,
+    CONSTRAINT pk_host PRIMARY KEY (id)
 );
 
-CREATE TABLE "file"
+CREATE TABLE login_history
 (
-    "id"          bigserial PRIMARY KEY,
-    "mime_type"   varchar(50)  NOT NULL,
-    "size"        int          NOT NULL,
-    "path"        varchar(255) NOT NULL,
-    "origin_name" varchar(255) NOT NULL,
-    "conv_name"   varchar(255) NOT NULL,
-    "extension"   varchar(20)  NOT NULL,
-    "created_at"  timestamp,
-    "updated_at"  timestamp,
-    "deleted_at"  timestamp
+    id          BIGINT  NOT NULL,
+    created_at  TIMESTAMP WITHOUT TIME ZONE,
+    updated_at  TIMESTAMP WITHOUT TIME ZONE,
+    success     BOOLEAN NOT NULL,
+    status_code INTEGER NOT NULL,
+    message     VARCHAR(100),
+    ip          VARCHAR(20),
+    deleted_at  TIMESTAMP WITHOUT TIME ZONE,
+    user_id     BIGINT,
+    CONSTRAINT pk_login_history PRIMARY KEY (id)
 );
 
-CREATE TABLE "search_file"
+CREATE TABLE search
 (
-    "id"         bigserial PRIMARY KEY,
-    "search_id"  bigint NOT NULL,
-    "file_id"    bigint NOT NULL,
-    "created_at" timestamp,
-    "updated_at" timestamp,
-    "deleted_at" timestamp
+    id          BIGINT       NOT NULL,
+    created_at  TIMESTAMP WITHOUT TIME ZONE,
+    updated_at  TIMESTAMP WITHOUT TIME ZONE,
+    query_key   VARCHAR(255),
+    query       VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    publish     BOOLEAN      NOT NULL,
+    views       INTEGER      NOT NULL,
+    deleted_at  TIMESTAMP WITHOUT TIME ZONE,
+    short_url   VARCHAR(255),
+    host_id     BIGINT,
+    CONSTRAINT pk_search PRIMARY KEY (id)
 );
 
-COMMENT ON TABLE "auth_user" IS 'user table';
+CREATE TABLE search_file
+(
+    id         BIGINT NOT NULL,
+    created_at TIMESTAMP WITHOUT TIME ZONE,
+    updated_at TIMESTAMP WITHOUT TIME ZONE,
+    file_id    BIGINT,
+    search_id  BIGINT,
+    CONSTRAINT pk_search_file PRIMARY KEY (id)
+);
 
-COMMENT ON COLUMN "auth_user"."sns_id" IS 'sns id';
+ALTER TABLE auth_user
+    ADD CONSTRAINT uc_auth_user_email UNIQUE (email);
 
-COMMENT ON COLUMN "auth_user"."provider" IS 'sns provider';
+ALTER TABLE search_file
+    ADD CONSTRAINT uc_search_file_file UNIQUE (file_id);
 
-COMMENT ON COLUMN "auth_user"."email" IS 'email';
+ALTER TABLE search_file
+    ADD CONSTRAINT uc_search_file_search UNIQUE (search_id);
 
-COMMENT ON COLUMN "auth_user"."name" IS 'user"s name';
+ALTER TABLE file
+    ADD CONSTRAINT FK_FILE_ON_USER FOREIGN KEY (user_id) REFERENCES auth_user (id);
 
-COMMENT ON COLUMN "auth_user"."password" IS 'user password';
+ALTER TABLE host
+    ADD CONSTRAINT FK_HOST_ON_USER FOREIGN KEY (user_id) REFERENCES auth_user (id);
 
-COMMENT ON COLUMN "auth_user"."role" IS 'role';
+ALTER TABLE login_history
+    ADD CONSTRAINT FK_LOGIN_HISTORY_ON_USER FOREIGN KEY (user_id) REFERENCES auth_user (id);
 
-COMMENT ON TABLE "host" IS 'host';
+ALTER TABLE search_file
+    ADD CONSTRAINT FK_SEARCH_FILE_ON_FILE FOREIGN KEY (file_id) REFERENCES file (id);
 
-COMMENT ON TABLE "search" IS 'search';
+ALTER TABLE search_file
+    ADD CONSTRAINT FK_SEARCH_FILE_ON_SEARCH FOREIGN KEY (search_id) REFERENCES search (id);
 
-COMMENT ON TABLE "file" IS 'file';
-
-COMMENT ON TABLE "search_file" IS 'search file';
-
-ALTER TABLE "host"
-    ADD
-        FOREIGN KEY ("user_id") REFERENCES "auth_user" ("id");
-
-ALTER TABLE "search"
-    ADD
-        FOREIGN KEY ("host_id") REFERENCES "host" ("id");
-
-ALTER TABLE "search_file"
-    ADD
-        FOREIGN KEY ("search_id") REFERENCES "search" ("id");
-
-ALTER TABLE "search_file"
-    ADD
-        FOREIGN KEY ("file_id") REFERENCES "file" ("id");
+ALTER TABLE search
+    ADD CONSTRAINT FK_SEARCH_ON_HOST FOREIGN KEY (host_id) REFERENCES host (id);

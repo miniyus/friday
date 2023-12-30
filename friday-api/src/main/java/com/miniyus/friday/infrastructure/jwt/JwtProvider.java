@@ -12,7 +12,7 @@ import java.util.Optional;
  * [description]
  *
  * @author seongminyoo
- * @date 2023/08/31
+ * @since 2023/08/31
  */
 @Slf4j
 public record JwtProvider(String secret, Long accessTokenExpiration, Long refreshTokenExpiration,

@@ -1,13 +1,13 @@
 global:
   checkNewVersion: true
-
 log:
   level: "DEBUG" # Set the desired log level: DEBUG, INFO, WARN, ERROR, FATAL, PANIC
-
+accessLog:
+  filePath: "/var/log/access.log"
+  bufferingSize: 100
 entryPoints:
   web:
     address: ":80"
-
   web-secure:
     address: ":443"
 api:
@@ -23,6 +23,6 @@ certificatesResolvers:
 providers:
   docker:
     exposedByDefault: false
-    network: proxy
+    network: friday
   file:
     filename: "/etc/traefik/traefik.dynamic.yml"

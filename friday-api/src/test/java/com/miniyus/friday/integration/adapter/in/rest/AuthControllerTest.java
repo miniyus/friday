@@ -1,12 +1,5 @@
 package com.miniyus.friday.integration.adapter.in.rest;
 
-import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
-import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
-import com.miniyus.friday.users.adapter.in.rest.AuthController;
-import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
-import com.miniyus.friday.users.domain.UserRole;
-import com.miniyus.friday.users.domain.Auth;
-import com.miniyus.friday.users.domain.Token;
 import com.miniyus.friday.infrastructure.jwt.IssueToken;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
@@ -16,6 +9,13 @@ import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.integration.document.AuthDocument;
+import com.miniyus.friday.users.adapter.in.rest.AuthController;
+import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
+import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
+import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
+import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.users.domain.Token;
+import com.miniyus.friday.users.domain.UserRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;

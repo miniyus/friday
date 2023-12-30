@@ -1,6 +1,5 @@
 package com.miniyus.friday.unit.application;
 
-import com.github.javafaker.Faker;
 import com.miniyus.friday.annotation.UnitTest;
 import com.miniyus.friday.hosts.adapter.in.rest.request.CreateHostRequest;
 import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveHostRequest;
@@ -9,6 +8,7 @@ import com.miniyus.friday.hosts.application.port.out.HostPort;
 import com.miniyus.friday.hosts.application.service.HostService;
 import com.miniyus.friday.hosts.domain.Host;
 import com.miniyus.friday.hosts.domain.HostIds;
+import net.datafaker.Faker;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

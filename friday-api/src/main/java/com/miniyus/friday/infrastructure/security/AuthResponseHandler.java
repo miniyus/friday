@@ -26,47 +26,31 @@ public class AuthResponseHandler {
         ErrorCode errorCode,
         String message
     ) throws IOException {
-        String translateMessage = messageSource.getMessage(
-            message,
-            null,
-            message,
-            LocaleContextHolder.getLocale()
-        );
-
-        var errorResponse = new ErrorResponse(
-            errorCode,
-            translateMessage
-        );
-
-        String errorJsonBody = objectMapper.writeValueAsString(errorResponse);
-
-        response.setHeader("Content-Type", "application/json;utf-8");
-        response.setStatus(errorCode.getStatusCode());
-        response.getWriter().write(errorJsonBody);
+        String translateMessage = messageSource
+            .getMessage(message, null, message, LocaleContextHolder.getLocale());
+        var errorResponse = new ErrorResponse(errorCode, translateMessage);
+        handleJsonResponse(response, errorCode.getHttpStatus(), errorResponse);
     }
 
     public void handleOAuth2IssueTokenResponse(
         HttpServletResponse response,
         PrincipalUserInfo userInfo,
-        IssueToken token) throws IOException{
+        IssueToken token) throws IOException {
+
         OAuth2TokenResponse tokenResponse = new OAuth2TokenResponse(
             userInfo.getId(),
             userInfo.getSnsId(),
             userInfo.getProvider().value(),
             userInfo.getEmail(),
             token);
-
-        String jsonBody = objectMapper.writeValueAsString(tokenResponse);
-        response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.OK.value());
-        response.getWriter().write(jsonBody);
+        handleJsonResponse(response, HttpStatus.CREATED, tokenResponse);
     }
 
     public void handleOAuth2IssueTokenHeader(
         HttpServletResponse response,
         IssueToken token
     ) {
-        response.setStatus(HttpStatus.OK.value());
+        response.setStatus(HttpStatus.CREATED.value());
         response.setHeader(token.accessTokenKey(), "Bearer " + token.accessToken());
         response.setHeader(token.refreshTokenKey(), "Bearer " + token.refreshToken());
     }
@@ -74,16 +58,23 @@ public class AuthResponseHandler {
     public void handlePasswordIssueTokenResponse(
         HttpServletResponse response,
         PrincipalUserInfo userInfo,
-        IssueToken token) throws IOException{
+        IssueToken token) throws IOException {
+
         PasswordTokenResponse tokenResponse = new PasswordTokenResponse(
             userInfo.getId(),
             userInfo.getUsername(),
             userInfo.getName(),
             token);
+        handleJsonResponse(response, HttpStatus.CREATED, tokenResponse);
+    }
 
-        String jsonBody = objectMapper.writeValueAsString(tokenResponse);
+    private void handleJsonResponse(HttpServletResponse response,
+        HttpStatus status,
+        Object body) throws IOException {
+
         response.setHeader("Content-Type", "application/json");
-        response.setStatus(HttpStatus.OK.value());
+        response.setStatus(status.value());
+        String jsonBody = objectMapper.writeValueAsString(body);
         response.getWriter().write(jsonBody);
     }
 }

@@ -2,6 +2,7 @@ package com.miniyus.friday.common.util;
 
 import com.miniyus.friday.common.fake.FakeInjector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FakeUtil {
@@ -30,7 +31,7 @@ public class FakeUtil {
         try {
             return fakeInjector.generate(dataClass, count);
         } catch (Exception e) {
-            return null;
+            return new ArrayList<>();
         }
     }
 

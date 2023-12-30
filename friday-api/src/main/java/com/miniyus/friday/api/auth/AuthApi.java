@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Auth API")
+@Tag(name = "Auth")
 public interface AuthApi {
     @Operation(summary = "oauth2 login",
         description = "login with oauth2",

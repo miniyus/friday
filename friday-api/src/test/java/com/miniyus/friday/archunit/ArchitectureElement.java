@@ -5,9 +5,10 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 
 import java.util.List;
 
-import static com.tngtech.archunit.base.DescribedPredicate.*;
-import static com.tngtech.archunit.lang.conditions.ArchConditions.*;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.*;
+import static com.tngtech.archunit.base.DescribedPredicate.greaterThanOrEqualTo;
+import static com.tngtech.archunit.lang.conditions.ArchConditions.containNumberOfElements;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 abstract class ArchitectureElement {
 

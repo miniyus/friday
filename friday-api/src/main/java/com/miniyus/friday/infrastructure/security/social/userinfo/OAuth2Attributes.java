@@ -112,10 +112,18 @@ public class OAuth2Attributes {
             .build();
     }
 
+    /**
+     * To user info o auth 2 user info.
+     *
+     * @return the o auth 2 user info
+     */
     public OAuth2UserInfo toUserInfo() {
         try {
-            SocialProvider socialProvider = SocialProvider.of(this.provider);
+            SocialProvider socialProvider = SocialProvider
+                .of(this.provider, true);
             return switch (socialProvider) {
+                case NONE -> throw new NotSupportProviderException("error.notSupportProvider",
+                    this.provider);
                 case GOOGLE -> GoogleUserInfo.builder()
                     .email(email)
                     .snsId(id)
