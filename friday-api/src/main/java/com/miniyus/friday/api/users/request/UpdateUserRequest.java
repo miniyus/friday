@@ -1,34 +1,52 @@
 package com.miniyus.friday.api.users.request;
 
+import com.miniyus.friday.common.util.JsonNullableUtil;
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.common.validation.annotation.NullOrNotBlank;
-import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.users.domain.PatchUser;
 import com.miniyus.friday.users.domain.UserRole;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 import java.io.Serializable;
 
 /**
- * [description]
+ * Update user request
  *
  * @author miniyus
  * @since 2023/09/09
  */
 @Builder
 public record UpdateUserRequest(
-    @NullOrNotBlank(message = "validation.user.name.notBlank") @Size(min = 2, max = 50,
-        message = "validation.user.name.size") String name,
+    @Schema(type = "string", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "validation.user.name.notBlank") @Size(min = 2, max = 50,
+        message = "validation.user.name.size")
+    JsonNullable<String> name,
 
-    @NullOrNotBlank(message = "validation.user.role.notBlank") @Enum(enumClass = UserRole.class,
-        message = "validation.user.role.enum", ignoreCase = true) String role)
+    @Schema(type = "string", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+    @NullOrNotBlank(message = "validation.user.role.notBlank")
+    @Enum(enumClass = UserRole.class,
+        message = "validation.user.role.enum", ignoreCase = true)
+    JsonNullable<String> role)
     implements Serializable {
 
-    public User toDomain(Long id)  {
-        return User.builder()
+    public PatchUser toDomain(Long id) {
+        var builder = PatchUser.builder()
             .id(id)
-            .name(name)
-            .role(role)
-            .build();
+            .name(name);
+        if (JsonNullableUtil.isPresent(role)) {
+            var userRole = JsonNullableUtil.unwrap(role, null);
+            if (userRole == null) {
+                builder.role(null);
+            } else {
+                builder.role(JsonNullable.of(
+                    UserRole.of(userRole, true)));
+            }
+        }
+
+        return builder.build();
     }
 }

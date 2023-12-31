@@ -7,9 +7,7 @@ import com.miniyus.friday.users.application.exception.NotFoundUserException;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.application.port.out.UserPort;
-import com.miniyus.friday.users.domain.ResetPassword;
-import com.miniyus.friday.users.domain.User;
-import com.miniyus.friday.users.domain.UserFilter;
+import com.miniyus.friday.users.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,12 +29,12 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User createUser(User user) {
-        if (userPort.isUniqueEmail(user.getEmail())) {
+    public User createUser(CreateUser user) {
+        if (userPort.isUniqueEmail(user.email())) {
             throw new ExistsUserException();
         }
 
-        return userPort.createUser(user);
+        return userPort.createUser(User.create(user));
     }
 
     /**
@@ -44,12 +42,10 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
      * @return updated user
      */
     @Override
-    public User patchUser(User request) {
-        User domain = userPort.findById(request.getId())
+    public User patchUser(PatchUser request) {
+        User domain = userPort.findById(request.id())
             .orElseThrow(NotFoundUserException::new);
-
-        domain.patch(request.getName(), request.getRole());
-
+        domain.patch(request);
         return userPort.updateUser(domain);
     }
 

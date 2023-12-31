@@ -3,11 +3,10 @@ package com.miniyus.friday.users.adapter.out.persistence.mapper;
 import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.users.domain.User;
-import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.stereotype.Component;
 
 /**
- * [description]
+ * User mapper
  *
  * @author miniyus
  * @since 2023/09/02
@@ -22,7 +21,7 @@ public class UserMapper {
             domain.getEmail(),
             domain.getPassword(),
             domain.getName(),
-            UserRole.of(domain.getRole(), true)
+            domain.getRole()
         );
     }
 
@@ -35,7 +34,7 @@ public class UserMapper {
             .email(domain.getEmail())
             .password(domain.getPassword())
             .name(domain.getName())
-            .role(UserRole.of(domain.getRole(), true))
+            .role(domain.getRole())
             .deletedAt(domain.getDeletedAt())
             .build();
     }
@@ -46,7 +45,7 @@ public class UserMapper {
             entity.getEmail(),
             entity.getPassword(),
             entity.getName(),
-            entity.getRole().value(),
+            entity.getRole(),
             entity.getSnsId(),
             entity.getProvider().value(),
             entity.getCreatedAt(),

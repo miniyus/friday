@@ -8,6 +8,8 @@ import com.miniyus.friday.api.users.resource.ResetPasswordResource;
 import com.miniyus.friday.api.users.resource.UserResources;
 import com.miniyus.friday.common.request.annotation.QueryParam;
 import com.miniyus.friday.infrastructure.config.RestConfiguration;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -30,26 +32,30 @@ public interface UserApi {
 
     @GetMapping(PATH + "/{id}")
     ResponseEntity<UserResources.UserResource> retrieveUser(
-        @PathVariable Long id);
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo);
 
     @GetMapping(PATH)
     ResponseEntity<Page<UserResources.UserResource>> retrieveUsers(
         @QueryParam @Valid RetrieveUserRequest request,
         @PageableDefault(page = 1,
-        sort = "createdAt",
-        direction = Direction.DESC) Pageable pageable);
+            sort = "createdAt",
+            direction = Direction.DESC) Pageable pageable);
 
     @PatchMapping(PATH + "/{id}")
     ResponseEntity<UserResources.UserResource> patchUser(
         @PathVariable Long id,
-        @Valid @RequestBody UpdateUserRequest request);
+        @Valid @RequestBody UpdateUserRequest request,
+        @AuthUser PrincipalUserInfo userInfo);
 
     @PatchMapping(PATH + "/{id}/reset-password")
     ResponseEntity<ResetPasswordResource> resetPassword(
         @PathVariable Long id,
-        @RequestBody @Valid ResetPasswordRequest password);
+        @RequestBody @Valid ResetPasswordRequest password,
+        @AuthUser PrincipalUserInfo userInfo);
 
-    @DeleteMapping(PATH+"/{id}")
+    @DeleteMapping(PATH + "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteUser(@PathVariable Long id);
+    void deleteUser(@PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo);
 }

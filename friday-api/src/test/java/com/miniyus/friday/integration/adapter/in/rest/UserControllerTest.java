@@ -13,6 +13,7 @@ import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.users.domain.UserRole;
 import org.junit.jupiter.api.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -47,7 +48,7 @@ public class UserControllerTest extends UserDocument {
             faker.internet().safeEmailAddress(),
             faker.internet().password(),
             faker.name().fullName(),
-            UserRole.USER.value(),
+            UserRole.USER,
             null,
             null,
             LocalDateTime.now(),
@@ -63,7 +64,7 @@ public class UserControllerTest extends UserDocument {
             .email(domain.getEmail())
             .name(domain.getName())
             .password(domain.getPassword())
-            .role(domain.getRole())
+            .role(domain.getRole().value())
             .build();
     }
 
@@ -98,8 +99,8 @@ public class UserControllerTest extends UserDocument {
     private UpdateUserRequest buildUpdateUserRequest() {
         return UpdateUserRequest
             .builder()
-            .name(faker.name().fullName())
-            .role(UserRole.USER.value())
+            .name(JsonNullable.of(faker.name().fullName()))
+            .role(JsonNullable.of(UserRole.USER.value()))
             .build();
     }
 
@@ -107,8 +108,7 @@ public class UserControllerTest extends UserDocument {
         buildUserDomain(id);
 
         domain.patch(
-            request.name(),
-            request.role()
+            request.toDomain(id)
         );
 
         when(userUsecase.patchUser(any())).thenReturn(domain);

@@ -8,15 +8,18 @@ import com.miniyus.friday.api.users.request.UpdateUserRequest;
 import com.miniyus.friday.api.users.resource.ResetPasswordResource;
 import com.miniyus.friday.api.users.resource.UserResources;
 import com.miniyus.friday.api.users.resource.UserResources.UserResource;
+import com.miniyus.friday.common.error.RestErrorCode;
+import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
+import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.domain.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -32,9 +35,8 @@ import org.springframework.web.bind.annotation.*;
  * @author miniyus
  * @since 2023/09/02
  */
-@RestAdapter(path = UserApi.PATH)
 @RequiredArgsConstructor
-@Slf4j
+@RestAdapter(path = UserApi.PATH)
 public class UserController extends BaseController implements UserApi {
     private final UserUsecase userUsecase;
     private final RetrieveUserQuery readUserQuery;
@@ -45,8 +47,9 @@ public class UserController extends BaseController implements UserApi {
      * @param request the createUser request
      * @return the ResponseEntity containing the createUser response
      */
+    @Override
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<UserResource> createUser(
         @Valid @RequestBody CreateUserRequest request) {
         User create = userUsecase.createUser(request.toDomain());
@@ -62,10 +65,16 @@ public class UserController extends BaseController implements UserApi {
      * @param id the ID of the user to retrieve
      * @return the ResponseEntity containing the RetrieveUserResponse
      */
+    @Override
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
     public ResponseEntity<UserResource> retrieveUser(
-        @PathVariable Long id) {
+        @PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo) {
+        if (hasAuthority(id, userInfo)) {
+            throw new RestErrorException(RestErrorCode.FORBIDDEN, "Forbidden");
+        }
+
         return ResponseEntity.ok(
             UserResource.fromDomain(readUserQuery.findById(id))
         );
@@ -78,17 +87,14 @@ public class UserController extends BaseController implements UserApi {
      * @return a ResponseEntity containing a SimplePage of RetrieveUserResponse objects
      */
     @GetMapping("")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('admin')")
     public ResponseEntity<Page<UserResource>> retrieveUsers(
         @QueryParam @Valid RetrieveUserRequest request,
         @PageableDefault(page = 1,
-        sort = "createdAt",
-        direction = Direction.DESC) Pageable pageable) {
+            sort = "createdAt",
+            direction = Direction.DESC) Pageable pageable) {
 
         Page<User> users = readUserQuery.findAll(request.toDomain());
-
-        log.debug("users count: " + users.getContent().size());
-
         return ResponseEntity.ok(UserResources.fromDomains(users));
     }
 
@@ -98,14 +104,18 @@ public class UserController extends BaseController implements UserApi {
      * @param request the update user request object
      * @return the response entity containing the updated user
      */
+    @Override
     @PatchMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
     public ResponseEntity<UserResource> patchUser(
         @PathVariable Long id,
-        @Valid @RequestBody UpdateUserRequest request) {
+        @Valid @RequestBody UpdateUserRequest request,
+        @AuthUser PrincipalUserInfo userInfo) {
 
+        if (hasAuthority(id, userInfo)) {
+            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+        }
         var updated = userUsecase.patchUser(request.toDomain(id));
-
         return ResponseEntity.ok(
             UserResource.fromDomain(updated)
         );
@@ -118,11 +128,16 @@ public class UserController extends BaseController implements UserApi {
      * @param password the new password
      * @return the response entity containing the updated user response
      */
+    @Override
     @PatchMapping("/{id}/reset-password")
-    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
+    @PreAuthorize("hasAnyAuthority('admin','user')")
     public ResponseEntity<ResetPasswordResource> resetPassword(
         @PathVariable Long id,
-        @RequestBody @Valid ResetPasswordRequest password) {
+        @RequestBody @Valid ResetPasswordRequest password,
+        @AuthUser PrincipalUserInfo userInfo) {
+        if (hasAuthority(id, userInfo)) {
+            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+        }
 
         var updated = userUsecase.resetPassword(password.toDomain(id));
         return ResponseEntity.ok(
@@ -135,10 +150,23 @@ public class UserController extends BaseController implements UserApi {
      *
      * @param id the ID of the user to be deleted
      */
+    @Override
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN') or principal.id == #id")
+    @PreAuthorize("hasAnyAuthority('admin', 'user')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable Long id,
+        @AuthUser PrincipalUserInfo userInfo) {
+        if (hasAuthority(id, userInfo)) {
+            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+        }
+
         userUsecase.deleteUserById(id);
+    }
+
+    private boolean hasAuthority(Long reqId, PrincipalUserInfo userInfo) {
+        return reqId.equals(userInfo.getId())
+            || userInfo.getAuthorities()
+            .stream()
+            .anyMatch(a -> a.getAuthority().equals("admin"));
     }
 }

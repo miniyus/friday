@@ -1,5 +1,6 @@
 package com.miniyus.friday.users.domain;
 
+import com.miniyus.friday.common.util.JsonNullableUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,41 +21,22 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private String role;
+    private UserRole role;
     private String snsId;
     private String provider;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    
-    public static User create(
-        String email,
-        String password,
-        String name,
-        String role,
-        String snsId,
-        String provider
-    ) {
-        return new User(
-            null,
-            email,
-            password,
-            name,
-            role,
-            snsId,
-            provider,
-            null,
-            null,
-            null);
-    }
 
-    /**
-     * Gets the role of the user.
-     *
-     * @return the role of the user as a string.
-     */
-    public String getRole() {
-        return role.toUpperCase();
+    public static User create(
+        CreateUser createUser
+    ) {
+        return User.builder()
+            .email(createUser.email())
+            .password(createUser.password())
+            .name(createUser.name())
+            .role(createUser.role())
+            .build();
     }
 
     /**
@@ -81,22 +63,24 @@ public class User {
      * @param name user's name
      * @param role user's role
      */
-    public void update(String name, String role) {
+    public void update(String name, UserRole role) {
         this.name = name;
         this.role = role;
     }
 
     /**
-     * when call patch method
+     * Updates the user object with the provided patch data.
      *
-     * @param name user's name
-     * @param role user's role
+     * @param patch the patch object containing the updated user data
      */
-    public void patch(String name, String role) {
-        if (name != null)
-            this.name = name;
-        if (role != null)
-            this.role = role;
+    public void patch(PatchUser patch) {
+        if (JsonNullableUtil.isPresent(patch.name())) {
+            this.name = JsonNullableUtil.unwrap(patch.name(), null);
+        }
+
+        if (JsonNullableUtil.isPresent(patch.role())) {
+            this.role = JsonNullableUtil.unwrap(patch.role(), null);
+        }
     }
 
     /**

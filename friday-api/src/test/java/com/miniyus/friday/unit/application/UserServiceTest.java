@@ -6,12 +6,15 @@ import com.miniyus.friday.api.users.request.CreateUserRequest;
 import com.miniyus.friday.api.users.request.UpdateUserRequest;
 import com.miniyus.friday.users.application.port.out.UserPort;
 import com.miniyus.friday.users.application.service.UserService;
+import com.miniyus.friday.users.domain.PatchUser;
 import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.users.domain.UserRole;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -54,7 +57,7 @@ public class UserServiceTest extends UsecaseTest {
                 faker.internet().safeEmailAddress(),
                 faker.internet().password(),
                 faker.name().fullName(),
-                "USER",
+                UserRole.USER,
                 null,
                 null,
                 LocalDateTime.now(),
@@ -127,14 +130,18 @@ public class UserServiceTest extends UsecaseTest {
             testOrigin.getUpdatedAt(),
             testOrigin.getDeletedAt());
 
-        testUpdate.patch("testUpdate", null);
+        testUpdate.patch(PatchUser.builder()
+            .id(testOrigin.getId())
+            .name(JsonNullable.of("testUpdate"))
+            .role(JsonNullable.of(UserRole.USER))
+            .build());
 
         when(userPort.findById(any())).thenReturn(Optional.of(testOrigin));
         when(userPort.updateUser(any(User.class))).thenReturn(testUpdate);
 
         var request = UpdateUserRequest.builder()
-            .name("testUpdate")
-            .role("USER")
+            .name(JsonNullable.of("testUpdate"))
+            .role(JsonNullable.of("USER"))
             .build();
 
         User updated = userService.patchUser(request.toDomain(testOrigin.getId()));
