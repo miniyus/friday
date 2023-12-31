@@ -5,9 +5,12 @@ import com.miniyus.friday.uploads.domain.UploadFileDomain;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface UploadPort {
     UploadFileDomain upload(UploadFile uploadFile) throws IOException;
 
-    List<UploadFileDomain> findAll();
+    Optional<UploadFileDomain> findById(Long id);
+
+    List<UploadFileDomain> findAll(Long userId);
 }

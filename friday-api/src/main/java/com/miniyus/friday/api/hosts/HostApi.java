@@ -1,11 +1,11 @@
 package com.miniyus.friday.api.hosts;
 
+import com.miniyus.friday.api.hosts.request.CreateHostRequest;
+import com.miniyus.friday.api.hosts.request.RetrieveHostRequest;
+import com.miniyus.friday.api.hosts.request.UpdateHostRequest;
+import com.miniyus.friday.api.hosts.resource.HostResources;
+import com.miniyus.friday.api.hosts.resource.HostResources.HostResource;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.hosts.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources.HostResource;
 import com.miniyus.friday.infrastructure.config.RestConfiguration;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.annotation.AuthUser;

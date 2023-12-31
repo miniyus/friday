@@ -1,10 +1,11 @@
-package com.miniyus.friday.api.hosts;
+package com.miniyus.friday.api.searches;
 
+import com.miniyus.friday.api.hosts.HostApi;
+import com.miniyus.friday.api.searches.request.CreateSearchRequest;
+import com.miniyus.friday.api.searches.request.RetrieveSearchRequest;
+import com.miniyus.friday.api.searches.request.UpdateSearchRequest;
+import com.miniyus.friday.api.searches.resource.SearchResources;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.hosts.adapter.in.rest.request.CreateSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.annotation.AuthUser;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,7 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
+import static com.miniyus.friday.api.searches.resource.SearchResources.SearchResource;
 
 @Tag(name = "Searches")
 public interface SearchApi {

@@ -1,13 +1,13 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
 import com.miniyus.friday.api.auth.AuthApi;
+import com.miniyus.friday.api.auth.resource.AuthUserResource;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
 import com.miniyus.friday.users.domain.Auth;

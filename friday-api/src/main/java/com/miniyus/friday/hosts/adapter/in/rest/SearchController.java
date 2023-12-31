@@ -1,14 +1,14 @@
 package com.miniyus.friday.hosts.adapter.in.rest;
 
-import com.miniyus.friday.api.hosts.SearchApi;
+import com.miniyus.friday.api.searches.SearchApi;
+import com.miniyus.friday.api.searches.request.CreateSearchRequest;
+import com.miniyus.friday.api.searches.request.RetrieveSearchRequest;
+import com.miniyus.friday.api.searches.request.UpdateSearchRequest;
+import com.miniyus.friday.api.searches.resource.SearchResources;
+import com.miniyus.friday.api.searches.resource.SearchResources.SearchResource;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.hosts.adapter.in.rest.request.CreateSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateSearchRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
 import com.miniyus.friday.hosts.application.port.in.query.RetrieveSearchQuery;
 import com.miniyus.friday.hosts.application.port.in.usecase.SearchUsecase;
 import com.miniyus.friday.hosts.domain.searches.SearchIds;

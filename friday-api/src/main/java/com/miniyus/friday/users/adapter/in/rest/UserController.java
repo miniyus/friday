@@ -1,16 +1,16 @@
 package com.miniyus.friday.users.adapter.in.rest;
 
 import com.miniyus.friday.api.users.UserApi;
+import com.miniyus.friday.api.users.request.CreateUserRequest;
+import com.miniyus.friday.api.users.request.ResetPasswordRequest;
+import com.miniyus.friday.api.users.request.RetrieveUserRequest;
+import com.miniyus.friday.api.users.request.UpdateUserRequest;
+import com.miniyus.friday.api.users.resource.ResetPasswordResource;
+import com.miniyus.friday.api.users.resource.UserResources;
+import com.miniyus.friday.api.users.resource.UserResources.UserResource;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.ResetPasswordRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.RetrieveUserRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
-import com.miniyus.friday.users.adapter.in.rest.resource.ResetPasswordResource;
-import com.miniyus.friday.users.adapter.in.rest.resource.UserResources;
-import com.miniyus.friday.users.adapter.in.rest.resource.UserResources.UserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserQuery;
 import com.miniyus.friday.users.application.port.in.usecase.UserUsecase;
 import com.miniyus.friday.users.domain.User;

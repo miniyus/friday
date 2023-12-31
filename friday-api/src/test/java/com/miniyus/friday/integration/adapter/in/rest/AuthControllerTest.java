@@ -10,7 +10,7 @@ import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import com.miniyus.friday.integration.annotation.WithMockCustomUser;
 import com.miniyus.friday.integration.document.AuthDocument;
 import com.miniyus.friday.users.adapter.in.rest.AuthController;
-import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
+import com.miniyus.friday.api.auth.resource.AuthUserResource;
 import com.miniyus.friday.users.application.port.in.query.RetrieveUserInfoQuery;
 import com.miniyus.friday.users.application.port.in.usecase.AuthUsecase;
 import com.miniyus.friday.users.domain.Auth;
@@ -102,7 +102,8 @@ public class AuthControllerTest extends AuthDocument {
     private PasswordAuthentication buildSigninRequest() {
         return new PasswordAuthentication(
             faker.internet().emailAddress(),
-            faker.internet().password()
+            faker.internet().password(),
+            "secret"
         );
     }
 

@@ -2,8 +2,8 @@ package com.miniyus.friday.unit.application;
 
 import com.miniyus.friday.common.error.RestErrorException;
 import com.miniyus.friday.hexagonal.application.UsecaseTest;
-import com.miniyus.friday.users.adapter.in.rest.request.CreateUserRequest;
-import com.miniyus.friday.users.adapter.in.rest.request.UpdateUserRequest;
+import com.miniyus.friday.api.users.request.CreateUserRequest;
+import com.miniyus.friday.api.users.request.UpdateUserRequest;
 import com.miniyus.friday.users.application.port.out.UserPort;
 import com.miniyus.friday.users.application.service.UserService;
 import com.miniyus.friday.users.domain.User;

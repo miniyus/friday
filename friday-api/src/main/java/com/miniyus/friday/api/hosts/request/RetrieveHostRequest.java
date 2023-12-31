@@ -1,4 +1,4 @@
-package com.miniyus.friday.hosts.adapter.in.rest.request;
+package com.miniyus.friday.api.hosts.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.miniyus.friday.common.pagination.PageRequest;

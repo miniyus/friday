@@ -1,9 +1,10 @@
 package com.miniyus.friday.unit.application;
 
 import com.miniyus.friday.annotation.UnitTest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateHostRequest;
+import com.miniyus.friday.api.hosts.request.CreateHostRequest;
+import com.miniyus.friday.api.hosts.request.RetrieveHostRequest;
+import com.miniyus.friday.api.hosts.request.UpdateHostRequest;
+import com.miniyus.friday.common.util.JsonNullableUtil;
 import com.miniyus.friday.hosts.application.port.out.HostPort;
 import com.miniyus.friday.hosts.application.service.HostService;
 import com.miniyus.friday.hosts.domain.Host;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -49,15 +51,14 @@ public class HostServiceTest {
             var testDomain = new Host(
                 i + 1L,
                 faker.internet().domainName(),
-                faker.name().username(),
-                faker.name().fullName(),
+                faker.name().name(),
+                faker.lorem().sentence(),
                 "/test/" + i,
                 true,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null,
-                1L,
-                null
+                1L
             );
             testDomains.add(testDomain);
         }
@@ -90,10 +91,10 @@ public class HostServiceTest {
     @UnitTest
     public void updateHostTest() {
         var testDomain = testDomains.get(0);
-        var host = faker.internet().domainName();
-        var summary = faker.lorem().word();
-        var desc = faker.lorem().sentence();
-        var path = faker.space().starCluster();
+        var host = JsonNullable.of(faker.internet().domainName());
+        var summary = JsonNullable.of(faker.lorem().word());
+        var desc = JsonNullable.of(faker.lorem().sentence());
+        var path = JsonNullable.of(faker.space().starCluster());
 
         UpdateHostRequest updateHostRequest = UpdateHostRequest.builder()
             .host(host)
@@ -101,21 +102,19 @@ public class HostServiceTest {
             .description(desc)
             .path(path)
             .build();
+
         when(hostPort.update(any())).thenReturn(
             new Host(
                 1L,
-                host,
-                summary,
-                desc,
-                path,
+                JsonNullableUtil.unwrap(host, null),
+                JsonNullableUtil.unwrap(summary, null),
+                JsonNullableUtil.unwrap(desc, null),
+                JsonNullableUtil.unwrap(path, null),
                 true,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null,
-                1L,
-                null
-            )
-        );
+                1L));
 
         when(hostPort.findById(any())).thenReturn(Optional.of(testDomain));
 

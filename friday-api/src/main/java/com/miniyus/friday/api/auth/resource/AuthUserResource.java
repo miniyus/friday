@@ -1,4 +1,4 @@
-package com.miniyus.friday.users.adapter.in.rest.resource;
+package com.miniyus.friday.api.auth.resource;
 
 import com.miniyus.friday.users.domain.Auth;
 

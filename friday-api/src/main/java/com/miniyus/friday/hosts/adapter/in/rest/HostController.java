@@ -1,13 +1,13 @@
 package com.miniyus.friday.hosts.adapter.in.rest;
 
 import com.miniyus.friday.api.hosts.HostApi;
+import com.miniyus.friday.api.hosts.request.CreateHostRequest;
+import com.miniyus.friday.api.hosts.request.RetrieveHostRequest;
+import com.miniyus.friday.api.hosts.request.UpdateHostRequest;
+import com.miniyus.friday.api.hosts.resource.HostResources;
 import com.miniyus.friday.common.hexagon.BaseController;
 import com.miniyus.friday.common.hexagon.annotation.RestAdapter;
 import com.miniyus.friday.common.request.annotation.QueryParam;
-import com.miniyus.friday.hosts.adapter.in.rest.request.CreateHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.RetrieveHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.request.UpdateHostRequest;
-import com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources;
 import com.miniyus.friday.hosts.application.port.in.query.RetrieveHostQuery;
 import com.miniyus.friday.hosts.application.port.in.usecase.HostUsecase;
 import com.miniyus.friday.hosts.domain.HostIds;
@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import static com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources.HostResource;
+import static com.miniyus.friday.api.hosts.resource.HostResources.HostResource;
 
 @RestAdapter(path = HostApi.PATH)
 @RequiredArgsConstructor

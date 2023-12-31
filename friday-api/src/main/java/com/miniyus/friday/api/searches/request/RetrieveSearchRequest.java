@@ -1,4 +1,4 @@
-package com.miniyus.friday.hosts.adapter.in.rest.request;
+package com.miniyus.friday.api.searches.request;
 
 
 import com.miniyus.friday.hosts.domain.searches.SearchFilter;

@@ -25,16 +25,15 @@ import java.nio.file.Paths;
 @Component
 @RequiredArgsConstructor
 public class LocalFileSystemAdapter implements FileSystemAdapter {
-    private static final String BASE_PATH = "data";
 
     @Override
     public boolean save(String filePath, MultipartFile multipartFile) throws IOException {
-        Path path = Paths.get(makePath(BASE_PATH, filePath));
+        Path path = Paths.get(filePath);
 
         Files.createDirectories(path.getParent());
 
         if (Files.exists(path)) {
-            File file = new File(makePath(BASE_PATH, filePath));
+            File file = new File(filePath);
             try (OutputStream outputStream = new FileOutputStream(file)) {
                 int bytes = FileCopyUtils.copy(multipartFile.getInputStream(), outputStream);
                 return bytes != 0;
@@ -63,7 +62,7 @@ public class LocalFileSystemAdapter implements FileSystemAdapter {
         long contentLength;
 
         try {
-            resource = new UrlResource("file:" + makePath(BASE_PATH, path));
+            resource = new UrlResource("file:" + path);
             contentLength = resource.contentLength();
             filename = resource.getFilename();
             contentDisposition = "attachment; filename=\"" + filename + "\"";
@@ -98,29 +97,16 @@ public class LocalFileSystemAdapter implements FileSystemAdapter {
 
     @Override
     public boolean exists(String filePath) {
-        Path path = Paths.get(makePath(BASE_PATH, filePath));
+        Path path = Paths.get(filePath);
         return Files.exists(path);
     }
 
     @Override
     public File getFile(String filePath) throws IOException {
         if (exists(filePath)) {
-            return new File(makePath(BASE_PATH, filePath));
+            return new File(filePath);
         }
         return null;
-    }
-
-    /**
-     * 입력한 문자열들을 파일 경로 형태로 조합
-     *
-     * @param base base path
-     * @param path joining paths
-     * @return 조합된 파일 경로
-     */
-    private String makePath(String base, String... path) {
-        var p = Paths.get(base, path).toString();
-        return p.replace("\\", "/")
-            .replace("//", "/");
     }
 
     private FileNotFoundException newFileNotFoundException(Throwable throwable) {

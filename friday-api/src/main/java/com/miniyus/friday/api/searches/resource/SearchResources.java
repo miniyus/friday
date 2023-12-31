@@ -1,4 +1,4 @@
-package com.miniyus.friday.hosts.adapter.in.rest.resource;
+package com.miniyus.friday.api.searches.resource;
 
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.hosts.domain.searches.Search;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.miniyus.friday.hosts.adapter.in.rest.resource.SearchResources.SearchResource;
+import static com.miniyus.friday.api.searches.resource.SearchResources.SearchResource;
 
 @EqualsAndHashCode(callSuper = true)
 public class SearchResources extends SimplePage<SearchResource> implements Serializable {

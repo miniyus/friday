@@ -1,4 +1,4 @@
-package com.miniyus.friday.users.adapter.in.rest.request;
+package com.miniyus.friday.api.users.request;
 
 import com.miniyus.friday.common.validation.annotation.Enum;
 import com.miniyus.friday.common.validation.annotation.NullOrNotBlank;

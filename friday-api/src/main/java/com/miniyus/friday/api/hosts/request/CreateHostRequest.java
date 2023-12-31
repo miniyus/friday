@@ -1,4 +1,4 @@
-package com.miniyus.friday.hosts.adapter.in.rest.request;
+package com.miniyus.friday.api.hosts.request;
 
 import com.miniyus.friday.hosts.domain.CreateHost;
 import com.miniyus.friday.infrastructure.persistence.entities.HostEntity;

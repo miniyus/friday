@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface FileEntityRepository extends JpaRepository<FileEntity, Long> {
     List<FileEntity> findByIdIn(List<Long> ids);
+
+    List<FileEntity> findByUserId(Long userId);
 }

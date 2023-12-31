@@ -1,4 +1,4 @@
-package com.miniyus.friday.hosts.adapter.in.rest.resource;
+package com.miniyus.friday.api.hosts.resource;
 
 import com.miniyus.friday.common.pagination.SimplePage;
 import com.miniyus.friday.hosts.domain.Host;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.miniyus.friday.hosts.adapter.in.rest.resource.HostResources.HostResource;
+import static com.miniyus.friday.api.hosts.resource.HostResources.HostResource;
 
 /**
  * DTO for {@link Host}

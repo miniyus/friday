@@ -1,4 +1,4 @@
-package com.miniyus.friday.users.adapter.in.rest.request;
+package com.miniyus.friday.api.users.request;
 
 import com.miniyus.friday.users.domain.ResetPassword;
 import jakarta.validation.constraints.NotBlank;

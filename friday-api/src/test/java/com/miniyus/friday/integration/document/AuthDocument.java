@@ -7,7 +7,7 @@ import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
 import com.miniyus.friday.integration.RestAdapterTest;
-import com.miniyus.friday.users.adapter.in.rest.resource.AuthUserResource;
+import com.miniyus.friday.api.auth.resource.AuthUserResource;
 import com.miniyus.friday.users.domain.Token;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
