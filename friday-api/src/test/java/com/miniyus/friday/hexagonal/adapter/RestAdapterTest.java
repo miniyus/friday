@@ -30,6 +30,9 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
@@ -68,6 +71,9 @@ public abstract class RestAdapterTest {
 
     @MockBean
     protected MessageSource messageSource;
+
+    @MockBean
+    protected OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
 
     protected final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 

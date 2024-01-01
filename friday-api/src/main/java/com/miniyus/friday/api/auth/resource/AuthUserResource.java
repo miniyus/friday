@@ -1,6 +1,6 @@
 package com.miniyus.friday.api.auth.resource;
 
-import com.miniyus.friday.users.domain.Auth;
+import com.miniyus.friday.auth.domain.Auth;
 
 public record AuthUserResource(
     Long id,

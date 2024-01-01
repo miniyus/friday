@@ -8,7 +8,7 @@ import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.AccessTokenEntityRepository;
 import com.miniyus.friday.infrastructure.persistence.repositories.LoginHistoryEntityRepository;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.users.domain.Token;
+import com.miniyus.friday.auth.domain.Token;
 import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -168,7 +168,7 @@ public class AuthAspect extends LoggingAspect {
     /**
      * Auth controller point
      */
-    @Pointcut("within(com.miniyus.friday.users.adapter.in.rest.AuthController)")
+    @Pointcut("within(com.miniyus.friday.auth.adapter.in.rest.AuthController)")
     public void authControllerPoint() {
     }
 
@@ -220,7 +220,7 @@ public class AuthAspect extends LoggingAspect {
     /**
      * Auth Persistence point
      */
-    @Pointcut("within(com.miniyus.friday.users.adapter.out.persistence.AuthAdapter)")
+    @Pointcut("within(com.miniyus.friday.auth.adapter.out.persistence.AuthAdapter)")
     public void authPersistencePoint() {
     }
 

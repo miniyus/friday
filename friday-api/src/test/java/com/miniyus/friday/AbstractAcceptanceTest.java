@@ -6,7 +6,7 @@ import com.miniyus.friday.common.fake.FakeInjector;
 import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
-import com.miniyus.friday.users.domain.Token;
+import com.miniyus.friday.auth.domain.Token;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

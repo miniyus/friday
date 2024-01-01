@@ -72,12 +72,12 @@ public class UserController extends BaseController implements UserApi {
         @PathVariable Long id,
         @AuthUser PrincipalUserInfo userInfo) {
         if (hasAuthority(id, userInfo)) {
-            throw new RestErrorException(RestErrorCode.FORBIDDEN, "Forbidden");
+            return ResponseEntity.ok(
+                UserResource.fromDomain(readUserQuery.findById(id))
+            );
         }
 
-        return ResponseEntity.ok(
-            UserResource.fromDomain(readUserQuery.findById(id))
-        );
+        throw new RestErrorException(RestErrorCode.FORBIDDEN);
     }
 
     /**
@@ -113,12 +113,13 @@ public class UserController extends BaseController implements UserApi {
         @AuthUser PrincipalUserInfo userInfo) {
 
         if (hasAuthority(id, userInfo)) {
-            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+            var updated = userUsecase.patchUser(request.toDomain(id));
+            return ResponseEntity.ok(
+                UserResource.fromDomain(updated)
+            );
         }
-        var updated = userUsecase.patchUser(request.toDomain(id));
-        return ResponseEntity.ok(
-            UserResource.fromDomain(updated)
-        );
+
+        throw new RestErrorException(RestErrorCode.FORBIDDEN);
     }
 
     /**
@@ -136,13 +137,12 @@ public class UserController extends BaseController implements UserApi {
         @RequestBody @Valid ResetPasswordRequest password,
         @AuthUser PrincipalUserInfo userInfo) {
         if (hasAuthority(id, userInfo)) {
-            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+            var updated = userUsecase.resetPassword(password.toDomain(id));
+            return ResponseEntity.ok(
+                new ResetPasswordResource(updated)
+            );
         }
-
-        var updated = userUsecase.resetPassword(password.toDomain(id));
-        return ResponseEntity.ok(
-            new ResetPasswordResource(updated)
-        );
+        throw new RestErrorException(RestErrorCode.FORBIDDEN);
     }
 
     /**
@@ -157,10 +157,11 @@ public class UserController extends BaseController implements UserApi {
     public void deleteUser(@PathVariable Long id,
         @AuthUser PrincipalUserInfo userInfo) {
         if (hasAuthority(id, userInfo)) {
-            throw new RestErrorException(RestErrorCode.FORBIDDEN);
+            userUsecase.deleteUserById(id);
+            return;
         }
 
-        userUsecase.deleteUserById(id);
+        throw new RestErrorException(RestErrorCode.FORBIDDEN);
     }
 
     private boolean hasAuthority(Long reqId, PrincipalUserInfo userInfo) {

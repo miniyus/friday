@@ -1,5 +1,6 @@
 package com.miniyus.friday.infrastructure.security.social;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.miniyus.friday.common.util.EnumUtil;
 import com.miniyus.friday.common.util.HasText;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public enum SocialProvider implements HasText {
     }
 
     @Override
+    @JsonValue
     public String value() {
         return name().toLowerCase();
     }
@@ -44,6 +46,10 @@ public enum SocialProvider implements HasText {
     }
 
     public static SocialProvider ofElseNone(String value, boolean ignoreCase) {
+        if (value == null) {
+            return SocialProvider.NONE;
+        }
+
         try {
             return EnumUtil.of(SocialProvider.class, value, ignoreCase);
         } catch (IllegalArgumentException e) {

@@ -86,8 +86,8 @@ public class JwtService {
         var accessToken = AccessTokenEntity.create(
             JwtProvider.BEARER,
             token,
-            jwtProvider.accessTokenExpiration(),
-            userEntity.getId()
+            userEntity.getId(),
+            jwtProvider.accessTokenExpiration()
         );
 
         return accessTokenRepository.save(accessToken);

@@ -4,7 +4,7 @@ import com.miniyus.friday.api.auth.resource.AuthUserResource;
 import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
 import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
 import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
-import com.miniyus.friday.users.domain.Token;
+import com.miniyus.friday.auth.domain.Token;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

@@ -1,5 +1,6 @@
 package com.miniyus.friday.users.domain;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.miniyus.friday.common.util.EnumUtil;
 import com.miniyus.friday.common.util.HasText;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public enum UserRole implements HasText {
     }
 
     @Override
+    @JsonValue
     public String value() {
         return name().toLowerCase();
     }
