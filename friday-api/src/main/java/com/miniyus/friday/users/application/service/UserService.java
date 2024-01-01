@@ -45,8 +45,7 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
     public User patchUser(PatchUser request) {
         User domain = userPort.findById(request.id())
             .orElseThrow(NotFoundUserException::new);
-        domain.patch(request);
-        return userPort.updateUser(domain);
+        return userPort.updateUser(domain.patch(request));
     }
 
     /**
@@ -104,9 +103,9 @@ public class UserService implements UserUsecase, RetrieveUserQuery {
         User user = userPort.findById(restPassword.id())
             .orElseThrow(NotFoundUserException::new);
 
-        user.resetPassword(passwordEncoder.encode(restPassword.password()));
-
-        return userPort.resetPassword(user) != null;
+        var encPasswd = passwordEncoder.encode(restPassword.password());
+        return userPort.resetPassword(
+            user.resetPassword(encPasswd)) != null;
     }
 
     /**

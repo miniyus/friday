@@ -16,20 +16,35 @@ import java.io.IOException;
 /**
  * Login Success Handler
  *
- * @author seongminyoo
+ * @author miniyus
  * @since 2023/09/04
  */
 @Slf4j
 @RequiredArgsConstructor
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+    /**
+     * jwtService
+     */
     private final JwtService jwtService;
+
+    /**
+     * authResponseHandler
+     */
     private final AuthResponseHandler responseHandler;
 
+    /**
+     * Handles the authentication success event.
+     *
+     * @param request        the HTTP request
+     * @param response       the HTTP response
+     * @param authentication the authentication object
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void onAuthenticationSuccess(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            Authentication authentication) throws IOException {
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Authentication authentication) throws IOException {
 
         var userDetails = (PrincipalUserInfo) authentication.getPrincipal();
 
@@ -40,8 +55,9 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         log.debug("Issued AccessToken expires in: {}(seconds)", tokens.expiresIn());
 
         responseHandler.handlePasswordIssueTokenResponse(
-                response,
-                userDetails,
-                tokens);
+            request,
+            response,
+            userDetails,
+            tokens);
     }
 }

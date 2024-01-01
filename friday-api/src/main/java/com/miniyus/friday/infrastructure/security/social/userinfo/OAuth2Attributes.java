@@ -119,8 +119,7 @@ public class OAuth2Attributes {
      */
     public OAuth2UserInfo toUserInfo() {
         try {
-            SocialProvider socialProvider = SocialProvider
-                .of(this.provider, true);
+            SocialProvider socialProvider = SocialProvider.of(this.provider, true);
             return switch (socialProvider) {
                 case NONE -> throw new NotSupportProviderException("error.notSupportProvider",
                     this.provider);

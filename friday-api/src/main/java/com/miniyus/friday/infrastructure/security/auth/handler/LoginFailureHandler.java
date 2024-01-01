@@ -13,28 +13,40 @@ import java.io.IOException;
 
 /**
  * JWT 로그인 실패 시 처리하는 핸들러 SimpleUrlAuthenticationFailureHandler를 상속받아서 구현
+ * @author miniyus
+ * @since 2023/09/04
  */
 @Slf4j
 @RequiredArgsConstructor
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    /**
+     * authResponseHandler
+     */
     private final AuthResponseHandler responseHandler;
 
+    /**
+     * Handles the authentication failure event.
+     *
+     * @param request   the HTTP servlet request
+     * @param response  the HTTP servlet response
+     * @param exception the authentication exception
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void onAuthenticationFailure(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException exception) throws IOException {
+        HttpServletRequest request,
+        HttpServletResponse response,
+        AuthenticationException exception) throws IOException {
 
         log.debug("Failure login. message: {}", exception.getMessage());
 
         var message = exception.getMessage();
 
         responseHandler.handleErrorResponse(
-                response,
-                RestErrorCode.BAD_REQUEST,
-                message);
-
-
+            request,
+            response,
+            RestErrorCode.BAD_REQUEST,
+            message);
     }
 }

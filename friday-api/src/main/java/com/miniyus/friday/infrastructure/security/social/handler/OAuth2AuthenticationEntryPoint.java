@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * [description]
+ * OAuth2 Authentication Entry Point
  *
  * @author miniyus
  * @since 2023/09/01
@@ -30,6 +30,7 @@ public class OAuth2AuthenticationEntryPoint implements AuthenticationEntryPoint 
         log.debug("Authentication Exception: {}", exception.getMessage());
         var code = RestErrorCode.ACCESS_DENIED;
         responseHandler.handleErrorResponse(
+            request,
             response,
             code,
             "error.accessDenied"

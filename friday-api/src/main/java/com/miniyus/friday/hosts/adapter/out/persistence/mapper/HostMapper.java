@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class HostMapper {
     private final UserEntityRepository userEntityRepository;
 
-    public HostEntity create(Host domain) throws RestErrorException {
+    public HostEntity createHostEntity(Host domain) throws RestErrorException {
         var userEntity = userEntityRepository.findById(domain.getUserId())
             .orElseThrow(
                 () -> new RestErrorException(RestErrorCode.NOT_FOUND, "user.error.notFound"));
@@ -28,7 +28,7 @@ public class HostMapper {
         );
     }
 
-    public HostEntity update(
+    public HostEntity updateHostEntity(
         HostEntity entity,
         Host domain
     ) throws RestErrorException {
@@ -40,7 +40,7 @@ public class HostMapper {
             .setPublish(domain.isPublish());
     }
 
-    public Host toDomain(HostEntity entity) {
+    public Host toHostDomain(HostEntity entity) {
         return new Host(
             entity.getId(),
             entity.getHost(),

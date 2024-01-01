@@ -21,8 +21,8 @@ public class SearchAdapter implements SearchPort {
 
     @Override
     public Search createSearch(Search search) {
-        var entity = searchMapper.create(search);
-        return searchMapper.toDomain(
+        var entity = searchMapper.createSearchEntity(search);
+        return searchMapper.toSearchDomain(
             searchRepository.save(entity));
     }
 
@@ -40,20 +40,20 @@ public class SearchAdapter implements SearchPort {
         var searchEntity = searchRepository.findById(search.getHostId())
             .orElseThrow(NotFoundHostException::new);
 
-        searchMapper.update(searchEntity, search);
-        return searchMapper.toDomain(
+        searchMapper.updateSearchEntity(searchEntity, search);
+        return searchMapper.toSearchDomain(
             searchRepository.save(searchEntity));
     }
 
     @Override
     public Optional<Search> findSearchById(Long id) {
-        return searchRepository.findById(id).map(searchMapper::toDomain);
+        return searchRepository.findById(id).map(searchMapper::toSearchDomain);
     }
 
     @Override
     public Page<Search> findSearchAll(SearchFilter searchFilter) {
         return searchRepository.findSearches(searchFilter)
-            .map(searchMapper::toDomain);
+            .map(searchMapper::toSearchDomain);
     }
 
     @Override

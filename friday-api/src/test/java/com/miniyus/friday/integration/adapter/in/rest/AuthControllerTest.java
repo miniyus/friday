@@ -69,7 +69,7 @@ public class AuthControllerTest extends AuthDocument {
             .enabled(true)
             .name(request.name())
             .role(UserRole.MANAGER)
-            .provider(null)
+            .provider(SocialProvider.NONE)
             .snsId(null)
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
@@ -121,7 +121,7 @@ public class AuthControllerTest extends AuthDocument {
             .enabled(true)
             .name(faker.name().fullName())
             .role(UserRole.MANAGER)
-            .provider(null)
+            .provider(SocialProvider.NONE)
             .snsId(null)
             .email(request.email())
             .password(passwordEncoder.encode(request.password()))
@@ -155,6 +155,7 @@ public class AuthControllerTest extends AuthDocument {
             .password(faker.internet().password())
             .name(faker.name().fullName())
             .role(UserRole.USER)
+            .provider(SocialProvider.NONE)
             .build();
 
         when(jwtService.getUserByRefreshToken(any())).thenReturn(

@@ -63,9 +63,11 @@ public class User {
      * @param name user's name
      * @param role user's role
      */
-    public void update(String name, UserRole role) {
+    public User update(String name, UserRole role) {
         this.name = name;
         this.role = role;
+
+        return this;
     }
 
     /**
@@ -73,7 +75,7 @@ public class User {
      *
      * @param patch the patch object containing the updated user data
      */
-    public void patch(PatchUser patch) {
+    public User patch(PatchUser patch) {
         if (JsonNullableUtil.isPresent(patch.name())) {
             this.name = JsonNullableUtil.unwrap(patch.name(), null);
         }
@@ -81,6 +83,8 @@ public class User {
         if (JsonNullableUtil.isPresent(patch.role())) {
             this.role = JsonNullableUtil.unwrap(patch.role(), null);
         }
+
+        return this;
     }
 
     /**
@@ -88,14 +92,17 @@ public class User {
      *
      * @param passwordString the new password to be set
      */
-    public void resetPassword(String passwordString) {
+    public User resetPassword(String passwordString) {
         this.password = passwordString;
+
+        return this;
     }
 
     /**
      * Deletes the current object by setting the "deletedAt" field to the current date and time.
      */
-    public void delete() {
+    public User delete() {
         this.deletedAt = LocalDateTime.now();
+        return this;
     }
 }

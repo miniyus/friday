@@ -16,7 +16,7 @@ public class SearchMapper {
     private final HostEntityRepository hostRepository;
     private final FileEntityRepository fileEntityRepository;
 
-    public SearchEntity create(Search search) {
+    public SearchEntity createSearchEntity(Search search) {
         var hostEntity = hostRepository.findById(search.getHostId())
             .orElseThrow(NotFoundHostException::new);
         var fileEntities = fileEntityRepository.findByIdIn(search.getFiles());
@@ -34,7 +34,7 @@ public class SearchMapper {
         return entity.setHost(hostEntity);
     }
 
-    public SearchEntity update(SearchEntity entity, Search domain) {
+    public SearchEntity updateSearchEntity(SearchEntity entity, Search domain) {
         return entity.setId(domain.getId())
             .setDescription(domain.getDescription())
             .setQueryKey(domain.getQueryKey())
@@ -43,7 +43,7 @@ public class SearchMapper {
             .setViews(domain.getViews());
     }
 
-    public Search toDomain(SearchEntity entity) {
+    public Search toSearchDomain(SearchEntity entity) {
         return Search.builder()
             .id(entity.getId())
             .queryKey(entity.getQueryKey())

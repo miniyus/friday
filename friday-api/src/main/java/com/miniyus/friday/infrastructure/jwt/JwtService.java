@@ -24,8 +24,8 @@ import java.util.Optional;
  * @since 2023/08/31
  */
 @Service
-@RequiredArgsConstructor
 @Transactional
+@RequiredArgsConstructor
 public class JwtService {
     private final JwtProvider jwtProvider;
     private final UserEntityRepository userRepository;

@@ -1,6 +1,7 @@
 package com.miniyus.friday.api.users.resource;
 
 import com.miniyus.friday.users.domain.User;
+import com.miniyus.friday.users.domain.UserRole;
 import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public record UserResources(
         Long id,
         String email,
         String name,
-        String role,
+        UserRole role,
         String snsId,
         String provider,
         LocalDateTime createdAt,

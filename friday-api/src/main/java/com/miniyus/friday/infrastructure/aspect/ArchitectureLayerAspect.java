@@ -15,6 +15,12 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalAspect {
+    private static final String CONTROLLER = "Controller";
+    private static final String PERSISTENCE = "Persistence";
+    private static final String SERVICE = "Service";
+    private static final String DOMAIN = "Domain";
+
+
     /**
      * Constructor
      *
@@ -53,7 +59,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @Before("restAdapterPoint()")
     public void beforeRequest(JoinPoint joinPoint) {
-        beforeLogging("Controller", joinPoint);
+        beforeLogging(CONTROLLER, joinPoint);
     }
 
     /**
@@ -62,7 +68,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterReturning(pointcut = "restAdapterPoint()", returning = "returnValue")
     public void afterRequestReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Controller", joinPoint, returnValue);
+        afterReturningLogging(CONTROLLER, joinPoint, returnValue);
     }
 
     /**
@@ -71,7 +77,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterThrowing(pointcut = "restAdapterPoint()", throwing = "e")
     public void afterRequestThrowing(JoinPoint joinPoint, Exception e) {
-        afterThrowingLogging("Controller", joinPoint, e);
+        afterThrowingLogging(CONTROLLER, joinPoint, e);
     }
 
     /**
@@ -89,7 +95,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @Before("persistencePoint()")
     public void beforePersistence(JoinPoint joinPoint) {
-        beforeLogging("Persistence", joinPoint);
+        beforeLogging(PERSISTENCE, joinPoint);
     }
 
     /**
@@ -98,7 +104,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterReturning(pointcut = "persistencePoint()", returning = "returnValue")
     public void afterPersistenceReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Persistence", joinPoint, returnValue);
+        afterReturningLogging(PERSISTENCE, joinPoint, returnValue);
     }
 
     /**
@@ -107,7 +113,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterThrowing(pointcut = "persistencePoint()", throwing = "e")
     public void afterPersistenceThrowing(JoinPoint joinPoint, Exception e) {
-        afterThrowingLogging("Persistence", joinPoint, e);
+        afterThrowingLogging(PERSISTENCE, joinPoint, e);
     }
 
     /**
@@ -124,7 +130,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @Before("applicationPoint()")
     public void beforeService(JoinPoint joinPoint) {
-        beforeLogging("Service", joinPoint);
+        beforeLogging(SERVICE, joinPoint);
     }
 
     /**
@@ -133,7 +139,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterReturning(pointcut = "applicationPoint()", returning = "returnValue")
     public void afterServiceReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Service", joinPoint, returnValue);
+        afterReturningLogging(SERVICE, joinPoint, returnValue);
     }
 
     /**
@@ -142,7 +148,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterThrowing(pointcut = "applicationPoint()", throwing = "e")
     public void afterServiceThrowing(JoinPoint joinPoint, Exception e) {
-        afterThrowingLogging("Service", joinPoint, e);
+        afterThrowingLogging(SERVICE, joinPoint, e);
     }
 
     /**
@@ -159,7 +165,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @Before("domainPoint()")
     public void beforeDomain(JoinPoint joinPoint) {
-        beforeLogging("Domain", joinPoint);
+        beforeLogging(DOMAIN, joinPoint);
     }
 
     /**
@@ -168,7 +174,7 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterReturning(pointcut = "domainPoint()", returning = "returnValue")
     public void afterDomainReturning(JoinPoint joinPoint, Object returnValue) {
-        afterReturningLogging("Domain", joinPoint, returnValue);
+        afterReturningLogging(DOMAIN, joinPoint, returnValue);
     }
 
     /**
@@ -177,6 +183,6 @@ public class ArchitectureLayerAspect extends LoggingAspect implements HexagonalA
     @Override
     @AfterThrowing(pointcut = "domainPoint()", throwing = "e")
     public void afterDomainThrowing(JoinPoint joinPoint, Exception e) {
-        afterThrowingLogging("Domain", joinPoint, e);
+        afterThrowingLogging(DOMAIN, joinPoint, e);
     }
 }

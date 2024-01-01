@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserMapper {
-    public UserEntity create(User domain) {
+    public UserEntity createUserEntity(User domain) {
         return UserEntity.create(
             domain.getSnsId(),
             SocialProvider
@@ -25,7 +25,7 @@ public class UserMapper {
         );
     }
 
-    public UserEntity toEntity(User domain) {
+    public UserEntity toUserEntity(User domain) {
         return UserEntity.builder()
             .id(domain.getId())
             .snsId(domain.getSnsId())
@@ -39,7 +39,7 @@ public class UserMapper {
             .build();
     }
 
-    public User toDomain(UserEntity entity) {
+    public User toUserDomain(UserEntity entity) {
         return new User(
             entity.getId(),
             entity.getEmail(),

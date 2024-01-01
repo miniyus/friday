@@ -3,7 +3,7 @@ package com.miniyus.friday.infrastructure.security.social.exception;
 import lombok.Getter;
 
 /**
- * [description]
+ * not support provider exception.
  *
  * @author miniyus
  * @since 2023/08/31

@@ -44,6 +44,4 @@ public class UploadController extends BaseController implements UploadApi {
         var domain = usecase.findAll(userInfo.getId());
         return ResponseEntity.ok(UploadFileResources.fromDomains(domain));
     }
-
-
 }

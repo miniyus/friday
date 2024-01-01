@@ -81,17 +81,18 @@ public class JwtServiceTest {
      */
     @Test
     void issueTokenTest() {
-        // If user repository calls findByEmail, specify the return value as arbitrary test data
-        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(Optional.of(new UserEntity(
-            1L,
-            null,
-            null,
+
+        var userEntity = UserEntity.create(
+            testUser.getSnsId(),
+            testUser.getProvider(),
             testUser.getEmail(),
             testUser.getPassword(),
             testUser.getName(),
-            testUser.getRole(),
-            testUser.getDeletedAt()
-        )));
+            testUser.getRole());
+        // If user repository calls findByEmail, specify the return value as arbitrary test data
+        when(userRepository.findByEmail(testUser.getEmail())).thenReturn(
+            Optional.of(userEntity.setId(
+                testUser.getId())));
 
         var testAccessToken = AccessTokenEntity.builder()
             .token(jwtProvider.createAccessToken(testUser.getEmail()))

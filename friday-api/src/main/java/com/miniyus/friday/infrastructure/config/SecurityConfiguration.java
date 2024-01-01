@@ -3,6 +3,8 @@ package com.miniyus.friday.infrastructure.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.miniyus.friday.infrastructure.jwt.JwtAuthenticationFilter;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
+import com.miniyus.friday.infrastructure.persistence.repositories.LoginHistoryEntityRepository;
+import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.infrastructure.security.AuthResponseHandler;
 import com.miniyus.friday.infrastructure.security.auth.filter.PasswordAuthenticationFilter;
 import com.miniyus.friday.infrastructure.security.auth.handler.LoginFailureHandler;
@@ -55,27 +57,27 @@ public class SecurityConfiguration {
     /**
      * password user login url
      */
-    public static final String LOGIN_URL = RestConfiguration.PREFIX + "auth/signin";
+    public static final String LOGIN_URL = RestConfiguration.PREFIX + "/auth/signin";
 
     /**
      * user info url
      */
-    public static final String USERINFO_URL = RestConfiguration.PREFIX + "auth/me";
+    public static final String USERINFO_URL = RestConfiguration.PREFIX + "/auth/me";
 
     /**
      * logout url
      */
-    public static final String LOGOUT_URL = RestConfiguration.PREFIX + "auth/logout";
+    public static final String LOGOUT_URL = RestConfiguration.PREFIX + "/auth/logout";
 
     /**
      * password user signup url
      */
-    public static final String SIGNUP_URL = RestConfiguration.PREFIX + "auth/signup";
+    public static final String SIGNUP_URL = RestConfiguration.PREFIX + "/auth/signup";
 
     /**
      * refresh token url
      */
-    public static final String REFRESH_URL = RestConfiguration.PREFIX + "auth/refresh-token";
+    public static final String REFRESH_URL = RestConfiguration.PREFIX + "/auth/refresh-token";
 
     /**
      * oauth2 login url
@@ -111,6 +113,17 @@ public class SecurityConfiguration {
      * jwt service
      */
     private final JwtService jwtService;
+
+    /**
+     * user entity repository
+     */
+    private final UserEntityRepository userEntityRepository;
+    ;
+
+    /**
+     * login history entity repository
+     */
+    private final LoginHistoryEntityRepository loginHistoryEntityRepository;
 
     /**
      * app secret.
@@ -229,7 +242,9 @@ public class SecurityConfiguration {
     public AuthResponseHandler authResponseHandler() {
         return new AuthResponseHandler(
             messageSource,
-            objectMapper
+            objectMapper,
+            userEntityRepository,
+            loginHistoryEntityRepository
         );
     }
 

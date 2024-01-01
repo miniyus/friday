@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 /**
- * [description]
+ * OAuth2 Login Success Handler
  *
  * @author seongminyoo
  * @since 2023/08/31
@@ -26,7 +26,8 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private final AuthResponseHandler responseHandler;
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+    public void onAuthenticationSuccess(HttpServletRequest request,
+        HttpServletResponse response,
         Authentication authentication) {
         log.debug("Success OAuth2 login");
 
@@ -37,14 +38,18 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         PrincipalUserInfo oAuth2User = (PrincipalUserInfo) authentication.getPrincipal();
 
-        issueToken(response, oAuth2User);
+        issueToken(request, response, oAuth2User);
     }
 
-    private void issueToken(HttpServletResponse response, PrincipalUserInfo oAuth2User) {
+    private void issueToken(HttpServletRequest request,
+        HttpServletResponse response,
+        PrincipalUserInfo oAuth2User) {
         IssueToken issueToken = jwtService.issueToken(oAuth2User.getId());
 
         responseHandler.handleOAuth2IssueTokenHeader(
+            request,
             response,
+            oAuth2User,
             issueToken);
     }
 }

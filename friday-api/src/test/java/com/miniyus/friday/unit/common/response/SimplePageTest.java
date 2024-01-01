@@ -44,21 +44,22 @@ public class SimplePageTest {
 
         var sort = new ArrayList<String>();
 
-        SimplePage<Map<String, String>> tsetResponse = new SimplePage<Map<String, String>>(
-                details,
-                1L,
-                1,
-                1,
-                10,
-                sort);
+        SimplePage<Map<String, String>> testResponse = new SimplePage<Map<String, String>>(
+            "tests",
+            details,
+            1L,
+            1,
+            1,
+            10,
+            sort);
 
-        assertThat(json.write(tsetResponse))
-                .hasJsonPathNumberValue("@.totalElements")
-                .hasJsonPathNumberValue("@.totalPages")
-                .hasJsonPathNumberValue("@.page")
-                .hasJsonPathNumberValue("@.size")
-                .hasJsonPathArrayValue("@.sort")
-                .hasJsonPathArrayValue("@.resources");
+        assertThat(json.write(testResponse))
+            .hasJsonPathNumberValue("@.totalElements")
+            .hasJsonPathNumberValue("@.totalPages")
+            .hasJsonPathNumberValue("@.page")
+            .hasJsonPathNumberValue("@.size")
+            .hasJsonPathArrayValue("@.sort")
+            .hasJsonPathArrayValue("@.resources");
     }
 
     @Test
@@ -73,18 +74,18 @@ public class SimplePageTest {
 
         var page = PageRequest.of(1, 10, Sort.by("field1"));
         SimplePage<Map<String, String>> tsetResponse =
-                new SimplePage<Map<String, String>>(
-                        details,
-                        1L,
-                        page,
-                        "custom");
+            new SimplePage<Map<String, String>>(
+                details,
+                1L,
+                page,
+                "custom");
 
         assertThat(json.write(tsetResponse))
-                .hasJsonPathNumberValue("@.totalElements")
-                .hasJsonPathNumberValue("@.totalPages")
-                .hasJsonPathNumberValue("@.page")
-                .hasJsonPathNumberValue("@.size")
-                .hasJsonPathArrayValue("@.sort")
-                .hasJsonPathArrayValue("@.custom");
+            .hasJsonPathNumberValue("@.totalElements")
+            .hasJsonPathNumberValue("@.totalPages")
+            .hasJsonPathNumberValue("@.page")
+            .hasJsonPathNumberValue("@.size")
+            .hasJsonPathArrayValue("@.sort")
+            .hasJsonPathArrayValue("@.custom");
     }
 }

@@ -29,41 +29,42 @@ public class UserAdapter
 
     @Override
     public User createUser(User domain) {
-        var entity = userRepository.save(mapper.create(domain));
-        return mapper.toDomain(entity);
+        var entity = userRepository.save(
+            mapper.createUserEntity(domain));
+        return mapper.toUserDomain(entity);
     }
 
     @Override
     public List<User> findAll() {
         List<UserEntity> userEntities = userRepository.findAll();
-        return userEntities.stream().map(mapper::toDomain).toList();
+        return userEntities.stream().map(mapper::toUserDomain).toList();
     }
 
     @Override
     public Page<User> findAll(Pageable pageable) {
         Page<UserEntity> userEntities = userRepository.findAll(pageable);
-        return userEntities.map(mapper::toDomain);
+        return userEntities.map(mapper::toUserDomain);
     }
 
     @Override
     public Page<User> findAll(UserFilter searchUser) {
         Page<UserEntity> userEntities = userRepository.findUsers(searchUser);
-        return userEntities.map(mapper::toDomain);
+        return userEntities.map(mapper::toUserDomain);
     }
 
     @Override
     public Optional<User> findById(Long id) {
         return userRepository.findById(id)
-            .map(mapper::toDomain);
+            .map(mapper::toUserDomain);
     }
 
     private User save(UserEntity entity) {
-        return mapper.toDomain(userRepository.save(entity));
+        return mapper.toUserDomain(userRepository.save(entity));
     }
 
     @Override
     public User updateUser(User user) {
-        var entity = mapper.toEntity(user);
+        var entity = mapper.toUserEntity(user);
         return this.save(entity);
     }
 

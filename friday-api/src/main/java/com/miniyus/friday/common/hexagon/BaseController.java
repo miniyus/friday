@@ -34,4 +34,11 @@ public abstract class BaseController {
             .buildAndExpand(args)
             .toUri();
     }
+
+    protected URI createUriFromContextPath(String path, Object... args) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+            .path(path)
+            .buildAndExpand(args)
+            .toUri();
+    }
 }

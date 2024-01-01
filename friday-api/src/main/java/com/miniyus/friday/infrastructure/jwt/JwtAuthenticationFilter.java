@@ -42,6 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     /**
      * 필터 동작 메서드
+     *
      * @param request     request
      * @param response    response
      * @param filterChain filter chain
@@ -89,7 +90,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         HttpServletResponse response, FilterChain filterChain)
         throws ServletException, IOException {
 
-        log.debug("checkAccessTokenAndAuthentication() 호출");
+        log.debug("checkAccessTokenAndAuthentication() is called");
         log.debug("access token: {}", jwtService.extractAccessToken(request));
 
         try {
@@ -118,19 +119,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     public void saveAuthentication(UserEntity user) {
         log.debug("save auth: {}", user.getEmail());
 
-        var principal =
-            (PrincipalUserInfo) userDetailsService.loadUserByUsername(user.getEmail());
-
+        var principal = (PrincipalUserInfo) userDetailsService
+            .loadUserByUsername(user.getEmail());
         var password = user.getPassword();
+
         if (principal.isSnsUser() && (password == null || password.trim().isEmpty())) {
-            // 소셜 로그인 유저의 비밀번호 임의로 설정 하여 소셜 로그인 유저도 인증 되도록 설정
+            // 소셜 로그인 유저인 경우 일회용 임시 비밀번호 설정 하여 소셜 로그인 유저도 인증 되도록 설정
             long now = Instant.now().getEpochSecond();
             password = String.format("%s-%s", user.getSnsId(), now);
         }
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(principal, password,
             principal.getAuthorities());
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

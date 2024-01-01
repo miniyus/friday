@@ -5,13 +5,16 @@ import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.users.adapter.out.persistence.UserAdapter;
 import com.miniyus.friday.users.adapter.out.persistence.mapper.UserMapper;
+import com.miniyus.friday.users.domain.PatchUser;
 import com.miniyus.friday.users.domain.User;
 import com.miniyus.friday.users.domain.UserFilter;
+import com.miniyus.friday.users.domain.UserRole;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.openapitools.jackson.nullable.JsonNullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,13 +69,13 @@ public class UserAdapterTest extends PersistenceTest<Long, UserEntity> {
                 faker.internet().safeEmailAddress(),
                 faker.internet().password(),
                 faker.name().fullName(),
-                "USER",
+                UserRole.USER,
                 null,
                 null,
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 null);
-            testEntities.add(userMapper.toEntity(testDomain));
+            testEntities.add(userMapper.toUserEntity(testDomain));
         }
 
         testEntities = userRepository.saveAll(testEntities);
@@ -99,7 +102,7 @@ public class UserAdapterTest extends PersistenceTest<Long, UserEntity> {
         var latestUser = testEntities.get(testEntities.size() - 1);
         User user = userAdapter.findById(latestUser.getId()).orElse(null);
 
-        var testUser = userMapper.toDomain(latestUser);
+        var testUser = userMapper.toUserDomain(latestUser);
 
         assertThat(user).isNotNull()
             .hasFieldOrPropertyWithValue("id", testUser.getId());
@@ -114,7 +117,7 @@ public class UserAdapterTest extends PersistenceTest<Long, UserEntity> {
                 faker.internet().safeEmailAddress(),
                 faker.internet().password(),
                 faker.name().fullName(),
-                "USER",
+                UserRole.USER,
                 null,
                 null,
                 null,
@@ -134,7 +137,10 @@ public class UserAdapterTest extends PersistenceTest<Long, UserEntity> {
 
         assert origin != null;
 
-        origin.patch("updateName", null);
+        origin.patch(PatchUser.builder()
+            .name(JsonNullable.of("updateName"))
+            .role(JsonNullable.of(UserRole.USER))
+            .build());
         User updated = userAdapter.updateUser(origin);
 
         assertThat(updated).isNotNull()

@@ -9,6 +9,7 @@ import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
 import com.miniyus.friday.infrastructure.security.CustomUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
 import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.miniyus.friday.users.adapter.out.persistence.mapper.AuthMapper;
 import com.miniyus.friday.users.application.port.out.AuthPort;
 import com.miniyus.friday.users.domain.Auth;
 import com.miniyus.friday.users.domain.Token;
@@ -22,8 +23,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AuthAdapter implements AuthPort {
     private final CustomUserDetailsService userDetailsService;
-    private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
+    private final AuthMapper authMapper;
 
     @Override
     public Auth signup(Auth authentication) {
@@ -36,12 +38,7 @@ public class AuthAdapter implements AuthPort {
                     .password(passwordEncoder.encode(authentication.getPassword()))
                     .build()
             );
-            return Auth.builder()
-                .id(principalUserInfo.getId())
-                .name(principalUserInfo.getName())
-                .email(principalUserInfo.getEmail())
-                .role(principalUserInfo.getRole())
-                .build();
+            return authMapper.toAuthDomain(principalUserInfo);
         } catch (Exception e) {
             throw new RestErrorException("auth.error.exists", RestErrorCode.CONFLICT, e);
         }
@@ -69,20 +66,7 @@ public class AuthAdapter implements AuthPort {
         }
 
         var issueToken = jwtService.issueToken(user.getId());
-
-        return Token.builder()
-            .tokenType(issueToken.tokenType())
-            .accessToken(issueToken.accessToken())
-            .expiresIn(issueToken.expiresIn())
-            .refreshToken(issueToken.refreshToken())
-            .build();
-    }
-
-    private PrincipalUserInfo userInfo() {
-        return (PrincipalUserInfo) SecurityContextHolder
-            .getContext()
-            .getAuthentication()
-            .getPrincipal();
+        return authMapper.toTokenDomain(issueToken);
     }
 
     @Override
@@ -92,14 +76,7 @@ public class AuthAdapter implements AuthPort {
             throw userNotExists();
         }
 
-        return Auth.builder()
-            .id(user.getId())
-            .role(user.getRole())
-            .email(user.getEmail())
-            .name(user.getName())
-            .snsId(user.getSnsId())
-            .provider(user.getProvider().value())
-            .build();
+        return authMapper.toAuthDomain(user);
     }
 
     @Override
@@ -109,11 +86,14 @@ public class AuthAdapter implements AuthPort {
             throw userNotExists();
         }
 
-        if (user.getId() == null) {
-            throw userNotExists();
-        }
-
         jwtService.revokeTokenByUserId(user.getId());
+    }
+
+    private PrincipalUserInfo userInfo() {
+        return (PrincipalUserInfo) SecurityContextHolder
+            .getContext()
+            .getAuthentication()
+            .getPrincipal();
     }
 
     private RestErrorException userNotExists() {

@@ -23,8 +23,8 @@ public class HostAdapter implements HostPort {
 
     @Override
     public Host create(Host host) {
-        var entity = hostMapper.create(host);
-        return hostMapper.toDomain(
+        var entity = hostMapper.createHostEntity(host);
+        return hostMapper.toHostDomain(
             hostRepository.save(entity));
     }
 
@@ -41,7 +41,7 @@ public class HostAdapter implements HostPort {
     @Override
     public Optional<Host> findByHost(WhereHost whereHost) {
         return hostRepository.findByHostAndUserId(whereHost.host(), whereHost.userId())
-            .map(hostMapper::toDomain);
+            .map(hostMapper::toHostDomain);
     }
 
     @Override
@@ -50,28 +50,28 @@ public class HostAdapter implements HostPort {
             wherePublish.publish(),
             wherePublish.userId(),
             pageable
-        ).map(hostMapper::toDomain);
+        ).map(hostMapper::toHostDomain);
     }
 
     @Override
     public Page<Host> findAll(HostFilter host) {
         return hostRepository.findHosts(host)
-            .map(hostMapper::toDomain);
+            .map(hostMapper::toHostDomain);
     }
 
     @Override
     public Optional<Host> findById(Long id) {
         return hostRepository.findById(id)
-            .map(hostMapper::toDomain);
+            .map(hostMapper::toHostDomain);
     }
 
     @Override
     public Host update(Host host) {
         var entity = hostRepository.findById(host.getId())
             .orElseThrow(NotFoundHostException::new);
-        hostMapper.update(entity, host);
-        return hostMapper.toDomain(
-            hostRepository.save(entity)
+        return hostMapper.toHostDomain(
+            hostRepository.save(
+                hostMapper.updateHostEntity(entity, host))
         );
     }
 

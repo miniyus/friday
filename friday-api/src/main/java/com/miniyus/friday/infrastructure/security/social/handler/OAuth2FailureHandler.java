@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 /**
- * [description]
+ * oAuth2 Login Failure Handler
  *
  * @author seongminyoo
  * @since 2023/08/31
@@ -26,17 +26,17 @@ public class OAuth2FailureHandler implements AuthenticationFailureHandler {
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
-            HttpServletResponse response,
-            AuthenticationException exception) throws IOException {
+        HttpServletResponse response,
+        AuthenticationException exception) throws IOException {
         log.debug("Failure oauth login: {}", exception.getMessage());
 
         RestErrorCode code = RestErrorCode.INVALID_CLIENT;
         var message = exception.getMessage();
 
         responseHandler.handleErrorResponse(
-                response,
-                code,
-                message);
-
+            request,
+            response,
+            code,
+            message);
     }
 }

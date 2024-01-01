@@ -36,7 +36,9 @@ public class UploadAdapter implements UploadPort {
     @Override
     public List<UploadFileDomain> findAll(Long userId) {
         return fileEntityRepository.findByUserId(userId)
-            .stream().map(this::toDomain).toList();
+            .stream()
+            .map(this::toDomain)
+            .toList();
     }
 
     private UploadFileDomain toDomain(FileEntity entity) {

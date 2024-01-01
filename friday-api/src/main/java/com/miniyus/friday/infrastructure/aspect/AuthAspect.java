@@ -133,11 +133,14 @@ public class AuthAspect extends LoggingAspect {
      */
     @AfterReturning(pointcut = "loginEndPoint()", returning = "returnValue")
     public void afterLoginRetuning(JoinPoint joinPoint, Object returnValue) {
-        UserEntity user;
         ResponseEntity<Token> token = (ResponseEntity<Token>) returnValue;
-
-        var json = toJson(returnValue);
-        log.info("[After login Returning] {}", json);
+        UserEntity user;
+        if (returnValue != null) {
+            String json = toJson(returnValue);
+            log.info("[After login Returning] {}", json);
+        } else {
+            log.info("[After login Returning] null");
+        }
 
         var loginHistoryEntity = createFromRequest();
 

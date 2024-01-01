@@ -1,6 +1,7 @@
 package com.miniyus.friday.integration.annotation;
 
 import com.miniyus.friday.infrastructure.security.PrincipalUserInfo;
+import com.miniyus.friday.infrastructure.security.social.SocialProvider;
 import net.datafaker.Faker;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -45,7 +46,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
                 .attributes(null)
-                .provider(null)
+                .provider(SocialProvider.NONE)
                 .authorities(authorities)
                 .role(annotation.role())
                 .build();

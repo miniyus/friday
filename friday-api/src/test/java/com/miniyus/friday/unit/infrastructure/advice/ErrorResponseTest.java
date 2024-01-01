@@ -1,5 +1,6 @@
 package com.miniyus.friday.unit.infrastructure.advice;
 
+import com.miniyus.friday.common.error.ErrorResponse;
 import com.miniyus.friday.common.error.RestErrorCode;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

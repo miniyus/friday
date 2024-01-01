@@ -5,7 +5,7 @@ import com.miniyus.friday.common.util.HasText;
 import lombok.Getter;
 
 /**
- * [description]
+ * social provider.
  *
  * @author seongminyoo
  * @since 2023/08/31

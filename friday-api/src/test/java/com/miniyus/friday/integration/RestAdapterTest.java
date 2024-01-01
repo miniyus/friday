@@ -8,6 +8,7 @@ import com.miniyus.friday.infrastructure.config.JwtConfiguration;
 import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
 import com.miniyus.friday.infrastructure.jwt.JwtProvider;
 import com.miniyus.friday.infrastructure.jwt.JwtService;
+import com.miniyus.friday.infrastructure.persistence.repositories.LoginHistoryEntityRepository;
 import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
 import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
 import com.miniyus.friday.infrastructure.security.PrincipalUserService;
@@ -59,6 +60,9 @@ public abstract class RestAdapterTest {
 
     @MockBean
     protected UserEntityRepository userEntityRepository;
+
+    @MockBean
+    protected LoginHistoryEntityRepository loginHistoryEntityRepository;
 
     @MockBean
     protected MessageSource messageSource;

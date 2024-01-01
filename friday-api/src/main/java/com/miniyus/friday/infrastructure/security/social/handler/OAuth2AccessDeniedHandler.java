@@ -30,6 +30,7 @@ public class OAuth2AccessDeniedHandler implements AccessDeniedHandler {
         log.debug("Access Denied: {}", exception.getMessage());
         var code = RestErrorCode.ACCESS_DENIED;
         responseHandler.handleErrorResponse(
+            request,
             response,
             code,
             "error.accessDenied");

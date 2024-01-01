@@ -103,7 +103,8 @@ public abstract class AuthDocument extends RestAdapterTest {
             getResourceBuilder(requestSchema, responseSchema)
                 .requestFields(
                     fieldWithPath("email").description("email"),
-                    fieldWithPath("password").description("password")
+                    fieldWithPath("password").description("password"),
+                    fieldWithPath("secret").description("secret")
                 )
                 .responseFields(
                     fieldWithPath("id").description("id"),
@@ -136,7 +137,7 @@ public abstract class AuthDocument extends RestAdapterTest {
                     request.getClass().getName(),
                     response.getClass().getName()
                 )
-            ).andExpect(status().isOk())
+            ).andExpect(status().isCreated())
             .andExpect(jsonPath("id").value(response.id()))
             .andExpect(jsonPath("email").value(response.email()))
             .andExpect(jsonPath("name").value(response.name()))
@@ -180,7 +181,7 @@ public abstract class AuthDocument extends RestAdapterTest {
 
         result.andDo(
                 refreshDocument(response.getClass().getName())
-            ).andExpect(status().isOk())
+            ).andExpect(status().isCreated())
             .andExpect(jsonPath("tokenType").value(response.tokenType()))
             .andExpect(jsonPath("accessToken").value(response.accessToken()))
             .andExpect(jsonPath("expiresIn").value(response.expiresIn()))

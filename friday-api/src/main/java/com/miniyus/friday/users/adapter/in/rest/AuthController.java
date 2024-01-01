@@ -85,7 +85,9 @@ public class AuthController extends BaseController implements AuthApi {
         // Call the authService to refresh the token
         var tokens = authUsecase.refreshToken(refreshToken);
         // Create a response entity with the issued access token
-        return ResponseEntity.ok(tokens);
+        var uri = createUriFromContextPath(SecurityConfiguration.USERINFO_URL);
+        return ResponseEntity
+            .created(uri).body(tokens);
     }
 
     @GetMapping(SecurityConfiguration.USERINFO_URL)
