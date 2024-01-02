@@ -3,46 +3,17 @@ import axios, {
     AxiosError,
     RawAxiosRequestHeaders,
     AxiosRequestConfig,
-    InternalAxiosRequestConfig,
 } from 'axios';
-import { makePath } from '@api/utils/str';
-
-/**
- * Token Type.
- */
-export interface Token {
-    tokenType: string | null;
-    token: string | null;
-}
-
-/**
- * Api Response Type.
- *
- * Wrapping AxiosResponse
- */
-export interface ApiResponse<T = any, D = any> extends AxiosResponse<T, D> {
-    data: T;
-    config: InternalAxiosRequestConfig<D>;
-    isSuccess: boolean;
-    error: ErrorResInterface | null;
-}
-
-/**
- * Error Response Type.
- */
-export interface ErrorResInterface {
-    error: string;
-    code: number;
-    message: string;
-}
-
-/**
- * Attachment Type.
- */
-export interface Attachment {
-    name: string;
-    file: File;
-}
+import {makePath} from '@api/utils/str';
+import {
+    AfterResponseHandler,
+    ApiResponse,
+    Attachment,
+    ErrorHandler,
+    ErrorResInterface,
+    PreRequestHandler,
+    Token
+} from "@api/base/types";
 
 /**
  * ErrorResponse class.
@@ -104,10 +75,6 @@ export class ErrorResponse implements ErrorResInterface {
     }
 }
 
-export interface ErrorHandler {
-    (error: any | AxiosError | Error): ErrorResInterface;
-}
-
 /**
  * ApiClient class.
  *
@@ -122,12 +89,19 @@ export default class ApiClient {
     protected _error: any;
     protected _isSuccess: boolean;
     protected _errorHandler: ErrorHandler | null;
+    protected _preRequestHandler: PreRequestHandler | null;
+    protected _afterResponseHandler: AfterResponseHandler | null;
 
     /**
      * @param {string} host
      * @param errorHandler
+     * @param preRequestHandler
+     * @param afterResponseHandler
      */
-    constructor(host: string, errorHandler: ErrorHandler | null = null) {
+    constructor(host: string,
+                errorHandler: ErrorHandler | null = null,
+                preRequestHandler: PreRequestHandler | null = null,
+                afterResponseHandler: AfterResponseHandler | null = null) {
         this._host = host;
         this._headers = null;
         this._response = null;
@@ -136,6 +110,8 @@ export default class ApiClient {
         this._isSuccess = false;
         this._attachment = [];
         this._errorHandler = errorHandler;
+        this._preRequestHandler = preRequestHandler;
+        this._afterResponseHandler = afterResponseHandler;
     }
 
     /**
@@ -202,7 +178,18 @@ export default class ApiClient {
             this._headers = null;
         }
 
-        return this.setResponse(axios.request(config));
+        if (this._preRequestHandler) {
+            console.debug("call: preRequest");
+            config = this._preRequestHandler(config);
+        }
+
+        let axiosResponse: AxiosResponse = await axios.request(config);
+        if (this._afterResponseHandler) {
+            console.debug("call: afterRequest");
+            axiosResponse = this._afterResponseHandler(axiosResponse);
+        }
+
+        return this.setResponse(axiosResponse);
     }
 
     /**
@@ -218,14 +205,14 @@ export default class ApiClient {
 
     /**
      *
-     * @param {Promise<AxiosResponse<*, *>>} res
-     * @returns {Promise<ApiResponse>}
+     * @param {AxiosResponse<*, *>} res
+     * @returns {ApiResponse}
      */
-    async setResponse(
-        res: Promise<AxiosResponse<any, any>>,
-    ): Promise<ApiResponse> {
+    setResponse(
+        res: AxiosResponse<any, any>,
+    ): ApiResponse {
         try {
-            this._response = await res;
+            this._response = res;
             this._isSuccess = true;
             return {
                 ...this._response,
@@ -238,7 +225,7 @@ export default class ApiClient {
 
             let errorResponse = null;
             if (this._errorHandler) {
-               errorResponse =this._errorHandler(error);
+                errorResponse = this._errorHandler(error);
             }
 
             return {
@@ -264,7 +251,7 @@ export default class ApiClient {
      * @returns {ApiClient}
      */
     withToken(token: string, tokenType?: string): ApiClient {
-        this._token = { tokenType: tokenType || null, token: token };
+        this._token = {tokenType: tokenType || null, token: token};
         return this;
     }
 

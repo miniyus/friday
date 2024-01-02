@@ -3,7 +3,7 @@ import {
     SignupRequest,
     UserResource,
 } from "@api/auth/types";
-import { ApiResponse, ErrorResInterface } from "@api/base/ApiClient";
+import { ApiResponse, ErrorResInterface } from "@api/base/types";
 import BaseClient from "@api/base/BaseClient";
 
 class AuthClient extends BaseClient {

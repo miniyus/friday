@@ -1,6 +1,6 @@
 import ApiClient from "@api/base/ApiClient";
 
-class BaseClient {
+abstract class BaseClient {
     protected _client: ApiClient;
     static readonly prefix: string;
 

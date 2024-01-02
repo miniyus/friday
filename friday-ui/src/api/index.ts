@@ -1,18 +1,20 @@
-import ApiClient, {
+import ApiClient, {ErrorResponse} from '@api/base/ApiClient';
+import {
+    AfterResponseHandler,
     ErrorHandler,
-    ErrorResInterface,
-    ErrorResponse,
+    ErrorResInterface, PreRequestHandler,
     Token,
-} from '@api/base/ApiClient';
+    TokenResponseHandler
+} from '@api/base/types';
 import BaseClient from '@api/base/BaseClient';
-import { makePath } from '@api/utils/str';
-import { AxiosError, AxiosRequestHeaders } from 'axios';
+import {makePath} from '@api/utils/str';
+import {AxiosError, AxiosRequestHeaders} from 'axios';
 
 /**
  * ClientType
  */
 interface ClientType<T> {
-    new (client: ApiClient): T;
+    new(client: ApiClient): T;
 
     readonly prefix: string;
 }
@@ -26,43 +28,9 @@ export interface ApiConfig {
     headers?: AxiosRequestHeaders;
     token?: Token;
     errorHandler?: ErrorHandler;
+    preRequestHandler?: PreRequestHandler;
+    afterResponseHandler?: AfterResponseHandler;
 }
-
-/**
- * Checks if the given response is an error response.
- *
- * @param {any} res - The response object to check.
- * @return {boolean} Returns true if the response is an error response, false otherwise.
- */
-export const isErrorResponse = (res: any): boolean => {
-    if (res instanceof ErrorResponse) {
-        return true;
-    }
-
-    return 'error' in res && 'code' in res && 'message' in res;
-};
-
-/**
- * Serializes the error response.
- *
- * @param {any} res - the response object
- * @return {ErrorResInterface} the serialized error response
- */
-export const serializeErrorResponse = (res: any): ErrorResInterface => {
-    if (res instanceof ErrorResponse) {
-        return res.serialize();
-    }
-
-    if ('error' in res && 'code' in res && 'message' in res) {
-        return res;
-    } else {
-        return {
-            error: 'Unknown Error',
-            code: 0,
-            message: 'Unknown Error',
-        };
-    }
-};
 
 /**
  * A function that serves as the default error handler.
@@ -145,6 +113,8 @@ export const api = (apiConfig: ApiConfig): ApiClient => {
     const client: ApiClient = new ApiClient(
         apiConfig.host,
         apiConfig.errorHandler,
+        apiConfig.preRequestHandler,
+        apiConfig.afterResponseHandler,
     );
 
     if (apiConfig) {
