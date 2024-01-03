@@ -73,6 +73,8 @@ public class ReflectResolver {
     public void resolvePropertyType(Field field, Object instance)
         throws InvocationTargetException, IllegalAccessException, InstantiationException,
         NoSuchMethodException {
+
+        field.setAccessible(true); 
         if (field.getType() == String.class) {
             setField(field, instance, faker.lorem().word());
         } else if (field.getType() == char.class || field.getType() == Character.class) {
@@ -203,6 +205,10 @@ public class ReflectResolver {
     private void setField(Field field, Object instance, Object value)
         throws IllegalAccessException, InvocationTargetException, InstantiationException,
         NoSuchMethodException {
+        if (getField(field, instance) != null) {
+            return;
+        }
+        
         if (instance instanceof Map) {
             var fieldName = resolvePropertyName(field);
             ((Map<String, Object>) instance).put(fieldName, value);
