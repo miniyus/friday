@@ -1,7 +1,7 @@
-package com.miniyus.friday.annotation;
+package com.meteormin.friday.annotation;
 
-import com.miniyus.friday.infrastructure.security.social.SocialProvider;
-import com.miniyus.friday.users.domain.UserRole;
+import com.meteormin.friday.infrastructure.security.social.SocialProvider;
+import com.meteormin.friday.users.domain.UserRole;
 import org.springframework.security.test.context.support.WithSecurityContext;
 
 import java.lang.annotation.Retention;
@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * WithMockCustomUser
  *
- * @author miniyus
+ * @author meteormin
  * @date 2023/09/07
  */
 @Retention(RetentionPolicy.RUNTIME)

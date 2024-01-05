@@ -1,4 +1,4 @@
-package com.miniyus.friday.annotation;
+package com.meteormin.friday.annotation;
 
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;

@@ -1,18 +1,18 @@
-package com.miniyus.friday.hexagonal.adapter;
+package com.meteormin.friday.hexagonal.adapter;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.epages.restdocs.apispec.ResourceSnippetParametersBuilder;
 import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.miniyus.friday.common.fake.FakeInjector;
-import com.miniyus.friday.infrastructure.config.JwtConfiguration;
-import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
-import com.miniyus.friday.infrastructure.jwt.JwtProvider;
-import com.miniyus.friday.infrastructure.jwt.JwtService;
-import com.miniyus.friday.infrastructure.persistence.repositories.LoginHistoryEntityRepository;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.security.PrincipalUserDetailsService;
+import com.meteormin.friday.common.fake.FakeInjector;
+import com.meteormin.friday.infrastructure.config.JwtConfiguration;
+import com.meteormin.friday.infrastructure.config.SecurityConfiguration;
+import com.meteormin.friday.infrastructure.jwt.JwtProvider;
+import com.meteormin.friday.infrastructure.jwt.JwtService;
+import com.meteormin.friday.infrastructure.persistence.repositories.LoginHistoryEntityRepository;
+import com.meteormin.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.meteormin.friday.infrastructure.security.PrincipalUserDetailsService;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;

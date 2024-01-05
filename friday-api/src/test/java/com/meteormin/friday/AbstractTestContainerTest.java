@@ -1,4 +1,4 @@
-package com.miniyus.friday;
+package com.meteormin.friday;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

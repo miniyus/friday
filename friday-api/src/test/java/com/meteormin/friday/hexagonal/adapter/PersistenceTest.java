@@ -1,15 +1,15 @@
-package com.miniyus.friday.hexagonal.adapter;
+package com.meteormin.friday.hexagonal.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.miniyus.friday.AbstractTestContainerTest;
-import com.miniyus.friday.common.fake.FakeInjector;
-import com.miniyus.friday.infrastructure.persistence.BaseEntity;
-import com.miniyus.friday.infrastructure.persistence.entities.UserEntity;
-import com.miniyus.friday.infrastructure.persistence.repositories.UserEntityRepository;
-import com.miniyus.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
-import com.miniyus.friday.infrastructure.security.social.SocialProvider;
-import com.miniyus.friday.users.domain.UserRole;
+import com.meteormin.friday.AbstractTestContainerTest;
+import com.meteormin.friday.common.fake.FakeInjector;
+import com.meteormin.friday.infrastructure.persistence.BaseEntity;
+import com.meteormin.friday.infrastructure.persistence.entities.UserEntity;
+import com.meteormin.friday.infrastructure.persistence.repositories.UserEntityRepository;
+import com.meteormin.friday.infrastructure.security.auth.userinfo.PasswordUserInfo;
+import com.meteormin.friday.infrastructure.security.social.SocialProvider;
+import com.meteormin.friday.users.domain.UserRole;
 import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

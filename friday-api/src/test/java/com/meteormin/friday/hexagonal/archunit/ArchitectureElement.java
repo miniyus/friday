@@ -1,4 +1,4 @@
-package com.miniyus.friday.archunit;
+package com.meteormin.friday.hexagonal.archunit;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;

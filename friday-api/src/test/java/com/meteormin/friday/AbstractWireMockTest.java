@@ -1,8 +1,8 @@
-package com.miniyus.friday;
+package com.meteormin.friday;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.miniyus.friday.common.fake.FakeInjector;
+import com.meteormin.friday.common.fake.FakeInjector;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;

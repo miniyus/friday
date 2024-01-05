@@ -1,12 +1,12 @@
-package com.miniyus.friday;
+package com.meteormin.friday;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.miniyus.friday.common.fake.FakeInjector;
-import com.miniyus.friday.infrastructure.config.SecurityConfiguration;
-import com.miniyus.friday.infrastructure.security.auth.PasswordAuthentication;
-import com.miniyus.friday.infrastructure.security.auth.response.PasswordTokenResponse;
-import com.miniyus.friday.auth.domain.Token;
+import com.meteormin.friday.auth.domain.Token;
+import com.meteormin.friday.common.fake.FakeInjector;
+import com.meteormin.friday.infrastructure.config.SecurityConfiguration;
+import com.meteormin.friday.infrastructure.security.auth.PasswordAuthentication;
+import com.meteormin.friday.infrastructure.security.auth.response.PasswordTokenResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

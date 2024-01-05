@@ -1,15 +1,12 @@
-package com.miniyus.friday.hexagonal.application;
+package com.meteormin.friday.hexagonal.domain;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.miniyus.friday.common.fake.FakeInjector;
+import com.meteormin.friday.common.fake.FakeInjector;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
-public abstract class UsecaseTest {
+public abstract class DomainTest {
     protected final Faker faker = new Faker();
     protected final ObjectMapper objectMapper = new ObjectMapper();
     protected FakeInjector fakeInjector;

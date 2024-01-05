@@ -1,13 +1,13 @@
-package com.miniyus.friday.hexagonal;
+package com.meteormin.friday.hexagonal;
 
-import com.miniyus.friday.hexagonal.archunit.HexagonalArchitecture;
+import com.meteormin.friday.hexagonal.archunit.HexagonalArchitecture;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 public abstract class HexagonalArchitectureTest {
-    protected final String basePackage = "com.miniyus.friday";
+    protected final String basePackage = "com.meteormin.friday";
     protected final String domainPackage = "domain";
     protected final String domain;
 
