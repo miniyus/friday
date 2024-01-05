@@ -5,7 +5,6 @@ import com.miniyus.friday.common.fake.annotation.NoFake;
 import com.miniyus.friday.common.fake.exception.NotAllowedFakeException;
 import com.miniyus.friday.common.fake.resolver.ReflectResolver;
 import lombok.Getter;
-import lombok.Setter;
 import net.datafaker.Faker;
 
 import java.lang.reflect.Constructor;
@@ -19,18 +18,11 @@ import java.util.function.UnaryOperator;
  * <p>FakeInjector.</p>
  * <p>Automatically inject fake data</p>
  *
- * @author seongminyoo
+ * @author miniyus
  * @see Faker
  * @since 2023/10/19
  */
 public class FakeInjector {
-
-    /**
-     * Default array size, If injected type is array(or collections) then set default
-     */
-    @Getter
-    @Setter
-    private static int defaultArraySize = 3;
 
     /**
      * Faker data generator.
@@ -70,7 +62,7 @@ public class FakeInjector {
     public FakeInjector(Faker faker, ObjectMapper objectMapper) {
         this.faker = faker;
         this.objectMapper = objectMapper;
-        this.resolver = new ReflectResolver(this, this.faker);
+        this.resolver = new ReflectResolver(this);
     }
 
     /**

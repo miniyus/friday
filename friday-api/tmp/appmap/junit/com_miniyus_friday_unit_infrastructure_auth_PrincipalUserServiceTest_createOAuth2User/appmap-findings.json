@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1703821552499
+    "timestampMs": 1704158930220
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserServiceTest_createOAuth2User.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_infrastructure_auth_PrincipalUserServiceTest_createOAuth2User.appmap.json": {
       "name": "Principal user service create o auth 2 user",
       "recording": {
         "defined_class": "com.miniyus.friday.unit.infrastructure.auth.PrincipalUserServiceTest",

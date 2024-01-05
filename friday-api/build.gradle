@@ -185,6 +185,7 @@ compileJava {
 
 tasks.withType(JavaCompile).configureEach {
 	options.generatedSourceOutputDirectory = file(querydslSrcDir)
+	options.compilerArgs.add("-parameters")
 }
 
 clean {

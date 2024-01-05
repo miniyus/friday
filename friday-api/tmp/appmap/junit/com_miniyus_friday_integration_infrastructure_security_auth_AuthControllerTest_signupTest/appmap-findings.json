@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1703821552499
+    "timestampMs": 1704158930220
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_infrastructure_security_auth_AuthControllerTest_signupTest.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_infrastructure_security_auth_AuthControllerTest_signupTest.appmap.json": {
       "name": "Auth controller signup",
       "recording": {
         "defined_class": "com.miniyus.friday.integration.infrastructure.security.auth.AuthControllerTest",

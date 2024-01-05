@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1703821552499
+    "timestampMs": 1704158930220
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_users_application_service_UserServiceTest_deleteUser.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_unit_users_application_service_UserServiceTest_deleteUser.appmap.json": {
       "name": "User service delete user",
       "recording": {
         "defined_class": "com.miniyus.friday.unit.users.application.service.UserServiceTest",

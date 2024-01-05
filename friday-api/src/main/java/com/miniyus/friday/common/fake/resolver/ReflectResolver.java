@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.miniyus.friday.common.fake.FakeInjector;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import net.datafaker.Faker;
 
 import java.lang.reflect.Constructor;
@@ -15,15 +17,26 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 public class ReflectResolver {
     private final FakeInjector injector;
     private final Faker faker;
+    private final Options options;
+
+    public ReflectResolver(FakeInjector injector) {
+        this(injector, Options.defaultOptions());
+    }
+
+    public ReflectResolver(FakeInjector injector, Options options) {
+        this.injector = injector;
+        this.faker = injector.getFaker();
+        this.options = Options.fill(options);
+    }
 
     /**
      * Resolves the property name for a given field.
@@ -74,7 +87,10 @@ public class ReflectResolver {
         throws InvocationTargetException, IllegalAccessException, InstantiationException,
         NoSuchMethodException {
 
-        field.setAccessible(true); 
+        int minAge = options.dateTime.max.toLocalDateTime().getYear() - LocalDateTime.now().getYear();
+        int maxAge = options.dateTime.min.toLocalDateTime().getYear() - LocalDateTime.now().getYear();
+
+        field.setAccessible(true);
         if (field.getType() == String.class) {
             setField(field, instance, faker.lorem().word());
         } else if (field.getType() == char.class || field.getType() == Character.class) {
@@ -106,7 +122,10 @@ public class ReflectResolver {
                 // So, it considers the unassigned status as zero.
                 return;
             }
-            setField(field, instance, (float) faker.number().randomDouble(2, 0, 100));
+            setField(field, instance, (float) faker.number().randomDouble(
+                options.number.maxNumberOfDigits,
+                options.number.min,
+                options.number.max));
         } else if (field.getType() == double.class || field.getType() == Double.class) {
             var d = getField(field, instance);
             if (d instanceof Double && !d.equals(0.0)) {
@@ -114,7 +133,10 @@ public class ReflectResolver {
                 // So, it considers the unassigned status as zero.
                 return;
             }
-            setField(field, instance, faker.number().randomDouble(2, 0, 100));
+            setField(field, instance, faker.number().randomDouble(
+                options.number.maxNumberOfDigits,
+                options.number.min,
+                options.number.max));
         } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
             var b = getField(field, instance);
             if (b instanceof Boolean && !b.equals(false)) {
@@ -124,19 +146,19 @@ public class ReflectResolver {
             }
             setField(field, instance, faker.bool().bool());
         } else if (field.getType() == Date.class) {
-            var dateInstant = faker.date().birthday().toInstant();
+            var dateInstant = faker.date().birthday(minAge, maxAge).toInstant();
             setField(field, instance, Date.from(dateInstant));
         } else if (field.getType() == LocalDateTime.class) {
-            var localDateTime = faker.date().birthday(0, 100).toLocalDateTime();
+            var localDateTime = faker.date().birthday(minAge, maxAge).toLocalDateTime();
             setField(field, instance, localDateTime);
         } else if (field.getType() == LocalDate.class) {
-            var localDateTime = faker.date().birthday(0, 100).toLocalDateTime();
+            var localDateTime = faker.date().birthday(minAge, maxAge).toLocalDateTime();
             setField(field, instance, localDateTime.toLocalDate());
         } else if (field.getType() == LocalTime.class) {
-            var localDateTime = faker.date().birthday(0, 100).toLocalDateTime();
+            var localDateTime = faker.date().birthday(minAge, maxAge).toLocalDateTime();
             setField(field, instance, localDateTime.toLocalTime());
         } else if (field.getType() == Timestamp.class) {
-            setField(field, instance, faker.date().birthday(0, 100));
+            setField(field, instance, faker.date().birthday(minAge, maxAge));
         } else if (field.getType() == UUID.class) {
             setField(field, instance, UUID.randomUUID());
         } else if (field.getType() == Long.class || field.getType() == long.class) {
@@ -155,8 +177,8 @@ public class ReflectResolver {
             // use component type to generate
             var componentType = field.getType().getComponentType();
             var componentInstance =
-                injector.generate(componentType, FakeInjector.getDefaultArraySize())
-                    .toArray(new Object[FakeInjector.getDefaultArraySize()]);
+                injector.generate(componentType, options.array.defaultSize)
+                    .toArray(new Object[options.array.defaultSize]);
             setField(field, instance, componentInstance);
         } else if (field.getType() == List.class) {
             // list class has generic type
@@ -165,7 +187,7 @@ public class ReflectResolver {
             if (genericType instanceof ParameterizedType parameterizedType) {
                 var listType = parameterizedType.getActualTypeArguments()[0];
                 Class<?> componentType = (Class<?>) listType;
-                var componentInstance = injector.generate(componentType, 3);
+                var componentInstance = injector.generate(componentType, options.array.defaultSize);
                 setField(field, instance, componentInstance);
             }
         } else {
@@ -208,7 +230,7 @@ public class ReflectResolver {
         if (getField(field, instance) != null) {
             return;
         }
-        
+
         if (instance instanceof Map) {
             var fieldName = resolvePropertyName(field);
             ((Map<String, Object>) instance).put(fieldName, value);
@@ -217,4 +239,107 @@ public class ReflectResolver {
         }
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class Options {
+        private Array array;
+        private DateTime dateTime;
+        private Number number;
+
+
+        public static class Array {
+            int defaultSize;
+        }
+
+
+        public static class DateTime {
+            Timestamp min;
+            Timestamp max;
+        }
+
+
+        public static class Number {
+            int maxNumberOfDigits;
+            int min;
+            int max;
+        }
+
+
+        public static class OptionsBuilder {
+            private final Array array;
+            private final DateTime datetime;
+            private final Number number;
+
+            public OptionsBuilder() {
+                this.array = new Array();
+                this.datetime = new DateTime();
+                this.number = new Number();
+            }
+
+            public OptionsBuilder array(int defaultSize) {
+                this.array.defaultSize = defaultSize;
+                return this;
+            }
+
+            /**
+             * @param min pattern of min yyyy-MM-dd HH:mm:ss
+             * @param max pattern of max yyyy-MM-dd HH:mm:ss
+             * @return this
+             */
+            public OptionsBuilder datetime(String min, String max) {
+                this.datetime.min = Timestamp.valueOf(min);
+                this.datetime.max = Timestamp.valueOf(max);
+                return this;
+            }
+
+            public OptionsBuilder number(int maxNumberOfDigits, int min, int max) {
+                this.number.maxNumberOfDigits = maxNumberOfDigits;
+                this.number.min = min;
+                this.number.max = max;
+                return this;
+            }
+
+            public Options build() {
+                return new Options(
+                    array,
+                    datetime,
+                    number);
+            }
+        }
+
+        public static OptionsBuilder builder() {
+            return new OptionsBuilder();
+        }
+
+        public static Options defaultOptions() {
+            var datePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            return new OptionsBuilder()
+                .array(3)
+                .datetime(LocalDateTime.MIN.format(datePattern),
+                    LocalDateTime.MAX.format(datePattern))
+                .number(2,
+                    Integer.MIN_VALUE,
+                    Integer.MAX_VALUE)
+                .build();
+        }
+
+        public static Options fill(Options opts) {
+
+            if (opts == null) {
+                return defaultOptions();
+            }
+
+            var builder = new OptionsBuilder();
+            if (opts.dateTime.min == null) {
+                builder.datetime.min = Timestamp.valueOf(LocalDateTime.MIN);
+            }
+
+            if (opts.dateTime.max == null) {
+                builder.datetime.min = Timestamp.valueOf(LocalDateTime.now());
+            }
+
+            return builder.build();
+        }
+    }
 }

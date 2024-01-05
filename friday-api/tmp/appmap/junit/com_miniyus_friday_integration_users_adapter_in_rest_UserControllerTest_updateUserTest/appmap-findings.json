@@ -41,10 +41,10 @@
         "rule": "update-in-get-request"
       }
     ],
-    "timestampMs": 1703821552499
+    "timestampMs": 1704158930220
   },
   "appMapMetadata": {
-    "/Users/miniyus/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_users_adapter_in_rest_UserControllerTest_updateUserTest.appmap.json": {
+    "/Users/seongminyoo/Projects/miniyus/friday/friday-api/tmp/appmap/junit/com_miniyus_friday_integration_users_adapter_in_rest_UserControllerTest_updateUserTest.appmap.json": {
       "name": "User controller update user",
       "recording": {
         "defined_class": "com.miniyus.friday.integration.users.adapter.in.rest.UserControllerTest",

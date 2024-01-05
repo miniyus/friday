@@ -18,6 +18,7 @@ public interface HexagonalAspect {
     String REQUEST = "Request";
     String PERSISTENCE = "Persistence";
     String APPLICATION = "Application";
+    String DOMAIN = "Domain";
 
     // Adapter layer
 
@@ -39,9 +40,8 @@ public interface HexagonalAspect {
      * before request
      *
      * @param joinPoint the join point at which the advice is applied
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void beforeRequest(JoinPoint joinPoint) throws Throwable;
+    void beforeRequest(JoinPoint joinPoint);
 
     /**
      * after request returning
@@ -56,9 +56,8 @@ public interface HexagonalAspect {
      *
      * @param joinPoint the join point at which the advice is applied
      * @param e         the exception
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void afterRequestThrowing(JoinPoint joinPoint, Exception e) throws Throwable;
+    void afterRequestThrowing(JoinPoint joinPoint, Exception e);
 
     // Persistence layer
 
@@ -80,9 +79,8 @@ public interface HexagonalAspect {
      * before persistence
      *
      * @param joinPoint the join point at which the advice is applied
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void beforePersistence(JoinPoint joinPoint) throws Throwable;
+    void beforePersistence(JoinPoint joinPoint);
 
     /**
      * after persistence returning
@@ -97,9 +95,8 @@ public interface HexagonalAspect {
      *
      * @param joinPoint the join point at which the advice is applied
      * @param e         the exception
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void afterPersistenceThrowing(JoinPoint joinPoint, Exception e) throws Throwable;
+    void afterPersistenceThrowing(JoinPoint joinPoint, Exception e);
 
     // Application layer
 
@@ -123,9 +120,8 @@ public interface HexagonalAspect {
      * before service
      *
      * @param joinPoint the join point at which the advice is applied
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void beforeService(JoinPoint joinPoint) throws Throwable;
+    void beforeService(JoinPoint joinPoint);
 
     /**
      * after service returning
@@ -140,9 +136,8 @@ public interface HexagonalAspect {
      *
      * @param joinPoint the join point at which the advice is applied
      * @param e         the exception
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void afterServiceThrowing(JoinPoint joinPoint, Exception e) throws Throwable;
+    void afterServiceThrowing(JoinPoint joinPoint, Exception e);
 
     // Domain layer
 
@@ -163,9 +158,8 @@ public interface HexagonalAspect {
      * before domain
      *
      * @param joinPoint the join point at which the advice is applied
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void beforeDomain(JoinPoint joinPoint) throws Throwable;
+    void beforeDomain(JoinPoint joinPoint);
 
     /**
      * after domain returning
@@ -180,7 +174,6 @@ public interface HexagonalAspect {
      *
      * @param joinPoint the join point at which the advice is applied
      * @param e         the exception
-     * @throws Throwable if an error occurs during the execution of the advice
      */
-    void afterDomainThrowing(JoinPoint joinPoint, Exception e) throws Throwable;
+    void afterDomainThrowing(JoinPoint joinPoint, Exception e);
 }
