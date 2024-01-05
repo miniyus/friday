@@ -1,6 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/jpa/entities",
-  "com/miniyus/friday/infrastructure/security",
-  "com/miniyus/friday/infrastructure/security/auth/userinfo",
-  "com/miniyus/friday/unit/infrastructure/auth"
-]

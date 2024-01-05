@@ -1,6 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/aspect",
-  "com/miniyus/friday/integration/users/adapter/out/persistence",
-  "com/miniyus/friday/users/adapter/out/persistence",
-  "com/miniyus/friday/users/domain"
-]

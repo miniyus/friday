@@ -1,6 +1,0 @@
-[
-  "com/miniyus/friday/unit/users/application/service",
-  "com/miniyus/friday/users/application/port/in/usecase",
-  "com/miniyus/friday/users/application/service",
-  "com/miniyus/friday/users/domain"
-]

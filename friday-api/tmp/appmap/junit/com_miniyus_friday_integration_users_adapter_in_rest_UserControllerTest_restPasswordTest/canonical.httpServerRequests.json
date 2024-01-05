@@ -1,7 +1,0 @@
-[
-  {
-    "route": "PATCH /v1/users/{id}/reset-password",
-    "parameters": "()",
-    "status": 200
-  }
-]

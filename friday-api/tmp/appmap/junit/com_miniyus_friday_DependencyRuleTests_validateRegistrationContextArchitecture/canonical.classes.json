@@ -1,7 +1,0 @@
-[
-  "com/miniyus/friday/DependencyRuleTests",
-  "com/miniyus/friday/archunit/Adapters",
-  "com/miniyus/friday/archunit/ApplicationLayer",
-  "com/miniyus/friday/archunit/ArchitectureElement",
-  "com/miniyus/friday/archunit/HexagonalArchitecture"
-]

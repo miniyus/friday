@@ -1,5 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/jpa/entities",
-  "com/miniyus/friday/infrastructure/jwt",
-  "com/miniyus/friday/unit/infrastructure/jwt"
-]

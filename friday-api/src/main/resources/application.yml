@@ -128,10 +128,10 @@ logging:
     org.hibernate.type: trace
     org.hibernate.orm.jdbc.bind: trace
     org.hibernate.orm.jdbc.extract: trace
-    com.miniyus.com.miniyus.friday: debug
-    com.miniyus.com.miniyus.friday.infrastructure.aspect: debug
-    com.miniyus.com.miniyus.friday.infrastructure.advice: debug
-    com.miniyus.com.miniyus.friday.infrastructure.task: debug
+    com.meteormin.friday: debug
+    com.meteormin.friday.infrastructure.aspect: debug
+    com.meteormin.friday.infrastructure.advice: debug
+    com.meteormin.friday.infrastructure.task: debug
   file:
     name: friday.log
     path: logs

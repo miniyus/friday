@@ -31,10 +31,10 @@ logging:
     org.springframework.security: error
     org.springframework.data: error
     org.hibernate: error
-    com.miniyus.com.miniyus.friday: error
-    com.miniyus.com.miniyus.friday.infrastructure.aspect: info
-    com.miniyus.com.miniyus.friday.infrastructure.advice: info
-    com.miniyus.com.miniyus.friday.infrastructure.task: info
+    com.com.meteormin.friday: error
+    com.com.meteormin.friday.infrastructure.aspect: info
+    com.com.meteormin.friday.infrastructure.advice: info
+    com.com.meteormin.friday.infrastructure.task: info
 springdoc:
   swagger-ui:
     enabled: false

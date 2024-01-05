@@ -1,7 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/aspect/LoggingAspect",
-  "com/miniyus/friday/infrastructure/aspect/UsersAspect",
-  "com/miniyus/friday/integration/users/adapter/out/persistence/UserAdapterTest",
-  "com/miniyus/friday/users/adapter/out/persistence/UserAdapter",
-  "com/miniyus/friday/users/adapter/out/persistence/UserMapper"
-]

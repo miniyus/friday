@@ -1,7 +1,0 @@
-[
-  "com/miniyus/friday/common/validation",
-  "com/miniyus/friday/users/adapter/in/rest",
-  "com/miniyus/friday/users/adapter/in/rest/request",
-  "com/miniyus/friday/users/adapter/in/rest/response",
-  "com/miniyus/friday/users/application/port/in/usecase"
-]

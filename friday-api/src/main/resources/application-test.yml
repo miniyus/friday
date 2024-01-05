@@ -29,7 +29,7 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
     org.hibernate.orm.jdbc.extract: trace
-    com.miniyus.com.miniyus.friday: debug
-    com.miniyus.com.miniyus.friday.infrastructure.aspect: debug
-    com.miniyus.com.miniyus.friday.infrastructure.advice: debug
-    com.miniyus.com.miniyus.friday.infrastructure.task: debug
+    com.com.meteormin.friday: debug
+    com.com.meteormin.friday.infrastructure.aspect: debug
+    com.com.meteormin.friday.infrastructure.advice: debug
+    com.com.meteormin.friday.infrastructure.task: debug

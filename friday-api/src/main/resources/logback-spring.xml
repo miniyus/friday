@@ -101,15 +101,15 @@
             <appender-ref ref="ROLLING_FILE"/>
             <appender-ref ref="ASYNC_SLACK"/>
         </root>
-        <logger name="com.miniyus.friday.infrastructure.aspect">
+        <logger name="com.meteormin.friday.infrastructure.aspect">
             <appender-ref ref="API"/>
         </logger>
 
-        <logger name="com.miniyus.friday.infrastructure.advice">
+        <logger name="com.meteormin.friday.infrastructure.advice">
             <appender-ref ref="API"/>
         </logger>
 
-        <logger name="com.miniyus.friday.infrastructure.task">
+        <logger name="com.meteormin.friday.infrastructure.task">
             <appender-ref ref="SLACK_NOTIFICATION"/>
         </logger>
 
@@ -128,15 +128,15 @@
             <appender-ref ref="ROLLING_FILE"/>
             <appender-ref ref="ASYNC_SLACK"/>
         </root>
-        <logger name="com.miniyus.friday.infrastructure.aspect">
+        <logger name="com.meteormin.friday.infrastructure.aspect">
             <appender-ref ref="API"/>
         </logger>
 
-        <logger name="com.miniyus.friday.infrastructure.advice">
+        <logger name="com.meteormin.friday.infrastructure.advice">
             <appender-ref ref="API"/>
         </logger>
 
-        <logger name="com.miniyus.friday.infrastructure.task">
+        <logger name="com.meteormin.friday.infrastructure.task">
             <appender-ref ref="SLACK_NOTIFICATION"/>
         </logger>
 

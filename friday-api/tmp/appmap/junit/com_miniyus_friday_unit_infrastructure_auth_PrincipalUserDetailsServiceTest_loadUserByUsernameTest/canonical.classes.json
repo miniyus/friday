@@ -1,6 +1,0 @@
-[
-  "com/miniyus/friday/infrastructure/security/PrincipalUserDetailsService",
-  "com/miniyus/friday/infrastructure/security/PrincipalUserInfo",
-  "com/miniyus/friday/infrastructure/security/PrincipalUserInfo$PrincipalUserInfoBuilder",
-  "com/miniyus/friday/unit/infrastructure/auth/PrincipalUserDetailsServiceTest"
-]
