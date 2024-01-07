@@ -62,7 +62,14 @@ public class FakeInjector {
     public FakeInjector(Faker faker, ObjectMapper objectMapper) {
         this.faker = faker;
         this.objectMapper = objectMapper;
-        this.resolver = new ReflectResolver(this);
+
+        ReflectResolver.Options options = ReflectResolver.Options.builder()
+            .array(3)
+            .dateTime("1970-01-01 00:00:01", "2038-01-19 03:14:07")
+            .number(2, 0, 100)
+            .build();
+
+        this.resolver = new ReflectResolver(this, options);
     }
 
     /**

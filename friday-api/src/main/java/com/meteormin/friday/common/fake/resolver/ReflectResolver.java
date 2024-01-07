@@ -268,12 +268,12 @@ public class ReflectResolver {
 
         public static class OptionsBuilder {
             private final Array array;
-            private final DateTime datetime;
+            private final DateTime dateTime;
             private final Number number;
 
             public OptionsBuilder() {
                 this.array = new Array();
-                this.datetime = new DateTime();
+                this.dateTime = new DateTime();
                 this.number = new Number();
             }
 
@@ -287,9 +287,9 @@ public class ReflectResolver {
              * @param max pattern of max yyyy-MM-dd HH:mm:ss
              * @return this
              */
-            public OptionsBuilder datetime(String min, String max) {
-                this.datetime.min = Timestamp.valueOf(min);
-                this.datetime.max = Timestamp.valueOf(max);
+            public OptionsBuilder dateTime(String min, String max) {
+                this.dateTime.min = Timestamp.valueOf(min);
+                this.dateTime.max = Timestamp.valueOf(max);
                 return this;
             }
 
@@ -303,7 +303,7 @@ public class ReflectResolver {
             public Options build() {
                 return new Options(
                     array,
-                    datetime,
+                    dateTime,
                     number);
             }
         }
@@ -316,8 +316,8 @@ public class ReflectResolver {
             var datePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             return new OptionsBuilder()
                 .array(3)
-                .datetime(LocalDateTime.MIN.format(datePattern),
-                    LocalDateTime.MAX.format(datePattern))
+                .dateTime(LocalDateTime.now().format(datePattern),
+                    LocalDateTime.now().format(datePattern))
                 .number(2,
                     Integer.MIN_VALUE,
                     Integer.MAX_VALUE)
@@ -330,16 +330,15 @@ public class ReflectResolver {
                 return defaultOptions();
             }
 
-            var builder = new OptionsBuilder();
             if (opts.dateTime.min == null) {
-                builder.datetime.min = Timestamp.valueOf(LocalDateTime.MIN);
+                opts.dateTime.min = Timestamp.valueOf(LocalDateTime.MIN);
             }
 
             if (opts.dateTime.max == null) {
-                builder.datetime.min = Timestamp.valueOf(LocalDateTime.now());
+                opts.dateTime.min = Timestamp.valueOf(LocalDateTime.now());
             }
 
-            return builder.build();
+            return opts;
         }
     }
 }

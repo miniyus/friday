@@ -9,7 +9,7 @@ services:
       args:
         JAR_FILE: friday.jar
     ports:
-      - "8888:8080"
+      - "${API_PORT:-8888}:8080"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
@@ -90,7 +90,7 @@ services:
       context: ./friday-ui
       dockerfile: Dockerfile.dev
     ports:
-      - "${UI_PORT:-3000}:3000"
+      - "${UI_PORT:-3333}:3000"
     networks:
       - friday
     volumes:

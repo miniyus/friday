@@ -32,7 +32,6 @@ import static org.mockito.Mockito.when;
  * @date 2023/09/07
  */
 @WebMvcTest(controllers = UserController.class)
-@Import({JacksonConfiguration.class})
 class UserControllerTest extends UserDocument {
     @MockBean
     private UserUsecase userUsecase;

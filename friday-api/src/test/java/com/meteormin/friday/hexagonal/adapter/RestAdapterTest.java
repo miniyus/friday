@@ -6,6 +6,7 @@ import com.epages.restdocs.apispec.Schema;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meteormin.friday.common.fake.FakeInjector;
+import com.meteormin.friday.infrastructure.config.JacksonConfiguration;
 import com.meteormin.friday.infrastructure.config.JwtConfiguration;
 import com.meteormin.friday.infrastructure.config.SecurityConfiguration;
 import com.meteormin.friday.infrastructure.jwt.JwtProvider;
@@ -46,7 +47,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 @ActiveProfiles("test")
 @MockBean(JpaMetamodelMappingContext.class)
 @ExtendWith({RestDocumentationExtension.class})
-@Import({SecurityConfiguration.class})
+@Import({SecurityConfiguration.class, JacksonConfiguration.class})
 public abstract class RestAdapterTest {
     @Autowired
     protected WebApplicationContext ctx;
