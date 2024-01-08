@@ -106,6 +106,7 @@ public class JwtService {
             JwtProvider.BEARER,
             token,
             tokenEntity.getId(),
+            tokenEntity.getUserId(),
             jwtProvider.refreshTokenExpiration()
         );
 
@@ -138,13 +139,7 @@ public class JwtService {
             return Optional.empty();
         }
 
-        var accessTokenEntity = accessTokenRepository
-            .findById(refreshTokenEntity.getAccessTokenId()).orElse(null);
-        if (accessTokenEntity == null) {
-            return Optional.empty();
-        }
-
-        var userId = Long.parseLong(accessTokenEntity.getUserId());
+        var userId = Long.parseLong(refreshTokenEntity.getUserId());
 
         return userRepository.findById(userId);
     }
