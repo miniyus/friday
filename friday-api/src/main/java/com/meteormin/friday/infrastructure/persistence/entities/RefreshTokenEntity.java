@@ -36,6 +36,10 @@ public class RefreshTokenEntity {
     @NonNull
     private String accessTokenId;
 
+    @Indexed
+    @NonNull
+    private String userId;
+    
     @TimeToLive
     @NonNull
     private Long expiration;
@@ -51,6 +55,7 @@ public class RefreshTokenEntity {
         @NonNull String type,
         @NonNull String token,
         @NonNull String accessTokenId,
+        @NonNull String userId,
         @NonNull Long expiration
     ) {
         return RefreshTokenEntity.builder()
@@ -58,6 +63,7 @@ public class RefreshTokenEntity {
             .token(token)
             .expiration(expiration)
             .accessTokenId(accessTokenId)
+            .userId(userId)
             .build();
     }
 }
